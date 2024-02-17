@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './App.css'
+import submitToApi from 'backend.js'
 export default function Form() {
     const [formData, setFormData] = React.useState(
         {
@@ -20,7 +21,7 @@ export default function Form() {
     
     function handleSubmit(event) {
         event.preventDefault()
-        // submitToApi(formData)
+        submitToApi(formData)
         console.log(formData)
     }
     
