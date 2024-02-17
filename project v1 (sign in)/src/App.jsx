@@ -1,53 +1,49 @@
 import React, { useState } from 'react'
 import './App.css'
-
 export default function Form() {
     const [formData, setFormData] = React.useState(
-        {firstName: "", lastName: "", email: "", comments: ""}
+        {
+            Email: "", 
+            password: "", 
+        }
     )
     
-    console.log(formData.comments)
-    
     function handleChange(event) {
+        const {name, value, type, checked} = event.target
         setFormData(prevFormData => {
             return {
                 ...prevFormData,
-                [event.target.name]: event.target.value
+                [name]: value
             }
         })
     }
     
+    function handleSubmit(event) {
+        event.preventDefault()
+        // submitToApi(formData)
+        console.log(formData)
+    }
+    
     return (
-        <form>
-            <input
-                type="text"
-                placeholder="First Name"
-                onChange={handleChange}
-                name="firstName"
-                value={formData.firstName}
-            />
-            <input
-                type="text"
-                placeholder="Last Name"
-                onChange={handleChange}
-                name="lastName"
-                value={formData.lastName}
-            />
+        <form onSubmit={handleSubmit}>
             <input
                 type="email"
                 placeholder="Email"
                 onChange={handleChange}
-                name="email"
-                value={formData.email}
+                name="firstName"
+                value={formData.firstName}
+                className='input-8'
             />
-            <textarea 
-                value={formData.comments}
-                placeholder="Comments"
+            <input
+                type="password"
+                placeholder="Password"
                 onChange={handleChange}
-                name="comments"
+                name="lastName"
+                value={formData.lastName}
+                className='input-8'
             />
+            <button className='button-8'>Submit</button>
         </form>
     )
 }
-
 
