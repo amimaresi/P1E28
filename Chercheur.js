@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const ChercheurModel = new Schema ({
-    id: {
-        type: String,
-        required: true
+const ChercheurSchema = new Schema ({
+    _id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
     },
     nom: {
         type: String,
@@ -31,7 +31,7 @@ const ChercheurModel = new Schema ({
         required: true
     },
     contact: {
-        type: Number,
+        type: String,
         
     },
     projet: {
@@ -57,5 +57,5 @@ const ChercheurModel = new Schema ({
    
 }, { timestamps: true });
 
-const Chercheur = mongoose.model("chercheur",ChercheurModel);
+const Chercheur = mongoose.model("chercheur",ChercheurSchema);
 module.exports = Chercheur;
