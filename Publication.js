@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const PublicationModel = new Schema ({
+const PublicationSchema = new Schema ({
 Titre: {
     type: String,
     required: true
@@ -53,5 +53,5 @@ Date : {
 }
 }, {timestamps: true});
 
-const Publication = mongoose.model("publication", PublicationModel);
+const Publication = mongoose.model("publication", PublicationSchema);
 module.exports = Publication;
