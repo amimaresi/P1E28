@@ -2,17 +2,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const UserModel = new Schema ({
-    id: {
-        type : String,
-
-    },
+    
     UserProfile: {
         type:  mongoose.Schema.Types.ObjectId,
         ref: "chercheur"
     },
     username: {
         type: String,
-        required: true
+        required: true,
+      
     },
     passeword: {
         type: String,
@@ -20,7 +18,8 @@ const UserModel = new Schema ({
     },
     type: {
         type: String,
-        required: true
+        required: true,
+        default:"chercheur"
     }
 }, { timestamps: true });
 
