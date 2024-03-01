@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const EncadrementModel = new Schema ({
+const EncadrementSchema = new Schema ({
  Type: {
       type: String,
       required: true
@@ -37,5 +37,5 @@ const EncadrementModel = new Schema ({
  ]
 }, { timestamps: true });
 
-const Encadrement = mongoose.model("encadrement",EncadrementModel);
+const Encadrement = mongoose.model("encadrement",EncadrementSchema);
 module.exports = Encadrement;
