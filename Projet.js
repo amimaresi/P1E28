@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const ProjetModel = new Schema ({
+const ProjetSchema = new Schema ({
     numero: {
         type: Number,
         required: true
@@ -32,5 +32,5 @@ const ProjetModel = new Schema ({
 
 }, {timestamps: true } );
 
-const Projet = mongoose.model("projet",ProjetModel);
+const Projet = mongoose.model("projet",ProjetSchema);
 module.exports = Projet;
