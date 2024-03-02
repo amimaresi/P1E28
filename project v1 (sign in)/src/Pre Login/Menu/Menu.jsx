@@ -16,7 +16,7 @@ export default function Menu() {
             <div className="menu-links">
                 <NavLink to="/about" className="menu-link">About</NavLink>
                 <NavLink to="/guide" className="menu-link">Guide</NavLink>
-                <button ><NavLink to="/login">Login</NavLink></button>
+                <NavLink to="/login" className="nav-link">Login</NavLink>
             </div>
 
 

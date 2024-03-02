@@ -35,7 +35,7 @@
 
 }
 
-.menu-links>button {
+.nav-link {
     background-color: #105272;
     color: white;
     border: none;
@@ -50,10 +50,17 @@
     width: 70px;
 }
 
-.menu-links>button>* {
+.nav-link {
     color: white;
     font-size: 15px;
     text-decoration: none;
+    font-weight: 500;
+    transition: 0.15s all;
+}
+
+.nav-link:hover {
+    color: #99CBE4;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 .menu-link {
