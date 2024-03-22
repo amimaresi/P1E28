@@ -3,3 +3,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+body {
+    margin: 0; /* Remove the default margin */
+    background-color: white; /* Change the background color */
+    padding: 0; /* Remove the default padding */
+  }
