@@ -1,46 +1,28 @@
 import React, { useState } from 'react'
-import { NavLink, Outlet } from "react-router-dom"
+import { NavLink } from "react-router-dom"
+import logo from './logo.png'
 
-function ContextProvider() {
-  return (
-    <Outlet context={{ UserValidation: { user_info: 'hello', isfound: false } }} />
-  )
-}
+const classes = { NavLink: "text-lg text-textDark no-underline font-semibold font-title visited:text-textDark visited:no-underline visited:font-semibold visited:font-title" }
 export default function Menu() {
 
+  const classes = {
+    NormalLink: "text-md text-textDark no-underline font-semibold font-title visited:text-textDark visited:no-underline visited:font-semibold visited:font-title",
+    buttonLink: 'no-underline bg-buttonDark text-textLight px-5 py-2 rounded-xl border-0 font-semibold font-text text-[15px]'
 
-  return (<header class="bg-white">
-    <nav class="flex justify-between items-center w-[92%]  mx-auto">
-      <div>
-        <img class="w-16 cursor-pointer" src="https://cdn-icons-png.flaticon.com/512/5968/5968204.png" alt="..." />
-      </div>
-      <div
-        class="nav-links duration-500 md:static absolute bg-white md:min-h-fit min-h-[60vh] left-0 top-[-100%] md:w-auto  w-full flex items-center px-5">
-        <ul class="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8">
-          <li>
-            <a class="hover:text-gray-500" href="#">Products</a>
-          </li>
-          <li>
-            <a class="hover:text-gray-500" href="#">Solution</a>
-          </li>
-          <li>
-            <a class="hover:text-gray-500" href="#">Resource</a>
-          </li>
-          <li>
-            <a class="hover:text-gray-500" href="#">Developers</a>
-          </li>
-          <li>
-            <a class="hover:text-gray-500" href="#">Pricing</a>
-          </li>
-        </ul>
-      </div>
-      <div class="flex items-center gap-6">
-        <button class="bg-[#a6c1ee] text-white px-5 py-2 rounded-full hover:bg-[#87acec]">Sign in</button>
-        <ion-icon onclick="onToggleMenu(this)" name="menu" class="text-3xl cursor-pointer md:hidden"></ion-icon>
+  }
+
+  return (
+    <nav className="flex fixed justify-between items-center right-0 left-0 top-0 bg-white h-[70px] px-[5vw]">
+
+      <NavLink to="/" className={classes.NormalLink}>
+        <img className="w-[100px] cursor-pointer" src={logo} alt="..." />
+      </NavLink>
+
+      <div className="flex flex-row items-center justify-center gap-5">
+        <NavLink to="/dashboard" className={classes.NormalLink}>Recherche</NavLink>
+        <NavLink to="/dashboard" className={classes.NormalLink}>Panneau de control</NavLink>
+        <NavLink className={classes.buttonLink} >Sign in</NavLink>
       </div>
     </nav >
-  </header>
-
-
   )
 }
