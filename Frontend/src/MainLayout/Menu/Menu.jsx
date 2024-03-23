@@ -13,14 +13,17 @@ export default function Menu() {
 
   return (
     <nav className="flex fixed justify-between items-center right-0 left-0 top-0 bg-white h-[70px] px-[5vw]">
-
-      <NavLink to="/" className={classes.NormalLink}>
-        <img className="w-[100px] cursor-pointer" src={logo} alt="..." />
-      </NavLink>
+      <div className="flex flex-row items-center justify-center gap-5">
+        <NavLink to="/" className={classes.NormalLink}>
+          <img className="w-[100px] cursor-pointer" src={logo} alt="..." />
+        </NavLink>
+        <NavLink to="/dashboard/recherche" className={classes.NormalLink}>Recherche</NavLink>
+        <NavLink to="/dashboard/control" className={classes.NormalLink}>Panneau de control</NavLink>
+      </div>
 
       <div className="flex flex-row items-center justify-center gap-5">
-        <NavLink to="/dashboard" className={classes.NormalLink}>Recherche</NavLink>
-        <NavLink to="/dashboard" className={classes.NormalLink}>Panneau de control</NavLink>
+        <NavLink to="/aboutus" className={classes.NormalLink}>About us</NavLink>
+        <NavLink to="/guide" className={classes.NormalLink}>Guide</NavLink>
         <NavLink className={classes.buttonLink} >Sign in</NavLink>
       </div>
     </nav >
