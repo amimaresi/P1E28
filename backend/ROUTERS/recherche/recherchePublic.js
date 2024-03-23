@@ -13,17 +13,24 @@ const queryPublication = async(req , res)=>{
     const subchercheur = req.body.chercheur
 
     let query = {}
+    let idQuery = []
     if(subtitre){
         query.titre = {$regex: new RegExp('^'+subtitre, 'i')}
     }
-    if(subdate){
-        query.date = {$regex: new RegExp('^'+subdate, 'i')}
+    if (subdate) {
+        idQuery.push({_id: {$regex: new RegExp('^#'+subdate+'#', 'i')}});
     }
-    if(subconf){
-        query.conference = {$regex: new RegExp('^'+subconf, 'i')}
+    
+    if (subchercheur) {
+        idQuery.push({_id: {$regex: new RegExp('#'+subchercheur+'#', 'i')}});
     }
-    if(subchercheur){
-        query.chercheur = {$regex: new RegExp('^'+subchercheur, 'i')}
+    
+    if (subconf) {
+        idQuery.push({_id: {$regex: new RegExp('#'+subconf+'#', 'i')}});
+    }
+    
+    if (idQuery.length > 0) {
+        query.$and = idQuery;
     }
     try {
         //trouve les publications qui respectent les conditions
