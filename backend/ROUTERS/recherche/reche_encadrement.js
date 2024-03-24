@@ -1,4 +1,4 @@
-const Encadrement = require("./Schema/Encadrement");
+const Encadrement = require("../../Schema/Encadrement");
 
 const encadrement_recherche = (req, res) => {
     const options = {}; 
