@@ -49,15 +49,16 @@ const Chercheur = mongoose.model(process.env.NOM_COLLECTION_CHERCHEUR)
      
     }
     if(subequi){
+        
         console.log(subequi)
         query.equipe = {$regex: new RegExp('^'+subequi, 'i')}
     }
     try {
-        const docs = await Chercheur.find(query).exec();
-        console.log(docs);
-        res.status(200).json({Chercheurs: docs}); 
+        const docs = await Chercheur.find(query).exec()
+        console.log(docs)
+        res.status(200).json({Chercheurs: docs})
     } catch (err) {
-        res.status(400).json({message: err.message});
+        res.status(400).json({message: err.message})
     }
 
  }

@@ -10,18 +10,7 @@ app.use(express.json());
 app.use(cookie());
 //app.use('/api/v1/home', crud);
 app.use(cors())
-
-
-
-
-
-
-
-
-
-
-
-
+app.use(express.static('public'))
 
 
 mongoose.connect(process.env.URL).then(() => {
