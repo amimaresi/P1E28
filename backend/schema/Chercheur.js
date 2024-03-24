@@ -2,18 +2,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ChercheurSchema = new Schema({
-    _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "user"
-    },
-    nom: {
+    _id: {   //email
         type: String,
         required: true
     },
-    prenom: {
+    nomComplet: {
         type: String,
         required: true
     },
+   
     Type: {
         type: String,
         required: true
@@ -22,26 +19,30 @@ const ChercheurSchema = new Schema({
         type: String,
         required: true
     },
+    GradeEnsegnement: {
+        type: String,
+        required: true
+    },
     H_index: {
         type: Number,
         required: true
     },
-    email: {
+   /* email: {
         type: String,
         required: true
-    },
+    },*/
     contact: {
         type: String,
 
     },
-    projet: {
+    projet: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "projet"
-    },
+    }],
     lien: {
         GoogleScholar: {
             type: String,
-            required: true
+            
         },
         DBLP: {
             type: String
@@ -53,6 +54,19 @@ const ChercheurSchema = new Schema({
     image_path: {
         type: String,
 
+    },
+    statut: {
+        type: String,
+        required: true,
+        default: "actif"
+    },
+    Diplome: {
+        type: String,
+        required: true
+    },
+    Equipe: {
+        type: String,
+        required: true
     }
 
 }, { timestamps: true });
