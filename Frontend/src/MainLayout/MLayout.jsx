@@ -8,7 +8,7 @@ import Menu from './Menu/Menu.jsx'
 export default function MLayout() {
 
 
-  return (<div className=' bg-background fixed top-0 left-0 w-full h-full  z-0'>
+  return (<div className=' relative bg-background w-full min-h-screen h-[100vw] z-0'>
     <Menu />
     <Outlet context={{
       UserValidation: {
@@ -30,6 +30,7 @@ export default function MLayout() {
           }]
       }
     }} />
+    <footer className=' bg-buttonLight h-[3vw] w-full flex items-center justify-center absolute bottom-0 right-0 text-textLight font-title font-medium text-[1vw]'>Copyright © 2024 - All rights reserved</footer>
   </div>
   )
 }
