@@ -1,6 +1,6 @@
 import { Route, Outlet, createBrowserRouter, createRoutesFromElements, RouterProvider } from "react-router-dom"
 import MLayout from './MainLayout/MLayout.jsx'
-import LandingPage from './Pages/Landing Page/LandingPage.jsx'
+import LandingPage from './Pages/LandingPage/LandingPage.jsx'
 import Login from './Pages/Login/Login.jsx'
 import AboutUs from './Pages/AboutUs/AboutUs.jsx'
 import Guide from './Pages/Guide/Guide.jsx'
@@ -24,6 +24,7 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path='recherche' element={<RechercheLayout />} />
     <Route path='control' element={<Outlet />} >
       <Route index element={<Control />} />
+      {/* + control pages */}
     </Route>
     <Route path='*' element={<NotFound />} />
   </Route>
