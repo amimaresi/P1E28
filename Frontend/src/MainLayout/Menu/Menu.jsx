@@ -17,8 +17,8 @@ export default function Menu() {
           <img className="w-[80px] cursor-pointer" src={logo} alt="..." />
         </NavLink>
         <div className="flex flex-row items-center justify-start gap-[1.5vw]">
-          <NavLink to="/dashboard/recherche" className={`text-[19px] visited:text-[19px] ${classes.NormalLink} `}>Recherche</NavLink>
-          <NavLink to="/dashboard/control" className={`text-[19px] visited:text-[19px] ${classes.NormalLink} `}>Panneau de control</NavLink></div>
+          <NavLink to="/recherche" className={`text-[19px] visited:text-[19px] ${classes.NormalLink} `}>Recherche</NavLink>
+          <NavLink to="/control" className={`text-[19px] visited:text-[19px] ${classes.NormalLink} `}>Panneau de control</NavLink></div>
       </div>
 
       <div className="flex flex-row items-center justify-end gap-5">

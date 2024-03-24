@@ -1,19 +1,31 @@
 import { Route, Outlet, createBrowserRouter, createRoutesFromElements, RouterProvider } from "react-router-dom"
 import MLayout from './MainLayout/MLayout.jsx'
 import LandingPage from './Pages/Landing Page/LandingPage.jsx'
+import Login from './Pages/Login/Login.jsx'
+import AboutUs from './Pages/AboutUs/AboutUs.jsx'
+import Guide from './Pages/Guide/Guide.jsx'
+import Control from './Pages/Technical Pages/Control Pannel/Pannel.jsx'
+import NotFound from './Pages/NotFound/NotFound.jsx'
+import ResetPassword from './Pages/Login/ResetPassword.jsx'
+import RechercheLayout from "./Pages/Technical Pages/Recherche/RechercheLayout.jsx"
+
+
+
 const router = createBrowserRouter(createRoutesFromElements(
 
   <Route path="/" element={<MLayout />} >
     <Route index element={<LandingPage />} />
-    <Route path="login" element={<h1 >Outlet</h1>} >
-      <Route index element={<h1>login</h1>} />
-      <Route path="resetpassword" element={<h1><br /><br /> reset password </h1>} />
+    <Route path="login" element={<Outlet />} >
+      <Route index element={<Login />} />
+      <Route path="resetpassword" element={<ResetPassword />} />
     </Route>
-    <Route path="aboutus" element={<h1 className="text-black"><br /><br />about Us</h1>} />
-    <Route path="guide" element={<h1 className="text-black"><br /><br />guide</h1>} />
-    <Route path='recherche' element={<h1>recherche</h1>} />
-    <Route path='control' element={<h1>paneau de control</h1>} />
-    <Route path='*' element={<><br /><br /><br /><h1 className=' text-4xl text-textDark'>404 Not Found</h1></>} />
+    <Route path="aboutus" element={<AboutUs />} />
+    <Route path="guide" element={<Guide />} />
+    <Route path='recherche' element={<RechercheLayout />} />
+    <Route path='control' element={<Outlet />} >
+      <Route index element={<Control />} />
+    </Route>
+    <Route path='*' element={<NotFound />} />
   </Route>
 
 ))
