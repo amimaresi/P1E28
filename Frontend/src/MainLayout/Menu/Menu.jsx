@@ -11,7 +11,7 @@ export default function Menu() {
   }
 
   return (
-    <nav className="flex fixed z-50 flex-row justify-between items-center right-0 left-0 top-0  bg-white h-[55px] px-[1.5vw] shadow">
+    <nav className="flex fixed z-50 flex-row justify-between items-center right-0 left-0 top-0  bg-white h-[60px] px-[1.5vw] shadow-sm border-black border-solid border-0 border-b-[1px]">
       <div className="flex flex-row items-center justify-start gap-[4vw]">
         <NavLink to="/" >
           <img className="w-[80px] cursor-pointer" src={logo} alt="..." />
