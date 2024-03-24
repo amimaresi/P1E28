@@ -14,8 +14,7 @@ export default {
         textLight: '#EFF3FF',
       },
       fontFamily: {
-        title: ['inter', 'sans-serif'],
-        text: ['open-sans', 'sans-serif'],
+        title: ['inter', "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "sans serif"],
       },
     },
   },

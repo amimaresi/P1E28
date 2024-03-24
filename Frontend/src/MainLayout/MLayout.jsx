@@ -30,7 +30,7 @@ export default function MLayout() {
           }]
       }
     }} />
-    <footer className=' bg-buttonLight h-[3vw] w-full flex items-center justify-center absolute bottom-0 right-0 text-textLight font-title font-medium text-[1vw]'>Copyright © 2024 - All rights reserved</footer>
+    <footer className=' bg-buttonLight h-[3vw] w-full flex items-center justify-center absolute bottom-0 right-0 text-textLight font-sans font-medium text-[1vw]'>Copyright © 2024 - All rights reserved</footer>
   </div>
   )
 }

@@ -11,11 +11,8 @@ const router = createBrowserRouter(createRoutesFromElements(
     </Route>
     <Route path="aboutus" element={<h1 className="text-black"><br /><br />about Us</h1>} />
     <Route path="guide" element={<h1 className="text-black"><br /><br />guide</h1>} />
-    <Route path='dashboard' element={<h1>PostLayout<Outlet /></h1>} >
-      <Route index element={<h1>Dashboard</h1>} />
-      <Route path='recherche' element={<h1>recherche</h1>} />
-      <Route path='control' element={<h1>paneau de control</h1>} />
-    </Route>
+    <Route path='recherche' element={<h1>recherche</h1>} />
+    <Route path='control' element={<h1>paneau de control</h1>} />
     <Route path='*' element={<><br /><br /><br /><h1 className=' text-4xl text-textDark'>404 Not Found</h1></>} />
   </Route>
 
