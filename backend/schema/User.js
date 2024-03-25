@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
 
-    UserProfile: {
+    _id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "chercheur"
     },
