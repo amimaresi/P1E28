@@ -58,7 +58,7 @@ const ChercheurSchema = new Schema({
     statut: {
         type: String,
         required: true,
-        default: "actif"
+        default: "Actif"
     },
     Diplome: {
         type: String,
