@@ -13,9 +13,6 @@ export default function MLayout() {
   return (
     <Theme>
       <div className=' bg-background w-full pt-[60px] z-0'>
-        <Theme>
-          <App />
-        </Theme>
         <Menu />
         <Outlet context={{
           UserValidation: {
