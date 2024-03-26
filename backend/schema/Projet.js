@@ -2,20 +2,20 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ProjetSchema = new Schema({
-    _id: {  //numero
+    _id: { //numero
         type: Number,
         required: true
     },
 
     Titre: {
         type: String,
-         required: true
+        required: true
     },
     ChefDeProjet: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.String,
         ref: "chercheur"
     },
-    liste_members: [{ type: mongoose.Schema.Types.ObjectId, ref: "chercheur" }],
+    liste_members: [{ type: mongoose.Schema.Types.String, ref: "chercheur" }],
 
     DateDebut: {
         type: String,
@@ -23,12 +23,12 @@ const ProjetSchema = new Schema({
     },
     DateFin: {
         type: String,
-         required: true
+
     },
-   
+
     Theme: {
         type: String,
-        
+
     }
 
 }, { timestamps: true });

@@ -2,15 +2,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ChercheurSchema = new Schema({
-    _id: {   //email
-        type: String,
-        required: true
+    _id: { //email
+        type: mongoose.Schema.Types.String,
+        ref: "user"
     },
     nomComplet: {
         type: String,
         required: true
     },
-   
+
     Type: {
         type: String,
         required: true
@@ -27,22 +27,22 @@ const ChercheurSchema = new Schema({
         type: Number,
         required: true
     },
-   /* email: {
-        type: String,
-        required: true
-    },*/
+    /* email: {
+         type: String,
+         required: true
+     },*/
     contact: {
         type: String,
 
     },
     projet: [{
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.Number,
         ref: "projet"
     }],
     lien: {
         GoogleScholar: {
             type: String,
-            
+
         },
         DBLP: {
             type: String

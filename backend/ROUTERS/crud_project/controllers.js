@@ -1,33 +1,40 @@
+const Chercheur = require('../../schema/Chercheur');
 const User = require('../../schema/User');
+
 const Projet = require('../../schema/Projet');
 
 const nouveau_projet = async(req, res) => {
     try {
 
-        const { Num, Titre, DateDebut, DateFin, chefProjet, liste_membre, Description, Theme } = req.body;
+        let { Num, Titre, DateDebut, DateFin, chefProjet, liste_members, Theme } = req.body;
         //handling chefProjet Id;
-        const chef = await User.findOne({ username: chefProjet });
+        const chef = await Chercheur.findById(chefProjet)
+
         if (!chef) return res.status(404).json({ error: true });
         // handling  list members ids
-        list_membre = liste_membre.split(" ");
+        liste_members = liste_members.split(" ");
         const members = [];
-        for (let i = 0; i < list_membre.length; i++) {
-            const user = await User.findOne({ username: list_membre[i] })
+        for (let i = 0; i < liste_members.length; i++) {
+            const chercheur = await Chercheur.findById(liste_members[i]);
 
-            if (!user) return res.status(404).json({ error: true })
-            members.push(user._id);
+
+            if (!chercheur) return res.status(404).json({ error: true })
+            members.push(liste_members[i]);
+
         }
+
         // creating new project
         const projet = new Projet({
-            Num,
+            _id: Num,
             Titre,
             DateDebut,
             DateFin,
-            liste_membre: members,
-            Description,
+            liste_members: members,
+
             Theme,
-            chefProjet: chef
+            ChefDeProjet: chef
         });
+
         await projet.save();
         res.status(201).json({
             error: false
