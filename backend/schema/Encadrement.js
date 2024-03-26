@@ -18,23 +18,26 @@ const EncadrementSchema = new Schema ({
  ],
  Etudiants: [
     {
-        Matricule: {
-            type: Number,
-            required : true
-        },
+       
         Nom: {
             type: String,
-            required: true     
+                 
         },
         Prenom: {
             type: String,
-            required: true
-        },
-        Etablissement : {
-            type: String
+            
         }
+        
     }
- ]
+ ],
+ AnneeD: {
+    type: String,
+    required: true
+ },
+ AnneeF: {
+    type: String,
+    required: true
+ }
 }, { timestamps: true });
 
 const Encadrement = mongoose.model("encadrement",EncadrementSchema);
