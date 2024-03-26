@@ -6,7 +6,8 @@ import rightArrow from './assets/right arrow.svg'
 import graph from './assets/graph.png'
 
 export default function LandingPage() {
-  return (<></>
+  return (<>
+  </>
   )
 }
 

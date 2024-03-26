@@ -8,7 +8,7 @@ import Control from './Pages/Technical Pages/Control Pannel/Pannel.jsx'
 import NotFound from './Pages/NotFound/NotFound.jsx'
 import ResetPassword from './Pages/Login/ResetPassword.jsx'
 import RechercheLayout from "./Pages/Technical Pages/Recherche/RechercheLayout.jsx"
-
+import FormProject from "./Pages/Technical Pages/FormProject/FormProject.jsx"
 import '@radix-ui/themes/styles.css';
 
 const router = createBrowserRouter(createRoutesFromElements(
@@ -21,11 +21,10 @@ const router = createBrowserRouter(createRoutesFromElements(
     </Route>
     <Route path="aboutus" element={<AboutUs />} />
     <Route path="guide" element={<Guide />} />
-    <Route path='form' element={<RechercheLayout />} />
     <Route path='recherche' element={<RechercheLayout />} />
     <Route path='control' element={<Outlet />} >
       <Route index element={<Control />} />
-      {/* + control pages */}
+      <Route path='form' element={<FormProject />} />
     </Route>
     <Route path='*' element={<NotFound />} />
   </Route>
