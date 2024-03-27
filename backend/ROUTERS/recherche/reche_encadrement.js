@@ -22,6 +22,10 @@ const encadrement_recherche = (req, res) => {
  if (req.query.Etudiants) {
             options['Etudiants'] = new RegExp('^' + req.query.Etudiants, 'i');
         }
+if (req.query.idEncadrant) {
+            options['Encadrants._id'] = req.query.idEncadrant;
+        }
+    
 
     Encadrement.find(options)
         .then((result) => {
