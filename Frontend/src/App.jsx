@@ -8,7 +8,7 @@ import Control from './Pages/Technical Pages/Control Pannel/Pannel.jsx'
 import NotFound from './Pages/NotFound/NotFound.jsx'
 import ResetPassword from './Pages/Login/ResetPassword.jsx'
 import RechercheLayout from "./Pages/Technical Pages/Recherche/RechercheLayout.jsx"
-
+import Formulaire from "./Pages/Technical Pages/Control Pannel/Pages/Formulaire.jsx"
 
 
 const router = createBrowserRouter(createRoutesFromElements(
@@ -24,7 +24,7 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path='recherche' element={<RechercheLayout />} />
     <Route path='control' element={<Outlet />} >
       <Route index element={<Control />} />
-      <Route ind element={<Formulaire />} />
+      <Route path="form" element={<Formulaire />} />
       {/* + control pages */}
     </Route>
     <Route path='*' element={<NotFound />} />

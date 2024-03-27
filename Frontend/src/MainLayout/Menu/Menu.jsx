@@ -22,10 +22,10 @@ export default function Menu() {
       </div>
 
       <div className="flex flex-row items-center justify-end gap-5">
-        <Button variant="outline">Button</Button>
         <NavLink to="/aboutus" className={classes.NormalLink}>About us</NavLink>
         <NavLink to="/guide" className={classes.NormalLink}>Guide</NavLink>
         <NavLink to="/login" className={classes.buttonLink} >Connection</NavLink>
+        <NavLink to="/control/form" className={classes.buttonLink} >Form</NavLink>
       </div>
     </nav >
   )
