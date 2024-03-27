@@ -16,8 +16,17 @@ module.exports = {
         "2xl": "1400px",
       },
     },
+
     extend: {
+      fontFamily: {
+        title: ['inter', "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "sans serif"],
+      },
       colors: {
+        Lightbg: '#dfe2eb',
+        buttonDark: '#190482',
+        buttonLight: '#4733E4',
+        textDark: '#020B1F',
+        textLight: '#EFF3FF',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

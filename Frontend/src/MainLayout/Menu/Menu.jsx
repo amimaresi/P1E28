@@ -21,10 +21,19 @@ export default function Menu() {
   return (
     <nav className="flex fixed z-50 flex-row justify-between items-center right-0 left-0 top-0  bg-white  bg-opacity-90 backdrop-blur-md h-[60px] px-[1.5vw] shadow-sm">
       <div className="flex flex-row items-center justify-start gap-[10px] p-[100px]">
-        <NavLink to="/" >
-          <img className="w-[75px] cursor-pointer m-11" src={logo} alt="..." />
-        </NavLink>
 
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <NavLink to="/" >
+                <NavigationMenuLink className={`font-black font-title items-baseline hover:bg-white text-buttonDark hover:text-buttonLight underline underline-offset-4 decoration-[3px] ${navigationMenuTriggerStyle()}`}>
+                  <h3 className=' text-[23px] '>LMCS:</h3>
+                  <h3 className=' text-[18px] '>Track</h3>
+                </NavigationMenuLink>
+              </NavLink>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
 
 
         <NavigationMenu>
@@ -64,6 +73,8 @@ export default function Menu() {
         </NavigationMenu>
 
       </div>
+
+
       <div className="flex flex-row items-center justify-end gap-5">
         <NavigationMenu>
           <NavigationMenuList>
@@ -83,9 +94,7 @@ export default function Menu() {
             </NavigationMenuItem>
             <NavigationMenuItem>
               <NavLink to="/login">
-                <NavigationMenuLink className={`bg-accent-foreground text-accent hover:bg-slate-700 hover:text-accent rounded-3xl ${navigationMenuTriggerStyle()}`}>
-                  Connection
-                </NavigationMenuLink>
+                <Button className={` bg-buttonDark text-textLight hover:bg-slate-700 hover:text-textLight rounded-xl h-[35px] px-4 `}>Connection</Button>
               </NavLink>
             </NavigationMenuItem>
           </NavigationMenuList>

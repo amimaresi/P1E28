@@ -8,7 +8,7 @@ import Menu from './Menu/Menu.jsx'
 export default function MLayout() {
 
 
-  return (<div className=' bg-gray-100 ackground w-full pt-[60px] z-0'>
+  return (<div className='   bg-textLight ackground w-full min-h-screen pt-[60px] z-0'>
     <Menu />
     <Outlet context={{
       UserValidation: {
@@ -30,7 +30,7 @@ export default function MLayout() {
           }]
       }
     }} />
-    <footer className=' bg-white h-[3vw] w-full flex items-center justify-center text-textLight font-sans font-medium text-[1vw]'>Copyright LMCS Track © 2024 - All rights reserved</footer>
+    <footer className='  bg-buttonLight h-[3vw] w-full flex items-center justify-center text-textLight font-sans font-medium text-[1vw]'>Copyright LMCS Track © 2024 - All rights reserved</footer>
   </div>
   )
 }
