@@ -10,6 +10,11 @@ app.use(express.json());
 app.use(cookie());
 app.use('/api/v1/home', crud);
 app.use(cors())
+const insertionChercheur = require('./ROUTERS/crud_project/insertion/insertionChercheur')
+
+app.post('/post',insertionChercheur)
+
+
 
 
 mongoose.connect(process.env.URL).then(() => {
