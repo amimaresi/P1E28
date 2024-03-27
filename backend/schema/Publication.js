@@ -8,11 +8,11 @@ const PublicationSchema = new Schema ({
     required: true
             },
             Cherch: {
-                type: mongoose.Schema.Types.ObjectId,
+                type: mongoose.Schema.Types.String,
         ref: "chercheur"
             },
             confJourn: {
-                type: mongoose.Schema.Types.ObjectId,
+                type: mongoose.Schema.Types.String,
                  ref: "confJournal"
             },
             volume: {
@@ -28,7 +28,7 @@ const PublicationSchema = new Schema ({
                 required: true
             }
     },
-Titre: {
+  Titre: {
     type: String,
     required: true
 },
