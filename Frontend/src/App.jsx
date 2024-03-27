@@ -9,6 +9,8 @@ import NotFound from './Pages/NotFound/NotFound.jsx'
 import ResetPassword from './Pages/Login/ResetPassword.jsx'
 import RechercheLayout from "./Pages/Technical Pages/Recherche/RechercheLayout.jsx"
 import Formulaire from "./Pages/Technical Pages/Control Pannel/Pages/Formulaire.jsx"
+import AddChercheur from "./Pages/Technical Pages/Formulaires/AddChercheur.jsx"
+import AddProject from "./Pages/Technical Pages/Formulaires/AddProject.jsx"
 
 
 const router = createBrowserRouter(createRoutesFromElements(
@@ -24,7 +26,8 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path='recherche' element={<RechercheLayout />} />
     <Route path='control' element={<Outlet />} >
       <Route index element={<Control />} />
-      <Route path="form" element={<Formulaire />} />
+      <Route path="AddChercheur" element={<AddChercheur />} />
+      <Route path="AddProject" element={<AddProject />} />
       {/* + control pages */}
     </Route>
     <Route path='*' element={<NotFound />} />

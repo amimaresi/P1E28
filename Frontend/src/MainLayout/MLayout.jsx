@@ -30,7 +30,7 @@ export default function MLayout() {
           }]
       }
     }} />
-    <footer className=' bg-buttonLight h-[3vw] w-full flex items-center justify-center text-textLight font-sans font-medium text-[1vw]'>Copyright LMCS Track © 2024 - All rights reserved</footer>
+    <footer className=' bg-white h-[3vw] w-full flex items-center justify-center text-textLight font-sans font-medium text-[1vw]'>Copyright LMCS Track © 2024 - All rights reserved</footer>
   </div>
   )
 }

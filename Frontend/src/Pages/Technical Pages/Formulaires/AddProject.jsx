@@ -5,7 +5,7 @@ import { NavLink, Outlet } from "react-router-dom"
 
 
 
-export default function FormTemplate(props) {
+export default function AddProject(props) {
 
   return (<>
   </>
