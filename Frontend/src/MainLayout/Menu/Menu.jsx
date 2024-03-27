@@ -98,7 +98,7 @@ function ListItem({ children, title, to, isSimple }) {
     <li>
       <NavigationMenuLink asChild>
         <NavLink to={to}
-          className={` ${isSimple ? 'border-b-2 border-white' : null} block select-none space-y-1  p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground ${children == null ? ' bg-gray-50' : null}`}
+          className={` ${isSimple ? 'border-b-2 border-white' : null} block select-none space-y-1  p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground ${((children == null) && (isSimple == false)) ? ' bg-gray-50' : null}`}
         >
           <div className={`text-sm font-medium leading-none ${children == null ? 'flex items-center justify-center' : null}`}>{title}</div>
           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p>
