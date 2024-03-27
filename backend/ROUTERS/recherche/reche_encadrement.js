@@ -16,15 +16,16 @@ const encadrement_recherche = (req, res) => {
     if (req.query.AnneeF) {
         options.AnneeF = req.query.AnneeF;
     }
-    if (req.query.Encadrant) {
-        options.Encadrants = { $in: [req.query.Encadrant] };
-    }
-    if (req.query.EtudiantNom) {
-        options['Etudiants.Nom'] = req.query.EtudiantNom;
-    }
-    if (req.query.EtudiantPrenom) {
-        options['Etudiants.Prenom'] = req.query.EtudiantPrenom;
-    }
+   if (req.query.Encadrants) {
+            options['Encadrants.nomComplet'] = new RegExp('^' + req.query.Encadrants, 'i');
+        }
+ if (req.query.Etudiants) {
+            options['Etudiants'] = new RegExp('^' + req.query.Etudiants, 'i');
+        }
+if (req.query.idEncadrant) {
+            options['Encadrants._id'] = req.query.idEncadrant;
+        }
+    
 
     Encadrement.find(options)
         .then((result) => {
