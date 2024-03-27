@@ -5,8 +5,7 @@ import { NavLink, Outlet } from "react-router-dom"
 
 
 
-export default function Formulaire() {
-
+export default function EditLandingPage() {
 
   return (<>
   </>

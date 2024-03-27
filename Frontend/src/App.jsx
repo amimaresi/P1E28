@@ -8,9 +8,10 @@ import Control from './Pages/Technical Pages/Control Pannel/Pannel.jsx'
 import NotFound from './Pages/NotFound/NotFound.jsx'
 import ResetPassword from './Pages/Login/ResetPassword.jsx'
 import RechercheLayout from "./Pages/Technical Pages/Recherche/RechercheLayout.jsx"
-import Formulaire from "./Pages/Technical Pages/Control Pannel/Pages/Formulaire.jsx"
-import AddChercheur from "./Pages/Technical Pages/Formulaires/AddChercheur.jsx"
-import AddProject from "./Pages/Technical Pages/Formulaires/AddProject.jsx"
+import AddChercheur from "./Pages/Technical Pages/Control Pannel/Pages/AddChercheur.jsx"
+import AddProject from "./Pages/Technical Pages/Control Pannel/Pages/AddProject.jsx"
+import EditLandingPage from "./Pages/Technical Pages/Control Pannel/Pages/EditLandingPage.jsx"
+import Update from "./Pages/Technical Pages/Control Pannel/Pages/Update.jsx"
 
 
 const router = createBrowserRouter(createRoutesFromElements(
@@ -26,6 +27,9 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path='recherche' element={<RechercheLayout />} />
     <Route path='control' element={<Outlet />} >
       <Route index element={<Control />} />
+      <Route path="LandingPage" element={<EditLandingPage />} />
+      <Route path="Update" element={<Update />} />
+
       <Route path="AddChercheur" element={<AddChercheur />} />
       <Route path="AddProject" element={<AddProject />} />
       {/* + control pages */}

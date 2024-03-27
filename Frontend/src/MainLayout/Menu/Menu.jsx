@@ -46,8 +46,11 @@ export default function Menu() {
 
               <NavigationMenuContent>
                 <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr] border-b-2 border-gray-200">
-                  <ListItem to="/control/LandingPage" title="Page d'acceill">
+                  <ListItem to="/control/landingPage" title="Page d'acceill">
                     Modifier le contenu de la page d'acceill
+                  </ListItem>
+                  <ListItem to="/control/update" title="Mise à jour">
+                    - Modifier La Periode automatique <br />- Faire la mise à jour manuellement
                   </ListItem>
 
                 </ul>
