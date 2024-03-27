@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const Encadrement = require('./Encadrement');  //la collection "encadrements"
-const enc = require('./Schema/Chercheur');  //la colleection "chercheurs"
+const Encadrement = require('../../schema/Encadrement');  //la collection "encadrements"
+const enc = require('../../schema/Chercheur');  //la colleection "chercheurs"
 
 
 const insererEncadrement = async (req, res) => {
