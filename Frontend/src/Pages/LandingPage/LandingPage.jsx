@@ -1,52 +1,74 @@
-import React, { useState } from 'react'
-import { NavLink, Outlet, useOutletContext } from "react-router-dom"
-import BgElement from './assets/BgElement.svg'
-import leftArrow from './assets/left arrow.svg'
-import rightArrow from './assets/right arrow.svg'
-import graph from './assets/graph.png'
+import React, { useState } from 'react';
+import { NavLink, Outlet, useOutletContext } from 'react-router-dom';
+import BgElement from './assets/BgElement.svg';
+import leftArrow from './assets/left arrow.svg';
+import rightArrow from './assets/right arrow.svg';
+import graph from './assets/graph.png';
 
 export default function LandingPage() {
   const context = useOutletContext();
 
-  const [boxes, setBoxes] = useState(context.LandingPage.news)   //title, paragraphe, Consept
-  const [index, setIndex] = useState(0)
-  return (<div className=' '>
-    <div className=' pt-16 flex items-center justify-center'>
-      <div className='flex flex-row justify-between items-center rounded-2xl bg-white h-[20vw] w-[64vw] p-[1vw] shadow-md'>
+  const [boxes, setBoxes] = useState(context.LandingPage.news); //title, paragraphe, Consept
+  const [index, setIndex] = useState(0);
+  return (
+    <div className=" ">
+      <div className=" flex items-center justify-center pt-16">
+        <div className="flex h-[20vw] w-[64vw] flex-row items-center justify-between rounded-2xl bg-white p-[1vw] shadow-md">
+          <img
+            src={leftArrow}
+            onClick={() => setIndex(index == boxes.length - 1 ? 0 : index + 1)}
+            alt="background"
+            className="m-[1vw] h-[2.5vw] hover:opacity-65 active:opacity-40"
+          />
 
-        <img src={leftArrow} onClick={() => setIndex(index == boxes.length - 1 ? 0 : index + 1)} alt="background" className='hover:opacity-65 active:opacity-40 h-[2.5vw] m-[1vw]' />
-
-        <div className='flex flex-col  w-[23vw] h-[17vw] items-start gap-[1.3vw]'>
-
-          <h2 className='text-[0.9vw] bg-buttonLight px-[0.7vw] py-[0.4vw] rounded-xl text-textLight text-center m-0 font-sans font-[500]'>{boxes[index].Subject}</h2>
-          <div className='flex flex-col  w-[23vw] h-[17vw] items-start '>
-            <h1 className='text-[1.8vw]  text-center m-0 font-title'>{boxes[index].title}</h1>
-            <p className='font-normal text-textDark text-[1vw] font-sans m-0'>{boxes[index].paragraphe}</p>
+          <div className="flex h-[17vw]  w-[23vw] flex-col items-start gap-[1.3vw]">
+            <h2 className="m-0 rounded-xl bg-buttonLight px-[0.7vw] py-[0.4vw] text-center font-sans text-[0.9vw] font-[500] text-textLight">
+              {boxes[index].Subject}
+            </h2>
+            <div className="flex h-[17vw]  w-[23vw] flex-col items-start ">
+              <h1 className="m-0  text-center font-title text-[1.8vw]">
+                {boxes[index].title}
+              </h1>
+              <p className="m-0 font-sans text-[1vw] font-normal text-textDark">
+                {boxes[index].paragraphe}
+              </p>
+            </div>
           </div>
+          <img
+            src={boxes[index].img}
+            alt="background"
+            className=" mr-2 h-[20vw] w-[26vw] rounded-lg object-cover object-center md:h-[17vw] md:w-[30vw]"
+          />
+
+          <img
+            src={rightArrow}
+            onClick={() => setIndex(index == 0 ? boxes.length - 1 : index - 1)}
+            alt="background"
+            className=" m-[1vw] h-[2.5vw] hover:opacity-65 active:opacity-40"
+          />
         </div>
-        <img src={boxes[index].img} alt="background" className=' mr-2 h-[20vw] md:h-[17vw] w-[26vw] md:w-[30vw] object-cover object-center rounded-lg' />
-
-
-
-        <img src={rightArrow} onClick={() => setIndex(index == 0 ? boxes.length - 1 : index - 1)} alt="background" className=' hover:opacity-65 active:opacity-40 h-[2.5vw] m-[1vw]' />
-
       </div>
 
-
-
+      <div className=" relative mt-[3vw] h-[31vw]">
+        <img
+          src={BgElement}
+          alt="background"
+          className="absolute bottom-0  left-0 top-0 z-0 w-full object-cover"
+        />
+        <h1 className="absolute left-[45%] top-[15%] z-10 font-title text-[2vw] font-semibold">
+          LMCS Stats
+        </h1>
+      </div>
+      <div className=" relative h-[31vw]">
+        <img
+          src={graph}
+          alt="background"
+          className="absolute bottom-0 left-[10vw] top-0 z-0 h-[30vw]"
+        />
+        <h1 className="absolute left-[65%] top-[20%] z-10 text-center font-title text-[2vw]">
+          LMCS Stats
+        </h1>
+      </div>
     </div>
-
-    <div className=' relative mt-[3vw] h-[31vw]'>
-
-      <img src={BgElement} alt="background" className="object-cover w-full  absolute top-0 left-0 bottom-0 z-0" />
-      <h1 className='text-[2vw] absolute left-[45%] top-[15%] font-semibold font-title z-10'>LMCS Stats</h1>
-    </div>
-    <div className=' relative h-[31vw]'>
-      <img src={graph} alt="background" className="absolute top-0 left-[10vw] h-[30vw] bottom-0 z-0" />
-      <h1 className='text-[2vw] absolute text-center left-[65%] top-[20%] font-title z-10'>LMCS Stats</h1>
-    </div>
-  </div>
-  )
+  );
 }
-
-
