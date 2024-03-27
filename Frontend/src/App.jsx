@@ -24,6 +24,7 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path='recherche' element={<RechercheLayout />} />
     <Route path='control' element={<Outlet />} >
       <Route index element={<Control />} />
+      <Route ind element={<Formulaire />} />
       {/* + control pages */}
     </Route>
     <Route path='*' element={<NotFound />} />

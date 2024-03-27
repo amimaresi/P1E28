@@ -5,7 +5,7 @@ import { NavLink, Outlet } from "react-router-dom"
 
 
 
-export default function Pannel() {
+export default function Formulaire() {
 
 
   return (<>
