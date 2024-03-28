@@ -12,5 +12,8 @@ const generPassword =  async()=>{
     
 
 }
+//cette fonction permet de generer un mot de passe aleatoire pour un chercheur 
+//et le crypter pour le stocker dans la base de donnees
+
 
 module.exports = generPassword

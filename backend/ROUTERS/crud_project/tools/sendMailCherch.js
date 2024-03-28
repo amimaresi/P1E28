@@ -1,5 +1,10 @@
 const nodemailer = require('nodemailer')
 
+//cette fonction permet d'envoyer un email a un chercheur pour lui souhaiter la bienvenue
+//dans la famille LMCS
+//et lui demander de changer son mot de passe
+//pour plus de securite et permettre l'acces a son compte
+
 const sendMailCherch = async (email , nomComplet) => {
     const transporter = nodemailer.createTransport({
         service:'gmail',

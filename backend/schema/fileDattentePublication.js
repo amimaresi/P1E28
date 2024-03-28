@@ -1,6 +1,11 @@
 const mongoose = require('mongoose')
 const schema = mongoose.Schema
 
+//cette schema represente les publications en attente de validation par le directeur 
+//dans le cas ou le directeur accepte la publication, elle sera enregistree dans la collection publication
+//et supprimee de cette collection
+//sinon elle supprimee de cette collection directement
+
 const fileDattentePublication = new schema({
 
         _id: {
@@ -50,4 +55,5 @@ const fileDattentePublication = new schema({
 
 )
 
+//export the model
 module.exports = mongoose.model('fileDattentePublication' , fileDattentePublication)

@@ -1,21 +1,31 @@
 
 const FiledattentePublications = require('../../../schema/fileDattentePublication')
+const publication = require('../../../schema/Publication')
 const confJournal = require('../../../schema/ConfJournal')
 
 const insertionPublication = async (req, res ) => {
 
-    const { Date , Cherch ,confJourn , volume , pages, rang, Titre, Lien, Membres, Classement } = req.body
-   // const Cherch = req.params.id 
+    const { Date  ,confJourn , volume , pages, rang, Titre, Lien, Membres, Classement } = req.body
+     const Cherch = req.params.id 
     try{
       //const  pub = await FiledattentePublications.findOne({Cherch , rang , pages , volume ,Date , confJourn  })
-      const pub = await FiledattentePublications.findOne({ '_id.Cherch': Cherch, '_id.rang': rang, '_id.pages': pages, '_id.volume': volume, '_id.Date': Date, '_id.confJourn': confJourn });
+      const pub = await FiledattentePublications.findOne({ '_id.Cherch': Cherch, '_id.rang': rang, '_id.pages': pages, '_id.volume': volume, '_id.Date': Date, '_id.confJourn': confJourn })
+      const pub2 = await publication.findOne({ '_id.Cherch': Cherch, '_id.rang': rang, '_id.pages': pages, '_id.volume': volume, '_id.Date': Date, '_id.confJourn': confJourn })
        
       if (pub){
 
         //envoyer un message d'erreur si la publication existe deja
-        throw Error("Publication deja exister")
+        throw new Error("Cette publication est déjà en attente de validation par le directeur");
       }
       else{
+
+        if(pub2){
+            
+            //envoyer un message d'erreur si la publication existe deja
+            throw new Error("Cette publication a déjà existé");
+        }
+
+        else{
 
         //recuperer le nom de la conference ou du journal
         const conf = await confJournal.findone({'nom':confJourn})
@@ -38,9 +48,10 @@ const insertionPublication = async (req, res ) => {
     await publication.save()
     
     //envoyer un message de succes avec un code 200 si la publication a ete enregistree avec succes
-    res.status(200).json({message:'Votre demande a ete envoye avec succes'})
+    res.status(200).json({message:'Votre demande a été envoyée avec succès'});
     
      }
+    }
 
     }
     catch(err){
