@@ -23,8 +23,9 @@ import {
 import { Input } from '@/components/ui/input';
 
 import { Button } from '@/components/ui/button';
-export default function Fchercheur({ Filtres, setFiltres }) {
-  const { register, handleSubmit, watch, errors, control } = useForm();
+export default function Fchercheur() {
+  const form = useForm();
+
   const onSubmit = (data) => {
     console.log(data);
   };
@@ -39,11 +40,31 @@ export default function Fchercheur({ Filtres, setFiltres }) {
         <SheetContent side="left">
           <SheetHeader>
             <SheetTitle>Filtres</SheetTitle>
-            <SheetDescription></SheetDescription>
           </SheetHeader>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Username</FormLabel>
+                    <FormControl>
+                      <Input placeholder="shadcn" {...field} />
+                    </FormControl>
+                    <FormDescription>
+                      This is your public display name.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit">Submit</Button>
+            </form>
+          </Form>
         </SheetContent>
       </Sheet>
-      <DevTool control={control} />
+      <DevTool control={form.control} />
     </>
   );
 }

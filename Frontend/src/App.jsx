@@ -10,7 +10,6 @@ import LandingPage from './Pages/LandingPage/LandingPage.jsx';
 import Login from './Pages/Login/Login.jsx';
 import AboutUs from './Pages/AboutUs/AboutUs.jsx';
 import Guide from './Pages/Guide/Guide.jsx';
-import Control from './Pages/Technical Pages/Control Pannel/Pannel.jsx';
 import NotFound from './Pages/NotFound/NotFound.jsx';
 import ResetPassword from './Pages/Login/ResetPassword.jsx';
 import RechercheLayout from './Pages/Technical Pages/Recherche/RechercheLayout.jsx';
@@ -31,7 +30,6 @@ const router = createBrowserRouter(
       <Route path="guide" element={<Guide />} />
       <Route path="recherche" element={<RechercheLayout />} />
       <Route path="control" element={<Outlet />}>
-        <Route index element={<Control />} />
         <Route path="LandingPage" element={<EditLandingPage />} />
         <Route path="Update" element={<Update />} />
 

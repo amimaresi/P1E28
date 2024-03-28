@@ -12,6 +12,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
+import { ExternalLinkIcon } from '@radix-ui/react-icons';
 
 export default function Menu() {
   return (
@@ -20,13 +21,12 @@ export default function Menu() {
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavLink to="/">
-                <NavigationMenuLink
-                  className={`items-baseline font-title font-black text-buttonDark underline decoration-[3px] underline-offset-4 hover:bg-white hover:text-buttonLight ${navigationMenuTriggerStyle()}`}
-                >
-                  <h3 className=" text-[23px] ">LMCS: </h3>
-                  <h3 className=" text-[18px] ">Track</h3>
-                </NavigationMenuLink>
+              <NavLink
+                to="/"
+                className={`items-baseline font-title font-black text-buttonDark underline decoration-[3px] underline-offset-4 hover:bg-white hover:text-buttonLight ${navigationMenuTriggerStyle()}`}
+              >
+                <h3 className=" text-[23px] ">LMCS: </h3>
+                <h3 className=" text-[18px] ">Track</h3>
               </NavLink>
             </NavigationMenuItem>
           </NavigationMenuList>
@@ -61,14 +61,19 @@ export default function Menu() {
             </NavigationMenuItem>
 
             <NavigationMenuItem>
-              <NavLink to="/control">
-                <NavigationMenuTrigger className=" text-[16.5px]">
-                  {' '}
-                  Panneau de control
-                </NavigationMenuTrigger>
-              </NavLink>
+              <NavigationMenuTrigger className=" text-[16.5px]">
+                Panneau de control
+              </NavigationMenuTrigger>
 
               <NavigationMenuContent>
+                <div
+                  className=" flex h-[50px] w-full select-none flex-col items-center  justify-center bg-textLight from-muted/50 to-muted py-6 pb-8 no-underline shadow-sm outline-none"
+                  to="/control"
+                >
+                  <div className="mb-2 mt-4 flex flex-row  items-baseline gap-2 text-lg font-medium">
+                    paneau de control
+                  </div>
+                </div>
                 <ul className="grid gap-3 border-b-2 border-gray-200 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                   <ListItem to="/control/landingPage" title="Page d'acceill">
                     Modifier le contenu de la page d'acceill
@@ -98,21 +103,19 @@ export default function Menu() {
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavLink to="/aboutus">
-                <NavigationMenuLink
-                  className={`text-[16.5px] ${navigationMenuTriggerStyle()}`}
-                >
-                  About Us
-                </NavigationMenuLink>
+              <NavLink
+                to="/aboutus"
+                className={`text-[16.5px] ${navigationMenuTriggerStyle()}`}
+              >
+                About Us
               </NavLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavLink to="/guide">
-                <NavigationMenuLink
-                  className={`text-[16.5px] ${navigationMenuTriggerStyle()}`}
-                >
-                  Guide
-                </NavigationMenuLink>
+              <NavLink
+                to="/guide"
+                className={`text-[16.5px] ${navigationMenuTriggerStyle()}`}
+              >
+                Guide
               </NavLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
@@ -134,21 +137,19 @@ export default function Menu() {
 function ListItem({ children, title, to, isSimple }) {
   return (
     <li>
-      <NavigationMenuLink asChild>
-        <NavLink
-          to={to}
-          className={` ${isSimple ? 'border-b-2 border-white' : null} block select-none space-y-1  p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground ${children == null && isSimple == false ? ' bg-gray-50' : null}`}
+      <NavLink
+        to={to}
+        className={` ${isSimple ? 'border-b-2 border-white' : null} block  select-none space-y-1  rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground ${children == null && isSimple == false ? ' bg-gray-50' : null}`}
+      >
+        <div
+          className={`text-sm font-medium leading-none ${children == null ? 'flex items-center justify-center' : null}`}
         >
-          <div
-            className={`text-sm font-medium leading-none ${children == null ? 'flex items-center justify-center' : null}`}
-          >
-            {title}
-          </div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-            {children}
-          </p>
-        </NavLink>
-      </NavigationMenuLink>
+          {title}
+        </div>
+        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+          {children}
+        </p>
+      </NavLink>
     </li>
   );
 }
