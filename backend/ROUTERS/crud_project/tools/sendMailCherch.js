@@ -21,7 +21,9 @@ const sendMailCherch = async (email , nomComplet) => {
         html :`
         <h2>Bienvenue monsieur ${nomComplet} dans la famille LMCS</h2>
         <p>Vous pouvez connecter a votre compte apres changer votre mot de pass</p>
-        <a href= "settings/resetpassword"> clique ici pour change votre mot de passe </a>
+
+        <a href= "http://localhost:3000/settings/resetpassword"> clique ici pour change votre mot de passe </a>
+        <p>vous pouvez aussi visiter notre site web pour plus d'information</p>
         <p>pour plus d'information veuillez nous contacter</p>
         `
 

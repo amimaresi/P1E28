@@ -25,10 +25,10 @@ const server = http.createServer(app)
 const io = socketIo(server)
 
 
-
+const PORT = process.env.PORT || 3000
 
 mongoose.connect(process.env.URL).then(() => {
-    server.listen(3000, () => {
+    server.listen(PORT, () => {
         console.log("connected to the database and start listening at post 3000..")
     })
 
