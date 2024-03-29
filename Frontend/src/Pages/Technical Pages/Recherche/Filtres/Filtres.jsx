@@ -20,16 +20,22 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useSearchParams } from 'react-router-dom';
 
-export default function Filtres() {
-  const form = useForm();
+export default function Filtres({ searchby }) {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const params = {};
+
+  searchParams.forEach((value, key) => {
+    params[key] = value;
+  });
+
+  const form = useForm({ defaultValues: params });
 
   const onSubmit = (data) => {
-    console.log(data);
-    console.log('searchparams : ', searchParams);
+    console.log('Filtres : ', data);
+    setSearchParams(form.getValues());
   };
 
-  const [searchParams, setSearchParams] = useSearchParams();
-  const searchby = searchParams.get('searchby');
   return (
     <>
       <Sheet>
@@ -66,14 +72,16 @@ function Fchercheur({ form }) {
       control={form.control}
       name="chercheur"
       render={({ field }) => (
-        <FormItem>
-          <FormLabel>Username</FormLabel>
-          <FormControl>
-            <Input placeholder="shadcn" {...field} />
-          </FormControl>
-          <FormDescription>This is your public display name.</FormDescription>
-          <FormMessage />
-        </FormItem>
+        <>
+          <FormItem>
+            <FormLabel>Username</FormLabel>
+            <FormControl>
+              <Input placeholder="shadcn" {...field} />
+            </FormControl>
+            <FormDescription>This is your public display name.</FormDescription>
+            <FormMessage />
+          </FormItem>
+        </>
       )}
     />
   );

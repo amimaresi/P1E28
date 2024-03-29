@@ -4,6 +4,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   RouterProvider,
+  Navigate,
 } from 'react-router-dom';
 import MLayout from './MainLayout/MLayout.jsx';
 import LandingPage from './Pages/LandingPage/LandingPage.jsx';
@@ -28,7 +29,18 @@ const router = createBrowserRouter(
       </Route>
       <Route path="aboutus" element={<AboutUs />} />
       <Route path="guide" element={<Guide />} />
-      <Route path="recherche" element={<RechercheLayout />} />
+      <Route path="recherche" element={<Outlet />}>
+        <Route index element={<Navigate to="chercheur" />} />
+        <Route
+          path="chercheur"
+          element={<RechercheLayout searchby="chercheur" />}
+        />
+        <Route
+          path="publication"
+          element={<RechercheLayout searchby="publication" />}
+        />
+        <Route path="projet" element={<RechercheLayout searchby="projet" />} />
+      </Route>
       <Route path="control" element={<Outlet />}>
         <Route index element={<NotFound />} />
         <Route path="LandingPage" element={<EditLandingPage />} />
