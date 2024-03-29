@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
 
-    _id: {
+    _id: { //mail
         type: String,
         required: true
     },
