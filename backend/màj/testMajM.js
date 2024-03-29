@@ -1,4 +1,4 @@
-const majManuelle = require('./màj');
+const majManuelle = require('./majM');
 
 // Appeler la fonction majManuelle
 async function executeMajManuelle() {
