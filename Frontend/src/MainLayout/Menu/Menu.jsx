@@ -23,7 +23,7 @@ export default function Menu() {
             <NavigationMenuItem>
               <NavLink
                 to="/"
-                className={`items-baseline font-title font-black text-buttonDark underline decoration-[3px] underline-offset-4 hover:bg-white hover:text-buttonLight ${navigationMenuTriggerStyle()}`}
+                className={` items-baseline font-title font-black text-buttonDark underline decoration-[3px] underline-offset-4 hover:bg-white hover:text-buttonLight focus:bg-white focus:text-buttonDark focus:hover:text-buttonLight ${navigationMenuTriggerStyle()}`}
               >
                 <h3 className=" text-[23px] ">LMCS: </h3>
                 <h3 className=" text-[18px] ">Track</h3>

@@ -30,6 +30,7 @@ const router = createBrowserRouter(
       <Route path="guide" element={<Guide />} />
       <Route path="recherche" element={<RechercheLayout />} />
       <Route path="control" element={<Outlet />}>
+        <Route index element={<NotFound />} />
         <Route path="LandingPage" element={<EditLandingPage />} />
         <Route path="Update" element={<Update />} />
 
