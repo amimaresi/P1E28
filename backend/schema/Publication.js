@@ -12,7 +12,7 @@ const PublicationSchema = new Schema ({
                  required: true
             },
             confJourn: {
-                type: String;
+                type: String,
                  required: true
             },
             volume: {
