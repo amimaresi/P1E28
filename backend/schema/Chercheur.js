@@ -1,21 +1,17 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const ChercheurSchema = new Schema({
+const ChercheurSchema = new Schema ({
     _id: { //email
-        type: mongoose.Schema.Types.String,
-        ref: "user"
+        type:String,
+        required: true
     },
-    nomComplet: {
+    nomComplet: { //prenom nom
         type: String,
         required: true
     },
-
-    Type: {
-        type: String,
-        required: true
-    },
-    GradeRecherche: {
+   
+    Qualité: {
         type: String,
         required: true
     },
@@ -23,42 +19,74 @@ const ChercheurSchema = new Schema({
         type: String,
         required: true
     },
-    H_index: {
-        type: Number,
+    GradeRecherche: {
+        type: String,
         required: true
     },
-    /* email: {
-         type: String,
-         required: true
-     },*/
+    H_index: {
+           type: Number,
+           //required: true
+    },
+   
     contact: {
         type: String,
-
-    },
+     },
     projet: [{
-        type: mongoose.Schema.Types.Number,
-        ref: "projet"
-    }],
+        type: Number
+}],
+publications: [{
+    Date: {
+        type: String,
+        required: true
+        },
+        idCherch: {
+            type: String
+        },
+        confJourn: {
+            type: String
+        },
+        volume: {
+            type:String,
+            required:true
+        },
+        pages: {
+            type: String,
+            required: true
+        },
+        rang: {
+            type: Number,
+            required: true
+        }
+}
+
+],
     lien: {
         GoogleScholar: {
             type: String,
-
+            
         },
         DBLP: {
             type: String
         },
         ResearchGate: {
             type: String
+        },
+        ComptePersonnelle: {
+            type: String
         }
     },
     image_path: {
         type: String,
-
+        
+    },
+    EtablissementOrigine: {
+        type: String,
+        required: true
     },
     statut: {
         type: String,
         required: true,
-        default: "Actif"
+        default: "actif"
     },
     Diplome: {
         type: String,
@@ -66,10 +94,10 @@ const ChercheurSchema = new Schema({
     },
     Equipe: {
         type: String,
-        required: true
+        //required: true
     }
-
+   
 }, { timestamps: true });
 
-const Chercheur = mongoose.model("chercheur", ChercheurSchema);
+const Chercheur = mongoose.model("chercheur",ChercheurSchema);
 module.exports = Chercheur;
