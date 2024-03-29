@@ -2,18 +2,18 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const PublicationSchema = new Schema ({
-     _id: {
+    _id: {
         Date: {
             type: String,
-    required: true
+             required: true
             },
-            Cherch: {
-                type: mongoose.Schema.Types.ObjectId,
-        ref: "chercheur"
+            idCherch: {
+                type: String,
+                 required: true
             },
             confJourn: {
-                type: mongoose.Schema.Types.ObjectId,
-                 ref: "confJournal"
+                type: String;
+                 required: true
             },
             volume: {
                 type:String,
@@ -37,14 +37,17 @@ Titre: {
 
 Lien: {
     type: String,
-    required: true
+    //required: true
 },
 Membres: [{ 
     type: String
 }],
-Classement: {
-    type: String
-}
+Classement: [{
+   type: String
+}]
+
+
+
 }, {timestamps: true});
 
 const Publication = mongoose.model("publication", PublicationSchema);
