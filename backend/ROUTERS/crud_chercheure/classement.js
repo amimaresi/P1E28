@@ -1,5 +1,5 @@
-const Chercheur = require('./Schema/Chercheur'); // Importer le modèle Chercheur
-const Publication = require('./Schema/Publication'); // Importer le modèle Publication
+const Chercheur = require('../../Schema/Chercheur'); // Importer le modèle Chercheur
+const Publication = require('../../Schema/Publication'); // Importer le modèle Publication
 const mongoose = require('mongoose');
 
 // Fonction pour ajouter ou modifier les classements des publications d'un chercheur
