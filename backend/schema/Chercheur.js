@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const ChercheurSchema = new Schema ({
     _id: { //email
         type:String,
-        required: true
+        ref: "User"
     },
     nomComplet: { //prenom nom
         type: String,
