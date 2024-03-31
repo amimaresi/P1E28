@@ -17,6 +17,7 @@ const EncadrementSchema = new Schema ({
    },
     _id: { //email du chercheur
         type:String,
+        ref: "chercheur"
       
     },
     role: {
@@ -25,7 +26,7 @@ const EncadrementSchema = new Schema ({
     }
    }
  ],
- Etudiants: [ //nom complet des etudiants
+ Etudiants: [ 
     {
         type: String
        
