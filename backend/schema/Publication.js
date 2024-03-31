@@ -14,7 +14,8 @@ const PublicationSchema = new Schema ({
             },
             confJourn: {
                 type: String,
-                 required: true
+                 required: true,
+                ref: "confJournal"
             },
             volume: {
                 type:String,
