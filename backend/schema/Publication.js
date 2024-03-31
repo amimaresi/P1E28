@@ -9,7 +9,8 @@ const PublicationSchema = new Schema ({
             },
             idCherch: {
                 type: String,
-                 required: true
+                 required: true,
+                ref: "chercheur"
             },
             confJourn: {
                 type: String,
