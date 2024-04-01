@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+
 const Chercheur = require('../../schema/Chercheur');
 const Publication = require('../../schema/Publication');
 
