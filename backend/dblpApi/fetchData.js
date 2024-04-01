@@ -69,7 +69,7 @@ const fetchData = async (req, res) => {
         res.status(200).send('Données insérées avec succès');
 
        
-        console.log('Connexion à MongoDB fermée');
+     
     } catch (error) {
         console.error('Une erreur s\'est produite :', error);
         res.status(500).send('Une erreur s\'est produite lors de l\'insertion des données');
