@@ -13,12 +13,14 @@ const ProjetSchema = new Schema({
     },
     ChefDeProjet: { 
      type: String,
+         required: true,
         ref: "chercheur"
       
        
     },
     liste_members: [{
        type: String,
+         required: true,
         ref: "chercheur"
       
     }], 
@@ -34,6 +36,7 @@ const ProjetSchema = new Schema({
 
     Theme: {
         type: String,
+         required: true
 
     }
 
