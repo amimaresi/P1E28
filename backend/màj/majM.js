@@ -66,7 +66,7 @@ const majManuelle = async () => {
             }
         }
 
-        console.log('Données traitées');
+        
 
        
         console.log('Traitement terminé avec succès');
