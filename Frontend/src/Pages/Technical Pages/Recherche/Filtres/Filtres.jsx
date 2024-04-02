@@ -16,12 +16,34 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useSearchParams } from 'react-router-dom';
-
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
 export default function Filtres({ searchby }) {
   const [searchParams, setSearchParams] = useSearchParams();
+  const phoneRegExp = /^\+?(\d{1,3})?[-. ]?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/;
+  const schemaChercheur = yup.object().shape({
+    nomComplet: yup.string().max(50),
+    email: yup.string().email(),
+    tel: yup.string().matches(phoneRegExp, { message: 'Invalid phone number' }),
+    gradeEnsegnement: yup.string(),
+    gradeRecherche: yup.string(),
+    qualite: yup.string().max(50),
+    projet: yup.string().max(50),
+    equipe: yup.string().max(50),
+    etablisementOrigine: yup.string().max(50),
+  });
 
   const params = {};
 
@@ -29,7 +51,10 @@ export default function Filtres({ searchby }) {
     params[key] = value;
   });
 
-  const form = useForm({ defaultValues: params });
+  const form = useForm({
+    defaultValues: params,
+    resolver: yupResolver(schemaChercheur),
+  });
 
   const onSubmit = (data) => {
     console.log('Filtres : ', data);
@@ -68,41 +93,98 @@ export default function Filtres({ searchby }) {
 
 function Fchercheur({ form }) {
   return (
-    <FormField
-      control={form.control}
-      name="chercheur"
-      render={({ field }) => (
-        <>
+    <>
+      <FormField
+        control={form.control}
+        name="nomComplet"
+        render={({ field }) => (
+          <>
+            <FormItem>
+              <FormLabel>nomComplet</FormLabel>
+              <FormControl>
+                <Input placeholder="Entrez le nom du chercheur" {...field} />
+              </FormControl>
+              <FormDescription>
+                This is your public display name.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          </>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="email"
+        render={({ field }) => (
           <FormItem>
-            <FormLabel>Username</FormLabel>
+            <FormLabel>email</FormLabel>
             <FormControl>
-              <Input placeholder="shadcn" {...field} />
+              <Input placeholder="Entrez le nom du chercheur" {...field} />
             </FormControl>
             <FormDescription>This is your public display name.</FormDescription>
             <FormMessage />
           </FormItem>
-        </>
-      )}
-    />
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="tel"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>tel</FormLabel>
+            <FormControl>
+              <Input placeholder="Entrez le numero de telephone" {...field} />
+            </FormControl>
+            <FormDescription>This is your public display name.</FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    </>
   );
 }
 
 function Fpublication({ form }) {
   return (
-    <FormField
-      control={form.control}
-      name="publication"
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>Username</FormLabel>
-          <FormControl>
-            <Input placeholder="shadcn" {...field} />
-          </FormControl>
-          <FormDescription>This is your public display name.</FormDescription>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
+    <>
+      <FormField
+        control={form.control}
+        name="publication"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>publication</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez la publication" {...field} />
+            </FormControl>
+            <FormDescription>This is your public display name.</FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="type"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>type</FormLabel>
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a verified email to display" />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                <SelectItem value="m@example.com">m@example.com</SelectItem>
+                <SelectItem value="m@google.com">m@google.com</SelectItem>
+                <SelectItem value="m@support.com">m@support.com</SelectItem>
+              </SelectContent>
+            </Select>
+            <FormDescription>This is your public display name.</FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    </>
   );
 }
 
@@ -113,9 +195,9 @@ function Fprojet({ form }) {
       name="projet"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Username</FormLabel>
+          <FormLabel>project</FormLabel>
           <FormControl>
-            <Input placeholder="shadcn" {...field} />
+            <Input placeholder="entrez le projet" {...field} />
           </FormControl>
           <FormDescription>This is your public display name.</FormDescription>
           <FormMessage />

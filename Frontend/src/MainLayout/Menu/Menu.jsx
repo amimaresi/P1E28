@@ -42,20 +42,16 @@ export default function Menu() {
               <NavigationMenuContent>
                 <ul className="grid w-[125px] grid-flow-row">
                   <ListItem
-                    to="/Recherche/?searchby=chercheur"
+                    to="/Recherche/chercheur"
                     isSimple
                     title="Chercheurs"
                   />
                   <ListItem
-                    to="/Recherche/?searchby=publication"
+                    to="/Recherche/publication"
                     isSimple
                     title="Publications"
                   />
-                  <ListItem
-                    to="/Recherche/?searchby=projet"
-                    isSimple
-                    title="Projets"
-                  />
+                  <ListItem to="/Recherche/projet" isSimple title="Projets" />
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
