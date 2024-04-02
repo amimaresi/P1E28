@@ -4,9 +4,10 @@ const bycrypt = require('bcrypt');
 
 const UserSchema = new Schema({
 
-    _id: {
+    _id: { //mail
         type: String,
-        required: true
+        required: true,
+        ref: "chercheur"
     },
     username: {
         type: String,
@@ -67,4 +68,4 @@ UserSchema.statics.login = async function ({usernameEmail , password})
 
 }
 const User = mongoose.model("user", UserSchema);
-module.exports = User 
+module.exports = User;

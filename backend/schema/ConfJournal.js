@@ -2,7 +2,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ConfJournSchema = new Schema ({
-_id: {  //acronyme
+_id: {     //acronyme
+    type: String,
+    required: true
+},
+
+type: { //journal/conf..
     type: String,
     required: true
 },
@@ -12,13 +17,12 @@ nom: {
 },
 periodicite: {
     type: String,
-    
+    required: true
 },
 lien: {
     type: String,
-    
+    //required: true
 }
-
 }, { timestamps: true });
 
 const ConfJournal = mongoose.model("confJournal",ConfJournSchema);

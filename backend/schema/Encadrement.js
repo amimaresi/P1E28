@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const EncadrementSchema = new Schema ({
- Type: {
+ Type: { //pfe/docorat...
       type: String,
       required: true
  },
@@ -10,24 +10,27 @@ const EncadrementSchema = new Schema ({
     type: String,
     required: true
  },
- Encadrants: [
-    {
-        type: mongoose.Schema.Types.ObjectId,
+ Encadrants: [ {
+   nomComplet: {
+      type:String,
+    required: true
+   },
+    _id: { //email du chercheur
+        type:String,
         ref: "chercheur"
+      
+    },
+    role: {
+      type:String,
+      
     }
+   }
  ],
- Etudiants: [
+ Etudiants: [ 
     {
+        type: String
        
-        Nom: {
-            type: String,
-                 
-        },
-        Prenom: {
-            type: String,
-            
-        }
-        
+       
     }
  ],
  AnneeD: {
@@ -36,7 +39,7 @@ const EncadrementSchema = new Schema ({
  },
  AnneeF: {
     type: String,
-    required: true
+    //required: true
  }
 }, { timestamps: true });
 

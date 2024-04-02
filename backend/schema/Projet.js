@@ -11,11 +11,19 @@ const ProjetSchema = new Schema({
         type: String,
         required: true
     },
-    ChefDeProjet: {
-        type: mongoose.Schema.Types.String,
+    ChefDeProjet: { 
+     type: String,
+         required: true,
         ref: "chercheur"
+      
+       
     },
-    liste_members: [{ type: mongoose.Schema.Types.String, ref: "chercheur" }],
+    liste_members: [{
+       type: String,
+         required: true,
+        ref: "chercheur"
+      
+    }], 
 
     DateDebut: {
         type: String,
@@ -28,6 +36,7 @@ const ProjetSchema = new Schema({
 
     Theme: {
         type: String,
+         required: true
 
     }
 

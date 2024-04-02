@@ -1,14 +1,5 @@
-import React, { useState } from 'react'
-import { NavLink, Outlet } from "react-router-dom"
-
-
-
-
-
-export default function RechercheLayout() {
-
-
-  return (<>
-  </>
-  )
+import React from 'react';
+import Filtres from './Filtres/Filtres';
+export default function RechercheLayout({ searchby }) {
+  return <Filtres searchby={searchby} />;
 }
