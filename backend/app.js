@@ -25,6 +25,38 @@ const server = http.createServer(app)
 const io = socketIo(server)
 
 
+
+////////////////////////////////////////////////////////////////////////////
+const session = require('express-session');
+
+app.use(session({
+  secret: 'DDFDG',
+  resave: false,
+  saveUninitialized: true
+}))
+
+
+
+const passportSetup = require('./authentication/config/passport-setup')
+const passport = require('passport')
+app.use('/google', passport.authenticate('google', {
+ scope: ['profile',['email']]
+}))
+
+app.use('/auth/google/redirect',passport.authenticate('google',
+{
+ failureRedirect: '/login',
+successRedirect:'/'
+ }
+),(req, res) => {
+    res.send('you reached the redirect URI')}
+)
+app.use(passport.initialize());
+app.use(passport.session());
+////////////////////////////////////////////////////////////////////////////
+
+
+
 const PORT = process.env.PORT || 3000
 
 mongoose.connect(process.env.URL).then(() => {

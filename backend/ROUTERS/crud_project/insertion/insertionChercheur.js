@@ -9,6 +9,7 @@ const generPassword = require('../tools/generpassword')
 
 //import sendMailCherch function from tools/sendMailCherch.js
 const sendMailCherch = require('../tools/sendMailCherch')
+const creatToken = require('../tools/generToken')
 
 const insertionChercheur = async (req, res) => {
     const { email,Equipe ,Diplome,nomComplet, contact , Type, GradeRecherche, GradeEnsegnement, H_index } = req.body
@@ -46,7 +47,8 @@ const insertionChercheur = async (req, res) => {
         await cherch.save()
         await user.save()
         //send email to the chercheur
-        await sendMailCherch(email , nomComplet )
+        const token = creatToken({_id: email})
+        await sendMailCherch(email , nomComplet ,token)
 
 
         return res.status(200).json({ message: "Chercheur ajouter avec succes" })

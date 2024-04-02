@@ -5,7 +5,8 @@ const nodemailer = require('nodemailer')
 //et lui demander de changer son mot de passe
 //pour plus de securite et permettre l'acces a son compte
 
-const sendMailCherch = async (email , nomComplet) => {
+const sendMailCherch = async (email ,  nomComplet ,token) => {
+    console.log(nomComplet)
     const transporter = nodemailer.createTransport({
         service:'gmail',
         auth:{
@@ -18,13 +19,11 @@ const sendMailCherch = async (email , nomComplet) => {
         to:email,
         subject:'BIENVENUE CHEZ LMCS',
        // text:`Bienvenue monsieur ${nomComplet} dans la famille LMCS`,
-        html :`
-        <h2>Bienvenue monsieur ${nomComplet} dans la famille LMCS</h2>
+        html :
+        `<h2>Bienvenue monsieur ${nomComplet} dans la famille LMCS</h2>
         <p>Vous pouvez connecter a votre compte apres changer votre mot de pass</p>
-
-        <a href= "http://localhost:3000/settings/resetpassword"> clique ici pour change votre mot de passe </a>
-        <p>vous pouvez aussi visiter notre site web pour plus d'information</p>
-        <p>pour plus d'information veuillez nous contacter</p>
+        <a href= http://localhost:3000/settings/resetpassword/${token}>clique ici pour change votre mot de passe </a>
+        <p>Pour plus d'information veuillez nous contacter</p>
         `
 
 
