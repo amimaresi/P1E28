@@ -5,7 +5,8 @@ const UserSchema = new Schema({
 
     _id: { //mail
         type: String,
-        required: true
+        required: true,
+        ref: "chercheur"
     },
     username: {
         type: String,

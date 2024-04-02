@@ -1,6 +1,9 @@
-const MongoClient = require('mongodb').MongoClient;
+
+const Chercheur = require('../../schema/Chercheur');
+const Publication = require('../../schema/Publication');
+
 const fetchData = async (req, res) => {
-    const cherch = req.query.cherch;  //nom complet du chercheur
+    const cherch = req.query.cherch;
     if (!cherch) {
         res.status(400).send('Le paramètre cherch est requis');
         return;
@@ -12,18 +15,21 @@ const fetchData = async (req, res) => {
         const data = await response.json();
 
         const tabPublie = data.result.hits.hit;
-        const client = await MongoClient.connect('lien de bdd');
-        const db = client.db('test'); //nom de bdd
-        const collection2 = db.collection('chercheurs'); //nom de collection des chercheures
-        const collection1 = db.collection('publications'); //nom de collection des publications
-        const chercheur = await collection2.findOne({ nom_complet: cherch }); //recuperer les infos du chercheur
+
+        
+
+        // Récupérer le chercheur
+        const chercheur = await Chercheur.findOne({ nom_complet: cherch });
+
         let donneesAInserer = [];
         let pubCherch = [];
         let z = 0;
+
         for (let i = 0; i < tabPublie.length; i++) {
             const tabA = [];
             const auteures = tabPublie[i].info.authors.author;
-            let rang = -1; //vérifier si c le nom du chercheur
+            let rang = -1;
+
             for (let j = 0; j < auteures.length; j++) {
                 tabA[j] = auteures[j].text;
                 if (tabA[j] === cherch) {
@@ -45,26 +51,28 @@ const fetchData = async (req, res) => {
                     Lien: tabPublie[i].info.ee,
                     Membres: tabA,
                 };
-                donneesAInserer.push(publie); //inserer les publications
+                donneesAInserer.push(publie);
                 pubCherch[z] = publie._id;
                 z++;
             }
         }
 
         if (pubCherch.length !== 0) {
-            await collection2.updateOne( //inserer dans le champ d'un chercheur
+            await Chercheur.updateOne(
                 { _id: chercheur._id },
                 { $set: { publications: pubCherch } }
             );
-            const result = await collection1.insertMany(donneesAInserer); //inserer dans la collection Publications
+            const result = await Publication.insertMany(donneesAInserer);
         }
+
         console.log('Données insérées avec succès');
         res.status(200).send('Données insérées avec succès');
-        client.close();   
+
+       
+     
     } catch (error) {
         console.error('Une erreur s\'est produite :', error);
         res.status(500).send('Une erreur s\'est produite lors de l\'insertion des données');
-   
     }
 };
 

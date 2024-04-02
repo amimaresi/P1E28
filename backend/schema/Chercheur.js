@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const ChercheurSchema = new Schema ({
     _id: { //email
         type:String,
-        required: true
+        ref: "user"
     },
     nomComplet: { //prenom nom
         type: String,
@@ -32,7 +32,8 @@ const ChercheurSchema = new Schema ({
         type: String,
      },
     projet: [{
-        type: Number
+        type: Number,
+        ref: "projet"
 }],
 publications: [{
     Date: {

@@ -12,20 +12,17 @@ const ProjetSchema = new Schema({
         required: true
     },
     ChefDeProjet: { 
-        NomComplet: {
-        type: String
-       },
-       _id: { //mail
-        type: String
-       }
+     type: String,
+         required: true,
+        ref: "chercheur"
+      
+       
     },
     liste_members: [{
-       NomComplet: {
-        type: String
-       },
-       _id: { //mail
-        type: String
-       }
+       type: String,
+         required: true,
+        ref: "chercheur"
+      
     }], 
 
     DateDebut: {
@@ -39,6 +36,7 @@ const ProjetSchema = new Schema({
 
     Theme: {
         type: String,
+         required: true
 
     }
 

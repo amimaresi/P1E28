@@ -9,11 +9,13 @@ const PublicationSchema = new Schema ({
             },
             idCherch: {
                 type: String,
-                 required: true
+                 required: true,
+                ref: "chercheur"
             },
             confJourn: {
                 type: String,
-                 required: true
+                 required: true,
+                ref: "confJournal"
             },
             volume: {
                 type:String,
@@ -43,7 +45,8 @@ Membres: [{
     type: String
 }],
 Classement: [{
-   type: String
+  Nom: { type: String },
+    Valeur: { type: String}
 }]
 
 
