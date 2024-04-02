@@ -45,7 +45,8 @@ Membres: [{
     type: String
 }],
 Classement: [{
-   type: String
+  Nom: { type: String },
+    Valeur: { type: String}
 }]
 
 
