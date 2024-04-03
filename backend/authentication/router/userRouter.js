@@ -20,8 +20,8 @@ authRouter.use(session({//use the express-session package to create a session
 
 }))
 
-authRouter.get('/google' , passport.authenticate('google' , {scope: ['profile' , 'email']}))
-authRouter.get('/google/redirect' , passport.authenticate('google' ),
+authRouter.use('/google' , passport.authenticate('google' , {scope: ['profile' , 'email']}))
+authRouter.use('/google/redirect' , passport.authenticate('google' ),
  (req , res)=>{res.send('you reached the redirect URI')})
 
  authRouter.use(passport.initialize())

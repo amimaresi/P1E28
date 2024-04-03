@@ -24,8 +24,9 @@ const server = http.createServer(app)
 
 const io = socketIo(server)
 const authRouter = require('./authentication/router/userRouter')
-
+const setRouter = require('./settings/router')
 app.use('/auth', authRouter)
+app.use('/settings' , setRouter)
 
 
 
