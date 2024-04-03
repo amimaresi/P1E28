@@ -3,7 +3,6 @@ const GoogleStrategy = require('passport-google-oauth20')
 const User = require('../../schema/User')
 
 passport.serializeUser((user, done) => {
-    console.log('user.id', user.id)
     done(null , user.id)
 
 })
@@ -29,20 +28,18 @@ passport.use(
 
     // passport callback function
     (accessToken , refreshToken , profile ,email, done )=>{
-        
-     User.findOne({_id: email.emails[0].value}).then((currentUser)=>{
-        if(currentUser){
-            console.log('user is:', currentUser)
-            done(null, currentUser)
+       console.log('passport callback function fired')
+    //     console.log(email.emails[0].value)
+    //  User.findOne({_id: email.emails[0].value}).then((currentUser)=>{
+    //     if(currentUser){
+    //         done(null, currentUser)
+    //     }
+    //     else{
+    //      done(new Error('Vous etes connecté avec un compte non autorisé'))
 
-
-        }
-        else{
-         done(new Error('Vous etes connecté avec un compte non autorisé'))
-
-        }
-    }
-        )
+    //     }
+    // }
+    //     )
        
 
     })

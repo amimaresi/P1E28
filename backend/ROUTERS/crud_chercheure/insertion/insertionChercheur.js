@@ -5,11 +5,11 @@ const Chercheur = require('../../../schema/Chercheur')
 const User = require('../../../schema/User')
 
 //import generPassword function from tools/generpassword.js
-const generPassword = require('../tools/generpassword')
+const generPassword = require('../../tools/generPassword')
 
 //import sendMailCherch function from tools/sendMailCherch.js
-const sendMailCherch = require('../tools/sendMailCherch')
-const creatToken = require('../tools/generToken')
+const sendMailCherch = require('../../tools/sendMailCherch')
+const creatToken = require('../../tools/generToken')
 
 const insertionChercheur = async (req, res) => {
     const { email,Equipe ,Diplome,nomComplet, contact , Type, GradeRecherche, GradeEnsegnement, H_index } = req.body
