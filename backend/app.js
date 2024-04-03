@@ -28,33 +28,6 @@ const authRouter = require('./authentication/router/userRouter')
 app.use('/auth', authRouter)
 
 
-////////////////////////////////////////////////////////////////////////////
-// const session = require('express-session');
-
-// app.use(session({
-//   secret: 'DDFDG',
-//   resave: false,
-//   saveUninitialized: true
-// }))
-
-
-
-// const passportSetup = require('./authentication/config/passport-setup')
-// const passport = require('passport')
-// app.use('/google', passport.authenticate('google', {
-//  scope: ['profile',['email']]
-// }))
-
-// app.use('/auth/google/redirect',passport.authenticate('google',
-// {
-//  failureRedirect: '/login',
-// successRedirect:'/'
-//  }
-// ),(req, res) => {
-//     res.send('you reached the redirect URI')}
-// )
-
-////////////////////////////////////////////////////////////////////////////
 
 
 
