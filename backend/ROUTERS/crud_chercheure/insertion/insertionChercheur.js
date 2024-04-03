@@ -12,8 +12,8 @@ const sendMailCherch = require('../../tools/sendMailCherch')
 const creatToken = require('../../tools/generToken')
 
 const insertionChercheur = async (req, res) => {
-    const { email,Equipe ,Diplome,nomComplet, contact , Type, GradeRecherche, GradeEnsegnement, H_index } = req.body
-
+    const { email,Equipe ,Diplome,nom , prenom, contact , Type, GradeRecherche, GradeEnsegnement, H_index } = req.body
+    const nomComplet = prenom+ " " + nom
     try {
         //check if the chercheur already exist
         const chercheur = await Chercheur.findById(email)
