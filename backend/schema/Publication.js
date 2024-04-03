@@ -30,7 +30,7 @@ const PublicationSchema = new Schema ({
                 required: true
             }
     },
-Titre: {
+  Titre: {
     type: String,
     required: true
 },
