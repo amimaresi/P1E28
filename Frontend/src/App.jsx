@@ -23,10 +23,8 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<MLayout />}>
       <Route index element={<LandingPage />} />
-      <Route path="login" element={<Outlet />}>
-        <Route index element={<Login />} />
-        <Route path="resetpassword" element={<ResetPassword />} />
-      </Route>
+      <Route path="login" element={<Login />} />
+      <Route path="resetpassword" element={<ResetPassword />} />
       <Route path="aboutus" element={<AboutUs />} />
       <Route path="guide" element={<Guide />} />
       <Route path="recherche" element={<Outlet />}>

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
+import { NavLink, useOutletContext } from 'react-router-dom';
+
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [remember, setRemember] = useState(false);
-
+  const context = useOutletContext();
   const handleRememberChange = () => {
     setRemember(!remember);
   };
@@ -19,28 +20,8 @@ export default function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetch('http://localhost:5173/api/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-        remember: remember,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          console.log('Login successful');
-        } else {
-          console.log('Login failed');
-        }
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+    console.log(context);
+    context.setIsLogged.setIsLogged(true);
   };
 
   return (
