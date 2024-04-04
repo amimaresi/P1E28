@@ -64,8 +64,8 @@ export default function Filtres({ searchby }) {
   return (
     <>
       <Sheet>
-        <SheetTrigger className=" m-10 h-7 w-12 rounded bg-buttonDark text-textLight hover:bg-black">
-          Open
+        <SheetTrigger className="m-10 rounded-xl bg-buttonDark px-6 py-[5px] text-[18px] text-textLight hover:bg-black">
+          Filtres
         </SheetTrigger>
 
         <SheetContent side="left">

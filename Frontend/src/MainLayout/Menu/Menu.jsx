@@ -16,7 +16,7 @@ import { ExternalLinkIcon } from '@radix-ui/react-icons';
 
 export default function Menu() {
   return (
-    <nav className="fixed left-0 right-0 top-0 z-50 flex h-[60px] flex-row items-center  justify-between  bg-white bg-opacity-90 px-[1.5vw] shadow-sm backdrop-blur-md">
+    <nav className="fixed left-0 right-0 top-0 z-50 flex h-[60px] flex-row items-center  justify-between  bg-white bg-opacity-90 px-[40px] shadow-sm backdrop-blur-md">
       <div className="m-[100px] flex flex-row items-center justify-start gap-[10px]">
         <NavigationMenu>
           <NavigationMenuList>
