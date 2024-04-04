@@ -1,8 +1,7 @@
 const mongoose = require('mongoose')
 
 // Load the model
-const Chercheur = mongoose.model(process.env.NOM_COLLECTION_CHERCHEUR)
-
+const Chercheur = require('../../schema/Chercheur')
 
 
 // Recherche par nom de chercheur

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 // Load the model 
-const Publication = mongoose.model(process.env.NOM_COLLECTION_PUBLICATION)
+const Publication = require('../../schema/Publication')
 
 
 const queryPublication = async(req , res)=>{
