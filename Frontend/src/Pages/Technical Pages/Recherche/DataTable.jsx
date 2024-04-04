@@ -209,11 +209,11 @@ export function DataTableDemo({ navigate }) {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="rounded-md border">
+      <div className="rounded-sm border border-buttonDark bg-white ">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} className=" border-b-buttonDark">
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>
@@ -235,6 +235,7 @@ export function DataTableDemo({ navigate }) {
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
+                  className=" border-b-grey-400"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
