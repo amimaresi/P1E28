@@ -1,32 +1,18 @@
-const { MongoClient } = require('mongodb');
+const Chercheur = require('./Schema/Chercheur');
+const Projet = require('./Schema/Projet');
+const Encadrement = require('./Schema/Encadrement');
 
 const getCollectionCount = async (req, res) => {
     try {
-        const { databaseName, collectionName } = req.query;
+        // Obtenir le nombre de documents dans chaque collection
+        const countChercheur = await Chercheur.countDocuments();
+        const countProjet = await Projet.countDocuments();
+        const countEncadrement = await Encadrement.countDocuments();
 
-        if (!databaseName || !collectionName) {
-            res.status(400).send('Les paramètres databaseName et collectionName sont requis.');
-            return;
-        }
-
-        // Connexion à la base de données
-        const client = await MongoClient.connect('lien de bdd');
-        console.log("Connexion à MongoDB réussie");
-
-        // Sélectionner la base de données
-        const db = client.db(databaseName);
-
-        // Obtenir le nombre de documents dans la collection spécifiée
-        const count = await db.collection(collectionName).countDocuments();
-
-        //console.log(`Nombre de documents dans la collection ${collectionName}: ${count}`);
-
-        // Fermer la connexion
-        client.close();
-
-        res.status(200).json({ count });
+        // Retourner les résultats sous forme d'un objet JSON
+        res.status(200).json({ countChercheur, countProjet, countEncadrement });
     } catch (error) {
-       // console.error('Une erreur s\'est produite :', error);
+        console.error('Une erreur s\'est produite :', error);
         res.status(500).send('Une erreur s\'est produite lors de la récupération du nombre de documents.');
     }
 };
