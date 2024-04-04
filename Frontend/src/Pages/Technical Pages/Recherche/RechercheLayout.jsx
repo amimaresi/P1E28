@@ -64,7 +64,9 @@ export default function RechercheLayout({ searchby }) {
   return (
     <>
       <div className=" h-screen  pl-40 pt-16">
-        <h1 className="mb-4 text-4xl font-semibold text-textDark">Recherche</h1>
+        <h1 className="mb-4 text-4xl font-semibold text-textDark">
+          Recherche (test)
+        </h1>
         <div className=" flex flex-row items-center justify-start">
           <Input
             type="text"
