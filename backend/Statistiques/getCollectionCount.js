@@ -1,6 +1,6 @@
-const Chercheur = require('./Schema/Chercheur');
-const Projet = require('./Schema/Projet');
-const Encadrement = require('./Schema/Encadrement');
+const Chercheur = require('../../schema/Chercheur');
+const Projet = require('../../schema/Projet');
+const Encadrement = require('../../schema/Encadrement');
 
 const getCollectionCount = async (req, res) => {
     try {
