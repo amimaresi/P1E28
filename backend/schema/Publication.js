@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const PublicationSchema = new Schema ({
-    _id: {
+    
         Date: {
             type: String,
              required: true
@@ -28,7 +28,7 @@ const PublicationSchema = new Schema ({
             rang: {
                 type: Number,
                 required: true
-            }
+            
     },
   Titre: {
     type: String,
