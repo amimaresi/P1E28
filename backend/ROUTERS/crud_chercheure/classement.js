@@ -1,41 +1,34 @@
-const Chercheur = require('../../Schema/Chercheur'); // Importer le modèle Chercheur
-const Publication = require('../../Schema/Publication'); // Importer le modèle Publication
-const mongoose = require('mongoose');
+const Publication = require('../../schema/Publication');
 
-// Fonction pour ajouter ou modifier les classements des publications d'un chercheur
-const ajouterModifierClassement = async (chercheurId, publicationId, nouveauxClassements) => {
+const ajouterModifierClassement = async (req, res) => {
     try {
-        // Connexion à la base de données MongoDB
-        await mongoose.connect('lien de bdd');
+        const { idCherch, idPublication } = req.params;
+        const { classements } = req.body;
 
-        // Vérifier si le chercheur existe
-        const chercheur = await Chercheur.findById(chercheurId);
-        if (!chercheur) {
-            throw new Error('Le chercheur spécifié n\'existe pas.');
-        }
+        let publication = await Publication.findOne({ _id: idPublication, idCherch });
 
-        // Vérifier si la publication existe et appartient au chercheur
-        const publication = await Publication.findById(publicationId);
         if (!publication) {
-            throw new Error('La publication spécifiée n\'existe pas.');
-        }
-        if (publication._id.idCherch !== chercheurId) {
-            throw new Error('La publication spécifiée n\'appartient pas au chercheur.');
+            return res.status(404).send('Publication non trouvée.');
         }
 
-        // Mettre à jour les classements de la publication
-        publication.Classement = nouveauxClassements;
+        for (let i = 0; i < classements.length; i++) {
+            const { Nom, Valeur } = classements[i];
+            
+            let index = publication.Classement.findIndex(c => c.Nom === Nom);
 
-        // Enregistrer la publication mise à jour
-        const publicationMiseAJour = await publication.save();
+            if (index !== -1) {
+                publication.Classement[index].Valeur = Valeur;
+            } else {
+                publication.Classement.push({ Nom, Valeur });
+            }
+        }
 
-        // Déconnexion de la base de données MongoDB
-        await mongoose.disconnect();
+        await publication.save();
 
-        return publicationMiseAJour;
+        res.status(200).send('Classements ajoutés ou modifiés avec succès.');
     } catch (error) {
-        console.error('Une erreur s\'est produite lors de l\'ajout ou de la modification des classements :', error);
-        throw error;
+        console.error('Une erreur s\'est produite :', error);
+        res.status(500).send('Une erreur s\'est produite lors de l\'ajout ou de la modification des classements.');
     }
 };
 
