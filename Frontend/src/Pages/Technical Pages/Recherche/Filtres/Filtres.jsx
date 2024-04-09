@@ -30,6 +30,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
+
 export default function Filtres({ searchby }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const phoneRegExp = /^\+?(\d{1,3})?[-. ]?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/;

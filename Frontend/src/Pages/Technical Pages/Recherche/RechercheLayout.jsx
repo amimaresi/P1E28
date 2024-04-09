@@ -67,23 +67,16 @@ export default function RechercheLayout({ searchby }) {
         <h1 className="mb-4 text-4xl font-semibold text-textDark">
           Recherche (test)
         </h1>
-        <div className=" flex flex-row items-center justify-start">
-          <Input
-            type="text"
-            placeholder="Entrez le mot clé"
-            className="h-15 w-[17rem] rounded-xl border border-gray-300 shadow "
-          />
-          <Filtres searchby={searchby} />
-        </div>
+        <div className=" flex flex-row items-center justify-start"></div>
         <div className="w-[70%]">
-          <DataTableDemo navigate={navigate} />
+          <DataTableDemo searchby={searchby} />
         </div>
       </div>
     </>
   );
 }
 
-export function TableDemo({ navigate }) {
+export function TableDemo({ navigate, searchby }) {
   return (
     <Table>
       <TableCaption>A list of your recent invoices.</TableCaption>

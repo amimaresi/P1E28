@@ -8,7 +8,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from 'lucide-react';
-
+import Filtres from './Filtres/Filtres.jsx';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
@@ -154,7 +154,7 @@ export const columns = [
   },
 ];
 
-export function DataTableDemo({ navigate }) {
+export function DataTableDemo({ navigate, searchby }) {
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [columnVisibility, setColumnVisibility] = React.useState({});
@@ -181,7 +181,13 @@ export function DataTableDemo({ navigate }) {
 
   return (
     <div className="w-full">
-      <div className="flex items-center py-4">
+      <div className="flex items-center ">
+        <Input
+          type="text"
+          placeholder="Entrez le mot clé"
+          className="h-15 w-[17rem] rounded-xl border border-gray-300 shadow "
+        />
+        <Filtres searchby={searchby} />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
