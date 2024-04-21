@@ -30,38 +30,8 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-const data = [
-  {
-    id: 'm5gr84i9',
-    amount: 316,
-    status: 'success',
-    email: 'ken99@yahoo.com',
-  },
-  {
-    id: '3u1reuv4',
-    amount: 242,
-    status: 'success',
-    email: 'Abe45@gmail.com',
-  },
-  {
-    id: 'derv1ws0',
-    amount: 837,
-    status: 'processing',
-    email: 'Monserrat44@gmail.com',
-  },
-  {
-    id: '5kma53ae',
-    amount: 874,
-    status: 'success',
-    email: 'Silas22@gmail.com',
-  },
-  {
-    id: 'bhqecj4p',
-    amount: 721,
-    status: 'failed',
-    email: 'carmella@hotmail.com',
-  },
-];
+import Data from './data.js';
+const data = Data.Data;
 
 export const columns = [
   {
@@ -159,7 +129,6 @@ export function DataTableDemo({ navigate, searchby }) {
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [columnVisibility, setColumnVisibility] = React.useState({});
   const [rowSelection, setRowSelection] = React.useState({});
-
   const table = useReactTable({
     data,
     columns,
@@ -178,7 +147,7 @@ export function DataTableDemo({ navigate, searchby }) {
       rowSelection,
     },
   });
-
+  console.log(Data, data);
   return (
     <div className="w-full">
       <div className="flex items-center ">
