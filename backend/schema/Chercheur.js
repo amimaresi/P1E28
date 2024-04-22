@@ -71,8 +71,10 @@ const ChercheurSchema = new Schema ({
     Equipe: {
         type: String,
         //required: true
-    }
-   
+    },
+  orcid: {
+    type: String
+}
 }, { timestamps: true });
 
 const Chercheur = mongoose.model("chercheur",ChercheurSchema);
