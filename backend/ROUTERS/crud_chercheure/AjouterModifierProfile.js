@@ -1,4 +1,4 @@
-const Chercheur = require('./Schema/Chercheur');
+const Chercheur = require('../../schema/Chercheur');
 
 const modifierProfilChercheur = async (req, res) => {
     try {
