@@ -8,7 +8,7 @@ const insererEncadrement = async (req, res) => {
         const data = req.body; 
 
         const encadrants = data.encadrants.map(encadrant => ({
-            nomComplet: encadrant.nomComplet,
+            nomComplet: encadrant.prenom + " " + encadrant.nom ,
             _id: encadrant.idCherch,
             role: encadrant.role
         }));
