@@ -47,7 +47,10 @@ const PublicationSchema = new Schema({
     Classement: [{
         Nom: { type: String },
         Valeur: { type: String }
-    }]
+    }],
+    MaisonEdistion: {
+        type: String
+    }
 
 
 
