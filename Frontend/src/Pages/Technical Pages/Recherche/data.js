@@ -1,34 +1,52 @@
-export default {
-  Data: [
-    {
-      id: 'm5gr84i9',
-      amount: 316,
-      status: 'success',
-      email: 'ken99@yahoo.com',
-    },
-    {
-      id: '3u1reuv4',
-      amount: 242,
-      status: 'success',
-      email: 'Abe45@gmail.com',
-    },
-    {
-      id: 'derv1ws0',
-      amount: 837,
-      status: 'processing',
-      email: 'Monserrat44@gmail.com',
-    },
-    {
-      id: '5kma53ae',
-      amount: 874,
-      status: 'success',
-      email: 'Silas22@gmail.com',
-    },
-    {
-      id: 'bhqecj4p',
-      amount: 721,
-      status: 'failed',
-      email: 'carmella@hotmail.com',
-    },
-  ],
-};
+const Fetcheddata = [
+  {
+    _id: 'k_benatchba@esi.dz',
+    nomComplet: 'Karima Benatchba',
+    GradeEnsegnement: null,
+    qualité: 'Chercheure',
+    GradeRecherche: 'Maitre de recherche',
+    H_index: 20,
+    EtablissementOrigine: 'ESI',
+    statut: 'Actif',
+    Diplome: 'Doctorat',
+    Equipe: 'Optimisation',
+  },
+  {
+    _id: 'mouloud.koudil@esi.dz',
+    nomComplet: 'Mouloud Koudil',
+    GradeEnsegnement: 'MCA',
+    qualité: 'Enseignat-Chercheur',
+    GradeRecherche: 'Directeur de recherche',
+    H_index: 27,
+    EtablissementOrigine: 'ESI',
+    statut: 'Actif',
+    Equipe: 'EIAH',
+    Diplome: 'Doctorat',
+  },
+  {
+    _id: 'b_khelouat@esi.dz',
+    nomComplet: 'Boualem Khelouat',
+    GradeEnsegnement: 'MCB',
+    qualité: 'Enseignat-Chercheure',
+    GradeRecherche: 'Maitre de recherche',
+    H_index: 12,
+    EtablissementOrigine: 'ESI',
+    statut: 'Actif',
+    Diplome: 'Doctorat',
+    Equipe: 'SURES',
+  },
+  {
+    _id: 'f_sitayeb@esi.dz',
+    nomComplet: 'Fatima Benbouzid-Si Tayeb',
+    GradeEnsegnement: 'MAA',
+    qualité: 'Enseignat-Chercheure',
+    GradeRecherche: 'Maitre de recherche',
+    H_index: 10,
+    EtablissementOrigine: 'ESI',
+    statut: 'Actif',
+    Diplome: 'Doctorat',
+    Equipe: 'SURES',
+  },
+];
+const data = Fetcheddata.map((item) => ({ id: item.id, ...item }));
+export default data;
