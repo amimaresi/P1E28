@@ -18,6 +18,11 @@ import AddChercheur from './Pages/Technical Pages/Control Pannel/Pages/AddCherch
 import AddProject from './Pages/Technical Pages/Control Pannel/Pages/AddProject.jsx';
 import EditLandingPage from './Pages/Technical Pages/Control Pannel/Pages/EditLandingPage.jsx';
 import Update from './Pages/Technical Pages/Control Pannel/Pages/Update.jsx';
+import CPLayout from './Pages/Profiles/Chercheur/CPLayout.jsx';
+import Informations from './Pages/Profiles/Chercheur/Outlets/informations.jsx';
+import Encadrements from './Pages/Profiles/Chercheur/Outlets/encadrements.jsx';
+import Publications from './Pages/Profiles/Chercheur/Outlets/publications.jsx';
+import Statistiques from './Pages/Profiles/Chercheur/Outlets/statistiques.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,6 +43,12 @@ const router = createBrowserRouter(
           element={<RechercheLayout searchby="publication" />}
         />
         <Route path="projet" element={<RechercheLayout searchby="projet" />} />
+      </Route>
+      <Route path="chercheur/:id" element={<CPLayout />}>
+        <Route path="informations" element={<Informations />} />
+        <Route path="encadrements" element={<Encadrements />} />
+        <Route path="publications" element={<Publications />} />
+        <Route path="statistiques" element={<Statistiques />} />
       </Route>
       <Route path="control" element={<Outlet />}>
         <Route index element={<NotFound />} />
