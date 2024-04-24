@@ -15,27 +15,39 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+ const options = {method : 'POST'}
+fetch("/insertProjet", options)
+.then(response =>{
  
+  if(!response.ok){
+    throw new Error("could not fetch resource");
+  }
+  return  response.json();
+})
+.then(data=> console.log(data))
+.catch(error => console.error(error) );
+
 export default function AddProject() {
   const schema = yup.object().shape({
-    numero: yup.string().required("le numero est requis"),
-    titre: yup.string().required("le titre est requis"),
-    dateDebut: yup.string().required("la date de debut est requise"),
+    Num: yup.string().required("le numero est requis"),
+    Titre: yup.string().required("le titre est requis"),
+    DateDebut: yup.string().required("la date de debut est requise"),
     chefProjet: yup.string().required(" le chef de projet est requis  "),
-    dateFin : yup.string(),
-    theme : yup.string().required(" le theme est requis "),
-    listeMembres : yup.string().required(" la liste des membres est requise "),
+    DateFin : yup.string(),
+    Theme : yup.string().required(" le theme est requis "),
+    liste_members : yup.string().required(" la liste des membres est requise "),
   });
 
   const form = useForm({
     defaultValues: {
-      numero:"" ,
-    titre:"" ,
-    dateDebut: "",
-    chefProjet: "",
-    dateFin : "",
-    theme : "",
-    listeMembres : "",
+      Num: "",
+    Titre: "",
+    DateDebut: "",
+    chefProjet:"",
+    DateFin :"",
+    Theme : "",
+    liste_members : ""
+  
 
     },
     resolver: yupResolver(schema),
@@ -43,6 +55,7 @@ export default function AddProject() {
   });
 
   const onSubmit = (data) => {
+    fetch();
     console.log('Filtres : ', data);
   };
  
@@ -56,7 +69,7 @@ export default function AddProject() {
             <hr className='h-px my-8 bg-black  bg-opacity-50 border-0 '></hr>
           <FormField
             control={form.control}
-            name="numero"
+            name="Num"
             render={({ field }) => (
               <>
               
@@ -86,7 +99,7 @@ export default function AddProject() {
           
       <FormField
             control={form.control}
-            name="titre"
+            name="Titre"
             render={({ field }) => (
 
               <> 
@@ -114,7 +127,7 @@ export default function AddProject() {
             
             <FormField
             control={form.control}
-            name="dateDebut"
+            name="DateDebut"
             render={({ field }) => (
               <>
               
@@ -170,7 +183,7 @@ export default function AddProject() {
             
             <FormField
             control={form.control}
-            name="dateFin"
+            name="DateFin"
             render={({ field }) => (
 
               <> 
@@ -197,7 +210,7 @@ export default function AddProject() {
             />
             <FormField
             control={form.control}
-            name="theme"
+            name="Theme"
             render={({ field }) => (
 
               <> 
@@ -224,7 +237,7 @@ export default function AddProject() {
             />
             <FormField
             control={form.control}
-            name="listeMembres"
+            name="liste_members"
             render={({ field }) => (
 
               <> 
