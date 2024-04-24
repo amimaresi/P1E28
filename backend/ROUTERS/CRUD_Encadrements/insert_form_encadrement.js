@@ -27,13 +27,17 @@ const insererEncadrement = async (req, res) => {
             }
         }
 
+        const etudiants = [];
+        for (let j = 0; j < data.Etudiants.length; j++) {
+            etudiants[j] = data.Etudiants[j].Nom + " " + data.Etudiants[j].Prenom
+        }
         const nouveauEncadrement = new Encadrement({
             Type: data.Type,
             Titre: data.Titre,
             AnneeD: data.AnneeD,
             AnneeF: data.AnneeF,
             Encadrants: cadr,
-            Etudiants: data.Etudiants
+            Etudiants: etudiants
         });
 
         const resultat = await nouveauEncadrement.save();
