@@ -8,7 +8,7 @@ export default function RechercheLayout({ searchby }) {
     <>
       <div className=" h-screen  pl-40 pt-16">
         <h1 className="mb-4 text-4xl font-semibold text-textDark">
-          Recherche (test)
+          Recherche 0.7
         </h1>
         <div className=" flex flex-row items-center justify-start"></div>
         <div className="w-[70%]">

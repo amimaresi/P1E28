@@ -89,6 +89,26 @@ export default function Menu({ isLogged, setIsLogged, role, name }) {
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger className=" text-[16.5px]">
+                Profile
+              </NavigationMenuTrigger>
+
+              <NavigationMenuContent>
+                <ul className="grid w-[125px] grid-flow-row">
+                  <ListItem to="/chercheur/test" isSimple title="Chercheurs" />
+                  <ListItem
+                    to="publication/test"
+                    isSimple
+                    title="Publications"
+                  />
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
       </div>
 
       <div className="flex flex-row items-center justify-end gap-5">

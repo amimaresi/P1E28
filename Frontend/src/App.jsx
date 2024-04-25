@@ -50,6 +50,12 @@ const router = createBrowserRouter(
         <Route path="publications" element={<Publications />} />
         <Route path="statistiques" element={<Statistiques />} />
       </Route>
+      <Route path="publication/:id" element={<CPLayout />}>
+        <Route path="informations" element={<Informations />} />
+        <Route path="encadrements" element={<Encadrements />} />
+        <Route path="publications" element={<Publications />} />
+        <Route path="statistiques" element={<Statistiques />} />
+      </Route>
       <Route path="control" element={<Outlet />}>
         <Route index element={<NotFound />} />
         <Route path="LandingPage" element={<EditLandingPage />} />
