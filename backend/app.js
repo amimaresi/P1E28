@@ -34,6 +34,8 @@ app.use('/api/v1/home', crud);
 
 const PORT = process.env.PORT || 3000
 
+
+
 mongoose.connect(process.env.URL).then(() => {
     app.listen(PORT, async () => {
         console.log("connected to the database and start listening at post 3000..")
@@ -41,11 +43,12 @@ mongoose.connect(process.env.URL).then(() => {
 
         if (maj_time !== -1) {
             maj_time = maj_time[0] * 12 + maj_time[1];
-            cron.schedule(`* * * * */${maj_time}`, maj)
+           cron.schedule(`* * * * */${maj_time}`, maj)
 
-        }
+      }
     })
 
 }).catch((err) => {
     console.log("can't connect ", err)
 })
+

@@ -7,7 +7,7 @@ const insererEncadrement = async (req, res) => {
     try {
         const data = req.body; 
 
-        const encadrants = data.encadrants.map(encadrant => ({
+        const encadrants = data.Encadrants.map(encadrant => ({
             nomComplet: encadrant.prenom + " " + encadrant.nom ,
             _id: encadrant.idCherch,
             role: encadrant.role
@@ -27,13 +27,17 @@ const insererEncadrement = async (req, res) => {
             }
         }
 
+        const etudiants = [];
+        for (let j = 0; j < data.Etudiants.length; j++) {
+            etudiants[j] = data.Etudiants[j].Nom + " " + data.Etudiants[j].Prenom
+        }
         const nouveauEncadrement = new Encadrement({
-            Type: data.type,
-            Titre: data.titre,
-            AnneeD: data.anneeD,
-            AnneeF: data.anneeF,
+            Type: data.Type,
+            Titre: data.Titre,
+            AnneeD: data.AnneeD,
+            AnneeF: data.AnneeF,
             Encadrants: cadr,
-            Etudiants: data.etudiants
+            Etudiants: etudiants
         });
 
         const resultat = await nouveauEncadrement.save();
