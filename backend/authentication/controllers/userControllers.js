@@ -83,9 +83,8 @@ const loginUser = async (req , res)=>{
     console.log(password)
 
     //get the id and token from the request parameters
-    const {id , token} = req.params
+    const { token} = req.params
     console.log(token )
-    console.log(id)
 
     try {
 
@@ -93,7 +92,8 @@ const loginUser = async (req , res)=>{
     const decoded =  jwt.verify(token , process.env.SECRET_KEY )
 
         //find the user by the id
-        const user = await User.findById(id)
+        console.log(decoded)
+        const user = await User.findById(decoded.email)
 
         //hash the password
         const salt = await bcrypt.genSalt(10)

@@ -2,12 +2,28 @@ const User = require('../schema/User')
 const jwt = require('jsonwebtoken')
 const cookie = require('cookie-parser')
 const bcrypt = require('bcrypt')
+const multer = require('multer')
+const chercheur = require('../schema/Chercheur')
+const path = require('path')
+
+
+const  cloudinary = require('cloudinary').v2
+const {CloudinaryStorage} = require('multer-storage-cloudinary')
+          
+cloudinary.config({ 
+  cloud_name: process.env.CLOUD_NAME, 
+  api_key: process.env.API_CLOUD_KEY, 
+  api_secret: process.env.API_CLOUD_SECRET 
+})
+
+
+
 
 
 const resetUserName = async (req ,res)=>{
     const {username} = req.body 
     try {
-        const payload = jwt.verify(req.cookies.jwt, process.env.SECRET_KEY)
+        const payload =  jwt.verify(req.cookies.jwt, process.env.SECRET_KEY)
         const email = payload.email
       
         await User.findOne({username}).then( async (user)=>{
@@ -30,6 +46,7 @@ const resetUserName = async (req ,res)=>{
 
 
 }
+
 
 const resetPassword = async (req , res)=>{
 
@@ -77,9 +94,48 @@ const resetPassword = async (req , res)=>{
 
 
 
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+      folder: 'profile',
+      format: async (req, file) => file.mimetype.split('/')[1], 
+      public_id: (req, file) => (
+         file.originalname.split('.')[0].replace(/\s/g, '') +  Date.now()),
+    },
+  })
+  const upload = multer({ storage: storage })
+const updateProfileImage = async (req , res)=>{
+
+    
+   try {
+    const payload = jwt.verify(req.cookies.jwt , process.env.SECRET_KEY)
+    const email = payload.email 
+    console.log(email)
+     const user = await chercheur.findOne({_id: email})
+     if(user.image_path){
+        const img = path.basename(user.image_path)
+        console.log(img.split('.')[0])
+   const res= await cloudinary.uploader.destroy(`profile/${img.split('.')[0]}`)
+   console.log(res)
+
+     }
+     await user.updateOne({image_path: req.file.path})
+    console.log(req.file.path)
+     
+    console.log(req.file)
+    res.status(200).json({file : 'VOTRE PHOTO DE PROFIL A ETE MODIFIEE AVEC SUCCES'})
+   }
+    catch(err){
+         res.status(400).json({message: err.message})
+    }
+}
 
 
 
 
 
-module.exports = {resetUserName , resetPassword }
+
+
+
+
+module.exports = {resetUserName , resetPassword , updateProfileImage , upload}
