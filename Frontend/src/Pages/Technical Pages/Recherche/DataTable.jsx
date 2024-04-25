@@ -59,9 +59,7 @@ export function Columns({ navigate }) {
               </AvatarFallback>
             </Avatar>
           </div>
-          <div className="w-[200px] lowercase">
-            {row.getValue('nomComplet')}
-          </div>
+          <div className="lowercase">{row.getValue('nomComplet')}</div>
         </div>
       ),
     },
@@ -133,7 +131,6 @@ export function DataTableDemo({ navigate, searchby }) {
       pagination,
     },
   });
-  console.log(data);
   const paginationButtons = [];
   for (let i = 0; i < table.getPageCount(); i++) {
     paginationButtons[i] = (
