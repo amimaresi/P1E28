@@ -31,40 +31,41 @@ import {
 } from '@/components/ui/table';
 import { NavLink } from 'react-router-dom';
 import data from './data.js';
+import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
 
 export function Columns({ navigate }) {
   return [
     {
-      id: 'select',
-      header: ({ table }) => (
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && 'indeterminate')
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all"
-        />
-      ),
+      accessorKey: 'nomComplet',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+            className="ml-10"
+          >
+            Nom Complet
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label="Select row"
-        />
+        <div className=" flex flex-row items-center gap-3">
+          <div className=" flex h-9 w-9 items-center justify-center rounded-full bg-gray-300">
+            <Avatar>
+              <AvatarImage src="n" />
+              <AvatarFallback>
+                {row.getValue('nomComplet').slice(0, 2)}
+              </AvatarFallback>
+            </Avatar>
+          </div>
+
+          <div className="lowercase">{row.getValue('nomComplet')}</div>
+        </div>
       ),
-      enableSorting: false,
-      enableHiding: false,
     },
     {
-      accessorKey: 'status',
-      header: 'Status',
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('status')}</div>
-      ),
-    },
-    {
-      accessorKey: 'Email',
+      accessorKey: '_id',
       header: ({ column }) => {
         return (
           <Button
@@ -76,24 +77,15 @@ export function Columns({ navigate }) {
           </Button>
         );
       },
-      cell: ({ row }) => (
-        <div className="lowercase">{row.getValue('Email')}</div>
-      ),
+      cell: ({ row }) => <div className="lowercase">{row.getValue('_id')}</div>,
     },
+
     {
-      accessorKey: 'amount',
-      header: () => <div className="text-right">Amount</div>,
-      cell: ({ row }) => {
-        const amount = parseFloat(row.getValue('amount'));
-
-        // Format the amount as a dollar amount
-        const formatted = new Intl.NumberFormat('en-US', {
-          style: 'currency',
-          currency: 'USD',
-        }).format(amount);
-
-        return <div className="text-right font-medium">{formatted}</div>;
+      accessorKey: 'blanc',
+      header: ({ column }) => {
+        return <></>;
       },
+      cell: ({ row }) => <></>,
     },
     {
       id: 'actions',
@@ -111,13 +103,8 @@ export function Columns({ navigate }) {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem
-                onClick={() => navigator.clipboard.writeText(chercheur.id)}
-              >
-                Copy chercheur ID
-              </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <NavLink to={`./${chercheur.id}`}>
+              <NavLink to={`./${chercheur.id + '/informations' || 'NotFound'}`}>
                 <DropdownMenuItem>Voir le profil</DropdownMenuItem>
               </NavLink>
               <DropdownMenuItem>View chercheur details</DropdownMenuItem>
@@ -132,7 +119,10 @@ export function DataTableDemo({ navigate, searchby }) {
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [columnVisibility, setColumnVisibility] = React.useState({});
-  const [rowSelection, setRowSelection] = React.useState({});
+  const [pagination, setPagination] = React.useState({
+    pageIndex: 0,
+    pageSize: 5,
+  });
   const table = useReactTable({
     data,
     columns: Columns(navigate),
@@ -143,108 +133,114 @@ export function DataTableDemo({ navigate, searchby }) {
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: setRowSelection,
+    onPaginationChange: setPagination,
     state: {
-      sorting,
       columnFilters,
       columnVisibility,
-      rowSelection,
+      pagination,
     },
   });
   console.log(data);
+  const paginationButtons = [];
+  for (let i = 0; i < table.getPageCount(); i++) {
+    paginationButtons[i] = (
+      <button
+        onClick={() => {
+          table.setPageIndex(i);
+        }}
+        className="m-2 p-1 text-gray-400 transition-colors hover:text-black"
+      >
+        {i}
+      </button>
+    );
+  }
   return (
-    <div className="w-full">
-      <div className="flex items-center ">
-        <Input
-          type="text"
-          placeholder="Entrez le mot clé"
-          className="h-15 w-[17rem] rounded-xl border border-gray-300 shadow "
-        />
-        <Filtres searchby={searchby} />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns <ChevronDown className="ml-2 h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-      <div className="rounded-sm border border-buttonDark bg-white ">
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className=" border-b-buttonDark">
-                {headerGroup.headers.map((header) => {
+    <div>
+      <div className="h-[530px] w-full">
+        <div className="flex items-center ">
+          <Input
+            type="text"
+            placeholder="Entrez le mot clé"
+            className="h-15 w-[17rem] rounded-xl border border-gray-300 shadow "
+          />
+          <Filtres searchby={searchby} />
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="ml-auto">
+                Columns <ChevronDown className="ml-2 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => {
                   return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
-                    </TableHead>
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      className="capitalize"
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value) =>
+                        column.toggleVisibility(!!value)
+                      }
+                    >
+                      {column.id}
+                    </DropdownMenuCheckboxItem>
                   );
                 })}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
-                  className=" border-b-grey-400"
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={Columns(navigate).length}
-                  className="h-24 text-center"
-                >
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{' '}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
-        <div className="space-x-2">
+        <div className="rounded-sm border border-buttonDark bg-white ">
+          <Table>
+            <TableHeader>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id} className=" border-b-buttonDark">
+                  {headerGroup.headers.map((header) => {
+                    return (
+                      <TableHead key={header.id}>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
+                      </TableHead>
+                    );
+                  })}
+                </TableRow>
+              ))}
+            </TableHeader>
+            <TableBody>
+              {table.getRowModel().rows?.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow key={row.id} className=" border-b-grey-400">
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={Columns(navigate).length}
+                    className="h-24 text-center"
+                  >
+                    No results.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
+      </div>
+      <div className="flex flex-row items-center justify-center ">
+        <div>
           <Button
             variant="outline"
             size="sm"
@@ -253,6 +249,7 @@ export function DataTableDemo({ navigate, searchby }) {
           >
             Previous
           </Button>
+          {paginationButtons}
           <Button
             variant="outline"
             size="sm"

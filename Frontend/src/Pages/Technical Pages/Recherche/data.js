@@ -1,4 +1,4 @@
-const Fetcheddata = [
+const data = [
   {
     _id: 'k_benatchba@esi.dz',
     nomComplet: 'Karima Benatchba',
@@ -47,6 +47,53 @@ const Fetcheddata = [
     Diplome: 'Doctorat',
     Equipe: 'SURES',
   },
+  {
+    _id: 'b_khelouat@esi.dz',
+    nomComplet: 'Boualem Khelouat',
+    GradeEnsegnement: 'MCB',
+    qualité: 'Enseignat-Chercheure',
+    GradeRecherche: 'Maitre de recherche',
+    H_index: 12,
+    EtablissementOrigine: 'ESI',
+    statut: 'Actif',
+    Diplome: 'Doctorat',
+    Equipe: 'SURES',
+  },
+  {
+    _id: 'f_sitayeb@esi.dz',
+    nomComplet: 'Fatima Benbouzid-Si Tayeb',
+    GradeEnsegnement: 'MAA',
+    qualité: 'Enseignat-Chercheure',
+    GradeRecherche: 'Maitre de recherche',
+    H_index: 10,
+    EtablissementOrigine: 'ESI',
+    statut: 'Actif',
+    Diplome: 'Doctorat',
+    Equipe: 'SURES',
+  },
+  {
+    _id: 'b_khelouat@esi.dz',
+    nomComplet: 'Boualem Khelouat',
+    GradeEnsegnement: 'MCB',
+    qualité: 'Enseignat-Chercheure',
+    GradeRecherche: 'Maitre de recherche',
+    H_index: 12,
+    EtablissementOrigine: 'ESI',
+    statut: 'Actif',
+    Diplome: 'Doctorat',
+    Equipe: 'SURES',
+  },
+  {
+    _id: 'f_sitayeb@esi.dz',
+    nomComplet: 'Fatima Benbouzid-Si Tayeb',
+    GradeEnsegnement: 'MAA',
+    qualité: 'Enseignat-Chercheure',
+    GradeRecherche: 'Maitre de recherche',
+    H_index: 10,
+    EtablissementOrigine: 'ESI',
+    statut: 'Actif',
+    Diplome: 'Doctorat',
+    Equipe: 'SURES',
+  },
 ];
-const data = Fetcheddata.map((item) => ({ id: item.id, ...item }));
 export default data;
