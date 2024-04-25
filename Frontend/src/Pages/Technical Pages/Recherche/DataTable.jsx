@@ -59,8 +59,9 @@ export function Columns({ navigate }) {
               </AvatarFallback>
             </Avatar>
           </div>
-
-          <div className="lowercase">{row.getValue('nomComplet')}</div>
+          <div className="w-[200px] lowercase">
+            {row.getValue('nomComplet')}
+          </div>
         </div>
       ),
     },
@@ -78,14 +79,6 @@ export function Columns({ navigate }) {
         );
       },
       cell: ({ row }) => <div className="lowercase">{row.getValue('_id')}</div>,
-    },
-
-    {
-      accessorKey: 'blanc',
-      header: ({ column }) => {
-        return <></>;
-      },
-      cell: ({ row }) => <></>,
     },
     {
       id: 'actions',
@@ -121,7 +114,7 @@ export function DataTableDemo({ navigate, searchby }) {
   const [columnVisibility, setColumnVisibility] = React.useState({});
   const [pagination, setPagination] = React.useState({
     pageIndex: 0,
-    pageSize: 5,
+    pageSize: 6,
   });
   const table = useReactTable({
     data,
@@ -148,7 +141,7 @@ export function DataTableDemo({ navigate, searchby }) {
         onClick={() => {
           table.setPageIndex(i);
         }}
-        className="m-2 p-1 text-gray-400 transition-colors hover:text-black"
+        className={` m-2 p-1 ${table.getState().pagination.pageIndex == i ? 'text-black' : 'text-gray-400'} transition-colors hover:text-black`}
       >
         {i}
       </button>
@@ -156,7 +149,7 @@ export function DataTableDemo({ navigate, searchby }) {
   }
   return (
     <div>
-      <div className="h-[530px] w-full">
+      <div className="h-[590px] w-full">
         <div className="flex items-center ">
           <Input
             type="text"
