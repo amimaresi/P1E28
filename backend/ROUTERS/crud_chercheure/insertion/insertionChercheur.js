@@ -12,9 +12,12 @@ const sendMailCherch = require('../../tools/sendMailCherch')
 const creatToken = require('../../tools/generToken')
 
 const insertionChercheur = async (req, res) => {
-    const { email,Equipe ,Diplome,nom , prenom, contact , Type, GradeRecherche, GradeEnsegnement, H_index } = req.body
+    const { email,Equipe ,Diplome,nom , Qualité,EtablissementOrigine,prenom, contact ,  GradeRecherche, GradeEnsegnement, H_index } = req.body
     const nomComplet = prenom+ " " + nom
     try {
+        if(!email || !nom || !prenom || !contact || !Qualité  || !EtablissementOrigine || !Equipe || !Diplome || !GradeRecherche || !GradeEnsegnement || !H_index){
+            throw new Error("Tous les champs sont obligatoires")
+        }
         //check if the chercheur already exist
         const chercheur = await Chercheur.findById(email)
 
@@ -29,7 +32,9 @@ const insertionChercheur = async (req, res) => {
             _id: email,
             nomComplet,
             contact,
-            Type,
+            Qualité,
+        
+            EtablissementOrigine,
             Equipe,
             Diplome,
             GradeRecherche,
@@ -38,6 +43,7 @@ const insertionChercheur = async (req, res) => {
            
         })
         const password = await generPassword() 
+     //   await User.collection.dropIndex('username_1')
         const user = new User({
             _id: email,
             password,
@@ -47,7 +53,7 @@ const insertionChercheur = async (req, res) => {
         await cherch.save()
         await user.save()
         //send email to the chercheur
-        const token = creatToken({_id: email})
+        const token = creatToken( email)
         await sendMailCherch(email , nomComplet ,token)
 
 

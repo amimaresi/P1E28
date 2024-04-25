@@ -44,18 +44,23 @@ const Chercheur = require('../../schema/Chercheur')
     let query = {}
     if(subnom){
         console.log(subnom)
-        query.nom = {$regex: new RegExp('^'+subnom, 'i')}
+        query.nomComplet = {$regex: new RegExp('^'+subnom, 'i')}
      
     }
     if(subequi){
         
         console.log(subequi)
-        query.equipe = {$regex: new RegExp('^'+subequi, 'i')}
+        query.Equipe = {$regex: new RegExp('^'+subequi, 'i')}
     }
     try {
         const docs = await Chercheur.find(query).exec()
         console.log(docs)
+        if(docs.length === 0){
+            return res.status(404).json({message: "Aucun chercheur trouvé"})
+        }
+        else{
         res.status(200).json({Chercheurs: docs})
+        }
     } catch (err) {
         res.status(400).json({message: err.message})
     }
