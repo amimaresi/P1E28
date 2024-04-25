@@ -35,32 +35,7 @@ const ChercheurSchema = new Schema ({
         type: Number,
         ref: "projet"
 }],
-publications: [{
-    Date: {
-        type: String,
-        required: true
-        },
-        idCherch: {
-            type: String
-        },
-        confJourn: {
-            type: String
-        },
-        volume: {
-            type:String,
-            required:true
-        },
-        pages: {
-            type: String,
-            required: true
-        },
-        rang: {
-            type: Number,
-            required: true
-        }
-}
 
-],
     lien: {
         GoogleScholar: {
             type: String,
@@ -96,8 +71,10 @@ publications: [{
     Equipe: {
         type: String,
         //required: true
-    }
-   
+    },
+  orcid: {
+    type: String
+}
 }, { timestamps: true });
 
 const Chercheur = mongoose.model("chercheur",ChercheurSchema);

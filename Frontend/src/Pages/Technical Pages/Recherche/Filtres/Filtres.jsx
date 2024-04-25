@@ -30,6 +30,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
+
 export default function Filtres({ searchby }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const phoneRegExp = /^\+?(\d{1,3})?[-. ]?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/;
@@ -64,8 +65,8 @@ export default function Filtres({ searchby }) {
   return (
     <>
       <Sheet>
-        <SheetTrigger className=" m-10 h-7 w-12 rounded bg-buttonDark text-textLight hover:bg-black">
-          Open
+        <SheetTrigger className="m-10 rounded-xl bg-buttonDark px-6 py-[5px] text-[18px] text-textLight hover:bg-black">
+          Filtres
         </SheetTrigger>
 
         <SheetContent side="left">

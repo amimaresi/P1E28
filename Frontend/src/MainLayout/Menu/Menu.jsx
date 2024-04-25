@@ -1,22 +1,18 @@
-import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import logo from './logo.png';
 import { Button } from '@/components/ui/button';
-
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
-import { ExternalLinkIcon } from '@radix-ui/react-icons';
 
-export default function Menu() {
+export default function Menu({ isLogged, setIsLogged, role, name }) {
   return (
-    <nav className="fixed left-0 right-0 top-0 z-50 flex h-[60px] flex-row items-center  justify-between  bg-white bg-opacity-90 px-[1.5vw] shadow-sm backdrop-blur-md">
+    <nav className="fixed left-0 right-0 top-0 z-50 flex h-[60px] flex-row items-center  justify-between  bg-white bg-opacity-90 px-[40px] shadow-sm backdrop-blur-md">
       <div className="m-[100px] flex flex-row items-center justify-start gap-[10px]">
         <NavigationMenu>
           <NavigationMenuList>
@@ -115,13 +111,21 @@ export default function Menu() {
               </NavLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavLink to="/login">
-                <Button
-                  className={` h-[35px] rounded-xl bg-buttonDark px-4 text-textLight hover:bg-slate-700 hover:text-textLight `}
-                >
-                  Connection
-                </Button>
-              </NavLink>
+              {isLogged ? (
+                <ProfileMenu
+                  name={name}
+                  role={role}
+                  setIsLogged={setIsLogged}
+                />
+              ) : (
+                <NavLink to="/login">
+                  <Button
+                    className={` h-[35px] rounded-xl bg-buttonDark px-4 text-textLight hover:bg-slate-700 hover:text-textLight `}
+                  >
+                    Connection
+                  </Button>
+                </NavLink>
+              )}
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
@@ -130,9 +134,9 @@ export default function Menu() {
   );
 }
 
-function ListItem({ children, title, to, isSimple }) {
+function ListItem({ children, title, to, isSimple, onClick }) {
   return (
-    <li>
+    <li onClick={onClick}>
       <NavLink
         to={to}
         className={` ${isSimple ? 'border-b-2 border-white' : null} block  select-none space-y-1  rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground ${children == null && isSimple == false ? ' bg-gray-50' : null}`}
@@ -151,3 +155,36 @@ function ListItem({ children, title, to, isSimple }) {
 }
 
 ListItem.displayName = 'ListItem';
+
+function ProfileMenu({ name, role, setIsLogged }) {
+  return (
+    <NavigationMenu>
+      <NavigationMenuList>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger>
+            <Avatar className="h-9 w-9">
+              <AvatarImage src="https://avatars.githubusercontent.com/u/29647600?v=4" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <div className="mx-3 flex flex-col items-start justify-center">
+              <span className="m-0 text-sm font-medium">{name}</span>
+              <span className="text-xs text-muted-foreground">{role}</span>
+            </div>
+          </NavigationMenuTrigger>
+
+          <NavigationMenuContent>
+            <ul className=" grid w-[163px]">
+              <ListItem to="/chercheur/me" title="Profile" />
+              <ListItem to="/settings" title="Settings" />
+              <ListItem
+                to="."
+                title="Logout"
+                onClick={() => setIsLogged(false)}
+              />
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
+  );
+}

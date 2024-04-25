@@ -3,14 +3,18 @@ import { Outlet } from 'react-router-dom';
 import Menu from './Menu/Menu.jsx';
 
 export default function MLayout() {
+  const [isLogged, setIsLogged] = useState(false);
   return (
     <div className="  z-0 min-h-screen w-full bg-textLight pt-[60px]">
-      <Menu />
+      <Menu
+        isLogged={isLogged}
+        name="Amar"
+        role="Chercheur"
+        setIsLogged={setIsLogged}
+      />
       <Outlet
         context={{
-          UserValidation: {
-            userInfo: { Role: 1 },
-          },
+          setIsLogged: { setIsLogged },
           LandingPage: {
             news: [
               {
