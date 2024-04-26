@@ -23,6 +23,7 @@ import Informations from './Pages/Profiles/Chercheur/Outlets/informations.jsx';
 import Encadrements from './Pages/Profiles/Chercheur/Outlets/encadrements.jsx';
 import Publications from './Pages/Profiles/Chercheur/Outlets/publications.jsx';
 import Statistiques from './Pages/Profiles/Chercheur/Outlets/statistiques.jsx';
+import PPLayout from './Pages/Profiles/Publication/PPLayout.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -49,7 +50,7 @@ const router = createBrowserRouter(
           <Route path="publications" element={<Publications />} />
           <Route path="statistiques" element={<Statistiques />} />
         </Route>
-        <Route path="publication/:id" element={<CPLayout />} />
+        <Route path="publication/:id" element={<PPLayout />} />
       </Route>
 
       <Route path="control" element={<Outlet />}>
