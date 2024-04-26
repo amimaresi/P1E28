@@ -95,7 +95,7 @@ export function Columns({ navigate }) {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <NavLink to={`./${chercheur.id + '/informations' || 'NotFound'}`}>
+              <NavLink to={`./${chercheur.id + '/informations'}`}>
                 <DropdownMenuItem>Voir le profil</DropdownMenuItem>
               </NavLink>
               <DropdownMenuItem>View chercheur details</DropdownMenuItem>
@@ -106,7 +106,7 @@ export function Columns({ navigate }) {
     },
   ];
 }
-export function DataTableDemo({ navigate, searchby }) {
+export function TableChercheur({ navigate, searchby }) {
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [columnVisibility, setColumnVisibility] = React.useState({});

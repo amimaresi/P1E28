@@ -93,14 +93,18 @@ export default function Menu({ isLogged, setIsLogged, role, name }) {
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuTrigger className=" text-[16.5px]">
-                Profile
+                Profiles
               </NavigationMenuTrigger>
 
               <NavigationMenuContent>
                 <ul className="grid w-[125px] grid-flow-row">
-                  <ListItem to="/chercheur/test" isSimple title="Chercheurs" />
                   <ListItem
-                    to="publication/test"
+                    to="/Recherche/chercheur/test"
+                    isSimple
+                    title="Chercheurs"
+                  />
+                  <ListItem
+                    to="/Recherche/publication/test"
                     isSimple
                     title="Publications"
                   />
