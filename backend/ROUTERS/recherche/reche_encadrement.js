@@ -1,6 +1,6 @@
 const Encadrement = require("../../schema/Encadrement");
 
-const encadrement_recherche = (req, res) => {
+const rechercherEncadrement = (req, res) => {
     const options = {}; 
     if (req.query.Type) {
         const regexPatternType = new RegExp(req.query.Type, 'i');
@@ -37,4 +37,20 @@ if (req.query.idEncadrant) {
         });
 };
 
-module.exports = encadrement_recherche;
+const rechercherEncParId = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const encadrements = await Encadrement.findById(id);
+        if (encadrements) {
+            res.status(200).json({ error: false, Encadrements : encadrements });
+        } else {
+            res.status(404).json({ error: true, message: "Aucun encadrement trouvée avec cet ID." });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(400).json({ error: true, message: "Erreur lors de la recherche de encadrement par ID." });
+    }
+};
+
+module.exports = {rechercherEncadrement, rechercherEncParId};
+
