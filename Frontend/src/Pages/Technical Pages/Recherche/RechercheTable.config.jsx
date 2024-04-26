@@ -221,13 +221,13 @@ export function ColumnsPublication() {
 export function ColumnsProjet() {
   return [
     {
-      accessorKey: 'nomComplet',
+      accessorKey: 'Titre',
       header: ({ column }) => {
         return (
           <Button
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-            className="ml-10"
+            className="ml-[-5px]"
           >
             Nom Complet
             <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -236,17 +236,25 @@ export function ColumnsProjet() {
       },
       cell: ({ row }) => (
         <div className=" flex flex-row items-center gap-3">
-          <div className=" flex h-9 w-9 items-center justify-center rounded-full bg-gray-300">
-            <Avatar>
-              <AvatarImage src="n" />
-              <AvatarFallback>
-                {row.getValue('nomComplet').slice(0, 2)}
-              </AvatarFallback>
-            </Avatar>
-          </div>
-          <div className="lowercase">{row.getValue('nomComplet')}</div>
+          <div className="ml-3">{row.getValue('Titre')}</div>
         </div>
       ),
+    },
+    {
+      accessorKey: 'Theme',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+            className=" ml-[-15px]"
+          >
+            Email
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => <div>{row.getValue('Theme')}</div>,
     },
     {
       accessorKey: '_id',
@@ -255,13 +263,14 @@ export function ColumnsProjet() {
           <Button
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+            className=" ml-[-15px]"
           >
-            Email
+            Numero
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         );
       },
-      cell: ({ row }) => <div className="lowercase">{row.getValue('_id')}</div>,
+      cell: ({ row }) => <div>{row.getValue('_id').$numberInt}</div>,
     },
     {
       id: 'actions',
