@@ -1,4 +1,9 @@
-import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
+import {
+  ArrowUpDown,
+  MoreHorizontal,
+  SeparatorHorizontal,
+  SeparatorVertical,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -15,6 +20,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from '@/components/ui/hover-card';
+import { Separator } from '@radix-ui/react-dropdown-menu';
 export function GetColumns(searchby) {
   return searchby === 'chercheur'
     ? ColumnsChercheur
@@ -161,24 +167,22 @@ export function ColumnsPublication() {
     {
       accessorKey: 'Membres',
       header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-            className=" ml-[-15px]"
-          >
-            Date
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
-        );
+        return <span className=" ml-4">Membres</span>;
       },
       cell: ({ row }) => (
-        <div className="lowercase">
+        <div>
           <HoverCard>
             <HoverCardTrigger>
               <Button variant="link">View members</Button>
             </HoverCardTrigger>
-            <HoverCardContent>{row.getValue('Member')}</HoverCardContent>
+            <HoverCardContent>
+              {row.getValue('Membres').map((M, ind, arr) => (
+                <>
+                  <h2>{M}</h2>
+                  {ind == arr.length - 1 ? null : <DropdownMenuSeparator />}
+                </>
+              ))}
+            </HoverCardContent>
           </HoverCard>
         </div>
       ),
@@ -187,7 +191,7 @@ export function ColumnsPublication() {
       id: 'actions',
       enableHiding: false,
       cell: ({ row }) => {
-        const chercheur = row.original;
+        const publication = row.original;
 
         return (
           <DropdownMenu>
@@ -200,10 +204,12 @@ export function ColumnsPublication() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <NavLink to={`./${chercheur.id + '/informations'}`}>
+              <NavLink to={`./${publication.id}`}>
                 <DropdownMenuItem>Voir le profil</DropdownMenuItem>
               </NavLink>
-              <DropdownMenuItem>View chercheur details</DropdownMenuItem>
+              <a href={publication.Lien}>
+                <DropdownMenuItem>Lien externe</DropdownMenuItem>
+              </a>
             </DropdownMenuContent>
           </DropdownMenu>
         );

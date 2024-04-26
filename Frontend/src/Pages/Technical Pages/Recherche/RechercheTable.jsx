@@ -75,7 +75,7 @@ export function RechercheTable({ navigate, searchby }) {
   }
   return (
     <div>
-      <div className="h-[590px] w-full">
+      <div className="h-[610px] w-full">
         <div className="flex items-center ">
           <Input
             type="text"
