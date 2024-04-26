@@ -8,6 +8,7 @@
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
+    "start": " vite ",
     "format": "prettier --write ./src"
   },
   "dependencies": {
@@ -24,6 +25,7 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",
     "@tanstack/react-table": "^8.15.3",
+    "axios": "^1.6.8",
     "chart.js": "^4.4.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",

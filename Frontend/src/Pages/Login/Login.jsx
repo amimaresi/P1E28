@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { NavLink, useOutletContext } from 'react-router-dom';
-
+import axios from 'axios';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -18,10 +18,18 @@ export default function Login() {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(email, password);
     console.log(context);
     context.setIsLogged.setIsLogged(true);
+    try{
+   const resutlt = await axios.post('http://localhost:3000/auth/login', {email , password} ,  { withCredentials : true });
+    console.log(resutlt)
+    }
+    catch(err){
+      console.log(err.response.data.message)
+    }
   };
 
   return (
