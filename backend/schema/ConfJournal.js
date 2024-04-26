@@ -13,11 +13,11 @@ type: { //journal/conf..
 },
 nom: {
     type: String,
-    required: true
+   // required: true
 },
 periodicite: {
     type: String,
-    required: true
+    //required: true
 },
 lien: {
     type: String,
