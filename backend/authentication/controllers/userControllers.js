@@ -1,7 +1,5 @@
 
 require('dotenv').config()//import the dotenv package
-
-//import the bcrypt package to hash the password
 const bcrypt = require('bcrypt')
 
 const User = require('../../schema/User')//import the user model 
@@ -28,7 +26,8 @@ const loginUser = async (req , res)=>{
        
        const token =  jwt.sign({email: user._id} , process.env.SECRET_KEY)
        const chercheur = await Chercheur.findById(user._id)
-       
+       console.log(token)
+       console.log(res.cookie.jwt)
        //send the user and token to the client and set the token in a cookie
        res.status(200).cookie('jwt' , token , {httpOnly: true , maxAge: 1000*60*60*24*3}).json({Chercheur:chercheur})
 
@@ -44,10 +43,10 @@ const loginUser = async (req , res)=>{
 
 //create a function to handle the logout request
  const logoutUser = (req , res)=>{
-    console.log("logout")
     console.log(req.cookies.jwt)
-    res.cookie('jwt' , '' , {maxAge: 1}).json({message: "logged out"})
-    res.redirect('/')
+    res.cookie('jwt' , '' , {maxAge: 1})
+    res.status(200).json({message: "logout successful"})
+    
   
  }
 

@@ -9,15 +9,16 @@ const cron = require("node-cron");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookie());
+
 const { get_maj_time } = require('./settings/changeTimeOfMaj');
 const { maj } = require("./màj/majM");//pour la maj
 
 
-app.use(cors())
 app.use(express.json())
 
 
 
+app.use(cors( {origin:'http://localhost:5173', credentials: true }))
 
 
 
