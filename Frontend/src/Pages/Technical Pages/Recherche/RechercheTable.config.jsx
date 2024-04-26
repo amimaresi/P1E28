@@ -20,7 +20,6 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from '@/components/ui/hover-card';
-import { Separator } from '@radix-ui/react-dropdown-menu';
 export function GetColumns(searchby) {
   return searchby === 'chercheur'
     ? ColumnsChercheur
@@ -205,7 +204,7 @@ export function ColumnsPublication() {
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <NavLink to={`./${publication.id}`}>
-                <DropdownMenuItem>Voir le profil</DropdownMenuItem>
+                <DropdownMenuItem>Plus d'info</DropdownMenuItem>
               </NavLink>
               <a href={publication.Lien}>
                 <DropdownMenuItem>Lien externe</DropdownMenuItem>
@@ -249,13 +248,48 @@ export function ColumnsProjet() {
             onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
             className=" ml-[-15px]"
           >
-            Email
+            Theme
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         );
       },
       cell: ({ row }) => <div>{row.getValue('Theme')}</div>,
     },
+    {
+      accessorKey: 'liste_members',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Membres
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => (
+        <div>
+          <HoverCard>
+            <HoverCardTrigger>
+              <Button variant="link">View members</Button>
+            </HoverCardTrigger>
+            <HoverCardContent>
+              <span className=" font-bold underline">Chef :</span>{' '}
+              {row.original.ChefDeProjet}
+              <DropdownMenuSeparator />
+              {row.getValue('liste_members').map((M, ind, arr) => (
+                <>
+                  <h2>{M}</h2>
+                  {ind == arr.length - 1 ? null : <DropdownMenuSeparator />}
+                </>
+              ))}
+            </HoverCardContent>
+          </HoverCard>
+        </div>
+      ),
+    },
+
     {
       accessorKey: '_id',
       header: ({ column }) => {
@@ -273,10 +307,42 @@ export function ColumnsProjet() {
       cell: ({ row }) => <div>{row.getValue('_id').$numberInt}</div>,
     },
     {
+      accessorKey: 'DateDebut',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+            className=" ml-[-15px]"
+          >
+            Date Debut
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => <div>{row.getValue('DateDebut')}</div>,
+    },
+    {
+      accessorKey: 'DateFin',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+            className=" ml-[-15px]"
+          >
+            Date Debut
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => <div>{row.getValue('DateFin')}</div>,
+    },
+    {
       id: 'actions',
       enableHiding: false,
       cell: ({ row }) => {
-        const chercheur = row.original;
+        const projet = row.original;
 
         return (
           <DropdownMenu>
@@ -289,10 +355,9 @@ export function ColumnsProjet() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <NavLink to={`./${chercheur.id + '/informations'}`}>
-                <DropdownMenuItem>Voir le profil</DropdownMenuItem>
+              <NavLink to={`./${projet.id}`}>
+                <DropdownMenuItem>Plus d'info</DropdownMenuItem>
               </NavLink>
-              <DropdownMenuItem>View chercheur details</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         );
