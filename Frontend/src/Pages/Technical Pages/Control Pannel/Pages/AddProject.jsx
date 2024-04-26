@@ -15,19 +15,11 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
- const options = {method : 'POST'}
-fetch("/insertProjet", options)
-.then(response =>{
- 
-  if(!response.ok){
-    throw new Error("could not fetch resource");
-  }
-  return  response.json();
-})
-.then(data=> console.log(data))
-.catch(error => console.error(error) );
+import axios from 'axios';
+
 
 export default function AddProject() {
+ 
   const schema = yup.object().shape({
     Num: yup.string().required("le numero est requis"),
     Titre: yup.string().required("le titre est requis"),
@@ -53,11 +45,60 @@ export default function AddProject() {
     resolver: yupResolver(schema),
 
   });
+  const [Num, setNum] = useState('');
+  const [Titre, setTitre] = useState('');
+  const [DateDebut, setDateDebut] = useState('');
+  const [chefProjet, setchefProjet] = useState('');
+  const [DateFin, setDateFin] = useState('');
+  const [Theme, setTheme] = useState('');
+  const [liste_members, setliste_members] = useState('');
+  
 
-  const onSubmit = (data) => {
-    fetch();
-    console.log('Filtres : ', data);
+ 
+
+  const handleNumChange = (event) => {
+    setNum(event.target.value);
   };
+
+  const handleTitreChange = (event) => {
+    setTitre(event.target.value);
+  };
+  const handleDateDebutChange = (event) => {
+    setDateDebut(event.target.value);
+  };
+
+  const handlechefProjetChange = (event) => {
+    setchefProjet(event.target.value);
+  };
+  const handleDateFinChange = (event) => {
+    setDateFin(event.target.value);
+  };
+  const handleThemeChange = (event) => {
+    setTheme(event.target.value);
+  };
+  const handleliste_membersChange = (event) => {
+    setliste_members(event.target.value);
+  };
+
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    console.log(Num,Titre,DateDebut,chefProjet,DateFin,Theme,liste_members);
+   
+    
+    try{
+   const resutlt = await axios.post('http://localhost:3000/auth/login', {Num,Titre,DateDebut,chefProjet,DateFin,Theme,liste_members} );
+    console.log(resutlt)
+    }
+    catch(err){
+      console.log(err.response.data.message)
+    }
+  };
+
+ /* const onSubmit = (data) => {
+    
+    console.log('Filtres : ', data);
+  }; */
  
   return <>
   <Form {...form}>
@@ -81,7 +122,7 @@ export default function AddProject() {
                   <FormControl>
                   
                     <Input className=' rounded-full w-300 h-7'
-                     
+                     onChange={handleNumChange}
                       placeholder="entrez le numero "
                       {...field}
                       
@@ -111,7 +152,7 @@ export default function AddProject() {
                   <FormControl>
                   
                     <Input className=' rounded-full w-300 h-7'
-                     
+                     onChange={handleTitreChange}
                       placeholder="entrez le titre "
                       {...field}
                       
@@ -139,7 +180,7 @@ export default function AddProject() {
                   <FormControl>
                   
                     <Input className=' rounded-full w-300 h-7'
-                     
+                      onChange={handleDateDebutChange}
                       placeholder="entrez la date de debut "
                       {...field}
                       
@@ -166,7 +207,7 @@ export default function AddProject() {
                   <FormControl>
                   
                     <Input className=' rounded-full w-300 h-7'
-                     
+                     onChange={handlechefProjetChange}
                       placeholder=" entrez le chef de Projet"
                       {...field}
                       
@@ -195,7 +236,7 @@ export default function AddProject() {
                   <FormControl>
                   
                     <Input className=' rounded-full w-300 h-7'
-                     
+                     onChange={handleDateFinChange}
                       placeholder=" entrez la date de fin "
                       {...field}
                       
@@ -222,7 +263,7 @@ export default function AddProject() {
                   <FormControl>
                   
                     <Input className=' rounded-full w-300 h-7'
-                     
+                     onChange={handleThemeChange}
                       placeholder=" entrez le theme"
                       {...field}
                       
@@ -249,7 +290,7 @@ export default function AddProject() {
                   <FormControl>
                   
                     <Input className=' rounded-full w-300 h-7'
-                     
+                     onChange={handleliste_membersChange}
                       placeholder=" entrez la liste des membres "
                       {...field}
                       
