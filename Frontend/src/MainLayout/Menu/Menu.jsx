@@ -9,7 +9,6 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
-import axios from 'axios';
 export default function Menu({ isLogged, setIsLogged, role, name }) {
   return (
     <nav className="fixed left-0 right-0 top-0 z-50 flex h-[60px] flex-row items-center  justify-between  bg-white bg-opacity-90 px-[40px] shadow-sm backdrop-blur-md">
@@ -203,24 +202,22 @@ function ProfileMenu({ name, role, setIsLogged }) {
               <ListItem
                 to="."
                 title="Logout"
-                onClick={async () => 
-            {
-                  try{
-
-                    const res = await axios.get('http://localhost:3000/auth/logout' , { withCredentials : true })
-                    console.log(res.data.message)
-                    redirect('/')
-                  }
-                  catch(e){
+                onClick={async () => {
+                  try {
+                    const res = await axios.get(
+                      'http://localhost:3000/auth/logout',
+                      { withCredentials: true },
+                    );
+                    console.log(res.data.message);
+                    redirect('/');
+                  } catch (e) {
                     console.log(e);
-                  }
-                  finally{
+                  } finally {
                     setIsLogged(false);
                   }
 
-                  setIsLogged(false)
-                }
-                }
+                  setIsLogged(false);
+                }}
               />
             </ul>
           </NavigationMenuContent>
