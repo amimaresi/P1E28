@@ -7,17 +7,13 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import Filtres from './Filtres/Filtres.jsx';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
@@ -29,84 +25,11 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { NavLink } from 'react-router-dom';
 import data from './data.js';
-import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
+import { GetColumns } from './RechercheTable.config.jsx';
 
-export function Columns({ navigate }) {
-  return [
-    {
-      accessorKey: 'nomComplet',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-            className="ml-10"
-          >
-            Nom Complet
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
-        );
-      },
-      cell: ({ row }) => (
-        <div className=" flex flex-row items-center gap-3">
-          <div className=" flex h-9 w-9 items-center justify-center rounded-full bg-gray-300">
-            <Avatar>
-              <AvatarImage src="n" />
-              <AvatarFallback>
-                {row.getValue('nomComplet').slice(0, 2)}
-              </AvatarFallback>
-            </Avatar>
-          </div>
-          <div className="lowercase">{row.getValue('nomComplet')}</div>
-        </div>
-      ),
-    },
-    {
-      accessorKey: '_id',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Email
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
-        );
-      },
-      cell: ({ row }) => <div className="lowercase">{row.getValue('_id')}</div>,
-    },
-    {
-      id: 'actions',
-      enableHiding: false,
-      cell: ({ row }) => {
-        const chercheur = row.original;
-
-        return (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <NavLink to={`./${chercheur.id + '/informations'}`}>
-                <DropdownMenuItem>Voir le profil</DropdownMenuItem>
-              </NavLink>
-              <DropdownMenuItem>View chercheur details</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        );
-      },
-    },
-  ];
-}
-export function TableChercheur({ navigate, searchby }) {
+export function RechercheTable({ navigate, searchby }) {
+  const Columns = GetColumns(searchby);
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [columnVisibility, setColumnVisibility] = React.useState({});
@@ -115,7 +38,12 @@ export function TableChercheur({ navigate, searchby }) {
     pageSize: 6,
   });
   const table = useReactTable({
-    data,
+    data:
+      searchby == 'chercheur'
+        ? data.Chercheur
+        : searchby == 'publication'
+          ? data.Publication
+          : data.Projet,
     columns: Columns(navigate),
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -126,6 +54,7 @@ export function TableChercheur({ navigate, searchby }) {
     onColumnVisibilityChange: setColumnVisibility,
     onPaginationChange: setPagination,
     state: {
+      sorting,
       columnFilters,
       columnVisibility,
       pagination,
