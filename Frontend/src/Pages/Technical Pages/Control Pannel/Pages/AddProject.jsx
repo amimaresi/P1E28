@@ -87,7 +87,7 @@ export default function AddProject() {
    
     
     try{
-   const resutlt = await axios.post('http://localhost:3000/auth/login', {Num,Titre,DateDebut,chefProjet,DateFin,Theme,liste_members} );
+   const resutlt = await axios.post('http://localhost:3000/insertion/projet', {Num,Titre,DateDebut,chefProjet,DateFin,Theme,liste_members} );
     console.log(resutlt)
     }
     catch(err){
