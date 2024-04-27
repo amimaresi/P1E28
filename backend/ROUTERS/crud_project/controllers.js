@@ -9,9 +9,8 @@ const nouveau_projet = async(req, res) => {
         let { Num, Titre, DateDebut, DateFin, chefProjet, liste_members, Theme } = req.body;
         if (!Num || !Titre || !DateDebut || !DateFin || !chefProjet || !liste_members || !Theme) throw new Error("tout les champs sont obligatoires");
         //handling chefProjet Id;
-        await Projet.findById(Num).then((result) => {
-            if (result) return res.status(500).json({ message: "le projet existe déjà", error: true });
-        })
+        const result = await Projet.findById(Num)
+        if (result) return res.status(400).json({ message: "le projet existe déjà", error: true });
         const chef = await Chercheur.findById(chefProjet)
 
         if (!chef) return res.status(404).json({ message: "le chef de projet n'existe pas"});
