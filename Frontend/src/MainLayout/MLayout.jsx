@@ -5,7 +5,7 @@ import Menu from './Menu/Menu.jsx';
 export default function MLayout() {
   const [isLogged, setIsLogged] = useState(false);
   return (
-    <div className="  z-0 min-h-screen w-full bg-textLight pt-[60px]">
+    <div className="  z-0 w-full bg-textLight pt-[60px]">
       <Menu
         isLogged={isLogged}
         name="Amar"

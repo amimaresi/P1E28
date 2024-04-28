@@ -19,10 +19,10 @@ import AddProject from './Pages/Technical Pages/Control Pannel/Pages/AddProject.
 import EditLandingPage from './Pages/Technical Pages/Control Pannel/Pages/EditLandingPage.jsx';
 import Update from './Pages/Technical Pages/Control Pannel/Pages/Update.jsx';
 import CPLayout from './Pages/Profiles/Chercheur/CPLayout.jsx';
-import Informations from './Pages/Profiles/Chercheur/Outlets/informations.jsx';
-import Encadrements from './Pages/Profiles/Chercheur/Outlets/encadrements.jsx';
-import Publications from './Pages/Profiles/Chercheur/Outlets/publications.jsx';
-import Statistiques from './Pages/Profiles/Chercheur/Outlets/statistiques.jsx';
+import Informations from './Pages/Profiles/Chercheur/Outlets/Informations.jsx';
+import Encadrements from './Pages/Profiles/Chercheur/Outlets/Encadrements.jsx';
+import Publications from './Pages/Profiles/Chercheur/Outlets/Publications.jsx';
+import Statistiques from './Pages/Profiles/Chercheur/Outlets/Statistiques.jsx';
 import PPLayout from './Pages/Profiles/Publication/PPLayout.jsx';
 
 const router = createBrowserRouter(
