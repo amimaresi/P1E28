@@ -258,15 +258,7 @@ export function ColumnsProjet() {
     {
       accessorKey: 'liste_members',
       header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Membres
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
-        );
+        return <span className=" ml-4">Membres</span>;
       },
       cell: ({ row }) => (
         <div>

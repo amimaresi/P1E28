@@ -197,7 +197,7 @@ function ProfileMenu({ name, role, setIsLogged }) {
 
           <NavigationMenuContent>
             <ul className=" grid w-[163px]">
-              <ListItem to="/chercheur/me" title="Profile" />
+              <ListItem to="/recherche/chercheur/me" title="Profile" />
               <ListItem to="/settings" title="Settings" />
               <ListItem
                 to="."

@@ -32,6 +32,22 @@ export default function MLayout() {
                 Subject: 'Best Chercheur',
               },
             ],
+            leaders: [
+              {
+                name: 'title',
+                description:
+                  'import React, { useState } from react \n import { NavLink, Outlet } from "react-router-dom" \n import Menu from ./Menu/Menu.jsx',
+                img: 'https://img.freepik.com/photos-gratuite/peinture-lac-montagne-montagne-arriere-plan_188544-9126.jpg',
+                role: 'Best Publication',
+              },
+              {
+                name: 'Not a title',
+                description:
+                  'imrgregt, { useState } from react \n ietghtyrthgLink, Outlet } from "react-router-dom" \n irgergegpojoj*zolmajn,vjaerkhga',
+                img: 'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg',
+                role: 'Best Chercheur',
+              },
+            ],
           },
         }}
       />
