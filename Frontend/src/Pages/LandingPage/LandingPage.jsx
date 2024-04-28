@@ -32,23 +32,31 @@ export default function LandingPage() {
         onClick={() => {
           setIndex(i);
         }}
-        className={`mx-2 px-1  text-lg ${index == i ? 'text-black' : 'text-gray-400'} transition-colors hover:text-black`}
-      >
-        {i}
-      </button>
+        className={`mx-2 px-[0.6vw] py-[0.3vw] text-lg ${index == i ? 'bg-black' : 'bg-gray-400'} rounded-md transition-colors hover:text-black`}
+      ></button>
     );
   }
   const leaderboxes = [];
   for (let i = 0; i < leaders.length; i++) {
-    paginationButtons[i] = (
-      <button
-        onClick={() => {
-          setIndex(i);
-        }}
-        className={`mx-2 px-1  text-lg ${index == i ? 'text-black' : 'text-gray-400'} transition-colors hover:text-black`}
-      >
-        {i}
-      </button>
+    leaderboxes[i] = (
+      <Card className="h-[20vw] w-[16vw]">
+        <CardHeader>
+          <Avatar className="h-[4vw] w-[4vw]">
+            <AvatarImage src={leaders[i].name} />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+          <CardTitle className="text-[1.2vw]">Hamouda l'Bricoula</CardTitle>
+          <CardDescription className="text-[0.7vw]">
+            Card Description
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="text-[0.8vw]">
+          <p>also called Hamouda l'Mecanicien</p>
+        </CardContent>
+        <CardFooter className="text-[0.8vw]">
+          <p>Card Footer</p>
+        </CardFooter>
+      </Card>
     );
   }
   return (
@@ -111,7 +119,7 @@ export default function LandingPage() {
               className=" m-[1vw] h-[2.5vw] hover:opacity-65 active:opacity-40"
             />
           </div>
-          <div className="flex flex-row items-center justify-center ">
+          <div className="mt-2 flex flex-row items-center justify-center">
             {paginationButtons}
           </div>
         </div>
