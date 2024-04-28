@@ -6,7 +6,7 @@ export default function RechercheLayout({ searchby }) {
   const navigate = useNavigate();
   return (
     <>
-      <div className=" h-screen  pl-40 pt-16">
+      <div className="  pl-40 pt-16">
         <h1 className="mb-4 text-4xl font-semibold text-textDark">
           Recherche {searchby + ' '}
           <span className=" text-gray-500">-v0.7-</span>
