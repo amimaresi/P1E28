@@ -77,17 +77,17 @@ export function RechercheTable({ navigate, searchby }) {
   }
   return (
     <div>
-      <div className="h-[610px] w-full">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center ">
+      <div className="min-h-[610px] w-full">
+        <div className="flex flex-col items-center justify-between md:flex-row">
+          <div className="flex flex-col items-center md:flex-row">
             <Input
               type="text"
               placeholder="Entrez le mot clé"
-              className="h-15 w-[17rem] rounded-xl border border-gray-300 shadow "
+              className="h-15 w-[15rem] rounded-xl border border-gray-300 shadow md:w-[17rem] "
             />
             <Filtres searchby={searchby} />
           </div>
-          <div className=" flex flex-row items-center justify-between">
+          <div className=" md-m-0 m-2 flex flex-row items-center justify-between">
             <span className=" mr-2">Lignes par page : </span>
             <Select
               defaultValue={pagination.pageSize.toString()}
@@ -165,7 +165,7 @@ export function RechercheTable({ navigate, searchby }) {
           </Table>
         </div>
       </div>
-      <div className="flex flex-row items-center justify-center ">
+      <div className="my-3 flex flex-row items-center justify-center">
         <div>
           <Button
             variant="outline"

@@ -44,15 +44,18 @@ const router = createBrowserRouter(
           element={<RechercheLayout searchby="publication" />}
         />
         <Route path="projet" element={<RechercheLayout searchby="projet" />} />
-        <Route path="chercheur/:id" element={<CPLayout />}>
-          <Route path="informations" element={<Informations />} />
-          <Route path="encadrements" element={<Encadrements />} />
-          <Route path="publications" element={<Publications />} />
-          <Route path="statistiques" element={<Statistiques />} />
-        </Route>
-        <Route path="publication/:id" element={<PPLayout />} />
       </Route>
+      <Route path="chercheur/:id" element={<CPLayout />}>
+        <Route path="informations" element={<Informations />} />
+        <Route path="encadrements" element={<Encadrements />} />
+        <Route path="publications" element={<Publications />} />
+        <Route path="statistiques" element={<Statistiques />} />
+      </Route>
+      <Route path="publication/:id" element={<PPLayout />} />
 
+      <Route path="projet/:id" element={<PPLayout />} />
+
+      <Route path="encadrement/:id" element={<PPLayout />} />
       <Route path="control" element={<Outlet />}>
         <Route index element={<NotFound />} />
         <Route path="LandingPage" element={<EditLandingPage />} />

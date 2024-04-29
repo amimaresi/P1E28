@@ -112,7 +112,7 @@ export function ColumnsChercheur() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <NavLink to={`./${chercheur.id + '/informations'}`}>
+              <NavLink to={`../publication/${chercheur.id + '/informations'}`}>
                 <DropdownMenuItem>Voir le profil</DropdownMenuItem>
               </NavLink>
             </DropdownMenuContent>
@@ -203,7 +203,7 @@ export function ColumnsPublication() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <NavLink to={`./${publication.id}`}>
+              <NavLink to={`../publication/${publication.id}`}>
                 <DropdownMenuItem>Plus d'info</DropdownMenuItem>
               </NavLink>
               <a href={publication.Lien}>
@@ -347,7 +347,7 @@ export function ColumnsProjet() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <NavLink to={`./${projet.id}`}>
+              <NavLink to={`../projet/${projet.id}`}>
                 <DropdownMenuItem>Plus d'info</DropdownMenuItem>
               </NavLink>
             </DropdownMenuContent>

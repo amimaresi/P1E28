@@ -9,10 +9,11 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
+import axios from 'axios';
 export default function Menu({ isLogged, setIsLogged, role, name }) {
   return (
-    <nav className="fixed left-0 right-0 top-0 z-50 flex h-[60px] flex-row items-center  justify-between  bg-white bg-opacity-90 px-[40px] shadow-sm backdrop-blur-md">
-      <div className="m-[100px] flex flex-row items-center justify-start gap-[10px]">
+    <nav className="fixed left-0 right-0 top-0 z-50 flex h-[60px] flex-row items-center  justify-between  bg-white bg-opacity-90 px-[1vw] shadow-sm backdrop-blur-md">
+      <div className="ml-[5vw] flex flex-row items-center justify-start gap-[10px]">
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
@@ -97,16 +98,18 @@ export default function Menu({ isLogged, setIsLogged, role, name }) {
 
               <NavigationMenuContent>
                 <ul className="grid w-[125px] grid-flow-row">
+                  <ListItem to="/chercheur/test" isSimple title="Chercheurs" />
                   <ListItem
-                    to="/Recherche/chercheur/test"
-                    isSimple
-                    title="Chercheurs"
-                  />
-                  <ListItem
-                    to="/Recherche/publication/test"
+                    to="/publication/test"
                     isSimple
                     title="Publications"
+                  />{' '}
+                  <ListItem
+                    to="/encadrement/test"
+                    isSimple
+                    title="Encadrements"
                   />
+                  <ListItem to="/projet/test" isSimple title="Projet" />
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
@@ -114,25 +117,9 @@ export default function Menu({ isLogged, setIsLogged, role, name }) {
         </NavigationMenu>
       </div>
 
-      <div className="flex flex-row items-center justify-end gap-5">
+      <div className="flex flex-row items-center justify-end">
         <NavigationMenu>
           <NavigationMenuList>
-            <NavigationMenuItem>
-              <NavLink
-                to="/aboutus"
-                className={`text-[16.5px] ${navigationMenuTriggerStyle()}`}
-              >
-                About Us
-              </NavLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavLink
-                to="/guide"
-                className={`text-[16.5px] ${navigationMenuTriggerStyle()}`}
-              >
-                Guide
-              </NavLink>
-            </NavigationMenuItem>
             <NavigationMenuItem>
               {isLogged ? (
                 <ProfileMenu
@@ -184,7 +171,7 @@ function ProfileMenu({ name, role, setIsLogged }) {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>
+          <NavigationMenuTrigger className=" h-auto rounded-xl border-[0.15vw]  border-textLight py-1">
             <Avatar className="h-9 w-9">
               <AvatarImage src="https://avatars.githubusercontent.com/u/29647600?v=4" />
               <AvatarFallback>CN</AvatarFallback>
@@ -197,7 +184,7 @@ function ProfileMenu({ name, role, setIsLogged }) {
 
           <NavigationMenuContent>
             <ul className=" grid w-[163px]">
-              <ListItem to="/recherche/chercheur/me" title="Profile" />
+              <ListItem to="/chercheur/me" title="Profile" />
               <ListItem to="/settings" title="Settings" />
               <ListItem
                 to="."

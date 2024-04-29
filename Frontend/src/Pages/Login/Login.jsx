@@ -21,17 +21,23 @@ export default function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(email, password);
-    console.log(context);
-    context.setIsLogged.setIsLogged(true);
-    try{
-   const resutlt = await axios.post('http://localhost:3000/auth/login', {email , password} ,  { withCredentials : true });
-    console.log(resutlt)
+    context.setIsLogged(true);
+
+    try {
+      const response = await axios.post(
+        'http://localhost:3000/auth/login',
+        { email, password },
+        { withCredentials: true },
+      );
+      console.log(response.data); // Assuming you want to log the response data
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data.message); // Logging the error message from the server
+      } else {
+        console.error('An error occurred:', error.message); // Logging any other errors
+      }
+      setPassword(''); // Clearing the password field on error
     }
-    catch(err){
-      console.log(err.response.data.message)
-    }
-    setEmail('')
-    setPassword('')
   };
 
   return (
