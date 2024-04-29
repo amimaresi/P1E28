@@ -1,4 +1,4 @@
-const Chercheur = require('../../schema/Chercheur');
+const Chercheur = require('../../../../../schema/Chercheur');
 
 const changeStatutChercheur = async (req, res) => {
     try {
