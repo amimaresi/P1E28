@@ -28,24 +28,58 @@ import { Button } from '@/components/ui/button';
 import { useSearchParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 
 export default function Filtres({ searchby }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const phoneRegExp = /^\+?(\d{1,3})?[-. ]?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/;
   const schemaChercheur = yup.object().shape({
     nomComplet: yup.string().max(50),
-    email: yup.string().email(),
+    _id: yup.string().email(),
     tel: yup.string().matches(phoneRegExp, { message: 'Invalid phone number' }),
-    gradeEnsegnement: yup.string(),
-    gradeRecherche: yup.string(),
-    qualite: yup.string().max(50),
-    projet: yup.string().max(50),
-    equipe: yup.string().max(50),
-    etablisementOrigine: yup.string().max(50),
+    GradeEnsegnement: yup.string(),
+    GradeRecherche: yup.string(),
+    qualité: yup.string().max(50),
+    Projet: yup.string().max(50),
+    Publication: yup.string().max(50),
+    Equipe: yup.string().max(50),
+    EtablisementOrigine: yup.string().max(50),
   });
-
+  /*  {
+    _id: {
+      $oid: '66112c732dd5fcb5d05589b1',
+    },
+    Date: '2016',
+    idCherch: 'a_balla@esi.dz',
+    confJourn: 'IDC',
+    volume: 'indefini',
+    pages: '13-22',
+    rang: 3,
+    Titre:
+      'A Dynamic Model to enhance the Distributed Discovery of services in P2P Overlay Networks.',
+    Lien: 'https://doi.org/10.1007/978-3-319-48829-5_2',
+    Membres: ['Adel Boukhadra', 'Karima Benatchba', 'Amar Balla'],
+    Classement: [],
+    __v: 0,
+    createdAt: {
+      $date: '2024-04-06T11:05:23.060Z',
+    },
+    updatedAt: {
+      $date: '2024-04-06T11:05:23.060Z',
+    },
+  }, */
+  const schemaPublication = yup.object().shape({
+    Titre: yup.string().max(50),
+    idCherch: yup.string().email(),
+    confJourn: yup.string(),
+    volume: yup.string(),
+    GradeRecherche: yup.string(),
+    qualité: yup.string().max(50),
+    Projet: yup.string().max(50),
+    Publication: yup.string().max(50),
+    Equipe: yup.string().max(50),
+    EtablisementOrigine: yup.string().max(50),
+  });
   const params = {};
 
   searchParams.forEach((value, key) => {
@@ -54,12 +88,24 @@ export default function Filtres({ searchby }) {
 
   const form = useForm({
     defaultValues: params,
-    resolver: yupResolver(schemaChercheur),
+    resolver: yupResolver(
+      searchby == 'chercheur' ? schemaChercheur : schemaPublication,
+    ),
   });
-
+  const tags = Array.from({ length: 50 }).map(
+    (_, i, a) => `v1.2.0-beta.${a.length - i}`,
+  );
   const onSubmit = (data) => {
     console.log('Filtres : ', data);
-    setSearchParams(form.getValues());
+    const searchform = {};
+    const formValues = form.getValues();
+    formValues.forEach((value, key) => {
+      if (value != 0) {
+        searchform[key] = value;
+      }
+    });
+    console.log(form.getValues() + ' ' + searchform);
+    setSearchParams(searchform);
   };
 
   return (
@@ -73,18 +119,25 @@ export default function Filtres({ searchby }) {
           <SheetHeader>
             <SheetTitle>Filtres</SheetTitle>
           </SheetHeader>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              {searchby === 'chercheur' ? (
-                <Fchercheur form={form} />
-              ) : searchby === 'publication' ? (
-                <Fpublication form={form} />
-              ) : searchby === 'projet' ? (
-                <Fprojet form={form} />
-              ) : null}
-              <Button type="submit">Submit</Button>
-            </form>
-          </Form>
+
+          <ScrollArea className="h-[98%] w-[355px] pr-5">
+            {' '}
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-8"
+              >
+                {searchby === 'chercheur' ? (
+                  <Fchercheur form={form} />
+                ) : searchby === 'publication' ? (
+                  <Fpublication form={form} />
+                ) : searchby === 'projet' ? (
+                  <Fprojet form={form} />
+                ) : null}
+                <Button type="submit">Submit</Button>
+              </form>
+            </Form>
+          </ScrollArea>
         </SheetContent>
       </Sheet>
       <DevTool control={form.control} />
@@ -101,13 +154,10 @@ function Fchercheur({ form }) {
         render={({ field }) => (
           <>
             <FormItem>
-              <FormLabel>nomComplet</FormLabel>
+              <FormLabel>Nom Complet</FormLabel>
               <FormControl>
                 <Input placeholder="Entrez le nom du chercheur" {...field} />
               </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           </>
@@ -115,12 +165,25 @@ function Fchercheur({ form }) {
       />
       <FormField
         control={form.control}
-        name="email"
+        name="_id"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>email</FormLabel>
+            <FormLabel>Email</FormLabel>
             <FormControl>
               <Input placeholder="Entrez le nom du chercheur" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="GradeEnsegnement"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Grade d'ensegnement</FormLabel>
+            <FormControl>
+              <Input placeholder="Entrez le numero de telephone" {...field} />
             </FormControl>
             <FormDescription>This is your public display name.</FormDescription>
             <FormMessage />
@@ -129,10 +192,94 @@ function Fchercheur({ form }) {
       />
       <FormField
         control={form.control}
-        name="tel"
+        name="GradeRecherche"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>tel</FormLabel>
+            <FormLabel>Grade de recherche</FormLabel>
+            <FormControl>
+              <Input placeholder="Entrez le numero de telephone" {...field} />
+            </FormControl>
+            <FormDescription>This is your public display name.</FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="qualité"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>qualité</FormLabel>
+            <FormControl>
+              <Input placeholder="Entrez le numero de telephone" {...field} />
+            </FormControl>
+            <FormDescription>This is your public display name.</FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="EtablissementOrigine"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Etablissement d'origine</FormLabel>
+            <FormControl>
+              <Input placeholder="Entrez le numero de telephone" {...field} />
+            </FormControl>
+            <FormDescription>This is your public display name.</FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="Diplome"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Diplome</FormLabel>
+            <FormControl>
+              <Input placeholder="Entrez le numero de telephone" {...field} />
+            </FormControl>
+            <FormDescription>This is your public display name.</FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="Equipe"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Equipe</FormLabel>
+            <FormControl>
+              <Input placeholder="Entrez le numero de telephone" {...field} />
+            </FormControl>
+            <FormDescription>This is your public display name.</FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="Publication"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Publication</FormLabel>
+            <FormControl>
+              <Input placeholder="Entrez le numero de telephone" {...field} />
+            </FormControl>
+            <FormDescription>This is your public display name.</FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="Projet"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Projet</FormLabel>
             <FormControl>
               <Input placeholder="Entrez le numero de telephone" {...field} />
             </FormControl>

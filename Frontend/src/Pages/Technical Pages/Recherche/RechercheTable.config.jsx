@@ -112,7 +112,7 @@ export function ColumnsChercheur() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <NavLink to={`../publication/${chercheur.id + '/informations'}`}>
+              <NavLink to={`../../chercheur/${chercheur.id + '/informations'}`}>
                 <DropdownMenuItem>Voir le profil</DropdownMenuItem>
               </NavLink>
             </DropdownMenuContent>

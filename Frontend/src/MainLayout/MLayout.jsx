@@ -12,11 +12,14 @@ export default function MLayout() {
         role="Chercheur"
         setIsLogged={setIsLogged}
       />
-      <Outlet
-        context={{
-          setIsLogged,
-        }}
-      />
+      <div className=" min-h-screen">
+        <Outlet
+          context={{
+            setIsLogged,
+          }}
+        />
+      </div>
+
       <footer className=" flex h-[40px] w-full items-center  justify-center bg-buttonLight font-sans text-[15px] font-medium text-textLight">
         Copyright LMCS Track © 2024 - All rights reserved
       </footer>
