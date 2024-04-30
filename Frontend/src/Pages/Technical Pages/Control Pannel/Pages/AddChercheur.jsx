@@ -1,5 +1,6 @@
 import { DevTool } from '@hookform/devtools';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
 import {
   Form,
   FormControl,
@@ -24,7 +25,7 @@ export default function Filtres() {
   const schema = yup.object().shape({
     nom: yup.string().required("le nom est requis"),
     prenom: yup.string().required("le prenom est requis"),
-   email: yup.string().email("email format is not valid").required(" l'email est requis"),
+    email: yup.string().email("email format is not valid").required(" l'email est requis"),
     diplome: yup.string().required("le diplome est requis"),
     etablissementdorigine: yup.string().required(" l'etabliisement d'origine est requis "),
     gradeenseignement : yup.string().required(" le  grade-enseignement est requis "),
@@ -40,7 +41,7 @@ export default function Filtres() {
     defaultValues: {
       nom: "",
       prenom: "",
-   email:"",
+     email:"",
     diplome:"",
     etablissementdorigine: "",
     gradeenseignement : "professeur",
@@ -55,9 +56,31 @@ export default function Filtres() {
     resolver: yupResolver(schema),
 
   });
+  
+  const onSubmit =  async (data) => {
+    try{
+     const info = {
+      email ,
+      nom ,
+      Qualité : data.qualitee ,
+      EtablissementOrigine : data.etablissementdorigine,
+      Equipe : data.equipe,
+      Diplome : data.diplome,
+      GradeRecherche : data.graderecherche,
+      GradeEnsegnement : data.gradeenseignement,
+      H_index : data.hIndex,
+      contact : data.lien,
+      prenom,
+     }
+     console.log(info)
+    const res = await axios.post('http://localhost:3000/insertions/chercheur', info)
+    console.log(res)
+    }
+    catch(err){
 
-  const onSubmit = (data) => {
-    console.log('Filtres : ', data);
+      if(err.response)
+      console.log(err.response.data.message)//this error is for displaying the error message from the server
+    }
   };
  
   
@@ -429,7 +452,9 @@ export default function Filtres() {
 
 
            <div className='p-5'>
-          <Button className='focus:outline font-medium rounded-lg text-sm p-5 py-2.5 mb-2 h-[35px]  bg-buttonDark  text-textLight hover:bg-slate-700 hover:text-textLight  ' type="submit">Ajouter</Button>
+          <Button className='focus:outline font-medium rounded-lg text-sm p-5 py-2.5 mb-2 h-[35px]  bg-buttonDark  text-textLight hover:bg-slate-700 hover:text-textLight  '
+          
+           type="submit">Ajouter</Button>
           </div>
            </form>
       </Form>

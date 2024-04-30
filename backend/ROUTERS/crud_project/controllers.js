@@ -7,10 +7,13 @@ const nouveau_projet = async(req, res) => {
     try {
 
         let { Num, Titre, DateDebut, DateFin, chefProjet, liste_members, Theme } = req.body;
+        if (!Num || !Titre || !DateDebut || !DateFin || !chefProjet || !liste_members || !Theme) throw new Error("tout les champs sont obligatoires");
         //handling chefProjet Id;
+        const result = await Projet.findById(Num)
+        if (result) return res.status(400).json({ message: "le projet existe déjà", error: true });
         const chef = await Chercheur.findById(chefProjet)
 
-        if (!chef) return res.status(404).json({ error: true });
+        if (!chef) return res.status(404).json({ message: "le chef de projet n'existe pas"});
         // handling  list members ids
         liste_members = liste_members.split(" ");
         const members = [];
@@ -18,7 +21,9 @@ const nouveau_projet = async(req, res) => {
             const chercheur = await Chercheur.findById(liste_members[i]);
 
 
-            if (!chercheur) return res.status(404).json({ error: true })
+            if (!chercheur) return res.status(404).json({
+                message : "un membre n'existe pas",
+                 error: true })
             members.push(liste_members[i]);
 
         }
@@ -30,13 +35,15 @@ const nouveau_projet = async(req, res) => {
             DateDebut,
             DateFin,
             liste_members: members,
-
             Theme,
             ChefDeProjet: chef
         });
 
-        await projet.save();
+         projet.save().then((result) => {
+            console.log(result);
+         })
         res.status(201).json({
+            message: "projet ajouté avec succés",
             error: false
         })
 
@@ -46,7 +53,9 @@ const nouveau_projet = async(req, res) => {
 
     } catch (err) {
         console.log(err);
-        res.status(404).json({ error: true });
+        res.status(500).json({
+            message : "une erreur s'est produite lors de l'ajout du projet",
+            error: true });
 
     }
 }
