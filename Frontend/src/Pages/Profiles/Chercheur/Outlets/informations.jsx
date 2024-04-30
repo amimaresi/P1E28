@@ -1,47 +1,44 @@
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { NavLink, Outlet } from 'react-router-dom';
 
 export default function Informations() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const [data, setData] = useState({
+    _id: 'k_benatchba@esi.dz',
+    nomComplet: 'Karima Benatchba',
+    GradeEnsegnement: null,
+    qualité: 'Chercheure',
+    GradeRecherche: 'Maitre de recherche',
+    H_index: 20,
+    EtablissementOrigine: 'ESI',
+    statut: 'Actif',
+    Diplome: 'Doctorat',
+    Equipe: 'Optimisation',
+  },);
+useEffect(()=>{
 
-    console.log('form is being submitted...');
-    setIsSubmitting(true);
+    //fetching here
+    //setData(fetcheddata)
+  })
 
-    const data = {};
-    // TODO: prepare the data for the backend API.
+  
 
-    try {
-      // send the actual data to the API
-      console.log("Hey, I'm submitting!");
-    } catch (error) {
-      console.log('Oh no!');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  return (
+  return(
     <>
-      <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-2 grid-rows-4 gap-x-12 gap-y-12">
-          <input type="text" name="" id="" placeholder="ESI" />
-          <input type="text" name="" id="" placeholder="diplome" />
-          <input type="text" name="" id="" placeholder="Grade" />
-          <input type="text" name="" id="" placeholder="Projet" />
-          <input type="text" name="" id="" placeholder="Email" />
-          <input type="number" name="" id="" placeholder="24" />
-          <input type="text" name="" id="" placeholder="Tel" />
-        </div>
-
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="rounded-lg bg-blue-900 px-3 py-1 text-white hover:bg-blue-600 disabled:bg-blue-700"
-        >
-          Enregistrer
-        </button>
-      </form>
+      <div className='grid grid-rows-4 grid-cols-2 gap-x-12 gap-y-12'>
+        <div>Nom complet: {data.nomComplet}</div>
+        <div>Qualité: {data.qualité}</div>
+        <div>Etablissement d'origine: {data.EtablissementOrigine}</div>
+        <div>Diplôme: {data.Diplome}</div>
+        <div>Grade de recherche: {data.GradeRecherche}</div>
+        <div>Email: {data._id}</div>
+        <div>Grade enseignement: {data.GradeEnsegnement}</div>
+        <div>H_index: {data.H_index}</div>
+        <div>Equipe: {data.Equipe}</div>
+        <div>Téléphone: {data.tel}</div>
+        
+        
+      </div>
     </>
-  );
+  )
 }
