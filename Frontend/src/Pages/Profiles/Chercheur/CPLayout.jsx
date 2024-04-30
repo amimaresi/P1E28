@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink, Outlet } from 'react-router-dom';
 import { ChevronLeftIcon } from '@radix-ui/react-icons';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Informations from './Outlets/Informations.jsx';
@@ -12,19 +12,15 @@ export default function CPLayout() {
   const tabs = [
     {
       title: 'Informations',
-      component: <Informations key="informations" />,
     },
     {
       title: 'Publications',
-      component: <Publications key="publications" />,
     },
     {
       title: 'Statistiques',
-      component: <Statistiques key="stastiques" />,
     },
     {
       title: 'Encadrements',
-      component: <Encadrements key="encadrements" />,
     },
   ];
 
@@ -40,7 +36,7 @@ export default function CPLayout() {
           Chercheur
         </a>
       </div>
-    
+
       <div className="flex gap-x-4 pl-[20%]">
         {/* Content */}
         <div className="flex w-3/5 flex-col">
@@ -60,21 +56,19 @@ export default function CPLayout() {
 
           {/* Tabs */}
           <div className="flex justify-between">
-            {tabs.map((tab, index) => (
-              <div
-                key={tab.title}
-                onClick={() => setActiveTab(index)}
-                className="cursor-pointer"
-              >
-                {tab.title}
-              </div>
+            {tabs.map((tab) => (
+              <NavLink to={`./${tab.title}`}>
+                <div
+                  key={tab.title}
+                  onClick={() => setActiveTab(index)}
+                  className="cursor-pointer"
+                >
+                  {tab.title}
+                </div>
+              </NavLink>
             ))}
           </div>
-
-          {/* Tab Content */}
-          <div>
-            {tabs.map((tab, index) => activeTab === index && tab.component)}
-          </div>
+          <Outlet />
         </div>
 
         {/* Accounts Links */}
