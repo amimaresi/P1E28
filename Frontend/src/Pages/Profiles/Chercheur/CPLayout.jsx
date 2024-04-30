@@ -51,9 +51,12 @@ export default function CPLayout() {
           </div>
 
           {/* Tabs */}
-          <div className="flex justify-between">
+          <div className="flex justify-between  p-1 ">
             {tabs.map((tab) => (
-              <NavLink to={`./${tab.title}`}>
+              <NavLink to={`./${tab.title}`} className= {({ isActive, isPending }) =>
+              isPending ? "no-underline hover:underline underline-offset-6 decoration-2" : isActive ? " underline underline-offset-6 decoration-2" : ""
+            }>
+               
                 <div
                   key={tab.title}
                   onClick={() => setActiveTab(index)}
