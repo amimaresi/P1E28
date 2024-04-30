@@ -9,7 +9,28 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import * as yup from 'yup';
 import axios from 'axios';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 export default function Menu({ isLogged, setIsLogged, role, name }) {
   return (
     <nav className="fixed left-0 right-0 top-0 z-50 flex h-[60px] flex-row items-center  justify-between  bg-white bg-opacity-90 px-[1vw] shadow-sm backdrop-blur-md">
@@ -37,17 +58,27 @@ export default function Menu({ isLogged, setIsLogged, role, name }) {
 
               <NavigationMenuContent>
                 <ul className="grid w-[125px] grid-flow-row">
-                  <ListItem
+                  <LinkItem
                     to="/Recherche/chercheur"
                     isSimple
                     title="Chercheurs"
                   />
-                  <ListItem
+                  <LinkItem
                     to="/Recherche/publication"
                     isSimple
                     title="Publications"
+                  />{' '}
+                  <LinkItem
+                    to="/Recherche/encadrement"
+                    isSimple
+                    title="Encadrement"
+                  />{' '}
+                  <LinkItem
+                    to="/Recherche/ConfJourn"
+                    isSimple
+                    title="ConfJourn"
                   />
-                  <ListItem to="/Recherche/projet" isSimple title="Projets" />
+                  <LinkItem to="/Recherche/projet" isSimple title="Projets" />
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
@@ -67,24 +98,22 @@ export default function Menu({ isLogged, setIsLogged, role, name }) {
                   </div>
                 </div>
                 <ul className="grid gap-3 border-b-2 border-gray-200 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                  <ListItem to="/control/landingPage" title="Page d'acceill">
+                  <LinkItem to="/control/landingPage" title="Page d'acceill">
                     Modifier le contenu de la page d'acceill
-                  </ListItem>
+                  </LinkItem>
 
-                  <ListItem to="./control/update" title="Mise à jour">
+                  <LinkItem to="./control/update" title="Mise à jour">
                     - Modifier La Periode automatique <br />- Faire la mise à
                     jour manuellement
-                  </ListItem>
+                  </LinkItem>
                 </ul>
                 <ul className="grid w-[500px] grid-flow-col gap-3 p-2">
-                  <ListItem
+                  <LinkItem
                     to="/control/AddChercheur"
                     title="Ajouter un Chercheur"
                   />
 
-                  <ListItem title="Ajouter la periodicité">
-                    <Periodicité />
-                  </ListItem>
+                  <Periodicité />
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
@@ -99,18 +128,18 @@ export default function Menu({ isLogged, setIsLogged, role, name }) {
 
               <NavigationMenuContent>
                 <ul className="grid w-[125px] grid-flow-row">
-                  <ListItem to="/chercheur/test" isSimple title="Chercheurs" />
-                  <ListItem
+                  <LinkItem to="/chercheur/test" isSimple title="Chercheurs" />
+                  <LinkItem
                     to="/publication/test"
                     isSimple
                     title="Publications"
                   />{' '}
-                  <ListItem
+                  <LinkItem
                     to="/encadrement/test"
                     isSimple
                     title="Encadrements"
                   />
-                  <ListItem to="/projet/test" isSimple title="Projet" />
+                  <LinkItem to="/projet/test" isSimple title="Projet" />
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
@@ -173,7 +202,7 @@ export default function Menu({ isLogged, setIsLogged, role, name }) {
   );
 }
 
-function ListItem({ children, title, to, isSimple, onClick }) {
+function LinkItem({ children, title, to, isSimple, onClick }) {
   return (
     <li onClick={onClick}>
       <NavLink
@@ -193,7 +222,75 @@ function ListItem({ children, title, to, isSimple, onClick }) {
   );
 }
 
-ListItem.displayName = 'ListItem';
+function Periodicité({ children }) {
+  const schema = yup.object().shape({
+    id: yup.string(),
+    Periodicité: yup.string(),
+  });
+  const form = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = (data) => {
+    console.log('Filtres : ', data);
+    //fetch the data here
+  };
+
+  return (
+    <Dialog>
+      <DialogTrigger>
+        <div
+          className={` block  select-none space-y-1  rounded-md  p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent  focus:text-accent-foreground `}
+        >
+          <div
+            className={`flex items-center justify-center text-sm font-medium leading-none`}
+          >
+            Ajouter une Periodicité
+          </div>
+        </div>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Are you absolutely sure?</DialogTitle>
+          <DialogDescription>
+            modifier la Periodicité d'une ConfJourn par id
+          </DialogDescription>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              <FormField
+                control={form.control}
+                name="id"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Conferance / Journal ID</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Entrez l'id" {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="Periodicité"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Periodicité</FormLabel>
+                    <FormControl>
+                      <Input placeholder="entrez la Periodicité" {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <Button type="submit">Enregister</Button>
+            </form>
+          </Form>
+        </DialogHeader>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+LinkItem.displayName = 'LinkItem';
 
 function ProfileMenu({ name, role, setIsLogged }) {
   return (
@@ -213,18 +310,18 @@ function ProfileMenu({ name, role, setIsLogged }) {
 
           <NavigationMenuContent>
             <ul className=" grid w-[179px]">
-              <ListItem to="/chercheur/me" title="Profile" />
-              <ListItem to="/control/AddProject" title="Ajouter un Projet" />
-              <ListItem
+              <LinkItem to="/chercheur/me" title="Profile" />
+              <LinkItem to="/control/AddProject" title="Ajouter un Projet" />
+              <LinkItem
                 to="/control/AddEncadrement"
                 title="Ajouter un Encadrement"
               />
-              <ListItem
+              <LinkItem
                 to="/control/AddPublication"
                 title="Ajouter une Publication"
               />
-              <ListItem to="/settings" title="Settings" />
-              <ListItem
+              <LinkItem to="/settings" title="Settings" />
+              <LinkItem
                 to="."
                 title="Logout"
                 onClick={async () => {
@@ -250,8 +347,4 @@ function ProfileMenu({ name, role, setIsLogged }) {
       </NavigationMenuList>
     </NavigationMenu>
   );
-}
-
-function Periodicité() {
-  return <></>;
 }

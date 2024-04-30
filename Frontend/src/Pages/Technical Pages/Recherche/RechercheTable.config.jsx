@@ -25,7 +25,11 @@ export function GetColumns(searchby) {
     ? ColumnsChercheur
     : searchby === 'publication'
       ? ColumnsPublication
-      : ColumnsProjet;
+      : searchby === 'projet'
+        ? ColumnsProjet
+        : searchby === 'encadrement'
+          ? ColumnsEncadrement
+          : ColumnsConfJourn;
 }
 
 export function ColumnsChercheur() {
@@ -48,7 +52,7 @@ export function ColumnsChercheur() {
         <div className=" flex flex-row items-center gap-3">
           <div className=" flex h-9 w-9 items-center justify-center rounded-full bg-gray-300">
             <Avatar>
-              <AvatarImage src="n" />
+              <AvatarImage src={row.original.image_path} />
               <AvatarFallback>
                 {row.getValue('nomComplet').slice(0, 2)}
               </AvatarFallback>
@@ -347,7 +351,106 @@ export function ColumnsProjet() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <NavLink to={`../projet/${projet.id}`}>
+              <NavLink to={`../projet/${projet._id}`}>
+                <DropdownMenuItem>Plus d'info</DropdownMenuItem>
+              </NavLink>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        );
+      },
+    },
+  ];
+}
+export function ColumnsConfJourn() {
+  return [
+    {
+      accessorKey: '_id',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+            className="ml-[-5px]"
+          >
+            ID
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => (
+        <div className=" flex flex-row items-center gap-3">
+          <div className="ml-3">{row.getValue('_id')}</div>
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'type',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+            className=" ml-[-15px]"
+          >
+            Type
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => <div>{row.getValue('type')}</div>,
+    },
+
+    {
+      accessorKey: 'nom',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+            className=" ml-[-15px]"
+          >
+            Nom
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => <div>{row.getValue('nom').$numberInt}</div>,
+    },
+    {
+      accessorKey: 'periodicite',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+            className=" ml-[-15px]"
+          >
+            Date Debut
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => <div>{row.getValue('periodicite')}</div>,
+    },
+
+    {
+      id: 'actions',
+      enableHiding: false,
+      cell: ({ row }) => {
+        const confjourn = row.original;
+
+        return (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <MoreHorizontal className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <NavLink to={`../confjourn/${confjourn._id}`}>
                 <DropdownMenuItem>Plus d'info</DropdownMenuItem>
               </NavLink>
             </DropdownMenuContent>

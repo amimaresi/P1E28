@@ -49,6 +49,14 @@ const router = createBrowserRouter(
           element={<RechercheLayout searchby="publication" />}
         />
         <Route path="projet" element={<RechercheLayout searchby="projet" />} />
+        <Route
+          path="encadrement"
+          element={<RechercheLayout searchby="encadrement" />}
+        />
+        <Route
+          path="ConfJourn"
+          element={<RechercheLayout searchby="confJourn" />}
+        />
       </Route>
       <Route path="chercheur/:id" element={<CPLayout />}>
         <Route index element={<Navigate to="./informations" />} />

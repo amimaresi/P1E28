@@ -15,6 +15,25 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 export default function EditLandingPage() {
   const LandingPage = {
     // fetching
@@ -42,7 +61,6 @@ export default function EditLandingPage() {
     img: yup.string(),
     Subject: yup.string(),
   });
-
   const [boxes, setBoxes] = useState(LandingPage.news); //title, paragraphe, Consept
   const [index, setIndex] = useState(0);
   const [show, setShow] = useState(true);
@@ -53,106 +71,190 @@ export default function EditLandingPage() {
     defaultValues: LandingPage.news[index],
     resolver: yupResolver(schema),
   });
+  const updateForm = (i) => {
+    setIndex(i);
+    form.setValue('title', boxes[i].title);
+    form.setValue('paragraphe', boxes[i].paragraphe);
+    form.setValue('img', boxes[i].img);
+    form.setValue('Subject', boxes[i].Subject);
+  };
   const onSubmit = (data) => {
-    data.forEach((value, key) => {
-      LandingPage.news[index][key] = value;
+    setBoxes((oldBoxes) => {
+      const newBoxes = oldBoxes.map((box, idx) => {
+        if (idx === index) {
+          return { ...box, ...data };
+        }
+        return box;
+      });
+      return newBoxes;
     });
-    console.log(form.getValues() + ' ');
   };
   const paginationButtons = [];
   for (let i = 0; i < boxes.length; i++) {
     paginationButtons[i] = (
       <button
         onClick={() => {
-          setIndex(i);
+          updateForm(i);
         }}
         className={`mx-2 px-[0.6vw] py-[0.3vw] text-lg ${index == i ? 'bg-black' : 'bg-gray-400'} rounded-md transition-colors hover:text-black`}
       ></button>
     );
   }
   return (
-    <div>
-      <div>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Titre</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Entrez le Titre" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="paragraphe"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Description</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Entrez la description" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="img"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Lien de l'image</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Entrez le lien de l'image" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="Subject"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>L'acroche</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Entrez l'acroche" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit">Appliquer les changements</Button>
-          </form>
-        </Form>
-        <Button
-          onClick={() => {
-            if (boxes.length <= 5) {
-              setBoxes((old) => {
-                let newboxes = old;
-                const max = boxes.length;
-                console.log(max);
-                newboxes.push({
-                  Subject: '',
-                  img: '',
-                  title: '',
-                  paragraphe: '',
-                });
-                return newboxes;
-              });
-            }
-            console.log(boxes);
-          }}
-        >
-          add
-        </Button>
-      </div>
+    <div className="flex flex-col items-center justify-center gap-5 pt-5">
+      <Card>
+        <CardHeader>
+          <CardTitle>Card Title</CardTitle>
+          <CardDescription>Card Description</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className=" flex flex-row p-14">
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-8"
+              >
+                <div className=" flex flex-row gap-16">
+                  {' '}
+                  <FormField
+                    control={form.control}
+                    name="title"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Titre</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Entrez le Titre"
+                            className="w-[300px]"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="Subject"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>L'acroche</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Entrez l'acroche"
+                            className="w-64"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
 
+                <FormField
+                  control={form.control}
+                  name="paragraphe"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Paragraphe</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Entrez la description"
+                          className="w-[620px]"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="img"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Lien de l'image</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Entrez le lien de l'image"
+                          className="w-[620px]"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <div className="flex flex-row gap-2">
+                  <Button type="submit">Appliquer les changements</Button>
+
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      if (boxes.length <= 5) {
+                        setBoxes((old) => {
+                          let newboxes = old;
+                          const max = boxes.length;
+                          newboxes.push({
+                            Subject: '',
+                            img: '',
+                            title: '',
+                            paragraphe: '',
+                          });
+                          return newboxes;
+                        });
+                      }
+                    }}
+                  >
+                    <span className=" mr-2">+</span>
+                    New
+                  </Button>
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button>
+                        <span className=" mr-2">x</span>
+                        Remove
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>
+                          {boxes.length == 1
+                            ? 'Error !'
+                            : 'Are you absolutely sure?'}
+                        </AlertDialogTitle>
+                        <AlertDialogDescription>
+                          At least one element should be present !
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={() => {
+                            if (boxes.length <= 6 && boxes.length != 1) {
+                              setBoxes((old) => {
+                                let newboxes = structuredClone(old);
+                                newboxes.splice(index, 1);
+                                index != 0 ? setIndex(index - 1) : null;
+                                console.log(newboxes);
+                                return newboxes;
+                              });
+                            }
+                          }}
+                        >
+                          Continue
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                </div>
+              </form>
+            </Form>
+          </div>
+        </CardContent>
+      </Card>
       <div className="bg-whitep-1  flex min-w-[64vw] flex-col place-items-center ">
         <div className="flex min-w-[64vw] flex-row items-center justify-around px-2 py-2">
           <button
@@ -160,7 +262,7 @@ export default function EditLandingPage() {
             onClick={async () => {
               setShow(false);
               await timeout(100);
-              setIndex(index == 0 ? boxes.length - 1 : index - 1);
+              updateForm(index == 0 ? boxes.length - 1 : index - 1);
               await timeout(100);
               setShow(true);
             }}
@@ -208,7 +310,7 @@ export default function EditLandingPage() {
             onClick={async () => {
               setShow(false);
               await timeout(100);
-              setIndex(index == boxes.length - 1 ? 0 : index + 1);
+              updateForm(index == boxes.length - 1 ? 0 : index + 1);
               await timeout(100);
               setShow(true);
             }}
