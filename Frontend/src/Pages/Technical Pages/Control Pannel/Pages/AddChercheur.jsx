@@ -1,5 +1,6 @@
 import { DevTool } from '@hookform/devtools';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
 import {
   Form,
   FormControl,
@@ -21,6 +22,16 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 export default function Filtres() {
   const schema = yup.object().shape({
+
+    nom: yup.string().required("le nom est requis"),
+    prenom: yup.string().required("le prenom est requis"),
+    email: yup.string().email("email format is not valid").required(" l'email est requis"),
+    diplome: yup.string().required("le diplome est requis"),
+    etablissementdorigine: yup.string().required(" l'etabliisement d'origine est requis "),
+    gradeenseignement : yup.string().required(" le  grade-enseignement est requis "),
+    graderecherche : yup.string().required(" le grade-recherche est requis "),
+    qualitee : yup.string().required(" la qualitee est requise "),
+    hIndex : yup.string(),
     nom: yup.string().required('le nom est requis'),
     prenom: yup.string().required('le prenom est requis'),
     email: yup
@@ -37,6 +48,7 @@ export default function Filtres() {
     graderecherche: yup.string().required(' le grade-recherche est requis '),
     qualitee: yup.string().required(' la qualitee est requise '),
     hIndex: yup.number(),
+
     equipe: yup.string(),
     lien: yup.string(),
     projet: yup.string(),
@@ -44,24 +56,41 @@ export default function Filtres() {
 
   const form = useForm({
     defaultValues: {
-      nom: '',
-      prenom: '',
-      email: '',
-      diplome: '',
-      etablissementdorigine: '',
-      gradeenseignement: 'professeur',
-      graderecherche: 'directeur de recherche',
-      qualitee: 'enseignant-chercheur',
-      hIndex: '',
-      equipe: '',
-      lien: '',
-      projet: '',
+
+
+
     },
     resolver: yupResolver(schema),
   });
+  
+  const onSubmit =  async ( data) => {
+   console.log(data)
+    try{
+     const info = {
+      email: data.email,
+      nom : data.nom,
+      Qualité : data.qualitee ,
+      EtablissementOrigine : data.etablissementdorigine,
+      Equipe : data.equipe,
+      Diplome : data.diplome,
+      GradeRecherche : data.graderecherche,
+      GradeEnsegnement : data.gradeenseignement,
+      H_index : data.hIndex,
+      contact : data.lien,
+      prenom:data.prenom,
+     }
+     
+     console.log(info)
+     console.log("clicked")
+     
+    const res = await axios.post('http://localhost:3000/chercheur/insertionChercheur ', info)
+    console.log(res.data.message)
+    }
+    catch(err){
 
-  const onSubmit = (data) => {
-    console.log('Filtres : ', data);
+      if(err.response)
+      console.log(err.response.data.message)//this error is for displaying the error message from the server
+    }
   };
 
   return (
@@ -410,13 +439,12 @@ export default function Filtres() {
             )}
           />
 
-          <div className="p-5">
-            <Button
-              className="mb-2 h-[35px] rounded-lg bg-buttonDark p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline  "
-              type="submit"
-            >
-              Ajouter
-            </Button>
+
+           <div className='p-5'>
+          <Button className='focus:outline font-medium rounded-lg text-sm p-5 py-2.5 mb-2 h-[35px]  bg-buttonDark  text-textLight hover:bg-slate-700 hover:text-textLight  '
+          
+         
+           type="submit">Ajouter</Button>
           </div>
         </form>
       </Form>

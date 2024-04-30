@@ -15,9 +15,11 @@ const insertionChercheur = async (req, res) => {
     const { email,Equipe ,Diplome,nom , Qualité,EtablissementOrigine,prenom, contact ,  GradeRecherche, GradeEnsegnement, H_index } = req.body
     const nomComplet = prenom+ " " + nom
     try {
+        
         if(!email || !nom || !prenom || !contact || !Qualité  || !EtablissementOrigine || !Equipe || !Diplome || !GradeRecherche || !GradeEnsegnement || !H_index){
             throw new Error("Tous les champs sont obligatoires")
         }
+        
         //check if the chercheur already exist
         const chercheur = await Chercheur.findById(email)
 
@@ -54,6 +56,7 @@ const insertionChercheur = async (req, res) => {
         await user.save()
         //send email to the chercheur
         const token = creatToken( email)
+        
         await sendMailCherch(email , nomComplet ,token)
 
 
@@ -63,7 +66,7 @@ const insertionChercheur = async (req, res) => {
 }
 
 catch (error) {
-    return res.status(500).json({ error: error.message })
+    return res.status(500).json({ message: error.message })
 }
 }
 
