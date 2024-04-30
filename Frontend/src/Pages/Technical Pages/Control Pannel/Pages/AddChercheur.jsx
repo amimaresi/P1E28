@@ -57,11 +57,12 @@ export default function Filtres() {
 
   });
   
-  const onSubmit =  async (data) => {
+  const onSubmit =  async ( data) => {
+   console.log(data)
     try{
      const info = {
-      email ,
-      nom ,
+      email: data.email,
+      nom : data.nom,
       Qualité : data.qualitee ,
       EtablissementOrigine : data.etablissementdorigine,
       Equipe : data.equipe,
@@ -70,11 +71,14 @@ export default function Filtres() {
       GradeEnsegnement : data.gradeenseignement,
       H_index : data.hIndex,
       contact : data.lien,
-      prenom,
+      prenom:data.prenom,
      }
+     
      console.log(info)
-    const res = await axios.post('http://localhost:3000/insertions/chercheur', info)
-    console.log(res)
+     console.log("clicked")
+     
+    const res = await axios.post('http://localhost:3000/chercheur/insertionChercheur ', info)
+    console.log(res.data.message)
     }
     catch(err){
 
@@ -454,6 +458,7 @@ export default function Filtres() {
            <div className='p-5'>
           <Button className='focus:outline font-medium rounded-lg text-sm p-5 py-2.5 mb-2 h-[35px]  bg-buttonDark  text-textLight hover:bg-slate-700 hover:text-textLight  '
           
+         
            type="submit">Ajouter</Button>
           </div>
            </form>
