@@ -55,13 +55,13 @@ export default function CPLayout() {
           </div>
 
           {/* Tabs */}
-          <div className="flex justify-between">
+          <div className="flex justify-between  p-1 ">
             {tabs.map((tab) => (
               <NavLink to={`./${tab.title}`}>
                 <div
                   key={tab.title}
                   onClick={() => setActiveTab(index)}
-                  className="cursor-pointer"
+                  className="cursor-pointer hover:underline underline-offset-6 decoration-2"
                 >
                   {tab.title}
                 </div>
