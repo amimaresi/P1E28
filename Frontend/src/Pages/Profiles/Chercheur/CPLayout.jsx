@@ -40,7 +40,7 @@ export default function CPLayout() {
           Chercheur
         </a>
       </div>
-
+    
       <div className="flex gap-x-4 pl-[20%]">
         {/* Content */}
         <div className="flex w-3/5 flex-col">
