@@ -45,7 +45,7 @@ export default function EditLandingPage() {
   }
   return (
     <div>
-      <div className=" bg-wh flex items-center justify-center pt-16">
+      <div className=" bg-wh flex items-center justify-center p-16">
         <div className="bg-whitep-1  flex min-w-[64vw] flex-col place-items-center rounded-2xl bg-white shadow-md lg:p-5">
           <div className="flex min-w-[64vw] flex-row items-center justify-around bg-white px-2 py-2">
             <img
