@@ -70,7 +70,8 @@ export default function Menu({ isLogged, setIsLogged, role, name }) {
                   <ListItem to="/control/landingPage" title="Page d'acceill">
                     Modifier le contenu de la page d'acceill
                   </ListItem>
-                  <ListItem to="/control/update" title="Mise à jour">
+
+                  <ListItem to="./control/update" title="Mise à jour">
                     - Modifier La Periode automatique <br />- Faire la mise à
                     jour manuellement
                   </ListItem>
@@ -80,10 +81,10 @@ export default function Menu({ isLogged, setIsLogged, role, name }) {
                     to="/control/AddChercheur"
                     title="Ajouter un Chercheur"
                   />
-                  <ListItem
-                    to="/control/AddProject"
-                    title="Ajouter un Projet"
-                  />
+
+                  <ListItem title="Ajouter la periodicité">
+                    <Periodicité />
+                  </ListItem>
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
@@ -249,4 +250,8 @@ function ProfileMenu({ name, role, setIsLogged }) {
       </NavigationMenuList>
     </NavigationMenu>
   );
+}
+
+function Periodicité() {
+  return <></>;
 }
