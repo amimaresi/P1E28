@@ -15,6 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { NavLink } from 'react-router-dom';
 import bg1 from './assets/bg2.png';
 import bg2 from './assets/bg1.png';
+import { Button } from '@/components/ui/button';
 export default function LandingPage() {
   const LandingPage = {
     // fetching
@@ -89,20 +90,20 @@ export default function LandingPage() {
   for (let i = 0; i < leaders.length; i++) {
     leaderboxes[i] = (
       <NavLink to={`chercheur/${leaders[i]._id}`}>
-        <Card className="h-[22vw] w-[18vw] border-[0.15vw] p-[1vw] shadow-md transition-shadow hover:mb-3 hover:translate-x-2 hover:shadow-lg lg:h-[20vw] lg:w-[16vw]">
+        <Card className=" h-[27vw] w-[30vw] border-[0.15vw] p-[1vw] shadow-md transition-shadow hover:mb-3 hover:translate-x-2 hover:shadow-lg md:h-[22vw] md:w-[20vw] lg:h-[20vw] lg:w-[16vw]">
           <CardHeader className="p-[1vw]">
             <Avatar className="h-[4vw] w-[4vw]">
               <AvatarImage src={leaders[i].nomComplet} />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
-            <CardTitle className="text-[1.5vw] lg:text-[1.2vw]">
+            <CardTitle className="text-[2.2vw] md:text-[1.5vw] lg:text-[1.2vw]">
               {leaders[i].nomComplet}
             </CardTitle>
-            <CardDescription className="text-[1.3vw] lg:text-[0.9vw]">
+            <CardDescription className="text-[1.7vw] md:text-[1.3vw] lg:text-[0.9vw]">
               {leaders[i].GradeRecherche}
             </CardDescription>
           </CardHeader>
-          <CardContent className="p-[1vw] text-[1.1vw] lg:text-[0.8vw]">
+          <CardContent className="p-[1vw] text-[1.7vw] md:text-[1.1vw] lg:text-[0.8vw]">
             {' '}
             <span className="font-semibold underline underline-offset-1">
               Email
@@ -130,7 +131,7 @@ export default function LandingPage() {
               onClick={async () => {
                 setShow(false);
                 await timeout(100);
-                setIndex(index == boxes.length - 1 ? 0 : index + 1);
+                setIndex(index == 0 ? boxes.length - 1 : index - 1);
                 await timeout(100);
                 setShow(true);
               }}
@@ -178,7 +179,7 @@ export default function LandingPage() {
               onClick={async () => {
                 setShow(false);
                 await timeout(100);
-                setIndex(index == 0 ? boxes.length - 1 : index - 1);
+                setIndex(index == boxes.length - 1 ? 0 : index + 1);
                 await timeout(100);
                 setShow(true);
               }}
@@ -195,11 +196,11 @@ export default function LandingPage() {
           </div>
         </div>
       </div>
-      <div className=" relative mt-[3vw] flex h-[35vw] flex-col items-center justify-center gap-2 md:gap-5">
+      <div className=" relative mt-[3vw] flex h-[45vw] flex-col items-center justify-center gap-2 md:h-[35vw] md:gap-5">
         <img
           src={BgElement}
           alt="background"
-          className="absolute bottom-0 left-0 top-0 z-0 h-[35vw] w-full object-cover"
+          className="absolute bottom-0 left-0 top-0 z-0 h-[45vw] w-full object-cover md:h-[35vw]"
         />
         <h1 className="z-10 font-title text-[2vw] font-semibold">
           LMCS Leaders
@@ -207,16 +208,29 @@ export default function LandingPage() {
         <div className="  z-10 flex flex-row  gap-[2vw]">{leaderboxes}</div>
       </div>
       <div className="relative flex h-[31vw] flex-row items-center justify-around">
-        <img src={graph} alt="background" className=" z-0 h-[30vw]" />
-        <div className=" flex h-[31vw] flex-col items-center justify-center gap-[10%]">
-          <h1 className=" z-10  text-center font-title text-[2vw]">
-            LMCS Stats
-          </h1>
-          <p className="w-[50%] text-[1vw]">
-            {
-              'imrgregt, {useState} from react \n ietghtyrthgLink, Outlet } from "react-router-dom" \n irgergegpojoj*zolmajn,vjaerkhga'
-            }
-          </p>
+        <img
+          src={graph}
+          alt="background"
+          className=" z-0 ml-10 h-[30vw] md:ml-0"
+        />
+        <div className=" flex h-[31vw] flex-col items-center justify-center gap-[5%]">
+          <div className="flex flex-col items-center gap-5">
+            <p className="w-[50%] text-[2vw] md:text-[1vw]">
+              <h1 className=" z-10 mb-3 font-title text-[4vw] md:text-[2vw]">
+                LMCS Stats
+              </h1>
+              {
+                'imrgregt, {useState} from react \n ietghtyrthgLink, Outlet } from "react-router-dom" \n irgergegpojoj*zolmajn,vjaerkhga'
+              }
+            </p>
+            <NavLink to="/login">
+              <Button
+                className={`h-[25px] rounded-xl bg-buttonDark px-4 text-sm text-textLight hover:bg-slate-700 hover:text-textLight md:h-[35px] md:text-lg `}
+              >
+                Learn more
+              </Button>
+            </NavLink>
+          </div>
         </div>
       </div>
     </div>

@@ -28,8 +28,7 @@ import { Button } from '@/components/ui/button';
 import { useSearchParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 
 export default function Filtres({ searchby }) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -93,7 +92,9 @@ export default function Filtres({ searchby }) {
       searchby == 'chercheur' ? schemaChercheur : schemaPublication,
     ),
   });
-
+  const tags = Array.from({ length: 50 }).map(
+    (_, i, a) => `v1.2.0-beta.${a.length - i}`,
+  );
   const onSubmit = (data) => {
     console.log('Filtres : ', data);
     const searchform = {};
@@ -118,18 +119,25 @@ export default function Filtres({ searchby }) {
           <SheetHeader>
             <SheetTitle>Filtres</SheetTitle>
           </SheetHeader>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              {searchby === 'chercheur' ? (
-                <Fchercheur form={form} />
-              ) : searchby === 'publication' ? (
-                <Fpublication form={form} />
-              ) : searchby === 'projet' ? (
-                <Fprojet form={form} />
-              ) : null}
-              <Button type="submit">Submit</Button>
-            </form>
-          </Form>
+
+          <ScrollArea className="h-[98%] w-[355px] pr-5">
+            {' '}
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-8"
+              >
+                {searchby === 'chercheur' ? (
+                  <Fchercheur form={form} />
+                ) : searchby === 'publication' ? (
+                  <Fpublication form={form} />
+                ) : searchby === 'projet' ? (
+                  <Fprojet form={form} />
+                ) : null}
+                <Button type="submit">Submit</Button>
+              </form>
+            </Form>
+          </ScrollArea>
         </SheetContent>
       </Sheet>
       <DevTool control={form.control} />
