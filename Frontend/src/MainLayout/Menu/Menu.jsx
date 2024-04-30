@@ -211,9 +211,13 @@ function ProfileMenu({ name, role, setIsLogged }) {
           </NavigationMenuTrigger>
 
           <NavigationMenuContent>
-            <ul className=" grid w-[163px]">
+            <ul className=" grid w-[179px]">
               <ListItem to="/chercheur/me" title="Profile" />
               <ListItem to="/control/AddProject" title="Ajouter un Projet" />
+              <ListItem
+                to="/control/AddEncadrement"
+                title="Ajouter un Encadrement"
+              />
               <ListItem
                 to="/control/AddPublication"
                 title="Ajouter une Publication"
