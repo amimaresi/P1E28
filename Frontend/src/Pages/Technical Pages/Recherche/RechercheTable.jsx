@@ -7,15 +7,17 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { ChevronDown } from 'lucide-react';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import Filtres from './Filtres/Filtres.jsx';
 import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import {
   Table,
@@ -75,14 +77,45 @@ export function RechercheTable({ navigate, searchby }) {
   }
   return (
     <div>
-      <div className="h-[610px] w-full">
-        <div className="flex items-center ">
-          <Input
-            type="text"
-            placeholder="Entrez le mot clé"
-            className="h-15 w-[17rem] rounded-xl border border-gray-300 shadow "
-          />
-          <Filtres searchby={searchby} />
+      <div className="min-h-[610px] w-full">
+        <div className="flex flex-col items-center justify-between md:flex-row">
+          <div className="flex flex-col items-center md:flex-row">
+            <Input
+              type="text"
+              placeholder="Entrez le mot clé"
+              className="h-15 w-[15rem] rounded-xl border border-gray-300 shadow md:w-[17rem] "
+            />
+            <Filtres searchby={searchby} />
+          </div>
+          <div className=" md-m-0 m-2 flex flex-row items-center justify-between">
+            <span className=" mr-2">Lignes par page : </span>
+            <Select
+              defaultValue={pagination.pageSize.toString()}
+              value={pagination.pageSize.toString()}
+              onValueChange={(value) => {
+                setPagination((prev) => {
+                  return {
+                    ...prev,
+                    pageSize: Number(value),
+                  };
+                });
+                console.log(pagination.pageSize + ' ' + value);
+              }}
+            >
+              <SelectTrigger className="flex w-[70px]">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="4">4</SelectItem>
+                  <SelectItem value="6">6</SelectItem>
+                  <SelectItem value="8">8</SelectItem>
+                  <SelectItem value="10">10</SelectItem>
+                  <SelectItem value="12">12</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
         <div className="rounded-sm border border-buttonDark bg-white ">
           <Table>
@@ -132,7 +165,7 @@ export function RechercheTable({ navigate, searchby }) {
           </Table>
         </div>
       </div>
-      <div className="flex flex-row items-center justify-center ">
+      <div className="my-3 flex flex-row items-center justify-center">
         <div>
           <Button
             variant="outline"

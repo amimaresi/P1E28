@@ -1,8 +1,8 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const cookie = require('cookie-parser');
-require('dotenv').config();
-const cors = require('cors')
+const express = require("express");
+const mongoose = require("mongoose");
+const cookie = require("cookie-parser");
+require("dotenv").config();
+const cors = require("cors");
 const app = express();
 const crud = require("./ROUTERS/crud_project/routes");
 const cherchRoute = require("./ROUTERS/crud_chercheure/insertion/router")
@@ -34,17 +34,28 @@ app.use('/chercheur', cherchRoute)
 
 
 
-const PORT = process.env.PORT || 3000
+app.use(express.json());
 
+//app.use(cors())
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
+const setRouter = require("./settings/router");
+// const authRouter = require('./authentication/router/userRouter')
+// app.use('/auth', authRouter)
+app.use("/insertions", crud);
+app.use("/settings", setRouter);
 
-mongoose.connect(process.env.URL).then(() => {
+const PORT = process.env.PORT || 3000;
+
+mongoose
+  .connect(process.env.URL)
+  .then(() => {
     app.listen(PORT, async () => {
-        console.log("connected to the database and start listening at post 3000..")
-        
-    })
-
-}).catch((err) => {
-    console.log("can't connect ", err)
-})
-
+      console.log(
+        "connected to the database and start listening at post 3000.."
+      );
+    });
+  })
+  .catch((err) => {
+    console.log("can't connect ", err);
+  });

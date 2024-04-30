@@ -5,7 +5,7 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [remember, setRemember] = useState(false);
-  const context = useOutletContext();
+  const { setIsLogged, userInfo, setUserInfo } = useOutletContext();
   const handleRememberChange = () => {
     setRemember(!remember);
   };
@@ -21,6 +21,7 @@ export default function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(email, password);
+
     //console.log(context);
     context.setIsLogged.setIsLogged(true);
     try{
@@ -36,6 +37,9 @@ export default function Login() {
     console.log('jdsojfoa')
     setEmail('')
     setPassword('')
+
+   
+
   };
 
   return (

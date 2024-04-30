@@ -112,7 +112,7 @@ export function ColumnsChercheur() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <NavLink to={`./${chercheur.id + '/informations'}`}>
+              <NavLink to={`../../chercheur/${chercheur.id + '/informations'}`}>
                 <DropdownMenuItem>Voir le profil</DropdownMenuItem>
               </NavLink>
             </DropdownMenuContent>
@@ -203,7 +203,7 @@ export function ColumnsPublication() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <NavLink to={`./${publication.id}`}>
+              <NavLink to={`../publication/${publication.id}`}>
                 <DropdownMenuItem>Plus d'info</DropdownMenuItem>
               </NavLink>
               <a href={publication.Lien}>
@@ -258,15 +258,7 @@ export function ColumnsProjet() {
     {
       accessorKey: 'liste_members',
       header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Membres
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
-        );
+        return <span className=" ml-4">Membres</span>;
       },
       cell: ({ row }) => (
         <div>
@@ -355,7 +347,7 @@ export function ColumnsProjet() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <NavLink to={`./${projet.id}`}>
+              <NavLink to={`../projet/${projet.id}`}>
                 <DropdownMenuItem>Plus d'info</DropdownMenuItem>
               </NavLink>
             </DropdownMenuContent>

@@ -23,7 +23,7 @@ const sendMailCherch = async (email ,  nomComplet ,token) => {
         html :
         `<h2>Bienvenue monsieur ${nomComplet} dans la famille LMCS</h2>
         <p>Vous pouvez connecter a votre compte apres changer votre mot de pass</p>
-        <a href= http://localhost:3000/settings/resetpassword/${token}>clique ici pour change votre mot de passe </a>
+        <a href= http://localhost:3000/settings/resetpassword/${token}>cliquez ici pour change votre mot de passe </a>
         <p>Pour plus d'information veuillez nous contacter</p>
         `
 

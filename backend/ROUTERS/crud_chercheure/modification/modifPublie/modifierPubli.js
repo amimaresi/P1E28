@@ -1,4 +1,4 @@
-const Publication = require('../../schema/Publication');
+const Publication = require('../../../../../schema/Publication');
 
 const modifierPublication = async (req, res) => {
     try {
