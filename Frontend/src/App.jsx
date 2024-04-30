@@ -22,8 +22,13 @@ import CPLayout from './Pages/Profiles/Chercheur/CPLayout.jsx';
 import Informations from './Pages/Profiles/Chercheur/Outlets/Informations.jsx';
 import Encadrements from './Pages/Profiles/Chercheur/Outlets/Encadrements.jsx';
 import Publications from './Pages/Profiles/Chercheur/Outlets/Publications.jsx';
-import Statistiques from './Pages/Profiles/Chercheur/Outlets/Statistiques.jsx';
 import PPLayout from './Pages/Profiles/Publication/PPLayout.jsx';
+import Settings from './Pages/settings/Settings.jsx';
+import AddPublication from './Pages/Technical Pages/Control Pannel/Pages/AddPublication.jsx';
+import AddEncadrement from './Pages/Technical Pages/Control Pannel/Pages/AddEncadrement.jsx';
+import Statistiques from './Pages/statistiques/Statistiques.jsx';
+import PrPLayout from './Pages/Profiles/Project/PrPLayout.jsx';
+import CJLayout from './Pages/Profiles/ConfJourn/CJLayout.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -50,22 +55,23 @@ const router = createBrowserRouter(
         <Route path="informations" element={<Informations />} />
         <Route path="encadrements" element={<Encadrements />} />
         <Route path="publications" element={<Publications />} />
-        <Route path="statistiques" element={<Statistiques />} />
       </Route>
       <Route
         path="chercheur/"
         element={<Navigate to="/chercheur/NotFound/informations" />}
       />
       <Route path="publication/:id" element={<PPLayout />} />
-
-      <Route path="projet/:id" element={<PPLayout />} />
-
+      <Route path="ConfJourn/:id" element={<CJLayout />} />
+      <Route path="projet/:id" element={<PrPLayout />} />
+      <Route path="settings" element={<Settings />} />
+      <Route path="statistiques" element={<Statistiques />} />
       <Route path="encadrement/:id" element={<PPLayout />} />
       <Route path="control" element={<Outlet />}>
         <Route index element={<NotFound />} />
         <Route path="LandingPage" element={<EditLandingPage />} />
         <Route path="Update" element={<Update />} />
-
+        <Route path="AddEncadrement" element={<AddEncadrement />} />
+        <Route path="AddPublication" element={<AddPublication />} />
         <Route path="AddChercheur" element={<AddChercheur />} />
         <Route path="AddProject" element={<AddProject />} />
         {/* + control pages */}

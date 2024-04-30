@@ -86,6 +86,7 @@ export default function LandingPage() {
       ></button>
     );
   }
+
   const leaderboxes = [];
   for (let i = 0; i < leaders.length; i++) {
     leaderboxes[i] = (

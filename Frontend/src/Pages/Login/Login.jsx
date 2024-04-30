@@ -5,7 +5,7 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [remember, setRemember] = useState(false);
-  const context = useOutletContext();
+  const { setIsLogged, userInfo, setUserInfo } = useOutletContext();
   const handleRememberChange = () => {
     setRemember(!remember);
   };
@@ -21,7 +21,7 @@ export default function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(email, password);
-    context.setIsLogged(true);
+    setIsLogged(true);
 
     try {
       const response = await axios.post(
@@ -30,6 +30,7 @@ export default function Login() {
         { withCredentials: true },
       );
       console.log(response.data); // Assuming you want to log the response data
+      setUserInfo(response.data);
     } catch (error) {
       if (error.response) {
         console.log(error.response.data.message); // Logging the error message from the server

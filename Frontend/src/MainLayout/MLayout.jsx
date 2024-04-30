@@ -4,6 +4,7 @@ import Menu from './Menu/Menu.jsx';
 
 export default function MLayout() {
   const [isLogged, setIsLogged] = useState(false);
+  const [userInfo, setUserInfo] = useState({});
   return (
     <div className="  z-0 w-full bg-textLight pt-[60px]">
       <Menu
@@ -16,6 +17,8 @@ export default function MLayout() {
         <Outlet
           context={{
             setIsLogged,
+            userInfo,
+            setUserInfo,
           }}
         />
       </div>

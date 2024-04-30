@@ -4,7 +4,6 @@ import { ChevronLeftIcon } from '@radix-ui/react-icons';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Informations from './Outlets/Informations.jsx';
 import Publications from './Outlets/Publications.jsx';
-import Statistiques from './Outlets/Statistiques.jsx';
 import Encadrements from './Outlets/Encadrements.jsx';
 
 export default function CPLayout() {
@@ -15,9 +14,6 @@ export default function CPLayout() {
     },
     {
       title: 'Publications',
-    },
-    {
-      title: 'Statistiques',
     },
     {
       title: 'Encadrements',

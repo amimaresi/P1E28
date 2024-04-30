@@ -115,6 +115,7 @@ export default function Menu({ isLogged, setIsLogged, role, name }) {
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
+        <ListItem to="/chercheur/me" title="Statistiques" />
       </div>
 
       <div className="flex flex-row items-center justify-end">
@@ -185,6 +186,11 @@ function ProfileMenu({ name, role, setIsLogged }) {
           <NavigationMenuContent>
             <ul className=" grid w-[163px]">
               <ListItem to="/chercheur/me" title="Profile" />
+              <ListItem to="/control/AddProject" title="Ajouter un Projet" />
+              <ListItem
+                to="/control/AddPublication"
+                title="Ajouter une Publication"
+              />
               <ListItem to="/settings" title="Settings" />
               <ListItem
                 to="."
