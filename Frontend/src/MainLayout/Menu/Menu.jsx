@@ -115,12 +115,39 @@ export default function Menu({ isLogged, setIsLogged, role, name }) {
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
-        <ListItem to="/chercheur/me" title="Statistiques" />
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <NavLink
+                to="/statistiques"
+                className={`text-[16.5px] ${navigationMenuTriggerStyle()}`}
+              >
+                Statistiques
+              </NavLink>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
       </div>
 
       <div className="flex flex-row items-center justify-end">
         <NavigationMenu>
           <NavigationMenuList>
+            <NavigationMenuItem>
+              <NavLink
+                to="/aboutus"
+                className={`text-[16.5px] ${navigationMenuTriggerStyle()}`}
+              >
+                About Us
+              </NavLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavLink
+                to="/guide"
+                className={`text-[16.5px] ${navigationMenuTriggerStyle()}`}
+              >
+                Guide
+              </NavLink>
+            </NavigationMenuItem>
             <NavigationMenuItem>
               {isLogged ? (
                 <ProfileMenu
