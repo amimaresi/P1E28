@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { DevTool } from '@hookform/devtools';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
 import {
   Form,
   FormControl,
@@ -15,17 +16,17 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
- const options = {method : 'POST'}
-fetch("/insertProjet", options)
-.then(response =>{
+ //const options = {method : 'POST'}
+// fetch("/insertProjet", options)
+// .then(response =>{
  
-  if(!response.ok){
-    throw new Error("could not fetch resource");
-  }
-  return  response.json();
-})
-.then(data=> console.log(data))
-.catch(error => console.error(error) );
+//   if(!response.ok){
+//     throw new Error("could not fetch resource");
+//   }
+//   return  response.json();
+// })
+// .then(data=> console.log(data))
+// .catch(error => console.error(error) );
 
 export default function AddProject() {
   const schema = yup.object().shape({
@@ -54,9 +55,15 @@ export default function AddProject() {
 
   });
 
-  const onSubmit = (data) => {
-    fetch();
-    console.log('Filtres : ', data);
+  const onSubmit = async (data) => {
+    console.log(data);
+   await axios.post('http://localhost:3000/insertions/projet', data)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.error(error.response.data.message);
+      });
   };
  
   return <>

@@ -21,15 +21,19 @@ export default function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(email, password);
-    console.log(context);
+    //console.log(context);
     context.setIsLogged.setIsLogged(true);
     try{
+      console.log('trying to login')
    const resutlt = await axios.post('http://localhost:3000/auth/login', {email , password} ,  { withCredentials : true });
     console.log(resutlt)
     }
     catch(err){
+      console.log("the error is here" + err)
+      if(err.response)
       console.log(err.response.data.message)
     }
+    console.log('jdsojfoa')
     setEmail('')
     setPassword('')
   };
