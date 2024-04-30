@@ -13,12 +13,8 @@ const ajouterModifierPeriode = async (req, res) => {
         let confJournal = await ConfJournal.findOne({ _id: acronym, type: type });
 
         if (!confJournal) {
-            // Si la conférence ou le journal n'existe pas, le créer
-            confJournal = new ConfJournal({
-                _id: acronym,
-                type: type,
-                periodicity: periodicity
-            });
+            // Si la conférence ou le journal n'existe pas
+            return res.status(400).json({ success: false, message: "La conférence ou le journal n'existe pas." });
         } else {
             // Si la conférence ou le journal existe, mettre à jour la périodicité
             confJournal.periodicity = periodicity;

@@ -5,13 +5,34 @@ require("dotenv").config();
 const cors = require("cors");
 const app = express();
 const crud = require("./ROUTERS/crud_project/routes");
+const cherchRoute = require("./ROUTERS/crud_chercheure/insertion/router")
 const cron = require("node-cron");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookie());
 
-const { get_maj_time } = require("./settings/changeTimeOfMaj");
-const { maj } = require("./màj/majM"); //pour la maj
+const { get_maj_time } = require('./settings/changeTimeOfMaj');
+const { maj } = require("./màj/majM");//pour la maj
+
+
+app.use(express.json())
+
+
+
+//app.use(cors())
+app.use(cors( {origin:'http://localhost:5173', credentials: true }))
+
+
+
+const setRouter = require('./settings/router')
+const authRouter = require('./authentication/router/userRouter')
+app.use('/auth', authRouter)
+app.use('/insertions', crud)
+app.use('/settings' , setRouter)
+app.use('/chercheur', cherchRoute)
+
+
+
 
 app.use(express.json());
 

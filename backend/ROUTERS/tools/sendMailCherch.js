@@ -7,6 +7,7 @@ const nodemailer = require('nodemailer')
 
 const sendMailCherch = async (email ,  nomComplet ,token) => {
     console.log(nomComplet)
+    console.log(email)
     const transporter = nodemailer.createTransport({
         service:'gmail',
         auth:{
