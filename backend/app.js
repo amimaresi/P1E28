@@ -34,11 +34,12 @@ app.use('/chercheur', cherchRoute)
 
 
 
+
 const PORT = process.env.PORT || 3000
 
 
 
-mongoose.connect(process.env.URL).then(() => {
+mongoose.connect("mongodb+srv://jazmine:11112024@cluster0.okfd2cg.mongodb.net/?retryWrites=true&w=majority").then(() => {
     app.listen(PORT, async () => {
         console.log("connected to the database and start listening at post 3000..")
         
