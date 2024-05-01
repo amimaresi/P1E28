@@ -105,17 +105,17 @@ export default function EditLandingPage() {
       <Card>
         <CardHeader>
           <CardTitle>Anouncements ( Page d'acceil )</CardTitle>
-          <CardDescription className="text-[20px] italic text-textDark">
-            Element # {index + 1}
-          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className=" flex flex-row p-14">
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-8"
+                className=" flex flex-col gap-6"
               >
+                <CardDescription className="text-[20px] font-semibold italic text-textDark">
+                  Element # {index + 1}
+                </CardDescription>
                 <div className=" flex flex-row gap-16">
                   {' '}
                   <FormField
