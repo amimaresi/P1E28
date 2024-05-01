@@ -8,7 +8,7 @@ const settings_schema = mongoose.Schema({
     },
     setting_value:
     {
-        type: String
+        type: Object,
     }
 
 
