@@ -104,8 +104,10 @@ export default function EditLandingPage() {
     <div className="flex flex-col items-center justify-center gap-5 pt-5">
       <Card>
         <CardHeader>
-          <CardTitle>Card Title</CardTitle>
-          <CardDescription>Card Description</CardDescription>
+          <CardTitle>Anouncements ( Page d'acceil )</CardTitle>
+          <CardDescription className="text-[20px] italic text-textDark">
+            Element # {index + 1}
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className=" flex flex-row p-14">
@@ -187,68 +189,70 @@ export default function EditLandingPage() {
                   )}
                 />
 
-                <div className="flex flex-row gap-2">
+                <div className="flex flex-row  justify-between">
                   <Button type="submit">Appliquer les changements</Button>
-
-                  <Button
-                    type="button"
-                    onClick={() => {
-                      if (boxes.length <= 5) {
-                        setBoxes((old) => {
-                          let newboxes = old;
-                          const max = boxes.length;
-                          newboxes.push({
-                            Subject: '',
-                            img: '',
-                            title: '',
-                            paragraphe: '',
+                  <div className="flex flex-row gap-2">
+                    {' '}
+                    <Button
+                      type="button"
+                      className="rounded-full"
+                      onClick={() => {
+                        if (boxes.length <= 5) {
+                          setBoxes((old) => {
+                            let newboxes = structuredClone(old);
+                            newboxes.push({
+                              Subject: '',
+                              img: '',
+                              title: '',
+                              paragraphe: '',
+                            });
+                            return newboxes;
                           });
-                          return newboxes;
-                        });
-                      }
-                    }}
-                  >
-                    <span className=" mr-2">+</span>
-                    New
-                  </Button>
-                  <AlertDialog>
-                    <AlertDialogTrigger asChild>
-                      <Button>
-                        <span className=" mr-2">x</span>
-                        Remove
-                      </Button>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                      <AlertDialogHeader>
-                        <AlertDialogTitle>
-                          {boxes.length == 1
-                            ? 'Error !'
-                            : 'Are you absolutely sure?'}
-                        </AlertDialogTitle>
-                        <AlertDialogDescription>
-                          At least one element should be present !
-                        </AlertDialogDescription>
-                      </AlertDialogHeader>
-                      <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction
-                          onClick={() => {
-                            if (boxes.length <= 6 && boxes.length != 1) {
-                              setBoxes((old) => {
-                                let newboxes = structuredClone(old);
-                                newboxes.splice(index, 1);
-                                index != 0 ? setIndex(index - 1) : null;
-                                console.log(newboxes);
-                                return newboxes;
-                              });
-                            }
-                          }}
-                        >
-                          Continue
-                        </AlertDialogAction>
-                      </AlertDialogFooter>
-                    </AlertDialogContent>
-                  </AlertDialog>
+                        }
+                      }}
+                    >
+                      <span className=" mr-2 ">+</span>
+                      New
+                    </Button>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button className="rounded-full">
+                          <span className=" mr-2">x</span>
+                          Remove
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>
+                            {boxes.length == 1
+                              ? 'Error !'
+                              : 'Are you absolutely sure?'}
+                          </AlertDialogTitle>
+                          <AlertDialogDescription>
+                            At least one element should be present !
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction
+                            onClick={() => {
+                              if (boxes.length <= 6 && boxes.length != 1) {
+                                setBoxes((old) => {
+                                  let newboxes = structuredClone(old);
+                                  newboxes.splice(index, 1);
+                                  index != 0 ? setIndex(index - 1) : null;
+                                  console.log(newboxes);
+                                  return newboxes;
+                                });
+                              }
+                            }}
+                          >
+                            Continue
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  </div>
                 </div>
               </form>
             </Form>

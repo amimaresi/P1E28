@@ -9,14 +9,6 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
 import * as yup from 'yup';
 import axios from 'axios';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -24,13 +16,20 @@ import { useForm } from 'react-hook-form';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import {
+  AlertDialog,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+  AlertDialogCancel,
+} from '@/components/ui/alert-dialog';
 export default function Menu({ isLogged, setIsLogged, role, name }) {
   return (
     <nav className="fixed left-0 right-0 top-0 z-50 flex h-[60px] flex-row items-center  justify-between  bg-white bg-opacity-90 px-[1vw] shadow-sm backdrop-blur-md">
@@ -238,8 +237,8 @@ function Periodicité({ children }) {
   };
 
   return (
-    <Dialog>
-      <DialogTrigger>
+    <AlertDialog>
+      <AlertDialogTrigger>
         <div
           className={` block  select-none space-y-1  rounded-md  p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent  focus:text-accent-foreground `}
         >
@@ -249,13 +248,13 @@ function Periodicité({ children }) {
             Ajouter une Periodicité
           </div>
         </div>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
-          <DialogDescription>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Ajouter une Periodicité</AlertDialogTitle>
+          <AlertDialogDescription>
             modifier la Periodicité d'une ConfJourn par id
-          </DialogDescription>
+          </AlertDialogDescription>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <FormField
@@ -283,11 +282,12 @@ function Periodicité({ children }) {
                 )}
               />
               <Button type="submit">Enregister</Button>
+              <AlertDialogCancel className="m-5">Cancel</AlertDialogCancel>
             </form>
           </Form>
-        </DialogHeader>
-      </DialogContent>
-    </Dialog>
+        </AlertDialogHeader>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }
 
@@ -338,8 +338,6 @@ function ProfileMenu({ name, role, setIsLogged }) {
                   } finally {
                     setIsLogged(false);
                   }
-
-                  setIsLogged(false);
                 }}
               />
             </ul>
