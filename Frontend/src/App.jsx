@@ -72,7 +72,6 @@ const router = createBrowserRouter(
         element={<Navigate to="/chercheur/NotFound/informations" />}
       />
       <Route path="publication/:id" element={<PPLayout />} />
-      <Route path="ConfJourn/:id" element={<CJLayout />} />
       <Route path="projet/:id" element={<PrPLayout />} />
       <Route path="settings" element={<Settings />} />
       <Route path="statistiques" element={<Statistiques />} />
