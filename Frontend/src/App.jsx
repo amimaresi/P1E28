@@ -30,6 +30,7 @@ import Statistiques from './Pages/statistiques/Statistiques.jsx';
 import PrPLayout from './Pages/Profiles/Project/PrPLayout.jsx';
 import CJLayout from './Pages/Profiles/ConfJourn/CJLayout.jsx';
 import ELayout from './Pages/Profiles/Encadrement/ELayout.jsx';
+import Projets from './Pages/Profiles/Chercheur/Outlets/Projets.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -64,6 +65,7 @@ const router = createBrowserRouter(
         <Route path="informations" element={<Informations />} />
         <Route path="encadrements" element={<Encadrements />} />
         <Route path="publications" element={<Publications />} />
+        <Route path="projets" element={<Projets />} />
       </Route>
       <Route
         path="chercheur/"

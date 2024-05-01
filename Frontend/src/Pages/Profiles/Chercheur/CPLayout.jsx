@@ -16,6 +16,9 @@ export default function CPLayout() {
       title: 'Publications',
     },
     {
+      title: 'Projets',
+    },
+    {
       title: 'Encadrements',
     },
   ];
