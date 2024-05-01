@@ -29,6 +29,7 @@ import AddEncadrement from './Pages/Technical Pages/Control Pannel/Pages/AddEnca
 import Statistiques from './Pages/statistiques/Statistiques.jsx';
 import PrPLayout from './Pages/Profiles/Project/PrPLayout.jsx';
 import CJLayout from './Pages/Profiles/ConfJourn/CJLayout.jsx';
+import ELayout from './Pages/Profiles/Encadrement/ELayout.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -73,7 +74,7 @@ const router = createBrowserRouter(
       <Route path="projet/:id" element={<PrPLayout />} />
       <Route path="settings" element={<Settings />} />
       <Route path="statistiques" element={<Statistiques />} />
-      <Route path="encadrement/:id" element={<PPLayout />} />
+      <Route path="encadrement/:id" element={<ELayout />} />
       <Route path="control" element={<Outlet />}>
         <Route index element={<NotFound />} />
         <Route path="LandingPage" element={<EditLandingPage />} />
