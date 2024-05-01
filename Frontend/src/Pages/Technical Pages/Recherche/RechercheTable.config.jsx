@@ -25,7 +25,11 @@ export function GetColumns(searchby) {
     ? ColumnsChercheur
     : searchby === 'publication'
       ? ColumnsPublication
-      : ColumnsProjet;
+      : searchby === 'projet'
+        ? ColumnsProjet
+        : searchby === 'encadrement'
+          ? ColumnsEncadrement
+          : ColumnsConfJourn;
 }
 
 export function ColumnsChercheur() {
@@ -48,7 +52,13 @@ export function ColumnsChercheur() {
         <div className=" flex flex-row items-center gap-3">
           <div className=" flex h-9 w-9 items-center justify-center rounded-full bg-gray-300">
             <Avatar>
-              <AvatarImage src="n" />
+              <AvatarImage
+                className=" rounded-full"
+                src={
+                  row.original.image_path ||
+                  'https://avatars.githubusercontent.com/u/2981046?v=4'
+                }
+              />
               <AvatarFallback>
                 {row.getValue('nomComplet').slice(0, 2)}
               </AvatarFallback>
@@ -99,7 +109,7 @@ export function ColumnsChercheur() {
       id: 'actions',
       enableHiding: false,
       cell: ({ row }) => {
-        const chercheur = row.original;
+        row.original;
 
         return (
           <DropdownMenu>
@@ -112,7 +122,9 @@ export function ColumnsChercheur() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <NavLink to={`./${chercheur.id + '/informations'}`}>
+              <NavLink
+                to={`../../chercheur/${row.original.id + '/informations'}`}
+              >
                 <DropdownMenuItem>Voir le profil</DropdownMenuItem>
               </NavLink>
             </DropdownMenuContent>
@@ -190,8 +202,6 @@ export function ColumnsPublication() {
       id: 'actions',
       enableHiding: false,
       cell: ({ row }) => {
-        const publication = row.original;
-
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -203,10 +213,10 @@ export function ColumnsPublication() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <NavLink to={`./${publication.id}`}>
+              <NavLink to={`../../publication/${row.original._id.$oid}`}>
                 <DropdownMenuItem>Plus d'info</DropdownMenuItem>
               </NavLink>
-              <a href={publication.Lien}>
+              <a href={row.original.Lien} target="_blanc">
                 <DropdownMenuItem>Lien externe</DropdownMenuItem>
               </a>
             </DropdownMenuContent>
@@ -258,15 +268,7 @@ export function ColumnsProjet() {
     {
       accessorKey: 'liste_members',
       header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Membres
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
-        );
+        return <span className=" ml-4">Membres</span>;
       },
       cell: ({ row }) => (
         <div>
@@ -342,8 +344,6 @@ export function ColumnsProjet() {
       id: 'actions',
       enableHiding: false,
       cell: ({ row }) => {
-        const projet = row.original;
-
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -355,7 +355,105 @@ export function ColumnsProjet() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <NavLink to={`./${projet.id}`}>
+              <NavLink to={`../../projet/${row.original._id.$numberInt}`}>
+                <DropdownMenuItem>Plus d'info</DropdownMenuItem>
+              </NavLink>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        );
+      },
+    },
+  ];
+}
+
+export function ColumnsConfJourn() {
+  return [
+    {
+      accessorKey: '_id',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+            className="ml-[-5px]"
+          >
+            ID
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => (
+        <div className=" flex flex-row items-center gap-3">
+          <div className="ml-3">{row.getValue('_id')}</div>
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'type',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+            className=" ml-[-15px]"
+          >
+            Type
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => <div>{row.getValue('type')}</div>,
+    },
+
+    {
+      accessorKey: 'nom',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+            className=" ml-[-15px]"
+          >
+            Nom
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => <div>{row.getValue('nom')}</div>,
+    },
+    {
+      accessorKey: 'periodicite',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+            className=" ml-[-15px]"
+          >
+            Periodicité
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => <div>{row.getValue('periodicite')}</div>,
+    },
+
+    {
+      id: 'actions',
+      enableHiding: false,
+      cell: ({ row }) => {
+        return (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <MoreHorizontal className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <NavLink to={`../../confjourn/${row.original._id}`}>
                 <DropdownMenuItem>Plus d'info</DropdownMenuItem>
               </NavLink>
             </DropdownMenuContent>
@@ -369,48 +467,129 @@ export function ColumnsProjet() {
 export function ColumnsEncadrement() {
   return [
     {
-      accessorKey: 'nomComplet',
+      accessorKey: 'Titre',
       header: ({ column }) => {
         return (
           <Button
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-            className="ml-10"
           >
-            Nom Complet
+            Titre
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         );
       },
       cell: ({ row }) => (
-        <div className=" flex flex-row items-center gap-3">
-          <div className=" flex h-9 w-9 items-center justify-center rounded-full bg-gray-300">
-            <Avatar>
-              <AvatarImage src="n" />
-              <AvatarFallback>
-                {row.getValue('nomComplet').slice(0, 2)}
-              </AvatarFallback>
-            </Avatar>
-          </div>
-          <div className="lowercase">{row.getValue('nomComplet')}</div>
-        </div>
+        <div className="lowercase">{row.getValue('Titre')}</div>
       ),
     },
     {
-      accessorKey: '_id',
+      accessorKey: 'Type',
       header: ({ column }) => {
         return (
           <Button
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           >
-            Email
+            Type
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         );
       },
-      cell: ({ row }) => <div className="lowercase">{row.getValue('_id')}</div>,
+      cell: ({ row }) => (
+        <div className="lowercase">{row.getValue('Type')}</div>
+      ),
     },
+    {
+      accessorKey: 'Etudiants',
+      header: ({ column }) => {
+        return <span className=" ml-4">Etudiants</span>;
+      },
+      cell: ({ row }) => (
+        <div>
+          <HoverCard>
+            <HoverCardTrigger>
+              <Button variant="link">Voir les etudiants</Button>
+            </HoverCardTrigger>
+            <HoverCardContent>
+              {row.getValue('Etudiants').map((M, ind, arr) => (
+                <>
+                  <h2>{M}</h2>
+                  {ind == arr.length - 1 ? null : <DropdownMenuSeparator />}
+                </>
+              ))}
+            </HoverCardContent>
+          </HoverCard>
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'Encadrants',
+      header: ({ column }) => {
+        return <span className=" ml-4">Membres</span>;
+      },
+      cell: ({ row }) => (
+        <div>
+          {}
+          <HoverCard>
+            <HoverCardTrigger>
+              <Button variant="link">Voir les encadrants</Button>
+            </HoverCardTrigger>
+            <HoverCardContent>
+              <DropdownMenuSeparator />
+              {row.original.Encadrants.map((M, ind, arr) => (
+                <>
+                  <h2>
+                    <span className=" font-bold ">Nom :</span> {M.nomComplet}
+                    <br />
+                    <span className=" font-bold ">ID : </span>{' '}
+                    {M._id == 'Null' ? ' \\ ' : M._id || ' \\ '}
+                    <br /> <span className=" font-bold ">Role : </span>
+                    {M.role == 'Null' ? ' \\ ' : M.role || ' \\ '}
+                  </h2>
+                  {ind == arr.length - 1 ? null : <DropdownMenuSeparator />}
+                </>
+              ))}
+            </HoverCardContent>
+          </HoverCard>
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'AnneeD',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Annee Debut
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => (
+        <div className="lowercase">{row.getValue('AnneeD')}</div>
+      ),
+    },
+    {
+      accessorKey: 'AnneeF',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Annee Fin
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => (
+        <div className="lowercase">{row.getValue('AnneeF')}</div>
+      ),
+    },
+
     {
       id: 'actions',
       enableHiding: false,
@@ -428,84 +607,9 @@ export function ColumnsEncadrement() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <NavLink to={`./${chercheur.id + '/informations'}`}>
-                <DropdownMenuItem>Voir le profil</DropdownMenuItem>
+              <NavLink to={`../../encadrement/${row.original._id.$oid}`}>
+                <DropdownMenuItem>Plus d'info</DropdownMenuItem>
               </NavLink>
-              <DropdownMenuItem>View chercheur details</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        );
-      },
-    },
-  ];
-}
-
-export function ColumnsConfJournal() {
-  return [
-    {
-      accessorKey: 'nomComplet',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-            className="ml-10"
-          >
-            Nom Complet
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
-        );
-      },
-      cell: ({ row }) => (
-        <div className=" flex flex-row items-center gap-3">
-          <div className=" flex h-9 w-9 items-center justify-center rounded-full bg-gray-300">
-            <Avatar>
-              <AvatarImage src="n" />
-              <AvatarFallback>
-                {row.getValue('nomComplet').slice(0, 2)}
-              </AvatarFallback>
-            </Avatar>
-          </div>
-          <div className="lowercase">{row.getValue('nomComplet')}</div>
-        </div>
-      ),
-    },
-    {
-      accessorKey: '_id',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Email
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
-        );
-      },
-      cell: ({ row }) => <div className="lowercase">{row.getValue('_id')}</div>,
-    },
-    {
-      id: 'actions',
-      enableHiding: false,
-      cell: ({ row }) => {
-        const chercheur = row.original;
-
-        return (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <NavLink to={`./${chercheur.id + '/informations'}`}>
-                <DropdownMenuItem>Voir le profil</DropdownMenuItem>
-              </NavLink>
-              <DropdownMenuItem>View chercheur details</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         );

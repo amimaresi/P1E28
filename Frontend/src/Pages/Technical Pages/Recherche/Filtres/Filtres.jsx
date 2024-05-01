@@ -28,23 +28,11 @@ import { Button } from '@/components/ui/button';
 import { useSearchParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { Separator } from '@/components/ui/separator';
 
 export default function Filtres({ searchby }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const phoneRegExp = /^\+?(\d{1,3})?[-. ]?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/;
-  const schemaChercheur = yup.object().shape({
-    nomComplet: yup.string().max(50),
-    email: yup.string().email(),
-    tel: yup.string().matches(phoneRegExp, { message: 'Invalid phone number' }),
-    gradeEnsegnement: yup.string(),
-    gradeRecherche: yup.string(),
-    qualite: yup.string().max(50),
-    projet: yup.string().max(50),
-    equipe: yup.string().max(50),
-    etablisementOrigine: yup.string().max(50),
-  });
 
   const params = {};
 
@@ -54,12 +42,29 @@ export default function Filtres({ searchby }) {
 
   const form = useForm({
     defaultValues: params,
-    resolver: yupResolver(schemaChercheur),
+    resolver: yupResolver(
+      searchby == 'chercheur'
+        ? schema.Chercheur
+        : searchby == 'publication'
+          ? schema.Publication
+          : searchby == 'encadrement'
+            ? schema.Encadrement
+            : searchby == 'projet'
+              ? schema.Projet
+              : schema.ConfJourn,
+    ),
   });
 
   const onSubmit = (data) => {
     console.log('Filtres : ', data);
-    setSearchParams(form.getValues());
+    const searchform = {};
+    Object.entries(data).forEach((value, key) => {
+      if (value != 0) {
+        searchform[key] = value;
+      }
+    });
+    console.log(form.getValues() + ' ' + searchform);
+    setSearchParams(searchform);
   };
 
   return (
@@ -73,18 +78,29 @@ export default function Filtres({ searchby }) {
           <SheetHeader>
             <SheetTitle>Filtres</SheetTitle>
           </SheetHeader>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              {searchby === 'chercheur' ? (
-                <Fchercheur form={form} />
-              ) : searchby === 'publication' ? (
-                <Fpublication form={form} />
-              ) : searchby === 'projet' ? (
-                <Fprojet form={form} />
-              ) : null}
-              <Button type="submit">Submit</Button>
-            </form>
-          </Form>
+
+          <ScrollArea className="h-[98%] w-[355px] pr-5">
+            {' '}
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-8"
+              >
+                {searchby === 'chercheur' ? (
+                  <Fchercheur form={form} />
+                ) : searchby === 'publication' ? (
+                  <Fpublication form={form} />
+                ) : searchby === 'projet' ? (
+                  <Fprojet form={form} />
+                ) : searchby === 'encadrement' ? (
+                  <FEncadrement form={form} />
+                ) : (
+                  <FConfJourn form={form} />
+                )}
+                <Button type="submit">Filtrer</Button>
+              </form>
+            </Form>
+          </ScrollArea>
         </SheetContent>
       </Sheet>
       <DevTool control={form.control} />
@@ -101,13 +117,10 @@ function Fchercheur({ form }) {
         render={({ field }) => (
           <>
             <FormItem>
-              <FormLabel>nomComplet</FormLabel>
+              <FormLabel>Nom Complet</FormLabel>
               <FormControl>
                 <Input placeholder="Entrez le nom du chercheur" {...field} />
               </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           </>
@@ -115,28 +128,171 @@ function Fchercheur({ form }) {
       />
       <FormField
         control={form.control}
-        name="email"
+        name="_id"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>email</FormLabel>
+            <FormLabel>Email</FormLabel>
             <FormControl>
               <Input placeholder="Entrez le nom du chercheur" {...field} />
             </FormControl>
-            <FormDescription>This is your public display name.</FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />{' '}
+      <FormField
+        control={form.control}
+        name="contact"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Contact (Tel)</FormLabel>
+            <FormControl>
+              <Input placeholder="Entrez le numero de telephone" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <Separator />
+      <FormField
+        control={form.control}
+        name="GradeEnsegnement"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Grade d'ensegnement</FormLabel>
+            <FormControl>
+              <Input placeholder="Entrez le numero de telephone" {...field} />
+            </FormControl>
             <FormMessage />
           </FormItem>
         )}
       />
       <FormField
         control={form.control}
-        name="tel"
+        name="GradeRecherche"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>tel</FormLabel>
+            <FormLabel>Grade de recherche</FormLabel>
             <FormControl>
               <Input placeholder="Entrez le numero de telephone" {...field} />
             </FormControl>
-            <FormDescription>This is your public display name.</FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="qualité"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>qualité</FormLabel>
+            <FormControl>
+              <Input placeholder="Entrez le numero de telephone" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="EtablissementOrigine"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Etablissement d'origine</FormLabel>
+            <FormControl>
+              <Input placeholder="Entrez le numero de telephone" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="Diplome"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Diplome</FormLabel>
+            <FormControl>
+              <Input placeholder="Entrez le numero de telephone" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="Equipe"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Equipe</FormLabel>
+            <FormControl>
+              <Input placeholder="Entrez le numero de telephone" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="Publication"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Publication</FormLabel>
+            <FormControl>
+              <Input placeholder="Entrez le numero de telephone" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="projet"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Projet</FormLabel>
+            <FormControl>
+              <Input placeholder="Entrez le numero de telephone" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <Separator />
+      <FormField
+        control={form.control}
+        name="H_index"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>H index</FormLabel>
+            <FormControl>
+              <Input placeholder="Entrez le numero de telephone" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="orcid"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Orcid</FormLabel>
+            <FormControl>
+              <Input placeholder="Entrez le numero de telephone" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="Matricule"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Matricule</FormLabel>
+            <FormControl>
+              <Input placeholder="Entrez le Matricule" {...field} />
+            </FormControl>
             <FormMessage />
           </FormItem>
         )}
@@ -150,14 +306,376 @@ function Fpublication({ form }) {
     <>
       <FormField
         control={form.control}
-        name="publication"
+        name="Titre"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>publication</FormLabel>
+            <FormLabel>Titre</FormLabel>
             <FormControl>
-              <Input placeholder="entrez la publication" {...field} />
+              <Input placeholder="entrez le titre" {...field} />
             </FormControl>
-            <FormDescription>This is your public display name.</FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="idCherch"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>chercheur (Email)</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez le titre" {...field} />
+            </FormControl>
+
+            <FormMessage />
+          </FormItem>
+        )}
+      />{' '}
+      <Separator />
+      <FormField
+        control={form.control}
+        name="confJourn"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Conferance / Journal</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez le mot clé" {...field} />
+            </FormControl>
+
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="volume"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Volume</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez le mot clé" {...field} />
+            </FormControl>
+
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="pages"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Pages</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez le numero des pages" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <Separator />
+      <FormField
+        control={form.control}
+        name="Date"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Date</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez la Date" {...field} />
+            </FormControl>
+
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="MaisonEdition"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Maison d'edition</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez le mot clé" {...field} />
+            </FormControl>
+
+            <FormMessage />
+          </FormItem>
+        )}
+      />{' '}
+      <Separator />
+      <FormField
+        control={form.control}
+        name="Classement"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Classement</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez le classement" {...field} />
+            </FormControl>
+
+            <FormMessage />
+          </FormItem>
+        )}
+      />{' '}
+      <FormField
+        control={form.control}
+        name="rang"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Rang</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez le rang" {...field} />
+            </FormControl>
+
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    </>
+    /* {
+    Titre: yup.string().max(50),
+    idCherch: yup.string().email(),
+    confJourn: yup.string(),
+    volume: yup.string(),
+    pages: yup.number(),
+    Date: yup.string(),
+    MaisonEdition: yup.string(),
+    Classement: yup.string(),
+  } */
+  );
+}
+
+function Fprojet({ form }) {
+  return (
+    <>
+      <FormField
+        control={form.control}
+        name="_id"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Projet ID</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez l'ID du projet" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="Titre"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Titre</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez le Titre" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="Theme"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Theme</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez le theme" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <Separator />
+      <FormField
+        control={form.control}
+        name="ChefDeProjet"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Projet ID</FormLabel>
+            <FormControl>
+              <Input
+                placeholder="Entrez l'email du chef de projet"
+                {...field}
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="Mombre"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Mombre (pas Chef)</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez l'Email d'un Mombre " {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <Separator />
+      <FormField
+        control={form.control}
+        name="DateDebut"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Date de debut</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez la Date de debut " {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="DateFin"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Date de fin</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez la Date de fin " {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    </>
+  );
+}
+
+function FEncadrement({ form }) {
+  return (
+    <>
+      <FormField
+        control={form.control}
+        name="_id"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Encadrement ID</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez l'ID de l'encadrement" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="Titre"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Titre</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez le titre" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <Separator />
+      <FormField
+        control={form.control}
+        name="EmailEncadrant"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Encadrant (Email)</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez l'email d'un encadrant" {...field} />
+            </FormControl>
+            <FormDescription>
+              !! le meme encadrant pour l'email/nom/role
+            </FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="NomEncadrant"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Encadrement (Nom)</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez le nom de l'encadrant" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />{' '}
+      <FormField
+        control={form.control}
+        name="roleEncadrant"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Encadrement (Role)</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez le role de l'encadrant" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <Separator />
+      <FormField
+        control={form.control}
+        name="Etudiant"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Etudiant</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez le mot clé" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <Separator />
+      <FormField
+        control={form.control}
+        name="AnneeD"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Annee Debut</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez l'annee de debut" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="AnneeF"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Annee Fin</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez l'annee de fin" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    </>
+  );
+}
+function FConfJourn({ form }) {
+  return (
+    <>
+      <FormField
+        control={form.control}
+        name="_id"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>ID</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez l'ID" {...field} />
+            </FormControl>
             <FormMessage />
           </FormItem>
         )}
@@ -167,20 +685,36 @@ function Fpublication({ form }) {
         name="type"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>type</FormLabel>
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
-              <FormControl>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a verified email to display" />
-                </SelectTrigger>
-              </FormControl>
-              <SelectContent>
-                <SelectItem value="m@example.com">m@example.com</SelectItem>
-                <SelectItem value="m@google.com">m@google.com</SelectItem>
-                <SelectItem value="m@support.com">m@support.com</SelectItem>
-              </SelectContent>
-            </Select>
-            <FormDescription>This is your public display name.</FormDescription>
+            <FormLabel>Type</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez le type" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />{' '}
+      <FormField
+        control={form.control}
+        name="nom"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Nom</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez le nom" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="periodicite"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Periodicité</FormLabel>
+            <FormControl>
+              <Input placeholder="entrez la periodicité" {...field} />
+            </FormControl>
             <FormMessage />
           </FormItem>
         )}
@@ -189,21 +723,62 @@ function Fpublication({ form }) {
   );
 }
 
-function Fprojet({ form }) {
-  return (
-    <FormField
-      control={form.control}
-      name="projet"
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>project</FormLabel>
-          <FormControl>
-            <Input placeholder="entrez le projet" {...field} />
-          </FormControl>
-          <FormDescription>This is your public display name.</FormDescription>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  );
-}
+const phoneRegExp = /^\+?(\d{1,3})?[-. ]?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/;
+const schema = {
+  Chercheur: yup.object().shape({
+    nomComplet: yup.string().max(50),
+    _id: yup.string().email(),
+    cantact: yup
+      .string()
+      .matches(phoneRegExp, { message: 'Invalid phone number' }),
+    GradeEnsegnement: yup.string(),
+    GradeRecherche: yup.string(),
+    qualité: yup.string().max(50),
+    projet: yup.string().max(50),
+    Publication: yup.string().max(50),
+    Equipe: yup.string().max(50),
+    EtablisementOrigine: yup.string().max(50),
+    H_index: yup.number(),
+    orcid: yup.string(),
+    Matricule: yup.string(),
+  }),
+  Projet: yup.object().shape({
+    _id: yup.number(),
+    Titre: yup.string(),
+    ChefDeProjet: yup.string().email(),
+    Mombre: yup.string().email(),
+
+    DateDebut: yup.string(),
+    DateFin: yup.string(),
+    Theme: yup.number(),
+  }),
+  Encadrement: yup.object().shape({
+    Type: yup.string().max(50),
+    Titre: yup.string(),
+    EmailEncadrant: yup.string().email(),
+    NomEncadrant: yup.string(),
+    roleEncadrant: yup.string(),
+    Etudiant: yup.string(),
+    _id: yup.string(),
+    AnneeD: yup.string(),
+    AnneeF: yup.string(),
+  }),
+  ConfJourn: yup.object().shape({
+    _id: yup.string().max(50),
+    type: yup.string(),
+    nom: yup.string(),
+    periodicite: yup.string(),
+  }),
+  Publication: yup.object().shape({
+    Titre: yup.string().max(50),
+    idCherch: yup.string().email(),
+    confJourn: yup.string(),
+    volume: yup.string(),
+    pages: yup.number(),
+    Date: yup.string(),
+    GradeRecherche: yup.string(),
+    MaisonEdition: yup.string(),
+    Classement: yup.string(),
+    rang: yup.string(),
+  }),
+};

@@ -1,4 +1,4 @@
-const Publication = require('../../schema/Publication');
+const Publication = require('../../../../../schema/Publication');
 
 const ajouterModifierClassement = async (req, res) => {
     try {
