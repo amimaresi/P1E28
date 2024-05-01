@@ -283,7 +283,7 @@ const dataEncadrement = [
     Etudiants: ['Ait kaci Azzou Sarah', 'Bachferrag Bouchra'],
     Encadrants: [
       {
-        NomComplet: 'Amar Balla',
+        nomComplet: 'Amar Balla',
         _id: 'a_balla@esi.dz',
         role: 'encadrant',
       },
@@ -391,7 +391,7 @@ const dataEncadrement = [
     __v: 0,
   },
 ];
-const dataConfJournal = [
+const dataConfJourn = [
   {
     _id: 'Inf. Retr. J.',
     __v: 0,
@@ -399,6 +399,8 @@ const dataConfJournal = [
       $date: '2024-04-06T11:05:19.692Z',
     },
     type: 'Journal Articles',
+    periodicite: '1h',
+    nom: 'hafid',
     updatedAt: {
       $date: '2024-04-06T11:05:19.692Z',
     },
@@ -410,6 +412,8 @@ const dataConfJournal = [
       $date: '2024-04-06T11:05:19.902Z',
     },
     type: 'Journal Articles',
+    periodicite: '1h',
+    nom: 'hafid',
     updatedAt: {
       $date: '2024-04-06T11:05:19.902Z',
     },
@@ -421,6 +425,8 @@ const dataConfJournal = [
       $date: '2024-04-06T11:05:20.025Z',
     },
     type: 'Conference and Workshop Papers',
+    periodicite: '1h',
+    nom: 'hafid',
     updatedAt: {
       $date: '2024-04-06T11:05:26.167Z',
     },
@@ -432,6 +438,8 @@ const dataConfJournal = [
       $date: '2024-04-06T11:05:20.286Z',
     },
     type: 'Journal Articles',
+    periodicite: '1h',
+    nom: 'hafid',
     updatedAt: {
       $date: '2024-04-06T11:05:20.286Z',
     },
@@ -443,6 +451,8 @@ const dataConfJournal = [
       $date: '2024-04-06T11:05:20.696Z',
     },
     type: 'Journal Articles',
+    periodicite: '1h',
+    nom: 'hafid',
     updatedAt: {
       $date: '2024-04-06T11:05:20.696Z',
     },
@@ -453,7 +463,7 @@ const data = {
   Publication: dataPublication,
   Projet: dataProjet,
   Encadrement: dataEncadrement,
-  ConfJournal: dataConfJournal,
+  ConfJourn: dataConfJourn,
 };
 data.Chercheur = dataChercheur;
 export default data;

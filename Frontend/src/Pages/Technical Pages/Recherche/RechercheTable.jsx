@@ -45,7 +45,11 @@ export function RechercheTable({ navigate, searchby }) {
         ? data.Chercheur
         : searchby == 'publication'
           ? data.Publication
-          : data.Projet,
+          : searchby == 'projet'
+            ? data.Projet
+            : searchby == 'encadrement'
+              ? data.Encadrement
+              : data.ConfJourn,
     columns: Columns(navigate),
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
