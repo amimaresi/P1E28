@@ -7,6 +7,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+import axios from 'axios';
 import {
   Select,
   SelectContent,
@@ -27,11 +28,14 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import data from './data.js';
+//import data from './data.js';
 import { GetColumns } from './RechercheTable.config.jsx';
-
+import { useEffect ,useState } from 'react';
+import { set } from 'react-hook-form';
+//import { data } from 'autoprefixer';
 export function RechercheTable({ navigate, searchby }) {
   const Columns = GetColumns(searchby);
+  const [data , setData] = React.useState([]);
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [columnVisibility, setColumnVisibility] = React.useState({});
@@ -39,17 +43,49 @@ export function RechercheTable({ navigate, searchby }) {
     pageIndex: 0,
     pageSize: 6,
   });
+
+  //ttest //////////////////////////
+  const onSubmit = async (data) => {
+    
+   
+    console.log('Filtres : ', data);
+    const searchform = {};
+    
+    Object.entries(data).forEach((value, key) => {
+    if (value != 0) {
+        searchform[key] = value;
+        
+       }
+     });
+    //console.log(form.getValues() + ' ' + searchform);
+    
+
+    //setSearchParams(searchform);
+    try{
+      const resultat = await axios.post(
+        `http://localhost:3000/recherche/Chercheur`, data );
+          console.log(resultat.data);
+          setData(resultat.data.Chercheurs); //  data  doit etre un tableau de chercheurs
+    }
+    catch(err){
+      console.log(err.message);
+    }
+  };
+  ////////////////////////////////
+
+
+
   const table = useReactTable({
-    data:
-      searchby == 'chercheur'
-        ? data.Chercheur
-        : searchby == 'publication'
-          ? data.Publication
-          : searchby == 'projet'
-            ? data.Projet
-            : searchby == 'encadrement'
-              ? data.Encadrement
-              : data.ConfJourn,
+    data ,
+      // searchby == 'chercheur'
+      //   ? { Matricule: "123", orcid: "", H_index: 20, Equipe: "", Publication: "", projet: "", "qualité": "", GradeRecherche: "", GradeEnsegnement: "", _id: "mo_nemamcha@esi.dz"}
+      //   : searchby == 'publication'
+      //     ? data.Publication
+      //     : searchby == 'projet'
+      //       ? data.Projet
+      //       : searchby == 'encadrement'
+      //         ? data.Encadrement
+      //         : data.ConfJourn,
     columns: Columns(navigate),
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -66,6 +102,9 @@ export function RechercheTable({ navigate, searchby }) {
       pagination,
     },
   });
+  useEffect(() => {
+    console.log("rendering");
+  }, [data])
   const paginationButtons = [];
   for (let i = 0; i < table.getPageCount(); i++) {
     paginationButtons[i] = (
@@ -89,7 +128,8 @@ export function RechercheTable({ navigate, searchby }) {
               placeholder="Entrez le mot clé"
               className="h-15 w-[15rem] rounded-xl border border-gray-300 shadow md:w-[17rem] "
             />
-            <Filtres searchby={searchby} />
+            {/* filtriing is here  */}
+             <Filtres searchby={searchby}  onSubmit={onSubmit}  /> 
           </div>
           <div className=" md-m-0 m-2 flex flex-row items-center justify-between">
             <span className=" mr-2">Lignes par page : </span>
@@ -125,15 +165,20 @@ export function RechercheTable({ navigate, searchby }) {
           <Table>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
+                 
                 <TableRow key={headerGroup.id} className=" border-b-buttonDark">
                   {headerGroup.headers.map((header) => {
                     return (
+                      
+                     
                       <TableHead key={header.id}>
+                       
                         {header.isPlaceholder
                           ? null
                           : flexRender(
                               header.column.columnDef.header,
                               header.getContext(),
+                              
                             )}
                       </TableHead>
                     );
@@ -144,13 +189,23 @@ export function RechercheTable({ navigate, searchby }) {
             <TableBody>
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
+                
                   <TableRow key={row.id} className=" border-b-grey-400">
+                  
                     {row.getVisibleCells().map((cell) => (
+                     
                       <TableCell key={cell.id}>
+
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext(),
-                        )}
+                          
+                          
+                        )
+                        
+                        }
+                        {/* {console.log(cell.getContext().column.id)} */}
+                        {/* {console.log("under flex "+cell.column.columnDef.cell)} */}
                       </TableCell>
                     ))}
                   </TableRow>

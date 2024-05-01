@@ -5,8 +5,10 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import axios from 'axios';
 import { DevTool } from '@hookform/devtools';
 import { useForm } from 'react-hook-form';
+
 import {
   Form,
   FormControl,
@@ -30,9 +32,12 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
+//import { c } from 'vite/dist/node/types.d-aGj9QkWt';
 
-export default function Filtres({ searchby }) {
+export default function Filtres({ searchby  , onSubmit}) {
   const [searchParams, setSearchParams] = useSearchParams();
+  
+  
 
   const params = {};
 
@@ -55,17 +60,31 @@ export default function Filtres({ searchby }) {
     ),
   });
 
-  const onSubmit = (data) => {
-    console.log('Filtres : ', data);
-    const searchform = {};
-    Object.entries(data).forEach((value, key) => {
-      if (value != 0) {
-        searchform[key] = value;
-      }
-    });
-    console.log(form.getValues() + ' ' + searchform);
-    setSearchParams(searchform);
-  };
+  // const onSubmit = async (data) => {
+    
+   
+  //   console.log('Filtres : ', data);
+  //   const searchform = {};
+    
+  //   Object.entries(data).forEach((value, key) => {
+  //     if (value != 0) {
+  //       searchform[key] = value;
+  //     }
+  //   });
+  //   console.log(form.getValues() + ' ' + searchform);
+    
+
+  //   setSearchParams(searchform);
+  //   try{
+  //     const resultat = await axios.post(
+  //       `http://localhost:3000/recherche/Chercheur`, data );
+  //         console.log(res.data);
+          
+  //   }
+  //   catch(err){
+  //     console.log(err.message);
+  //   }
+  // };
 
   return (
     <>
@@ -83,7 +102,7 @@ export default function Filtres({ searchby }) {
             {' '}
             <Form {...form}>
               <form
-                onSubmit={form.handleSubmit(onSubmit)}
+                onSubmit={form.handleSubmit(onSubmit) }
                 className="space-y-8"
               >
                 {searchby === 'chercheur' ? (
