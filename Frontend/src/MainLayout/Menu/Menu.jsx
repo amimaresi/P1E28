@@ -140,6 +140,7 @@ export default function Menu({ isLogged, setIsLogged, role, name }) {
                     title="Encadrements"
                   />
                   <LinkItem to="/projet/test" isSimple title="Projet" />
+                  <LinkItem to="/ConfJourn/test" isSimple title="ConfJourn" />
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
@@ -150,7 +151,7 @@ export default function Menu({ isLogged, setIsLogged, role, name }) {
             <NavigationMenuItem>
               <NavLink
                 to="/statistiques"
-                className={`text-[16.5px] ${navigationMenuTriggerStyle()}`}
+                className={` ${navigationMenuTriggerStyle()} text-[16.7px]`}
               >
                 Statistiques
               </NavLink>

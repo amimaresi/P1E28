@@ -109,7 +109,7 @@ export function ColumnsChercheur() {
       id: 'actions',
       enableHiding: false,
       cell: ({ row }) => {
-        const chercheur = row.original;
+        row.original;
 
         return (
           <DropdownMenu>
@@ -122,7 +122,9 @@ export function ColumnsChercheur() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <NavLink to={`../../chercheur/${chercheur.id + '/informations'}`}>
+              <NavLink
+                to={`../../chercheur/${row.original.id + '/informations'}`}
+              >
                 <DropdownMenuItem>Voir le profil</DropdownMenuItem>
               </NavLink>
             </DropdownMenuContent>
@@ -200,8 +202,6 @@ export function ColumnsPublication() {
       id: 'actions',
       enableHiding: false,
       cell: ({ row }) => {
-        const publication = row.original;
-
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -213,10 +213,10 @@ export function ColumnsPublication() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <NavLink to={`../publication/${publication.id}`}>
+              <NavLink to={`../../publication/${row.original._id.$oid}`}>
                 <DropdownMenuItem>Plus d'info</DropdownMenuItem>
               </NavLink>
-              <a href={publication.Lien}>
+              <a href={row.original.Lien} target="_blanc">
                 <DropdownMenuItem>Lien externe</DropdownMenuItem>
               </a>
             </DropdownMenuContent>
@@ -344,8 +344,6 @@ export function ColumnsProjet() {
       id: 'actions',
       enableHiding: false,
       cell: ({ row }) => {
-        const projet = row.original;
-
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -357,7 +355,7 @@ export function ColumnsProjet() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <NavLink to={`../projet/${projet._id}`}>
+              <NavLink to={`../../projet/${row.original._id.$numberInt}`}>
                 <DropdownMenuItem>Plus d'info</DropdownMenuItem>
               </NavLink>
             </DropdownMenuContent>
@@ -444,8 +442,6 @@ export function ColumnsConfJourn() {
       id: 'actions',
       enableHiding: false,
       cell: ({ row }) => {
-        const confjourn = row.original;
-
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -457,7 +453,7 @@ export function ColumnsConfJourn() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <NavLink to={`../confjourn/${confjourn._id}`}>
+              <NavLink to={`../../confjourn/${row.original._id}`}>
                 <DropdownMenuItem>Plus d'info</DropdownMenuItem>
               </NavLink>
             </DropdownMenuContent>
@@ -611,10 +607,9 @@ export function ColumnsEncadrement() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <NavLink to={`./${row.original._id.$oid}`}>
+              <NavLink to={`../../encadrement/${row.original._id.$oid}`}>
                 <DropdownMenuItem>Plus d'info</DropdownMenuItem>
               </NavLink>
-              <DropdownMenuItem>View chercheur details</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         );
