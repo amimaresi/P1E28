@@ -30,6 +30,14 @@ import {
   AlertDialogTrigger,
   AlertDialogCancel,
 } from '@/components/ui/alert-dialog';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { useState } from 'react';
 export default function Menu({ isLogged, setIsLogged, role, name }) {
   return (
     <nav className="fixed left-0 right-0 top-0 z-50 flex h-[60px] flex-row items-center  justify-between  bg-white bg-opacity-90 px-[1vw] shadow-sm backdrop-blur-md">
@@ -81,7 +89,12 @@ export default function Menu({ isLogged, setIsLogged, role, name }) {
                     title="ConfJourn"
                     isHref
                   />
-                  <LinkItem to="/Recherche/projet" isSimple title="Projets" />
+                  <LinkItem
+                    to="/Recherche/projet"
+                    isSimple
+                    title="Projets"
+                    isHref
+                  />
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
@@ -105,10 +118,7 @@ export default function Menu({ isLogged, setIsLogged, role, name }) {
                     Modifier le contenu de la page d'acceill
                   </LinkItem>
 
-                  <LinkItem to="./control/update" title="Mise à jour">
-                    - Modifier La Periode automatique <br />- Faire la mise à
-                    jour manuellement
-                  </LinkItem>
+                  <MiseAJour />
                 </ul>
                 <ul className="grid w-[500px] grid-flow-col gap-3 p-2">
                   <LinkItem
@@ -241,8 +251,99 @@ function LinkItem({ children, title, to, isSimple, onClick, isHref }) {
     </li>
   );
 }
+function MiseAJour() {
+  const maj = async (data) => {
+    console.log(data);
+    try {
+      const response = await axios.post(
+        'http://localhost:3000/settings/update-maj-time',
+        data,
+      );
 
-function Periodicité({ children }) {
+      console.log(response.data.message); // poping up the message
+    } catch (error) {
+      console.error(error.response.data.message);
+    }
+  };
+
+  const [data, setData] = useState('');
+  const [selectValue, setSelectValue] = useState('');
+
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger>
+        <li>
+          <span
+            className={`  block  select-none space-y-1  rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground`}
+          >
+            <div className={`text-sm font-medium leading-none`}>
+              Mise à jour
+            </div>
+            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+              - Modifier La Periode automatique <br />- Faire la mise à jour
+              manuellement
+            </p>
+          </span>
+        </li>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Ajouter une Periodicité</AlertDialogTitle>
+          <AlertDialogDescription>
+            modifier la Mise a jour
+          </AlertDialogDescription>
+          <>
+            {/*--------------------------------------------------------------------------------------------------------------------------------*/}
+            <div className="p-5 text-center ">
+              <h1 className="mb-4 text-xl font-bold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-2xl">
+                mise a jour
+              </h1>
+            </div>
+            <div className="p-10 text-center">
+              <h2 className="text-1xl text-center font-bold dark:text-white">
+                mise a jour automatique chaque :
+              </h2>
+              <hr className="my-8 h-px border-0  bg-black bg-opacity-50 "></hr>
+              <div className="align ">
+                <Input
+                  className=" w-300 h-7 rounded-full"
+                  value={data}
+                  onChange={(e) => setData(e.target.value)}
+                />
+                <Select onValueChange={(e) => setSelectValue(e)}>
+                  <SelectTrigger className="h-7 w-[180px] rounded-full pl-6">
+                    <SelectValue placeholder="duree" />
+                  </SelectTrigger>
+
+                  <SelectContent>
+                    <SelectItem value="annees">Années</SelectItem>
+                    <SelectItem value="mois">Mois</SelectItem>
+                    <SelectItem value="jours">Jours</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <h2 className="text-1xl text-center font-bold dark:text-white">
+                mettre a jour manuellement:
+              </h2>
+              <hr className="my-8 h-px border-0  bg-black bg-opacity-50 "></hr>
+              <button
+                onClick={() => maj({ data, selectValue })}
+                className="mb-2 h-[35px] rounded-lg bg-buttonDark p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline  "
+                type="submit"
+              >
+                mettre a jour
+              </button>
+              <AlertDialogCancel className="m-5">Cancel</AlertDialogCancel>
+            </div>
+          </>
+          {/*--------------------------------------------------------------------------------------------------------------------------------*/}
+          ;
+        </AlertDialogHeader>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+}
+function Periodicité() {
   const schema = yup.object().shape({
     id: yup.string(),
     Periodicité: yup.string(),

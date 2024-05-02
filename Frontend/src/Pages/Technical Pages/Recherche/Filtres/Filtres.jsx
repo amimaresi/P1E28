@@ -126,7 +126,7 @@ export default function Filtres({ searchby }) {
         if (data.DateFin[1] < new Date().getFullYear() + 10)
           DataToFetch.DateFinMax = data.DateFin[1];
         DataToFetch.DateDebut ? delete DataToFetch.DateDebut : null;
-        DataToFetch.DateFin ? delete DataToFetch.Fin : null;
+        DataToFetch.DateFin ? delete DataToFetch.DateFin : null;
         break;
       }
     }
