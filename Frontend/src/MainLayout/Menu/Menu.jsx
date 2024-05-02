@@ -153,7 +153,6 @@ export default function Menu({ isLogged, setIsLogged, role, name }) {
                     title="Encadrements"
                   />
                   <LinkItem to="/projet/test" isSimple title="Projet" />
-                  <LinkItem to="/ConfJourn/test" isSimple title="ConfJourn" />
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
