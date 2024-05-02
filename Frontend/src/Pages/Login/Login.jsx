@@ -24,6 +24,7 @@ export default function Login() {
 
     //console.log(context);
     setIsLogged(true);
+    localStorage.setItem('isLogged', 'true');
     try {
       console.log('trying to login');
       const resutlt = await axios.post(

@@ -61,21 +61,25 @@ export default function Menu({ isLogged, setIsLogged, role, name }) {
                     to="/Recherche/chercheur"
                     isSimple
                     title="Chercheurs"
+                    isHref
                   />
                   <LinkItem
                     to="/Recherche/publication"
                     isSimple
                     title="Publications"
+                    isHref
                   />{' '}
                   <LinkItem
                     to="/Recherche/encadrement"
                     isSimple
                     title="Encadrement"
+                    isHref
                   />{' '}
                   <LinkItem
                     to="/Recherche/ConfJourn"
                     isSimple
                     title="ConfJourn"
+                    isHref
                   />
                   <LinkItem to="/Recherche/projet" isSimple title="Projets" />
                 </ul>
@@ -202,22 +206,38 @@ export default function Menu({ isLogged, setIsLogged, role, name }) {
   );
 }
 
-function LinkItem({ children, title, to, isSimple, onClick }) {
+function LinkItem({ children, title, to, isSimple, onClick, isHref }) {
   return (
     <li onClick={onClick}>
-      <NavLink
-        to={to}
-        className={` ${isSimple ? 'border-b-2 border-white' : null} block  select-none space-y-1  rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground ${children == null && isSimple == false ? ' bg-gray-50' : null}`}
-      >
-        <div
-          className={`text-sm font-medium leading-none ${children == null ? 'flex items-center justify-center' : null}`}
+      {isHref ? (
+        <a
+          href={to}
+          className={` ${isSimple ? 'border-b-2 border-white' : null} block  select-none space-y-1  rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground ${children == null && isSimple == false ? ' bg-gray-50' : null}`}
         >
-          {title}
-        </div>
-        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-          {children}
-        </p>
-      </NavLink>
+          <div
+            className={`text-sm font-medium leading-none ${children == null ? 'flex items-center justify-center' : null}`}
+          >
+            {title}
+          </div>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+          </p>
+        </a>
+      ) : (
+        <NavLink
+          to={to}
+          className={` ${isSimple ? 'border-b-2 border-white' : null} block  select-none space-y-1  rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground ${children == null && isSimple == false ? ' bg-gray-50' : null}`}
+        >
+          <div
+            className={`text-sm font-medium leading-none ${children == null ? 'flex items-center justify-center' : null}`}
+          >
+            {title}
+          </div>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+          </p>
+        </NavLink>
+      )}
     </li>
   );
 }
@@ -326,6 +346,8 @@ function ProfileMenu({ name, role, setIsLogged }) {
                 to="."
                 title="Logout"
                 onClick={async () => {
+                  setIsLogged(false);
+                  localStorage.setItem('isLogged', false);
                   try {
                     const res = await axios.get(
                       'http://localhost:3000/auth/logout',
@@ -335,8 +357,6 @@ function ProfileMenu({ name, role, setIsLogged }) {
                     redirect('/');
                   } catch (e) {
                     console.log(e);
-                  } finally {
-                    setIsLogged(false);
                   }
                 }}
               />

@@ -103,18 +103,18 @@ export default function Filtres({ searchby }) {
           if (data.Date[0] > 2000) DataToFetch.DateMin = data.Date[0];
           if (data.Date[1] < new Date().getFullYear())
             DataToFetch.DateMax = data.Date[1];
-          delete DataToFetch.Date;
+          DataToFetch.Date ? delete DataToFetch.Date : null;
         }
         break;
       case 'encadrement': {
         if (data.AnneeD[0] > 2000) DataToFetch.AnneeDMin = data.AnneeD[0];
         if (data.AnneeD[1] < new Date().getFullYear())
           DataToFetch.AnneeDMax = data.AnneeD[1];
-        delete DataToFetch.AnneeD;
         if (data.AnneeF[0] > 2000) DataToFetch.AnneeFMin = data.AnneeF[0];
         if (data.AnneeF[1] < new Date().getFullYear() + 6)
           DataToFetch.AnneeFMax = data.AnneeF[1];
-        delete DataToFetch.AnneeF;
+        DataToFetch.AnneeF ? delete DataToFetch.AnneeF : null;
+        DataToFetch.AnneeD ? delete DataToFetch.AnneeD : null;
         break;
       }
       case 'projet': {
@@ -122,11 +122,12 @@ export default function Filtres({ searchby }) {
           DataToFetch.DateDebutMin = data.DateDebut[0];
         if (data.DateDebut[1] < new Date().getFullYear())
           DataToFetch.DateDebutMax = data.DateDebut[1];
-        delete DataToFetch.DateDebut;
         if (data.DateFin[0] > 2000) DataToFetch.DateFinMin = data.DateFin[0];
         if (data.DateFin[1] < new Date().getFullYear() + 10)
           DataToFetch.DateFinMax = data.DateFin[1];
-        delete DataToFetch.DateFin;
+        DataToFetch.DateDebut ? delete DataToFetch.DateDebut : null;
+        DataToFetch.DateFin ? delete DataToFetch.Fin : null;
+        break;
       }
     }
 
