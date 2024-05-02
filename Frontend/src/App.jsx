@@ -29,6 +29,7 @@ import AddEncadrement from './Pages/Technical Pages/Control Pannel/Pages/AddEnca
 import Statistiques from './Pages/statistiques/Statistiques.jsx';
 import PrPLayout from './Pages/Profiles/Project/PrPLayout.jsx';
 import CJLayout from './Pages/Profiles/ConfJourn/CJLayout.jsx';
+import ProfileChercheur from './Pages/Profiles/Chercheur/profileChercheur.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -58,10 +59,14 @@ const router = createBrowserRouter(
           element={<RechercheLayout searchby="confJourn" />}
         />
       </Route>
+      
+       
+      
       <Route path="chercheur/:id" element={<CPLayout />}>
-        <Route index element={<Navigate to="./informations" />} />
+       
+        <Route index element={<Navigate to="informations" />} />
         <Route path="informations" element={<Informations />} />
-        <Route path="encadrements" element={<Encadrements />} />
+        <Route path="encadrements" element={<Encadrements />} /> 
         <Route path="publications" element={<Publications />} />
       </Route>
       <Route

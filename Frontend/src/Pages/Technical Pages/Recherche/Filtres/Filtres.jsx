@@ -50,7 +50,7 @@ export default function Filtres({ searchby  , onSubmit}) {
     resolver: yupResolver(
       searchby == 'chercheur'
         ? schema.Chercheur
-        : searchby == 'publication'
+        : searchby == 'Publication' //cap
           ? schema.Publication
           : searchby == 'encadrement'
             ? schema.Encadrement

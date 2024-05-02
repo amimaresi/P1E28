@@ -49,6 +49,7 @@ export function RechercheTable({ navigate, searchby }) {
     
    
     console.log('Filtres : ', data);
+    console.log("ssss"+searchby)
     const searchform = {};
     
     Object.entries(data).forEach((value, key) => {
@@ -63,9 +64,10 @@ export function RechercheTable({ navigate, searchby }) {
     //setSearchParams(searchform);
     try{
       const resultat = await axios.post(
-        `http://localhost:3000/recherche/Chercheur`, data );
-          console.log(resultat.data);
-          setData(resultat.data.Chercheurs); //  data  doit etre un tableau de chercheurs
+        `http://localhost:3000/recherche/${searchby}`, data );
+         if(searchby==="Chercheur") setData(resultat.data.Chercheur)
+         if(searchby==="publication") setData(resultat.data.Publications)
+        
     }
     catch(err){
       console.log(err.message);

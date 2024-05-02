@@ -130,8 +130,12 @@ export function ColumnsChercheur() {
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <NavLink
-                to={`../../chercheur/${row.original.id + '/informations'}`}
+                //to={`../../chercheur/${row.original.id + '/informations'}`}
+               to={`../../chercheur/${row.getValue('_id')}/informations`}// some changes here
+
+
               >
+                {console.log("email",row.getValue('_id'))}
                 <DropdownMenuItem>Voir le profil</DropdownMenuItem>
               </NavLink>
             </DropdownMenuContent>

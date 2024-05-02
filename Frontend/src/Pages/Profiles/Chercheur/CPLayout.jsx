@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, NavLink, Outlet, useParams } from 'react-router-dom';
 import { ChevronLeftIcon } from '@radix-ui/react-icons';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Informations from './Outlets/Informations.jsx';
 import Publications from './Outlets/Publications.jsx';
 import Encadrements from './Outlets/Encadrements.jsx';
+import axios from 'axios';
+import { data } from 'autoprefixer';
 
 export default function CPLayout() {
   const [activeTab, setActiveTab] = useState(0);
+  const [headerData , SetHeaderData]  = useState({}) 
   const tabs = [
     {
       title: 'Informations',
@@ -19,7 +22,23 @@ export default function CPLayout() {
       title: 'Encadrements',
     },
   ];
+ const {id}= useParams() 
+ useEffect(()=>{
+  
+  const fetch = async ()=>{
+    const resultat = await axios.get('http://localhost:3000/recherche/chercheur/'+id)
+    console.log("id"+id)
+    console.log(resultat.data.Chercheur)
+    SetHeaderData(resultat.data.Chercheur)
 
+  console.log("rendering chercheru layout")
+  
+  
+  }
+  fetch()
+
+
+ } , [])
   return (
     <div className="h-full w-full">
       {/* Navigate back */}
@@ -39,15 +58,15 @@ export default function CPLayout() {
           {/* Status */}
           <div className="grid grid-cols-[20%_20%_auto] grid-rows-2">
             <Avatar className="row-span-2">
-              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarImage src= {headerData.image_path || "https://github.com/shadcn.png" } />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
 
-            <p className="col-span-2">Abdellah</p>
+            <p className="col-span-2">{headerData.nomComplet}</p>
 
             <p>status</p>
 
-            <p>actif</p>
+            <p>{headerData.statut}</p>
           </div>
 
           {/* Tabs */}
@@ -73,13 +92,14 @@ export default function CPLayout() {
         {/* Accounts Links */}
         <div className="flex w-1/5 flex-col gap-y-2">
           <Link
-            to="#"
+            // to={headerData.lien.GoogleScholar}
+            to= { "https://scholar.google.com/"}
             className="rounded-lg bg-blue-500 px-1 py-1 text-white hover:bg-blue-600 disabled:bg-blue-700"
           >
             Compte Google Scholar
           </Link>
           <Link
-            to="#"
+            to={"https://dblp.org/"}
             className="rounded-lg bg-blue-500 px-1 py-1 text-white hover:bg-blue-600 disabled:bg-blue-700"
           >
             Compte DBLP
