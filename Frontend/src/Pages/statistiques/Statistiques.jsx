@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import { DevTool } from '@hookform/devtools';
 import { useForm } from 'react-hook-form';
+//import {  BarChart } from "./Chartss/BarChart";
+import { ChevronLeftIcon } from '@radix-ui/react-icons';
+import  { Bar } from 'react-chartjs-2'
+import  { Line , Pie} from 'react-chartjs-2'
+import {Chart as chartjs} from "chart.js/auto"
+import { UserData} from './Data';
 import {
   Form,
   FormControl,
@@ -10,12 +16,194 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import axios from 'axios';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
 
 export default function Statistiques() {
-  return <></>;
+  const [userData , setUserData] = useState({
+   labels : UserData.map((data)=> data.year),
+    datasets : [{
+      label : "nombre de publication",
+    data : UserData.map((data)=> data.nbrPub),
+    backgroundColor :["#2536eb",
+    "#3b82f6", "#2E2787", "#002D62"]
+    }]
+  })
+  return <>
+  <div className=' bg-white'>
+
+
+
+      
+      <div className="flex items-center">
+        <ChevronLeftIcon className="text-black-500 hover:text-black-700 ml-28 mt-10 h-8 w-8" />
+        <h1
+          className="ml-4 mt-10 text-3xl no-underline font-bold"
+          
+        >
+          Statistiques
+        </h1>
+      </div>
+     
+      <h1 className='    pt-6  px-2 mb-1 text-xl font-bold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-2xl dark:text-white text-center'>Explorez les Statistiques de LMCS selon Votre Thème Préféré</h1>
+      <p className='pt-2  px-2 text-center'>Découvrez les tendances fascinantes de LMCS en choisissant votre intervalle d'années et un thème qui vous intéresse,</p>
+      <p className='pb-6 px-2 text-center'>puis visualisez les graphiques en toute simplicité</p>
+  <div className='p-4 flex space-x-20 justify-center '>
+   <div className='bg-buttonDark text-white border rounded-xl pt-4 pb-4 px-12 flex justify-center '>
+   <h2 className='px-4 font-extrabold  '>1234</h2>
+   <h2 >Publications</h2>
+   </div>
+
+   <div className='bg-buttonDark text-white border rounded-xl pt-4 pb-4 px-12 flex justify-center'>
+   <h2 className='px-4 font-extrabold '>150</h2>
+   <h2 >Projet</h2>
+   </div>
+
+   <div className='bg-buttonDark text-white border rounded-xl pt-4 pb-4 px-12 flex justify-center'>
+   <h2 className='px-4 font-extrabold '>900</h2>
+   <h2 >Encadrement</h2>
+   </div>
+
+  </div>
+   
+  <div className='flex justify-center'>
+  <div className='p-4 flex space-x-20 justify-right '>
+    <div className='p-6 "w-[300px]'>
+<Tabs defaultValue="annee" className="w-[300px]">
+      <TabsList className="grid w-full grid-cols-2 bg-[#EFF3FF]">
+        <TabsTrigger value="annees">Les années</TabsTrigger>
+        <TabsTrigger value="theme"> Le théme</TabsTrigger>
+      </TabsList>
+      <TabsContent value="annees">
+        <Card>
+          <CardHeader>
+            <CardTitle>Les années</CardTitle>
+            <CardDescription>
+             veuillez choisir un intervalle des années 
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            <div className="space-y-1">
+              <Label htmlFor="anneeDebut">De:</Label>
+              <Input id="anneeDebut" defaultValue="2020" />
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="anneeFin">Jusqu'a :</Label>
+              <Input id="anneeFin" defaultValue="2024" />
+            </div>
+          </CardContent>
+          <CardFooter>
+            <Button className="bg-buttonDark">Enregistrer</Button>
+          </CardFooter>
+        </Card>
+      </TabsContent>
+      <TabsContent value="theme">
+        <Card>
+          <CardHeader>
+            <CardTitle>Le théme</CardTitle>
+            <CardDescription>
+             veuillez choisir un théme
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            <div className="space-y-1">
+              <Label htmlFor="current">Le thémes:</Label>
+              <Select>
+  <SelectTrigger className="w-[180px]">
+    <SelectValue placeholder="Theme" />
+  </SelectTrigger>
+  <SelectContent>
+    <h3 className='font-bold'>nombre de :</h3>
+    <SelectItem value="publication">publications</SelectItem>
+    <SelectItem value="encadrement">encadrements</SelectItem>
+    <SelectItem value="projet">projets</SelectItem>
+    <h3 className='font-bold'> type encadrement:</h3>
+    <SelectItem value="pfe">PFE</SelectItem>
+    <SelectItem value="master">Master</SelectItem>
+    <h3 className='font-bold'> theme projet:</h3>
+    <SelectItem value="ai">intilligence Artificielle</SelectItem>
+    <SelectItem value="cs">Computer Science</SelectItem>
+  </SelectContent>
+</Select>
+
+            </div>
+            
+          </CardContent>
+          <CardFooter>
+            <Button className="bg-buttonDark">Enregistrer</Button>
+          </CardFooter>
+        </Card>
+      </TabsContent>
+    </Tabs>
+    </div>
+
+
+
+
+
+    <div className='p-6 "w-[600px]'>
+<Tabs defaultValue="annee" className="w-[600px]">
+      <TabsList className="grid w-full grid-cols-4 bg-[#EFF3FF] ">
+        <TabsTrigger value="courbe">Courbe</TabsTrigger>
+        <TabsTrigger value="histogramme">Histogramme</TabsTrigger>
+        <TabsTrigger value="cercle">Diagramme circulaire</TabsTrigger>
+        <TabsTrigger value="liste">Liste</TabsTrigger> 
+
+      </TabsList>
+      <TabsContent value="courbe">
+      <div className="#002D62 w-full h-full">
+        <Line 
+              data={userData} />
+              
+        </div>
+     
+      </TabsContent>
+      <TabsContent value="histogramme">
+        <div className='#002D62'>
+        <Bar 
+        data={userData}  />
+      </div>
+
+      </TabsContent>
+
+      <TabsContent value="cercle">
+      <div className='#002D62'>
+        <Pie data={userData}  />
+      </div>
+      </TabsContent>
+
+      <TabsContent value="liste">
+      <div>
+       
+      </div>
+      </TabsContent>
+    </Tabs>
+    </div>
+
+   </div>
+  
+   </div>
+    </div>
+  </>;
 }
