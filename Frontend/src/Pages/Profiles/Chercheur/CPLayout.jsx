@@ -40,13 +40,13 @@ export default function CPLayout() {
         {/* Content */}
         <div className="flex w-3/5 flex-col">
           {/* Status */}
-          <div className="grid grid-cols-[20%_20%_auto] grid-rows-2">
+          <div className="grid grid-cols-[20%_20%_auto] grid-rows-2 p-6">
             <Avatar className="row-span-2">
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
 
-            <p className="col-span-2">Abdellah</p>
+            <p className="col-span-2 font-bold">Abdellah</p>
 
             <p>status</p>
 
@@ -54,7 +54,7 @@ export default function CPLayout() {
           </div>
 
           {/* Tabs */}
-          <div className="flex justify-between  p-1 ">
+          <div className="flex justify-between  p-4 ">
             {tabs.map((tab) => (
               <NavLink to={`./${tab.title}`} className= {({ isActive, isPending }) =>
               isPending ? "no-underline hover:underline underline-offset-6 decoration-2" : isActive ? " underline underline-offset-6 decoration-2" : ""

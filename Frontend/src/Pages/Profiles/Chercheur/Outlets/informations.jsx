@@ -25,7 +25,7 @@ useEffect(()=>{
 
   return(
     <>
-      <div className='grid grid-cols-2 gap-x-12 gap-y-6'>
+      <div className='grid grid-cols-2 gap-x-12 gap-y-6 p-4 m-6'>
   <div className='flex flex-col'>
     <h2 className='font-bold'>Nom complet:</h2>
     <span>{data.nomComplet}</span>
