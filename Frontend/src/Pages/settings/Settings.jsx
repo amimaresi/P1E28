@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { DialogClose } from '@radix-ui/react-dialog';
 
 export default function Informations() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -33,10 +34,6 @@ export default function Informations() {
     // setData(fetchedData)
   }, []);
 
-  const handleEditProfile = () => {
-    setIsEditing(true);
-  };
-
   const handleChange = (key, value) => {
     setEditedData({ ...editedData, [key]: value });
   };
@@ -46,21 +43,16 @@ export default function Informations() {
     // setIsSubmitting(true);
     // perform submission logic
     // setIsSubmitting(false);
-    setIsEditing(false); // Exit editing mode after submission
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto min-h-screen bg-white px-4 py-8">
       <div className="mx-auto max-w-3xl">
         <Dialog>
           <div className="mb-10 flex items-center gap-[330px]">
             <h1 className="text-3xl font-bold">Profil</h1>
             <DialogTrigger asChild>
-              <Button
-                variant="outline"
-                className="border-buttonDark"
-                onClick={handleEditProfile}
-              >
+              <Button variant="outline" className="border-buttonDark">
                 Modifier
               </Button>
             </DialogTrigger>
@@ -194,9 +186,12 @@ export default function Informations() {
             </div>
 
             <DialogFooter>
-              <Button type="button" onClick={handleSubmit}>
-                Sauvegarder
-              </Button>
+              <DialogClose>
+                {' '}
+                <Button type="button" onClick={handleSubmit}>
+                  Sauvegarder
+                </Button>
+              </DialogClose>
             </DialogFooter>
           </DialogContent>
         </Dialog>

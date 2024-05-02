@@ -16,7 +16,6 @@ import { Button } from '@/components/ui/button';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-
 export default function AddProject() {
   const schema = yup.object().shape({
     Num: yup.number().required('le numero est requis'),
@@ -44,54 +43,13 @@ export default function AddProject() {
     },
     resolver: yupResolver(schema),
   });
-  const [Num, setNum] = useState('');
-  const [Titre, setTitre] = useState('');
-  const [DateDebut, setDateDebut] = useState('');
-  const [chefProjet, setchefProjet] = useState('');
-  const [DateFin, setDateFin] = useState('');
-  const [Theme, setTheme] = useState('');
-  const [liste_members, setliste_members] = useState('');
-
-  const handleNumChange = (event) => {
-    setNum(event.target.value);
-  };
-
-  const handleTitreChange = (event) => {
-    setTitre(event.target.value);
-  };
-  const handleDateDebutChange = (event) => {
-    setDateDebut(event.target.value);
-  };
-
-  const handlechefProjetChange = (event) => {
-    setchefProjet(event.target.value);
-  };
-  const handleDateFinChange = (event) => {
-    setDateFin(event.target.value);
-  };
-  const handleThemeChange = (event) => {
-    setTheme(event.target.value);
-  };
-  const handleliste_membersChange = (event) => {
-    setliste_members(event.target.value);
-  };
-
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    console.log(
-      Num,
-      Titre,
-      DateDebut,
-      chefProjet,
-      DateFin,
-      Theme,
-      liste_members,
-    );
+  const onSubmit = async (data) => {
+    console.log('data :', data);
 
     try {
       const resutlt = await axios.post(
         'http://localhost:3000/insertion/projet',
-        { Num, Titre, DateDebut, chefProjet, DateFin, Theme, liste_members },
+        data,
       );
       console.log(resutlt);
     } catch (err) {
@@ -130,7 +88,6 @@ export default function AddProject() {
                     <FormControl>
                       <Input
                         className=" w-300 h-7 rounded-full"
-                        onChange={handleNumChange}
                         placeholder="entrez le numero "
                         {...field}
                       />
@@ -155,7 +112,6 @@ export default function AddProject() {
                     <FormControl>
                       <Input
                         className=" w-300 h-7 rounded-full"
-                        onChange={handleTitreChange}
                         placeholder="entrez le titre "
                         {...field}
                       />
@@ -180,7 +136,6 @@ export default function AddProject() {
                     <FormControl>
                       <Input
                         className=" w-300 h-7 rounded-full"
-                        onChange={handleDateDebutChange}
                         placeholder="entrez la date de debut "
                         {...field}
                       />
@@ -204,7 +159,6 @@ export default function AddProject() {
                     <FormControl>
                       <Input
                         className=" w-300 h-7 rounded-full"
-                        onChange={handlechefProjetChange}
                         placeholder=" entrez le chef de Projet"
                         {...field}
                       />
@@ -229,7 +183,6 @@ export default function AddProject() {
                     <FormControl>
                       <Input
                         className=" w-300 h-7 rounded-full"
-                        onChange={handleDateFinChange}
                         placeholder=" entrez la date de fin "
                         {...field}
                       />
@@ -253,7 +206,6 @@ export default function AddProject() {
                     <FormControl>
                       <Input
                         className=" w-300 h-7 rounded-full"
-                        onChange={handleThemeChange}
                         placeholder=" entrez le theme"
                         {...field}
                       />
@@ -277,7 +229,6 @@ export default function AddProject() {
                     <FormControl>
                       <Input
                         className=" w-300 h-7 rounded-full"
-                        onChange={handleliste_membersChange}
                         placeholder=" entrez la liste des membres "
                         {...field}
                       />

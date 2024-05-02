@@ -456,7 +456,6 @@ function Fpublication({ form }) {
                 step={1}
                 onValueChange={field.onChange}
                 {...field}
-                formatLabel={(value) => `${value} hrs`}
                 className="w-[90%]"
               />
             </FormControl>
@@ -610,7 +609,6 @@ function Fprojet({ form }) {
                 step={1}
                 onValueChange={field.onChange}
                 {...field}
-                formatLabel={(value) => `${value} hrs`}
                 className="w-[90%]"
               />
             </FormControl>
@@ -632,7 +630,6 @@ function Fprojet({ form }) {
                 step={1}
                 onValueChange={field.onChange}
                 {...field}
-                formatLabel={(value) => `${value} hrs`}
                 className="w-[90%]"
               />
             </FormControl>
@@ -745,7 +742,6 @@ function FEncadrement({ form }) {
                 step={1}
                 onValueChange={field.onChange}
                 {...field}
-                formatLabel={(value) => `${value} hrs`}
                 className="w-[90%]"
               />
             </FormControl>
@@ -767,7 +763,6 @@ function FEncadrement({ form }) {
                 step={1}
                 onValueChange={field.onChange}
                 {...field}
-                formatLabel={(value) => `${value} hrs`}
                 className="w-[90%]"
               />
             </FormControl>
