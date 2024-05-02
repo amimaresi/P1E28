@@ -77,13 +77,13 @@ export default function CPLayout() {
         <div className="flex w-1/5 flex-col gap-y-2">
           <Link
             to="#"
-            className="rounded-lg bg-blue-500 px-1 py-1 text-white hover:bg-blue-600 disabled:bg-blue-700"
+            className="rounded-lg bg-buttonDark px-1 py-1 text-white hover:bg-buttonLight text-center"
           >
             Compte Google Scholar
           </Link>
           <Link
             to="#"
-            className="rounded-lg bg-blue-500 px-1 py-1 text-white hover:bg-blue-600 disabled:bg-blue-700"
+            className="rounded-lg bg-buttonDark px-1 py-1 text-white hover:bg-buttonLight text-center"
           >
             Compte DBLP
           </Link>
