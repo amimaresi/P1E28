@@ -26,29 +26,28 @@ app.use(cors( {origin:'http://localhost:5173', credentials: true }))
 
 const setRouter = require('./settings/router')
 const authRouter = require('./authentication/router/userRouter')
+const RechercheRouter = require('./ROUTERS/recherche/router')
 app.use('/auth', authRouter)
 app.use('/insertions', crud)
 app.use('/settings' , setRouter)
 app.use('/chercheur', cherchRoute)
+app.use('/recherche', RechercheRouter)
 
 
 
 
-app.use(express.json());
 
-//app.use(cors())
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
-const setRouter = require("./settings/router");
+
 // const authRouter = require('./authentication/router/userRouter')
 // app.use('/auth', authRouter)
-app.use("/insertions", crud);
-app.use("/settings", setRouter);
+// app.use("/insertions", crud);
+// app.use("/settings", setRouter);
 
 const PORT = process.env.PORT || 3000;
 
 mongoose
-  .connect(process.env.URL)
+  .connect("mongodb+srv://jazmine:11112024@cluster0.okfd2cg.mongodb.net/?retryWrites=true&w=majority")
   .then(() => {
     app.listen(PORT, async () => {
       console.log(

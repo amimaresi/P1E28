@@ -5,8 +5,10 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import axios from 'axios';
 import { DevTool } from '@hookform/devtools';
 import { useForm } from 'react-hook-form';
+
 import {
   Form,
   FormControl,
@@ -30,10 +32,12 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
-import { Slider } from '@/components/ui/slider';
+//import { c } from 'vite/dist/node/types.d-aGj9QkWt';
 
-export default function Filtres({ searchby }) {
+export default function Filtres({ searchby  , onSubmit}) {
   const [searchParams, setSearchParams] = useSearchParams();
+  
+  
 
   const params = {};
 
@@ -85,7 +89,7 @@ export default function Filtres({ searchby }) {
     resolver: yupResolver(
       searchby == 'chercheur'
         ? schema.Chercheur
-        : searchby == 'publication'
+        : searchby == 'Publication' //cap
           ? schema.Publication
           : searchby == 'encadrement'
             ? schema.Encadrement
@@ -95,46 +99,31 @@ export default function Filtres({ searchby }) {
     ),
   });
 
-  const onSubmit = (data) => {
-    let DataToFetch = { ...data };
-    switch (searchby) {
-      case 'publication':
-        {
-          if (data.Date[0] > 2000) DataToFetch.DateMin = data.Date[0];
-          if (data.Date[1] < new Date().getFullYear())
-            DataToFetch.DateMax = data.Date[1];
-          DataToFetch.Date ? delete DataToFetch.Date : null;
-        }
-        break;
-      case 'encadrement': {
-        if (data.AnneeD[0] > 2000) DataToFetch.AnneeDMin = data.AnneeD[0];
-        if (data.AnneeD[1] < new Date().getFullYear())
-          DataToFetch.AnneeDMax = data.AnneeD[1];
-        if (data.AnneeF[0] > 2000) DataToFetch.AnneeFMin = data.AnneeF[0];
-        if (data.AnneeF[1] < new Date().getFullYear() + 6)
-          DataToFetch.AnneeFMax = data.AnneeF[1];
-        DataToFetch.AnneeF ? delete DataToFetch.AnneeF : null;
-        DataToFetch.AnneeD ? delete DataToFetch.AnneeD : null;
-        break;
-      }
-      case 'projet': {
-        if (data.DateDebut[0] > 2000)
-          DataToFetch.DateDebutMin = data.DateDebut[0];
-        if (data.DateDebut[1] < new Date().getFullYear())
-          DataToFetch.DateDebutMax = data.DateDebut[1];
-        if (data.DateFin[0] > 2000) DataToFetch.DateFinMin = data.DateFin[0];
-        if (data.DateFin[1] < new Date().getFullYear() + 10)
-          DataToFetch.DateFinMax = data.DateFin[1];
-        DataToFetch.DateDebut ? delete DataToFetch.DateDebut : null;
-        DataToFetch.DateFin ? delete DataToFetch.DateFin : null;
-        break;
-      }
-    }
+  // const onSubmit = async (data) => {
+    
+   
+  //   console.log('Filtres : ', data);
+  //   const searchform = {};
+    
+  //   Object.entries(data).forEach((value, key) => {
+  //     if (value != 0) {
+  //       searchform[key] = value;
+  //     }
+  //   });
+  //   console.log(form.getValues() + ' ' + searchform);
+    
 
-    setSearchParams(DataToFetch);
-    console.log('Filtres : ', DataToFetch);
-    //fetch with DataToFetch (not with data)
-  };
+  //   setSearchParams(searchform);
+  //   try{
+  //     const resultat = await axios.post(
+  //       `http://localhost:3000/recherche/Chercheur`, data );
+  //         console.log(res.data);
+          
+  //   }
+  //   catch(err){
+  //     console.log(err.message);
+  //   }
+  // };
 
   return (
     <>
@@ -152,7 +141,7 @@ export default function Filtres({ searchby }) {
             {' '}
             <Form {...form}>
               <form
-                onSubmit={form.handleSubmit(onSubmit)}
+                onSubmit={form.handleSubmit(onSubmit) }
                 className="space-y-8"
               >
                 {searchby === 'chercheur' ? (

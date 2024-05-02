@@ -6,6 +6,11 @@ const ChercheurSchema = new Schema ({
         type:String,
         ref: "user"
     },
+    Matricule: {
+        type: String,
+        required: true , 
+        unique: true
+    },
     nomComplet: { //prenom nom
         type: String,
         required: true
