@@ -46,7 +46,46 @@ export default function Filtres({ searchby  , onSubmit}) {
   });
 
   const form = useForm({
-    defaultValues: params,
+    defaultValues:
+      searchby == 'publication'
+        ? {
+            ...params,
+            Date: [
+              params.DateMin ? params.DateMin : 2000,
+              params.DateMin ? params.DateMax : new Date().getFullYear(),
+            ],
+          }
+        : searchby == 'encadrement'
+          ? {
+              ...params,
+              AnneeD: [
+                params.AnneeDMin ? params.AnneeDMin : 2000,
+                params.AnneeDMan ? params.AnneeDMax : new Date().getFullYear(),
+              ],
+              AnneeF: [
+                params.AnneeFMin ? params.AnneeFMin : 2000,
+                params.AnneeFMax
+                  ? params.AnneeFMax
+                  : new Date().getFullYear() + 6,
+              ],
+            }
+          : searchby == 'projet'
+            ? {
+                ...params,
+                DateDebut: [
+                  params.DateDebutMin ? params.DateDebutMin : 2000,
+                  params.DateDebutMan
+                    ? params.DateDebutMax
+                    : new Date().getFullYear(),
+                ],
+                DateFin: [
+                  params.DateFinMin ? params.DateFinMin : 2000,
+                  params.DateFinMax
+                    ? params.DateFinMax
+                    : new Date().getFullYear() + 10,
+                ],
+              }
+            : { ...params },
     resolver: yupResolver(
       searchby == 'chercheur'
         ? schema.Chercheur
@@ -374,7 +413,6 @@ function Fpublication({ form }) {
             <FormControl>
               <Input placeholder="entrez le mot clé" {...field} />
             </FormControl>
-
             <FormMessage />
           </FormItem>
         )}
@@ -400,7 +438,15 @@ function Fpublication({ form }) {
           <FormItem>
             <FormLabel>Date</FormLabel>
             <FormControl>
-              <Input placeholder="entrez la Date" {...field} />
+              <Slider
+                defaultValue={[2000, new Date().getFullYear()]}
+                max={new Date().getFullYear()}
+                min={2000}
+                step={1}
+                onValueChange={field.onChange}
+                {...field}
+                className="w-[90%]"
+              />
             </FormControl>
 
             <FormMessage />
@@ -537,6 +583,7 @@ function Fprojet({ form }) {
         )}
       />
       <Separator />
+
       <FormField
         control={form.control}
         name="DateDebut"
@@ -544,7 +591,15 @@ function Fprojet({ form }) {
           <FormItem>
             <FormLabel>Date de debut</FormLabel>
             <FormControl>
-              <Input placeholder="entrez la Date de debut " {...field} />
+              <Slider
+                defaultValue={[2000, new Date().getFullYear()]}
+                max={new Date().getFullYear()}
+                min={2000}
+                step={1}
+                onValueChange={field.onChange}
+                {...field}
+                className="w-[90%]"
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -557,7 +612,15 @@ function Fprojet({ form }) {
           <FormItem>
             <FormLabel>Date de fin</FormLabel>
             <FormControl>
-              <Input placeholder="entrez la Date de fin " {...field} />
+              <Slider
+                defaultValue={[2000, new Date().getFullYear() + 10]}
+                max={new Date().getFullYear() + 10}
+                min={2000}
+                step={1}
+                onValueChange={field.onChange}
+                {...field}
+                className="w-[90%]"
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -661,7 +724,15 @@ function FEncadrement({ form }) {
           <FormItem>
             <FormLabel>Annee Debut</FormLabel>
             <FormControl>
-              <Input placeholder="entrez l'annee de debut" {...field} />
+              <Slider
+                defaultValue={[2000, new Date().getFullYear()]}
+                max={new Date().getFullYear()}
+                min={2000}
+                step={1}
+                onValueChange={field.onChange}
+                {...field}
+                className="w-[90%]"
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -674,7 +745,15 @@ function FEncadrement({ form }) {
           <FormItem>
             <FormLabel>Annee Fin</FormLabel>
             <FormControl>
-              <Input placeholder="entrez l'annee de fin" {...field} />
+              <Slider
+                defaultValue={[2000, new Date().getFullYear() + 6]}
+                max={new Date().getFullYear()}
+                min={2000}
+                step={1}
+                onValueChange={field.onChange}
+                {...field}
+                className="w-[90%]"
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -767,8 +846,8 @@ const schema = {
     ChefDeProjet: yup.string().email(),
     Mombre: yup.string().email(),
 
-    DateDebut: yup.string(),
-    DateFin: yup.string(),
+    DateDebut: yup.array().of(yup.number()),
+    DateFin: yup.array().of(yup.number()),
     Theme: yup.number(),
   }),
   Encadrement: yup.object().shape({
@@ -779,8 +858,8 @@ const schema = {
     roleEncadrant: yup.string(),
     Etudiant: yup.string(),
     _id: yup.string(),
-    AnneeD: yup.string(),
-    AnneeF: yup.string(),
+    AnneeD: yup.array().of(yup.number()),
+    AnneeF: yup.array().of(yup.number()),
   }),
   ConfJourn: yup.object().shape({
     _id: yup.string().max(50),
@@ -794,7 +873,7 @@ const schema = {
     confJourn: yup.string(),
     volume: yup.string(),
     pages: yup.number(),
-    Date: yup.string(),
+    Date: yup.array().of(yup.number()),
     GradeRecherche: yup.string(),
     MaisonEdition: yup.string(),
     Classement: yup.string(),

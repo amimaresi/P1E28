@@ -19,6 +19,9 @@ export default function CPLayout() {
       title: 'Publications',
     },
     {
+      title: 'Projets',
+    },
+    {
       title: 'Encadrements',
     },
   ];
@@ -56,7 +59,7 @@ export default function CPLayout() {
         {/* Content */}
         <div className="flex w-3/5 flex-col">
           {/* Status */}
-          <div className="grid grid-cols-[20%_20%_auto] grid-rows-2">
+          <div className="grid grid-cols-[20%_20%_auto] grid-rows-2 p-6">
             <Avatar className="row-span-2">
               <AvatarImage src= {headerData.image_path || "https://github.com/shadcn.png" } />
               <AvatarFallback>CN</AvatarFallback>
@@ -70,7 +73,7 @@ export default function CPLayout() {
           </div>
 
           {/* Tabs */}
-          <div className="flex justify-between  p-1 ">
+          <div className="flex justify-between  p-4 ">
             {tabs.map((tab) => (
               <NavLink to={`./${tab.title}`} className= {({ isActive, isPending }) =>
               isPending ? "no-underline hover:underline underline-offset-6 decoration-2" : isActive ? " underline underline-offset-6 decoration-2" : ""

@@ -464,9 +464,11 @@ export function ColumnsConfJourn() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <NavLink to={`../../confjourn/${row.original._id}`}>
-                <DropdownMenuItem>Plus d'info</DropdownMenuItem>
-              </NavLink>
+              {row.original.Lien && (
+                <a href={row.original.Lien} target="_blanc">
+                  <DropdownMenuItem>Lien externe</DropdownMenuItem>
+                </a>
+              )}
             </DropdownMenuContent>
           </DropdownMenu>
         );

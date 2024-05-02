@@ -68,17 +68,17 @@ const router = createBrowserRouter(
         <Route path="informations" element={<Informations />} />
         <Route path="encadrements" element={<Encadrements />} /> 
         <Route path="publications" element={<Publications />} />
+        <Route path="projets" element={<Projets />} />
       </Route>
       <Route
         path="chercheur/"
         element={<Navigate to="/chercheur/NotFound/informations" />}
       />
       <Route path="publication/:id" element={<PPLayout />} />
-      <Route path="ConfJourn/:id" element={<CJLayout />} />
       <Route path="projet/:id" element={<PrPLayout />} />
       <Route path="settings" element={<Settings />} />
       <Route path="statistiques" element={<Statistiques />} />
-      <Route path="encadrement/:id" element={<PPLayout />} />
+      <Route path="encadrement/:id" element={<ELayout />} />
       <Route path="control" element={<Outlet />}>
         <Route index element={<NotFound />} />
         <Route path="LandingPage" element={<EditLandingPage />} />

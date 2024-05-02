@@ -2,10 +2,10 @@ const ConfJournal = require('../../schema/ConfJournal');
 
 const ajouterModifierPeriode = async (req, res) => {
     try {
-        const { acronym, type, periodicity } = req.body;
+        const { acronym, type, periodicite } = req.body;
 
         // Vérifier si les données requises sont présentes dans la requête
-        if (!acronym || !type || !periodicity) {
+        if (!acronym || !type || !periodicite) {
             return res.status(400).json({ success: false, message: "Les données requises sont manquantes." });
         }
 
@@ -17,7 +17,7 @@ const ajouterModifierPeriode = async (req, res) => {
             return res.status(400).json({ success: false, message: "La conférence ou le journal n'existe pas." });
         } else {
             // Si la conférence ou le journal existe, mettre à jour la périodicité
-            confJournal.periodicity = periodicity;
+            confJournal.periodicite = periodicite;
         }
 
         // Enregistrer les modifications dans la base de données
