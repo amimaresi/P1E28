@@ -24,6 +24,7 @@ export default function Login() {
 
     //console.log(context);
     setIsLogged(true);
+    localStorage.setItem('isLogged', 'true');
     try {
       console.log('trying to login');
       const resutlt = await axios.post(
@@ -36,8 +37,8 @@ export default function Login() {
       console.log('the error is here' + err);
       if (err.response) console.log(err.response.data.message);
     }
-    console.log('jdsojfoa');
-    setEmail('');
+   
+    
     setPassword('');
   };
 

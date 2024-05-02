@@ -12,11 +12,11 @@ const sendMailCherch = require('../../tools/sendMailCherch')
 const creatToken = require('../../tools/generToken')
 
 const insertionChercheur = async (req, res) => {
-    const { email,Equipe ,Diplome,nom , Qualité,EtablissementOrigine,prenom, contact ,  GradeRecherche, GradeEnsegnement, H_index } = req.body
+    const { email,Equipe ,Diplome,nom , Qualité,EtablissementOrigine,prenom, contact, matricule ,  GradeRecherche, GradeEnsegnement, H_index } = req.body
     const nomComplet = prenom+ " " + nom
     try {
         
-        if(!email || !nom || !prenom || !contact || !Qualité  || !EtablissementOrigine || !Equipe || !Diplome || !GradeRecherche || !GradeEnsegnement || !H_index){
+        if(!email || !nom || !prenom || !contact || !Qualité||matricule  || !EtablissementOrigine || !Equipe || !Diplome || !GradeRecherche || !GradeEnsegnement || !H_index){
             throw new Error("Tous les champs sont obligatoires")
         }
         
@@ -30,12 +30,12 @@ const insertionChercheur = async (req, res) => {
         else{
 
 
-        cherch = new Chercheur({
+       const cherch = new Chercheur({
             _id: email,
             nomComplet,
             contact,
             Qualité,
-        
+            matricule , 
             EtablissementOrigine,
             Equipe,
             Diplome,

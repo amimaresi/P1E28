@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { DialogClose } from '@radix-ui/react-dialog';
 
 export default function Informations() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -33,10 +34,6 @@ export default function Informations() {
     // setData(fetchedData)
   }, []);
 
-  const handleEditProfile = () => {
-    setIsEditing(true);
-  };
-
   const handleChange = (key, value) => {
     setEditedData({ ...editedData, [key]: value });
   };
@@ -46,24 +43,21 @@ export default function Informations() {
     // setIsSubmitting(true);
     // perform submission logic
     // setIsSubmitting(false);
-    setIsEditing(false); // Exit editing mode after submission
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto min-h-screen bg-white px-4 py-8">
       <div className="mx-auto max-w-3xl">
-        <div className="mb-4 flex items-center justify-between">
-          <h1 className="text-3xl font-bold">Profil</h1>
-          {!isEditing && (
-            <Button variant="outline" onClick={handleEditProfile}>
-              Modifier
-            </Button>
-          )}
-        </div>
-        <Dialog open={isEditing} onClose={() => setIsEditing(false)}>
-          <DialogTrigger asChild>
-            <div />
-          </DialogTrigger>
+        <Dialog>
+          <div className="mb-10 flex items-center gap-[330px]">
+            <h1 className="text-3xl font-bold">Profil</h1>
+            <DialogTrigger asChild>
+              <Button variant="outline" className="border-buttonDark">
+                Modifier
+              </Button>
+            </DialogTrigger>
+          </div>
+
           <DialogContent className="sm:max-w-[900px]">
             <DialogHeader>
               <DialogTitle>Modifier le profil</DialogTitle>
@@ -102,13 +96,15 @@ export default function Informations() {
                 <Input
                   id="EtablissementOrigine"
                   value={editedData.EtablissementOrigine}
-                  onChange={(e) => handleChange('EtablissementOrigine', e.target.value)}
+                  onChange={(e) =>
+                    handleChange('EtablissementOrigine', e.target.value)
+                  }
                   className="col-span-2 sm:col-span-3"
                 />
               </div>
               <div className="grid grid-cols-2 items-center gap-4 sm:grid-cols-4">
                 <Label htmlFor="Diplome" className="text-right">
-                Diplôme:
+                  Diplôme:
                 </Label>
                 <Input
                   id="Diplome"
@@ -119,18 +115,20 @@ export default function Informations() {
               </div>
               <div className="grid grid-cols-2 items-center gap-4 sm:grid-cols-4">
                 <Label htmlFor="GradeRecherche" className="text-right">
-                Grade de recherche:
+                  Grade de recherche:
                 </Label>
                 <Input
                   id="GradeRecherche"
                   value={editedData.GradeRecherche}
-                  onChange={(e) => handleChange('GradeRecherche', e.target.value)}
+                  onChange={(e) =>
+                    handleChange('GradeRecherche', e.target.value)
+                  }
                   className="col-span-2 sm:col-span-3"
                 />
               </div>
               <div className="grid grid-cols-2 items-center gap-4 sm:grid-cols-4">
                 <Label htmlFor="_id" className="text-right">
-                Email:
+                  Email:
                 </Label>
                 <Input
                   id="_id"
@@ -141,18 +139,20 @@ export default function Informations() {
               </div>
               <div className="grid grid-cols-2 items-center gap-4 sm:grid-cols-4">
                 <Label htmlFor="GradeEnsegnement" className="text-right">
-                Grade ensegnement:
+                  Grade ensegnement:
                 </Label>
                 <Input
                   id="GradeEnsegnement"
                   value={editedData.GradeEnsegnement}
-                  onChange={(e) => handleChange('GradeEnsegnement', e.target.value)}
+                  onChange={(e) =>
+                    handleChange('GradeEnsegnement', e.target.value)
+                  }
                   className="col-span-2 sm:col-span-3"
                 />
               </div>
               <div className="grid grid-cols-2 items-center gap-4 sm:grid-cols-4">
                 <Label htmlFor="H_index" className="text-right">
-                H_index:
+                  H_index:
                 </Label>
                 <Input
                   id="H_index"
@@ -163,7 +163,7 @@ export default function Informations() {
               </div>
               <div className="grid grid-cols-2 items-center gap-4 sm:grid-cols-4">
                 <Label htmlFor="Equipe" className="text-right">
-                 Equipe:
+                  Equipe:
                 </Label>
                 <Input
                   id="Equipe"
@@ -174,7 +174,7 @@ export default function Informations() {
               </div>
               <div className="grid grid-cols-2 items-center gap-4 sm:grid-cols-4">
                 <Label htmlFor="tel" className="text-right">
-                 Téléphone:
+                  Téléphone:
                 </Label>
                 <Input
                   id="tel"
@@ -186,9 +186,12 @@ export default function Informations() {
             </div>
 
             <DialogFooter>
-              <Button type="button" onClick={handleSubmit}>
-                Sauvegarder
-              </Button>
+              <DialogClose>
+                {' '}
+                <Button type="button" onClick={handleSubmit}>
+                  Sauvegarder
+                </Button>
+              </DialogClose>
             </DialogFooter>
           </DialogContent>
         </Dialog>

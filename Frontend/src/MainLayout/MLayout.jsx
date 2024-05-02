@@ -3,8 +3,11 @@ import { Outlet } from 'react-router-dom';
 import Menu from './Menu/Menu.jsx';
 
 export default function MLayout() {
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(
+    localStorage.getItem('isLogged') == 'true',
+  );
   const [userInfo, setUserInfo] = useState({});
+  console.log(localStorage.getItem('isLogged') == 'true');
   return (
     <div className="  z-0 w-full bg-textLight pt-[60px]">
       <Menu
@@ -17,6 +20,7 @@ export default function MLayout() {
         <Outlet
           context={{
             setIsLogged,
+            isLogged,
             userInfo,
             setUserInfo,
           }}

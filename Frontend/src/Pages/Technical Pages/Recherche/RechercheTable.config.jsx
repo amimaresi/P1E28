@@ -49,6 +49,7 @@ export function ColumnsChercheur() {
         );
       },
       cell: ({ row }) => (
+       // console.log(row.original),
         <div className=" flex flex-row items-center gap-3">
           <div className=" flex h-9 w-9 items-center justify-center rounded-full bg-gray-300">
             <Avatar>
@@ -87,7 +88,7 @@ export function ColumnsChercheur() {
       ),
     },
     {
-      accessorKey: 'Email',
+      accessorKey: '_id',
       header: ({ column }) => {
         return (
           <Button
@@ -101,7 +102,13 @@ export function ColumnsChercheur() {
         );
       },
       cell: ({ row }) => (
-        <div className="lowercase">{row.getValue('Email')}</div>
+        console.log("look here" , Object.keys(row.original)),
+        <div className="lowercase">{
+          
+          row.getValue('_id')}
+         
+          </div>//here is the change
+        
       ),
     },
 
@@ -123,8 +130,12 @@ export function ColumnsChercheur() {
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <NavLink
-                to={`../../chercheur/${row.original.id + '/informations'}`}
+                //to={`../../chercheur/${row.original.id + '/informations'}`}
+               to={`../../chercheur/${row.getValue('_id')}/informations`}// some changes here
+
+
               >
+                {console.log("email",row.getValue('_id'))}
                 <DropdownMenuItem>Voir le profil</DropdownMenuItem>
               </NavLink>
             </DropdownMenuContent>
@@ -453,9 +464,11 @@ export function ColumnsConfJourn() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <NavLink to={`../../confjourn/${row.original._id}`}>
-                <DropdownMenuItem>Plus d'info</DropdownMenuItem>
-              </NavLink>
+              {row.original.Lien && (
+                <a href={row.original.Lien} target="_blanc">
+                  <DropdownMenuItem>Lien externe</DropdownMenuItem>
+                </a>
+              )}
             </DropdownMenuContent>
           </DropdownMenu>
         );
