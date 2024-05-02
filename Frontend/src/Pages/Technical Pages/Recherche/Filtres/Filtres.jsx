@@ -30,6 +30,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
+import { Slider } from '@/components/ui/slider';
 
 export default function Filtres({ searchby }) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -41,7 +42,46 @@ export default function Filtres({ searchby }) {
   });
 
   const form = useForm({
-    defaultValues: params,
+    defaultValues:
+      searchby == 'publication'
+        ? {
+            ...params,
+            Date: [
+              params.DateMin ? params.DateMin : 2000,
+              params.DateMin ? params.DateMax : new Date().getFullYear(),
+            ],
+          }
+        : searchby == 'encadrement'
+          ? {
+              ...params,
+              AnneeD: [
+                params.AnneeDMin ? params.AnneeDMin : 2000,
+                params.AnneeDMan ? params.AnneeDMax : new Date().getFullYear(),
+              ],
+              AnneeF: [
+                params.AnneeFMin ? params.AnneeFMin : 2000,
+                params.AnneeFMax
+                  ? params.AnneeFMax
+                  : new Date().getFullYear() + 6,
+              ],
+            }
+          : searchby == 'projet'
+            ? {
+                ...params,
+                DateDebut: [
+                  params.DateDebutMin ? params.DateDebutMin : 2000,
+                  params.DateDebutMan
+                    ? params.DateDebutMax
+                    : new Date().getFullYear(),
+                ],
+                DateFin: [
+                  params.DateFinMin ? params.DateFinMin : 2000,
+                  params.DateFinMax
+                    ? params.DateFinMax
+                    : new Date().getFullYear() + 10,
+                ],
+              }
+            : { ...params },
     resolver: yupResolver(
       searchby == 'chercheur'
         ? schema.Chercheur
@@ -56,15 +96,43 @@ export default function Filtres({ searchby }) {
   });
 
   const onSubmit = (data) => {
-    console.log('Filtres : ', data);
-    const searchform = {};
-    Object.entries(data).forEach((value, key) => {
-      if (value != 0) {
-        searchform[key] = value;
+    let DataToFetch = { ...data };
+    switch (searchby) {
+      case 'publication':
+        {
+          if (data.Date[0] > 2000) DataToFetch.DateMin = data.Date[0];
+          if (data.Date[1] < new Date().getFullYear())
+            DataToFetch.DateMax = data.Date[1];
+          delete DataToFetch.Date;
+        }
+        break;
+      case 'encadrement': {
+        if (data.AnneeD[0] > 2000) DataToFetch.AnneeDMin = data.AnneeD[0];
+        if (data.AnneeD[1] < new Date().getFullYear())
+          DataToFetch.AnneeDMax = data.AnneeD[1];
+        delete DataToFetch.AnneeD;
+        if (data.AnneeF[0] > 2000) DataToFetch.AnneeFMin = data.AnneeF[0];
+        if (data.AnneeF[1] < new Date().getFullYear() + 6)
+          DataToFetch.AnneeFMax = data.AnneeF[1];
+        delete DataToFetch.AnneeF;
+        break;
       }
-    });
-    console.log(form.getValues() + ' ' + searchform);
-    setSearchParams(searchform);
+      case 'projet': {
+        if (data.DateDebut[0] > 2000)
+          DataToFetch.DateDebutMin = data.DateDebut[0];
+        if (data.DateDebut[1] < new Date().getFullYear())
+          DataToFetch.DateDebutMax = data.DateDebut[1];
+        delete DataToFetch.DateDebut;
+        if (data.DateFin[0] > 2000) DataToFetch.DateFinMin = data.DateFin[0];
+        if (data.DateFin[1] < new Date().getFullYear() + 10)
+          DataToFetch.DateFinMax = data.DateFin[1];
+        delete DataToFetch.DateFin;
+      }
+    }
+
+    setSearchParams(DataToFetch);
+    console.log('Filtres : ', DataToFetch);
+    //fetch with DataToFetch (not with data)
   };
 
   return (
@@ -355,7 +423,6 @@ function Fpublication({ form }) {
             <FormControl>
               <Input placeholder="entrez le mot clé" {...field} />
             </FormControl>
-
             <FormMessage />
           </FormItem>
         )}
@@ -381,7 +448,16 @@ function Fpublication({ form }) {
           <FormItem>
             <FormLabel>Date</FormLabel>
             <FormControl>
-              <Input placeholder="entrez la Date" {...field} />
+              <Slider
+                defaultValue={[2000, new Date().getFullYear()]}
+                max={new Date().getFullYear()}
+                min={2000}
+                step={1}
+                onValueChange={field.onChange}
+                {...field}
+                formatLabel={(value) => `${value} hrs`}
+                className="w-[90%]"
+              />
             </FormControl>
 
             <FormMessage />
@@ -518,6 +594,7 @@ function Fprojet({ form }) {
         )}
       />
       <Separator />
+
       <FormField
         control={form.control}
         name="DateDebut"
@@ -525,7 +602,16 @@ function Fprojet({ form }) {
           <FormItem>
             <FormLabel>Date de debut</FormLabel>
             <FormControl>
-              <Input placeholder="entrez la Date de debut " {...field} />
+              <Slider
+                defaultValue={[2000, new Date().getFullYear()]}
+                max={new Date().getFullYear()}
+                min={2000}
+                step={1}
+                onValueChange={field.onChange}
+                {...field}
+                formatLabel={(value) => `${value} hrs`}
+                className="w-[90%]"
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -538,7 +624,16 @@ function Fprojet({ form }) {
           <FormItem>
             <FormLabel>Date de fin</FormLabel>
             <FormControl>
-              <Input placeholder="entrez la Date de fin " {...field} />
+              <Slider
+                defaultValue={[2000, new Date().getFullYear() + 10]}
+                max={new Date().getFullYear() + 10}
+                min={2000}
+                step={1}
+                onValueChange={field.onChange}
+                {...field}
+                formatLabel={(value) => `${value} hrs`}
+                className="w-[90%]"
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -642,7 +737,16 @@ function FEncadrement({ form }) {
           <FormItem>
             <FormLabel>Annee Debut</FormLabel>
             <FormControl>
-              <Input placeholder="entrez l'annee de debut" {...field} />
+              <Slider
+                defaultValue={[2000, new Date().getFullYear()]}
+                max={new Date().getFullYear()}
+                min={2000}
+                step={1}
+                onValueChange={field.onChange}
+                {...field}
+                formatLabel={(value) => `${value} hrs`}
+                className="w-[90%]"
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -655,7 +759,16 @@ function FEncadrement({ form }) {
           <FormItem>
             <FormLabel>Annee Fin</FormLabel>
             <FormControl>
-              <Input placeholder="entrez l'annee de fin" {...field} />
+              <Slider
+                defaultValue={[2000, new Date().getFullYear() + 6]}
+                max={new Date().getFullYear()}
+                min={2000}
+                step={1}
+                onValueChange={field.onChange}
+                {...field}
+                formatLabel={(value) => `${value} hrs`}
+                className="w-[90%]"
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -748,8 +861,8 @@ const schema = {
     ChefDeProjet: yup.string().email(),
     Mombre: yup.string().email(),
 
-    DateDebut: yup.string(),
-    DateFin: yup.string(),
+    DateDebut: yup.array().of(yup.number()),
+    DateFin: yup.array().of(yup.number()),
     Theme: yup.number(),
   }),
   Encadrement: yup.object().shape({
@@ -760,8 +873,8 @@ const schema = {
     roleEncadrant: yup.string(),
     Etudiant: yup.string(),
     _id: yup.string(),
-    AnneeD: yup.string(),
-    AnneeF: yup.string(),
+    AnneeD: yup.array().of(yup.number()),
+    AnneeF: yup.array().of(yup.number()),
   }),
   ConfJourn: yup.object().shape({
     _id: yup.string().max(50),
@@ -775,7 +888,7 @@ const schema = {
     confJourn: yup.string(),
     volume: yup.string(),
     pages: yup.number(),
-    Date: yup.string(),
+    Date: yup.array().of(yup.number()),
     GradeRecherche: yup.string(),
     MaisonEdition: yup.string(),
     Classement: yup.string(),

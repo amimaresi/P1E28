@@ -12,7 +12,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-export default function Settings() {
+export default function Informations() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editedData, setEditedData] = useState({
@@ -52,18 +52,20 @@ export default function Settings() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mx-auto max-w-3xl">
-        <div className="mb-4 flex items-center justify-between">
-          <h1 className="text-3xl font-bold">Profil</h1>
-          {!isEditing && (
-            <Button variant="outline" onClick={handleEditProfile}>
-              Modifier
-            </Button>
-          )}
-        </div>
-        <Dialog open={isEditing} onClose={() => setIsEditing(false)}>
-          <DialogTrigger asChild>
-            <div />
-          </DialogTrigger>
+        <Dialog>
+          <div className="mb-10 flex items-center gap-[330px]">
+            <h1 className="text-3xl font-bold">Profil</h1>
+            <DialogTrigger asChild>
+              <Button
+                variant="outline"
+                className="border-buttonDark"
+                onClick={handleEditProfile}
+              >
+                Modifier
+              </Button>
+            </DialogTrigger>
+          </div>
+
           <DialogContent className="sm:max-w-[900px]">
             <DialogHeader>
               <DialogTitle>Modifier le profil</DialogTitle>
