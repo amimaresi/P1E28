@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
-
+import React, { useEffect, useState } from 'react';
+import { NavLink, Outlet, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 // un exemple d'un encadrement
-const Enc = {
+/*const Enc = {
   "_id": {
   "$oid": "660096a07654baa3c3bed13b"
   },
@@ -27,8 +27,47 @@ const Enc = {
   "role": "co-encadrant"
   }
   ]
- }
+ }*/
 export default function ELayout() {
+  console.log('fffffffffffffffffuuuuuuuuuuuuuuuu')
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [data, setData] = useState({
+  //   _id: 'k_benatchba@esi.dz',
+  //   nomComplet: 'Karima Benatchba',
+  //   GradeEnsegnement: null,
+  //   qualité: 'Chercheure',
+  //   GradeRecherche: 'Maitre de recherche',
+  //   H_index: 20,
+  //   EtablissementOrigine: 'ESI',
+  //   statut: 'Actif',
+  //   Diplome: 'Doctorat',
+  //   Equipe: 'Optimisation',
+  // },
+});
+console.log("rryujh")
+  const {id} = useParams()
+useEffect( ()=>{
+   console.log('ydrbeffect')
+  const fetchtData = async()=>{
+    try{
+      console.log("660096a07654baa3c3bed13a")
+       
+        const result = await axios.get(`http://localhost:3000/encadrements/encadrement/660096a07654baa3c3bed13a`)
+      console.log("rrrrrr")
+      console.log(result.data.Encadrements )
+      setData(result.data.Encadrements)
+      return result
+      
+    }catch(err){
+      console.log("errortttttttttttttttttttttttttttttttttttt")
+      console.log(err)
+    }
+  }
+  fetchtData()
+  
+  } , [])
+  console.log('krlbbbbbbbbbbbbbbbbbb')
+  console.log(data.Encadrements)
   return <>
    <div className='bg-white'>
    <div className='p-12'>
@@ -36,7 +75,7 @@ export default function ELayout() {
    <div className=' flex justify-center '>
   {/* titre de l'Encadrement*/}
   <h1 className='    pt-2 pb-6 px-2 mb-4 text-xl font-bold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-2xl dark:text-white'>Encadrement:</h1>
-  <h1 className='    pt-2 pb-6 px-9 mb-4 text-xl font-bold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-2xl dark:text-white'> {Enc.Titre}</h1>
+  <h1 className='    pt-2 pb-6 px-9 mb-4 text-xl font-bold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-2xl dark:text-white'> {data.Titre}</h1>
   </div>
 
 
@@ -47,7 +86,7 @@ export default function ELayout() {
   <div>
       {/* type de l'Encadrement*/}
       <h3 className='font-bold pb-2'>Type</h3>
-      <h3>{Enc.Type}</h3>
+      <h3>{data.Type}</h3>
     </div>
 
     
@@ -56,7 +95,7 @@ export default function ELayout() {
     <div>
       {/* anneeD de l'Encadrement*/}
       <h3 className='font-bold pb-2'>année debut</h3>
-      <h3>{Enc.AnneeD}</h3>
+      <h3>{data.AnneeD}</h3>
     </div>
 
 
@@ -64,7 +103,7 @@ export default function ELayout() {
     <div>
       {/* anneeF de l'Encadrement*/}
       <h3 className='font-bold pb-2'>année fin</h3>
-      <h3>{Enc.AnneeF}</h3>
+      <h3>{data.AnneeF}</h3>
     </div>
 
 
@@ -76,7 +115,7 @@ export default function ELayout() {
     <div className=" px-64 ">
     {/* La liste des etudiants de l'Encadrement*/}
   <h2 className='p-6 font-bold'>La liste des étudiants:</h2>
-    {Enc.Etudiants.map((Etud   )=>
+    {data.Etudiants && data.Etudiants.map((Etud   )=>
       <div  className="   flex border bg-[#EFF3FF] rounded-2xl p-4 mr-4 w-full h-16  mb-4  items-center   ">
      <h3 >_{Etud}</h3>
      
@@ -89,9 +128,9 @@ export default function ELayout() {
 <div className=" px-64 ">
     {/* La liste des encadrants de l'Encadrement*/}
   <h2 className='p-6 font-bold'>La liste des encadrants:</h2>
-    {Enc.Encadrants.map((Encad , index  )=>
+    {data.Encadrants && data.Encadrants.map((Encad , index  )=>
       <div  className="   flex border bg-[#EFF3FF] rounded-2xl p-4 mr-4 w-full h-16  mb-4  items-center   ">
-     <h3 className='px-2' >{index +1 }_{Encad.nomComplet}  </h3>
+     <h3 className='px-2' >{index +1 }_{Encad.NomComplet}  </h3>
      <h3 className='px-2 font-bold' > le role : </h3>
      <h3 >{Encad.role}</h3>
      </div>
