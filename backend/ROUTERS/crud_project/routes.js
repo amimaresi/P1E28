@@ -5,4 +5,5 @@ const { projet_recherche, projet_by_id } = require('../recherche/recherche-proje
 crud.route('/projet').post(nouveau_projet)
 
 crud.get('/projet/search?', projet_recherche);
+crud.get('/projet/search/:id',projet_by_id);
 module.exports = crud;
