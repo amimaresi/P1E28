@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router;
+const router = express.Router();
 const insererEncadrement = require("./insert_form_encadrement");
 const {rechercherEncadrement , rechercherEncParId} = require("../recherche/reche_encadrement")
 
