@@ -7,7 +7,7 @@ const app = express();
 const crud = require("./ROUTERS/crud_project/routes");
 const cherchRoute = require("./ROUTERS/crud_chercheure/insertion/router")
 const cron = require("node-cron");
-const encadrRout = require("./ROUTERS/CRUD_Encadrements/routes");
+const routerEnc = require("./ROUTERS/CRUD_Encadrements/routes");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookie());
@@ -33,7 +33,7 @@ app.use('/insertions', crud)
 app.use('/settings' , setRouter)
 app.use('/chercheur', cherchRoute)
 app.use('/recherche', RechercheRouter)
-app.use('/encadrements',encadrRout)
+app.use('/encadrements',routerEnc)
 
 
 
