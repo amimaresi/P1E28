@@ -8,4 +8,4 @@ router.post('/encadrement/ajouter',insererEncadrement);
 router.get('/encadrement?', rechercherEncadrement );
 router.get('/encadrement/:id', rechercherEncParId );
 
-module.exports = router:
+module.exports = router;
