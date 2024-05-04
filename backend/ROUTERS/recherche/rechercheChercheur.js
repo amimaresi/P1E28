@@ -127,6 +127,7 @@ const Chercheur = require('../../schema/Chercheur')
         res.status(200).json({Chercheurs: docs})
         }
     } catch (err) {
+        console.log (err)
         res.status(400).json({message: err.message})
     }
 
@@ -145,6 +146,19 @@ const Chercheur = require('../../schema/Chercheur')
     }
 }
 
+const queryToutChercheur = async(req , res) =>{
+    try {
+        const docs = await Chercheur.find().exec()
+        console.log(docs)
+        res.status(200).json({Chercheurs: docs})
+    }
+    catch(err){
+        console.log(err)
+        res.status(400).json({message: "Desolé, il ya une erreur"})
+    }
+
+}
 
 
-module.exports = {queryChercheur , queryChercheurByid}
+
+module.exports = {queryChercheur , queryChercheurByid , queryToutChercheur}

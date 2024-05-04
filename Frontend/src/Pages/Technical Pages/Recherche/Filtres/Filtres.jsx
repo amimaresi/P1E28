@@ -427,7 +427,7 @@ function Fpublication({ form }) {
         )}
       />
       <Separator />
-      <FormField
+      {/* <FormField
         control={form.control}
         name="Date"
         render={({ field }) => (
@@ -448,7 +448,7 @@ function Fpublication({ form }) {
             <FormMessage />
           </FormItem>
         )}
-      />
+      /> */}
       <FormField
         control={form.control}
         name="MaisonEdition"

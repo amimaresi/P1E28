@@ -4,6 +4,7 @@ import {
   SeparatorHorizontal,
   SeparatorVertical,
 } from 'lucide-react';
+import axios from 'axios';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -20,6 +21,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from '@/components/ui/hover-card';
+import { useEffect } from 'react';
 export function GetColumns(searchby) {
   return searchby === 'chercheur'
     ? ColumnsChercheur
@@ -33,7 +35,25 @@ export function GetColumns(searchby) {
 }
 
 export function ColumnsChercheur() {
+//   useEffect(() => {
+//    const fetch =async()=>{
+//     console.log("fetching")
+//     try{
+//     const resultat = await axios.get('http//localhost:3000/recherche/toutChercheur')
+//     console.log(resultat)
+//     }
+//     catch(err){
+//       console.log("error")
+//       console.log(err)
+//    }
+//   }
+
+// fetch()
+//   }
+// ,[])
+
   return [
+    
     {
       accessorKey: 'nomComplet',
       header: ({ column }) => {

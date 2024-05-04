@@ -42,10 +42,14 @@ const rechercherConfParId = async (req, res) => {
 
 module.exports = { rechercheConference, rechercherConfParId };*/
 const rechercheConference = async (req, res) => {
-    console.log(req.query);
-    const { type, nom, periodicite } = req.query;
+    console.log(req.body);
+    const {_id ,  type, nom, periodicite } = req.body;
+    console.log("here is the id "+ _id)
     const options = {};
-
+    if(!_id && !type && !nom && !periodicite) return res.status(400).json({ message: "Veuillez remplir au moins un champ" })
+    if(_id) {
+        options._id = new RegExp('^' + _id, 'i');
+    }
     if (type) {
         options.type = new RegExp('^' + type, 'i');
     }

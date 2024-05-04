@@ -22,7 +22,9 @@ const queryPublication = async(req , res)=>{
        
         if(subtitre) {query.Titre ={$regex: new RegExp('^'+subtitre, 'i')}}
 
-        if(subdate){query.Date = {$regex: new RegExp('^'+subdate, 'i')}}
+        // if(subdate){
+        //     console.log("date" + subdate)
+        //     query.Date = {$regex: new RegExp('^'+subdate, 'i')}}
         if(subconf) {query.confJourn = {$regex: new RegExp('^'+subconf, 'i')}}
         if(subchercheur){ query.idCherch = {$regex: new RegExp('^'+subchercheur, 'i')}}
     
