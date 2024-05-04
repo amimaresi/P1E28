@@ -1,3 +1,5 @@
+const mongoose = require('mongoose')
+
 const Encadrement = require("../../schema/Encadrement");
 
 /*const rechercherEncadrement = async (req, res) => {
