@@ -49,7 +49,7 @@ export function RechercheTable({ navigate, searchby }) {
     
    
     console.log('Filtres : ', data);
-    console.log("ssss"+searchby)
+    console.log("search by "+searchby)
     const searchform = {};
     
     Object.entries(data).forEach((value, key) => {
@@ -65,9 +65,11 @@ export function RechercheTable({ navigate, searchby }) {
     try{
       const resultat = await axios.post(
         `http://localhost:3000/recherche/${searchby}`, data );
-         if(searchby==="Chercheur") setData(resultat.data.Chercheur)
+        console.log("search by "+searchby)
+        console.log(resultat.data.ConfJourns)
+         if(searchby==="chercheur") setData(resultat.data.Chercheurs)
          if(searchby==="publication") setData(resultat.data.Publications)
-        if(searchby==="ConfJourn") setData(resultat.data.Confjournals)
+        if(searchby==="confJourn") setData(resultat.data.ConfJourns)
         if(searchby==="encadrement") setData(resultat.data.Encadrements)
           if (searchby==="projet") setData(resultat.data.projet)
     

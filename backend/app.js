@@ -23,8 +23,8 @@ app.use(express.json())
 //app.use(cors())
 app.use(cors( {origin:'http://localhost:5173', credentials: true }))
 
-app.post('/po',maj);
 
+const routerConf = require('./ROUTERS/crudConfJourn/routeConf')
 const setRouter = require('./settings/router')
 const authRouter = require('./authentication/router/userRouter')
 const RechercheRouter = require('./ROUTERS/recherche/router')
@@ -34,7 +34,8 @@ app.use('/settings' , setRouter)
 app.use('/chercheur', cherchRoute)
 app.use('/recherche', RechercheRouter)
 app.use('/encadrements', routerEnc)
-
+app.use('/conf',routerConf)
+app.post('/maj',maj)
 
 
 
