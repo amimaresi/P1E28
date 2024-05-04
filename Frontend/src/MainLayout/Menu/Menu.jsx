@@ -344,16 +344,30 @@ function MiseAJour() {
 }
 function Periodicité() {
   const schema = yup.object().shape({
-    id: yup.string(),
+    acronyme: yup.string(),
     Periodicité: yup.string(),
   });
   const form = useForm({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data) => {
-    console.log('Filtres : ', data);
-    //fetch the data here
+  const onSubmit = async (data) => {
+    console.log(data);
+    try {
+      const inf = {
+        acronyme: data.acronyme,
+        periodicite: data.Periodicité
+      };
+      console.log(inf);
+      console.log("clicked");
+
+      const res = await axios.post('http://localhost:3000/conf/confJourn/ajouterPeriode',
+      inf);
+      console.log(res.data.message);
+    } catch (err) {
+      if (err.response) console.log(err.response.data.message); //this error is for displaying the error message from the server
+    }
+    
   };
 
   return (
@@ -379,12 +393,12 @@ function Periodicité() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <FormField
                 control={form.control}
-                name="id"
+                name="acronyme"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Conferance / Journal ID</FormLabel>
+                    <FormLabel>Conferance / Journal Acronyme</FormLabel>
                     <FormControl>
-                      <Input placeholder="Entrez l'id" {...field} />
+                      <Input placeholder="Entrez l'acronyme" {...field} />
                     </FormControl>
                   </FormItem>
                 )}
