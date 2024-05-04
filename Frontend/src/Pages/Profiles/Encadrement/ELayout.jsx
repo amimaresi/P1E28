@@ -29,7 +29,7 @@ import axios from 'axios';
   ]
  }*/
 export default function ELayout() {
-  console.log('fffffffffffffffffuuuuuuuuuuuuuuuu')
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [data, setData] = useState({
   //   _id: 'k_benatchba@esi.dz',
@@ -51,7 +51,7 @@ useEffect( ()=>{
   const fetchtData = async()=>{
     try{
    
-        const result = await axios.get(`http://localhost:3000/encadrements/encadrement/${id}`)
+        const result = await axios.get(`http://localhost:3000/recherche/encadrement/${id}`)
     
       console.log(result.data.Encadrements )
       setData(result.data.Encadrements)

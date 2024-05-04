@@ -4,10 +4,10 @@ const cookie = require("cookie-parser");
 require("dotenv").config();
 const cors = require("cors");
 const app = express();
+const routerEnc = require("./ROUTERS/CRUD_Encadrements/routes");
 const crud = require("./ROUTERS/crud_project/routes");
 const cherchRoute = require("./ROUTERS/crud_chercheure/insertion/router")
 const cron = require("node-cron");
-const routerEnc = require("./ROUTERS/CRUD_Encadrements/routes");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookie());
@@ -23,7 +23,7 @@ app.use(express.json())
 //app.use(cors())
 app.use(cors( {origin:'http://localhost:5173', credentials: true }))
 
-
+app.post('/po',maj);
 
 const setRouter = require('./settings/router')
 const authRouter = require('./authentication/router/userRouter')
@@ -33,7 +33,8 @@ app.use('/insertions', crud)
 app.use('/settings' , setRouter)
 app.use('/chercheur', cherchRoute)
 app.use('/recherche', RechercheRouter)
-app.use('/encadrements',routerEnc)
+app.use('/encadrements', routerEnc)
+
 
 
 
