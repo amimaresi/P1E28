@@ -63,7 +63,7 @@ export default function Publications() {
     <div className="bg-white p-8">
       <ul>
         <li className="mb-4 px-4 py-2 flex justify-between items-center">
-          <span className="text-lg font-bold">Titres</span>
+          <span className="text-lg font-bold">Titre</span>
           <span className="text-lg font-bold">Rang</span>
         </li>
       </ul>
