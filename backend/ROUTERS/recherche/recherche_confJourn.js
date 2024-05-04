@@ -1,3 +1,5 @@
+const mongoose = require('mongoose')
+
 const ConfJourn = require("../../schema/ConfJournal");
 
 /*const rechercheConference = (req, res) => {
