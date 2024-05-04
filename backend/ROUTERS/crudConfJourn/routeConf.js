@@ -5,4 +5,4 @@ const ajouterModifierPeriode = require("./AjouterModifierPeriod");
 
 
 router.post('/confJourn/ajouterPeriode', ajouterModifierPeriode); //ajouter modifier periodicité
-module.exports = router:
+module.exports = router
