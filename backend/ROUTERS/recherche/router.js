@@ -1,4 +1,4 @@
-const {queryChercheur , queryChercheurByid} = require('./rechercheChercheur')
+const {queryChercheur ,queryToutChercheur, queryChercheurByid} = require('./rechercheChercheur')
 const {queryPublication , queryPublicationByid} = require('./recherchePublic')
 const {rechercheConference, rechercherConfParId} = require('./recherche_confJourn')
 const { queryEncadrement, queryEncadrementById } = require('./reche_encadrement')
@@ -8,6 +8,7 @@ const RechercheRouter = require('express').Router()
 
 RechercheRouter.post('/Chercheur', queryChercheur)
 RechercheRouter.get('/Chercheur/:id', queryChercheurByid)
+RechercheRouter.get('toutChercheur', queryToutChercheur)
 
 RechercheRouter.post('/Publication', queryPublication)
 RechercheRouter.get('/Publication/:id', queryPublicationByid)
@@ -20,6 +21,8 @@ RechercheRouter.get('/encadrement/:id', queryEncadrementById )
 
 RechercheRouter.post('/projet',  queryProjet)
 RechercheRouter.get('/projet/:id', projet_by_id )
+
+
 
 
 
