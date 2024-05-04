@@ -29,7 +29,6 @@ import AddEncadrement from './Pages/Technical Pages/Control Pannel/Pages/AddEnca
 import Statistiques from './Pages/statistiques/Statistiques.jsx';
 import PrPLayout from './Pages/Profiles/Project/PrPLayout.jsx';
 import CJLayout from './Pages/Profiles/ConfJourn/CJLayout.jsx';
-import ProfileChercheur from './Pages/Profiles/Chercheur/profileChercheur.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -68,7 +67,7 @@ const router = createBrowserRouter(
         <Route path="informations" element={<Informations />} />
         <Route path="encadrements" element={<Encadrements />} /> 
         <Route path="publications" element={<Publications />} />
-        <Route path="projets" element={<Projets />} />
+        
       </Route>
       <Route
         path="chercheur/"
@@ -78,7 +77,7 @@ const router = createBrowserRouter(
       <Route path="projet/:id" element={<PrPLayout />} />
       <Route path="settings" element={<Settings />} />
       <Route path="statistiques" element={<Statistiques />} />
-      <Route path="encadrement/:id" element={<ELayout />} />
+     
       <Route path="control" element={<Outlet />}>
         <Route index element={<NotFound />} />
         <Route path="LandingPage" element={<EditLandingPage />} />
