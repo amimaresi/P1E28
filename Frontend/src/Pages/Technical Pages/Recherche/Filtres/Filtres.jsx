@@ -32,12 +32,10 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
-//import { c } from 'vite/dist/node/types.d-aGj9QkWt';
+import { Slider } from '@/components/ui/slider';
 
-export default function Filtres({ searchby  , onSubmit}) {
+export default function Filtres({ searchby, onSubmit }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  
-  
 
   const params = {};
 
@@ -100,25 +98,23 @@ export default function Filtres({ searchby  , onSubmit}) {
   });
 
   // const onSubmit = async (data) => {
-    
-   
+
   //   console.log('Filtres : ', data);
   //   const searchform = {};
-    
+
   //   Object.entries(data).forEach((value, key) => {
   //     if (value != 0) {
   //       searchform[key] = value;
   //     }
   //   });
   //   console.log(form.getValues() + ' ' + searchform);
-    
 
   //   setSearchParams(searchform);
   //   try{
   //     const resultat = await axios.post(
   //       `http://localhost:3000/recherche/Chercheur`, data );
   //         console.log(res.data);
-          
+
   //   }
   //   catch(err){
   //     console.log(err.message);
@@ -141,7 +137,7 @@ export default function Filtres({ searchby  , onSubmit}) {
             {' '}
             <Form {...form}>
               <form
-                onSubmit={form.handleSubmit(onSubmit) }
+                onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-8"
               >
                 {searchby === 'chercheur' ? (
