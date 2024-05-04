@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export default function Publications() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -71,7 +72,7 @@ export default function Publications() {
       <ul>
         {data.map((item, index) => (
           <li className="mb-4 border rounded-lg bg-gray-100 px-4 py-2 flex justify-between items-center" key={index}>
-            <a href={item.Lien} className="text-xs hover:text-buttonDark" target="_blank" rel="noopener noreferrer">{item.Titre}</a>
+            <NavLink to={`/publication/{_id}`} className="text-sm hover:text-buttonDark">{item.Titre}</NavLink>
             <span>{item.rang}</span>
           </li>
         ))}
