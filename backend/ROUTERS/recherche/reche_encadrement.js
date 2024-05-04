@@ -1,6 +1,6 @@
 const Encadrement = require("../../schema/Encadrement");
 
-const rechercherEncadrement = (req, res) => {
+/*const rechercherEncadrement = async (req, res) => {
     const options = {}; 
     if (req.query.Type) {
         const regexPatternType = new RegExp(req.query.Type, 'i');
@@ -27,14 +27,22 @@ if (req.query.idEncadrant) {
         }
     
 
-    Encadrement.find(options)
+    /*Encadrement.find(options)
         .then((result) => {
             res.status(200).json({ err: false, Encadrements: result });
         })
         .catch((err) => {
             console.error(err);
-            res.status(400).json({ err: true });
+            res.status(400).json({ message: err.message });
         });
+        try {
+            const result = await Encadrement.find(options).exec();
+            res.status(200).json({ err: false, Encadrements: result });
+        } catch (err) {
+            console.error(err);
+            res.status(400).json({ err: true });
+        }
+    
 };
 
 const rechercherEncParId = async (req, res) => {
@@ -52,5 +60,85 @@ const rechercherEncParId = async (req, res) => {
     }
 };
 
-module.exports = {rechercherEncadrement, rechercherEncParId};
+module.exports = {rechercherEncadrement, rechercherEncParId};*/
+
+
+const queryEncadrement = async (req, res) => {
+    const {
+        Type,
+        Titre,
+        nomCompletEncadrant,
+        idEncadrant,
+        role,
+        Etudiants,
+        AnneeD,
+        AnneeF
+    } = req.body;
+
+    let query = {};
+
+    if (Type) {
+        console.log(Type);
+        query.Type = { $regex: new RegExp('^' + Type, 'i') };
+    }
+    if (Titre) {
+        console.log(Titre);
+        query.Titre = { $regex: new RegExp('^' + Titre, 'i') };
+    }
+    if (nomCompletEncadrant) {
+        console.log(nomCompletEncadrant);
+        query['Encadrants.nomComplet'] = { $regex: new RegExp('^' + nomCompletEncadrant, 'i') };
+    }
+    if (idEncadrant) {
+        console.log(idEncadrant);
+        query['Encadrants._id'] = idEncadrant;
+    }
+    if (role) {
+        console.log(role);
+        query['Encadrants.role'] = role;
+    }
+    if (Etudiants) {
+        console.log(Etudiants);
+        query.Etudiants = { $in: [Etudiants] };
+    }
+    if (AnneeD) {
+        console.log(AnneeD);
+        query.AnneeD = AnneeD;
+    }
+    if (AnneeF) {
+        console.log(AnneeF);
+        query.AnneeF = AnneeF;
+    }
+
+    try {
+        const encadrements = await Encadrement.find(query).exec();
+        console.log(encadrements);
+        if (encadrements.length === 0) {
+            return res.status(404).json({ message: "Aucun encadrement trouvé" });
+        } else {
+            res.status(200).json({ Encadrements: encadrements });
+        }
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}
+
+const queryEncadrementById = async (req, res) => {
+    const _id = req.params.id;
+    try {
+        const encadrement = await Encadrement.findById(_id).exec();
+        console.log(encadrement);
+        if (encadrement) {
+            res.status(200).json({ Encadrement: encadrement });
+        } else {
+            res.status(404).json({ message: "Aucun encadrement trouvé avec cet ID." });
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(400).json({ message: "Erreur lors de la recherche de l'encadrement par ID." });
+    }
+}
+
+module.exports = { queryEncadrement, queryEncadrementById };
+
 
