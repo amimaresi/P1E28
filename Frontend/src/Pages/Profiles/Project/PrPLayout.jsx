@@ -25,7 +25,7 @@ useEffect( ()=>{
    
   const fetchtData = async()=>{
     try{
-      const result = await axios.get(`http://localhost:3000/insertions/projet/search/${id}`)
+      const result = await axios.get(`http://localhost:3000/recherche/projet/${id}`)
       
       
       console.log(result.data.projet)
