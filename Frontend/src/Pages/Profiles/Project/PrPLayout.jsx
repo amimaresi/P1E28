@@ -19,7 +19,6 @@ import axios from 'axios';
 
 export default function PrPLayout() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-<<<<<<< HEAD
   const [data, setData] = useState({});
   const { id } = useParams();
   useEffect(() => {
@@ -28,18 +27,6 @@ export default function PrPLayout() {
         const result = await axios.get(
           `http://localhost:3000/insertions/projet/search/${id}`,
         );
-=======
-  const [data, setData] = useState({ });
-  const {id} = useParams()
-useEffect( ()=>{
-   
-  const fetchtData = async()=>{
-    try{
-      const result = await axios.get(`http://localhost:3000/recherche/projet/${id}`)
-      
-      
-      console.log(result.data.projet)
->>>>>>> 69dd159ccbba7a11a60bb73ac309501238505440
 
         console.log(result.data.projet);
 
