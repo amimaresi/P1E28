@@ -29,7 +29,7 @@ import axios from 'axios';
   ]
  }*/
 export default function ELayout() {
-  console.log('fffffffffffffffffuuuuuuuuuuuuuuuu')
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [data, setData] = useState({
   //   _id: 'k_benatchba@esi.dz',
@@ -44,29 +44,28 @@ export default function ELayout() {
   //   Equipe: 'Optimisation',
   // },
 });
-console.log("rryujh")
+
   const {id} = useParams()
 useEffect( ()=>{
-   console.log('ydrbeffect')
+
   const fetchtData = async()=>{
     try{
-      console.log("660096a07654baa3c3bed13a")
-       
-        const result = await axios.get(`http://localhost:3000/encadrements/encadrement/660096a07654baa3c3bed13a`)
-      console.log("rrrrrr")
+   
+        const result = await axios.get(`http://localhost:3000/recherche/encadrement/${id}`)
+    
       console.log(result.data.Encadrements )
       setData(result.data.Encadrements)
       return result
       
     }catch(err){
-      console.log("errortttttttttttttttttttttttttttttttttttt")
+      console.log("error")
       console.log(err)
     }
   }
   fetchtData()
   
   } , [])
-  console.log('krlbbbbbbbbbbbbbbbbbb')
+ 
   console.log(data.Encadrements)
   return <>
    <div className='bg-white'>
