@@ -56,6 +56,7 @@ const rechercheConference = async (req, res) => {
 
     try {
         const conferences = await ConfJourn.find(options).exec();
+        console.log(conferences)
         if (conferences.length === 0) {
             return res.status(404).json({ message: "Aucune conférence trouvée" });
         } else {
@@ -71,6 +72,7 @@ const rechercherConfParId = async (req, res) => {
     try {
         const id = req.params.id;
         const conf = await ConfJourn.findById(id).exec();
+        console.log(conf)
         if (conf) {
             res.status(200).json({ error: false, ConfJourn: conf });
         } else {
