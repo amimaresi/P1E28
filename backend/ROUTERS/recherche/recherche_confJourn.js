@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const ConfJourn = require("../../schema/ConfJournal");
 
-/*const rechercheConference = (req, res) => {
+const rechercheConf = (req, res) => {
     const options = {};
 
     if (req.query.type) {
@@ -25,22 +25,6 @@ const ConfJourn = require("../../schema/ConfJournal");
         });
 };
 
-const rechercherConfParId = async (req, res) => {
-    try {
-        const id = req.params.id;
-        const conf = await ConfJourn.findById(id);
-        if (conf) {
-            res.status(200).json({ error: false, ConfJourn: conf });
-        } else {
-            res.status(404).json({ error: true, message: "Aucune conférence trouvée avec cet ID." });
-        }
-    } catch (error) {
-        console.error(error);
-        res.status(400).json({ error: true, message: "Erreur lors de la recherche de conférence par ID." });
-    }
-};
-
-module.exports = { rechercheConference, rechercherConfParId };*/
 const rechercheConference = async (req, res) => {
     console.log(req.body);
     const {_id ,  type, nom, periodicite } = req.body;
@@ -90,4 +74,4 @@ const rechercherConfParId = async (req, res) => {
     }
 };
 
-module.exports = { rechercheConference, rechercherConfParId };
+module.exports = { rechercheConf, rechercheConference, rechercherConfParId };

@@ -3,6 +3,52 @@ const mongoose = require('mongoose')
 // Load the model 
 const Publication = require('../../schema/Publication')
 
+const recherchePublication = (req, res) => {
+    const options = {};
+
+    if (req.query.Date) {
+        options.Date = new RegExp(req.query.Date, 'i');
+    }
+    if (req.query.idCherch) {
+        options.idCherch = req.query.idCherch;
+    }
+    if (req.query.confJourn) {
+        options.confJourn = new RegExp(req.query.confJourn, 'i');
+    }
+    if (req.query.volume) {
+        options.volume = new RegExp(req.query.volume, 'i');
+    }
+    if (req.query.pages) {
+        options.pages = new RegExp(req.query.pages, 'i');
+    }
+    if (req.query.rang) {
+        options.rang = req.query.rang;
+    }
+    if (req.query.Titre) {
+        options.Titre = new RegExp(req.query.Titre, 'i');
+    }
+    if (req.query.Lien) {
+        options.Lien = new RegExp(req.query.Lien, 'i');
+    }
+    if (req.query.Membres) {
+        options.Membres = new RegExp(req.query.Membres, 'i');
+    }
+    if (req.query.Classement) {
+        options['Classement.Nom'] = new RegExp(req.query.Classement, 'i');
+    }
+    if (req.query.MaisonEdistion) {
+        options.MaisonEdistion = new RegExp(req.query.MaisonEdistion, 'i');
+    }
+
+    Publication.find(options)
+        .then((resultats) => {
+            res.status(200).json({ error: false, Publications: resultats });
+        })
+        .catch((erreur) => {
+            console.error(erreur);
+            res.status(400).json({ error: true });
+        });
+};
 
 const queryPublication = async(req , res)=>{
     console.log(req.body)
@@ -51,4 +97,4 @@ const queryPublicationByid =  async (req , res) =>{
 
 }
 
-module.exports = {queryPublication , queryPublicationByid} //export the function to be used 
+module.exports = {recherchePublication,queryPublication , queryPublicationByid} //export the function to be used 
