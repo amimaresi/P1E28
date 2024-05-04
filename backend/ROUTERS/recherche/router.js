@@ -11,7 +11,7 @@ RechercheRouter.get('/Chercheur/:id', queryChercheurByid)
 RechercheRouter.get('toutChercheur', queryToutChercheur)
 
 RechercheRouter.post('/Publication', queryPublication)
-RechercheRouter.get('/Publication',recherchePublication)
+//RechercheRouter.get('/Publication',recherchePublication)
 RechercheRouter.get('/Publication/:id', queryPublicationByid)
 
 RechercheRouter.post('/ConfJourn', rechercheConference )

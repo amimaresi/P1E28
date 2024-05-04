@@ -51,61 +51,27 @@ const recherchePublication = (req, res) => {
 };
 
 const queryPublication = async(req , res)=>{
-
-    //ramene les publications qui ont le titre, la date, la conference et le chercheur voulu
-    const subtitre = req.body.Titre
-    console.log("titre" + req.body.Titre)
-    const subdate1 = req.body.DateMin
-    const subdate2 = req.body.DateMax 
-    const subconf = req.body.acronym   //confJourn
-    const subchercheur = req.body._idChercheur
-    //volume //pages  //MaisonEdition  //Classement  //rang
-    //console.log(req.body)
-    if(!subtitre && !subdate1 && !subdate2 && !subconf && !subchercheur) return res.status(400).json({message: "Veuillez remplir au moins un champ"})
-
+    console.log(req.body)
+ const{ Titre, Date, confJourn, idCherch, rang, MaisonEdition, volume, pages} = req.body
+  
+    if (!Titre && !Date && !confJourn && !idCherch && !rang && !MaisonEdition && !volume && !pages) return res.status(400).json({message: "Veuillez saisir un critère de recherche"})
     
     try {
+
         //trouve les publications qui respectent les conditions
         let query = {}
-       
-        if(subtitre) {
-            console.log("ssssssssssss")
-            {query.Titre ={$regex: new RegExp('^'+subtitre, 'i')}}
-        }
-        // if(subdate){
-        //     console.log("date" + subdate)
-        //     query.Date = {$regex: new RegExp('^'+subdate, 'i')}}
-        if(subconf) {query.confJourn = {$regex: new RegExp('^'+subconf, 'i')}}
-        if(subchercheur){ query.idCherch = {$regex: new RegExp('^'+subchercheur, 'i')}}
-         // Correction de l'année de début si elle n'existe pas
-    if (subdate1) {
-        const debutAnneeExist = await Publication.exists({ Date: { $regex: new RegExp('^' + subdate1, 'i') } });
-        if (!debutAnneeExist) {
-            const premierePublication = await Publication.findOne().sort({ Date: 1 }).exec();
-            if (premierePublication) {
-                query.Date = { $gte: premierePublication.Date };
-            }
-        } else {
-            query.Date = { $gte: subdate1 };
-        }
-    }
+        if (Titre) query.Titre = {$regex: new RegExp('^'+Titre, 'i')}
+       // if (Date) query.Date = {$regex: new RegExp('^'+Date, 'i')}
+        if (confJourn) query.confJourn = {$regex: new RegExp('^'+confJourn, 'i')}
+        if (idCherch) query.idCherch = {$regex: new RegExp('^'+idCherch, 'i')}
+        if (rang) query.rang = rang 
+        if (MaisonEdition) query.MaisonEdition = {$regex: new RegExp('^'+MaisonEdition, 'i')}
+        if (volume) query.volume = {$regex: new RegExp('^'+volume, 'i')}
+        if (pages) query.pages = {$regex: new RegExp('^'+pages, 'i')}
 
-    // Correction de l'année de fin si elle n'existe pas
-    if (subdate2) {
-        const finAnneeExist = await Publication.exists({ Date: { $regex: new RegExp('^' + subdate2, 'i') } });
-        if (!finAnneeExist) {
-            const dernierePublication = await Publication.findOne().sort({ Date: -1 }).exec();
-            if (dernierePublication) {
-                query.Date = { ...query.Date, $lte: dernierePublication.Date };
-            }
-        } else {
-            query.Date = { ...query.Date, $lte: subdate2 };
-        }
-    }
-
-
-        console.log(query)      
+       console.log(query)      
         const docs = await Publication.find(query).exec()
+        if(docs.length === 0) return res.status(400).json({message: "Aucune publication trouvée"})
       
          console.log(docs)
         res.status(200).json({Publications: docs})
