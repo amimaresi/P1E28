@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const Projet = require("../../schema/Projet");
-/*const projet_recherche = (req, res) => {
+const projet_recherche = (req, res) => {
     const option = {};
     if (req.query.Num) {
         option._id = req.query.Num;
@@ -32,15 +32,17 @@ const Projet = require("../../schema/Projet");
 
 
 
-}*/
+}
 const queryProjet = async (req, res) => {
     const {
         _id,
         Titre,
         ChefDeProjet,
         liste_members,
-        DateDebut,
-        DateFin,
+        DateDebutMin,
+        DateDebutMax,
+        DateFinMin,
+        DateFinMax,
         Theme
     } = req.body;
 
@@ -62,13 +64,31 @@ const queryProjet = async (req, res) => {
         console.log(liste_members);
         query.liste_members = { $in: liste_members };
     }
-    if (DateDebut) {
+    /*if (DateDebut) {
         console.log(DateDebut);
         query.DateDebut = DateDebut;
     }
     if (DateFin) {
         console.log(DateFin);
         query.DateFin = DateFin;
+    }*/
+    if (DateDebutMin || DateDebutMax) {
+        query.DateDebut = {};
+        if (DateDebutMin) {
+            query.DateDebut.$gte = DateDebutMin;
+        }
+        if (AnneeDMax) {
+            query.AnneeD.$lte = AnneeDMax;
+        }
+    }
+    if (DateFinMin || DateFinMax) {
+        query.DateFin = {};
+        if (DateFinMin) {
+            query.DateFin.$gte = DateFinMin;
+        }
+        if (DateFinMax) {
+            query.DateFin.$lte = DateFinMax;
+        }
     }
     if (Theme) {
         console.log(Theme);
@@ -78,6 +98,24 @@ const queryProjet = async (req, res) => {
     try {
         const projets = await Projet.find(query).exec();
         console.log(projets);
+        if (projets.length === 0 && (DateDebutMin || DateDebutMax)) {
+            const nearestYear = await Projet.findOne({
+                DateDebut: { $exists: true, $gte: DateDebutMin ? DateDebutMin : 0, $lte:DateDebutMax ? DateDebutMax : 9999 }
+            }).sort(DateDebutMin ? 'DateDebut' : '-DateDebut').exec();
+            if (nearestYear) {
+                projets = [nearestYear];
+            }
+        }
+
+        // Si aucun encadrement trouvé pour l'intervalle de date de fin, on cherche la date la plus proche
+        if (projets.length === 0 && (DateFinMin || DateFinMax)) {
+            const nearestYear = await Projet.findOne({
+                DateFin: { $exists: true, $gte: DateFinMin ? DateFinMin : 0, $lte: DateFinMax ? DateFinMax : 9999 }
+            }).sort(DateFinMin ? 'DateFin' : '-DateFin').exec();
+            if (nearestYear) {
+                projets = [nearestYear];
+            }
+        }
         if (projets.length === 0) {
             return res.status(404).json({ message: "Aucun projet trouvé" });
         } else {
@@ -105,4 +143,4 @@ const projet_by_id = async(req, res) => {
         res.status(404).json({ error: true })
     }
 }
-module.exports = { queryProjet, projet_by_id };
+module.exports = { projet_recherche,queryProjet, projet_by_id };
