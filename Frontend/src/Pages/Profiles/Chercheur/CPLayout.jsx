@@ -97,13 +97,13 @@ export default function CPLayout() {
           <Link
             // to={headerData.lien.GoogleScholar}
             to= { "https://scholar.google.com/"}
-            className="rounded-lg bg-blue-500 px-1 py-1 text-white hover:bg-blue-600 disabled:bg-blue-700"
+            className="rounded-lg bg-buttonDark px-1 py-1 text-white hover:bg-buttonLight text-center"
           >
             Compte Google Scholar
           </Link>
           <Link
             to={"https://dblp.org/"}
-            className="rounded-lg bg-blue-500 px-1 py-1 text-white hover:bg-blue-600 disabled:bg-blue-700"
+            className="rounded-lg bg-buttonDark px-1 py-1 text-white hover:bg-buttonLight text-center"
           >
             Compte DBLP
           </Link>

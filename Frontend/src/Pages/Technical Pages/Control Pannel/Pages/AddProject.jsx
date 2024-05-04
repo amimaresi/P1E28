@@ -24,22 +24,18 @@ export default function AddProject() {
     chefProjet: yup.string().required(' le chef de projet est requis  '),
     DateFin: yup.date(),
     Theme: yup.string().required(' le theme est requis '),
-    liste_members: yup
-      .array()
-      .transform((str) => str.split(' '))
-      .of(yup.string().email())
-      .required(' la liste des membres est requise '),
+    liste_members: yup.string().required(' la liste des membres est requise '),
   });
 
   const form = useForm({
     defaultValues: {
-      Num: '',
+     /* Num: '',
       Titre: '',
       DateDebut: '',
       chefProjet: '',
       DateFin: '',
       Theme: '',
-      liste_members: '',
+      liste_members: '',*/
     },
     resolver: yupResolver(schema),
   });
@@ -47,11 +43,22 @@ export default function AddProject() {
     console.log('data :', data);
 
     try {
+      const inf = {
+        Num: data.Num,
+        Titre: data.Titre,
+      DateDebut: data.DateDebut,
+      chefProjet: data.chefProjet,
+      DateFin: data.DateFin,
+      Theme: data.Theme
+      }
+      console.log(inf);
+      console.log('clicked');
+
       const resutlt = await axios.post(
-        'http://localhost:3000/insertion/projet',
+        'http://localhost:3000/insertions/projet',
         data,
       );
-      console.log(resutlt);
+      console.log(resutlt.data.message);
     } catch (err) {
       console.log(err.response.data.message);
     }

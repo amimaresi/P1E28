@@ -68,6 +68,10 @@ export function RechercheTable({ navigate, searchby }) {
         console.log(resultat.data.Chercheurs)
          if(searchby==="chercheur") setData(resultat.data.Chercheurs)
          if(searchby==="publication") setData(resultat.data.Publications)
+        if(searchby==="ConfJourn") setData(resultat.data.Confjournals)
+        if(searchby==="encadrement") setData(resultat.data.Encadrements)
+          if (searchby==="projet") setData(resultat.data.projet)
+    
         
     }
     catch(err){

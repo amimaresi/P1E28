@@ -28,7 +28,8 @@ import AddPublication from './Pages/Technical Pages/Control Pannel/Pages/AddPubl
 import AddEncadrement from './Pages/Technical Pages/Control Pannel/Pages/AddEncadrement.jsx';
 import Statistiques from './Pages/statistiques/Statistiques.jsx';
 import PrPLayout from './Pages/Profiles/Project/PrPLayout.jsx';
-import CJLayout from './Pages/Profiles/ConfJourn/CJLayout.jsx';
+import Projets from './Pages/Profiles/Chercheur/Outlets/Projets.jsx';
+import ELayout from './Pages/Profiles/Encadrement/ELayout.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -58,14 +59,11 @@ const router = createBrowserRouter(
           element={<RechercheLayout searchby="confJourn" />}
         />
       </Route>
-      
-       
-      
+
       <Route path="chercheur/:id" element={<CPLayout />}>
-       
         <Route index element={<Navigate to="informations" />} />
         <Route path="informations" element={<Informations />} />
-        <Route path="encadrements" element={<Encadrements />} /> 
+        <Route path="encadrements" element={<Encadrements />} />
         <Route path="publications" element={<Publications />} />
         
       </Route>

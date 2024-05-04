@@ -1,11 +1,9 @@
 const express = require('express');
-const router = express.Router;
+const routerEnc = express.Router();
 const insererEncadrement = require("./insert_form_encadrement");
-const {rechercherEncadrement , rechercherEncParId} = require("../recherche/reche_encadrement")
 
 
-router.post('/encadrement/ajouter',insererEncadrement);
-router.get('/encadrement?', rechercherEncadrement );
-router.get('/encadrement/:id', rechercherEncParId );
+routerEnc.post('/encadrement/ajouter',insererEncadrement);
 
-module.exports = router:
+
+module.exports = routerEnc;
