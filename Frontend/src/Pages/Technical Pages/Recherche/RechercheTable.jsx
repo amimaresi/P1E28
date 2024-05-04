@@ -67,6 +67,10 @@ export function RechercheTable({ navigate, searchby }) {
         `http://localhost:3000/recherche/${searchby}`, data );
          if(searchby==="Chercheur") setData(resultat.data.Chercheur)
          if(searchby==="publication") setData(resultat.data.Publications)
+        if(searchby==="ConfJourn") setData(resultat.data.Confjournals)
+        if(searchby==="encadrement") setData(resultat.data.Encadrements)
+          if (searchby==="projet") setData(resultat.data.projet)
+    
         
     }
     catch(err){
