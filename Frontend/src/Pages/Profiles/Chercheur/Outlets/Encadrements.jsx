@@ -3,59 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 export default function Encadrements() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [data, setData] = useState([
-    {
-      "_id": {
-        "$oid": "660096a07654baa3c3bed13a"
-      },
-      "Type": "PFE",
-      "Titre": "Base de donnée",
-      "AnneeD": "2020",
-      "AnneeF": "2021",
-      "Etudiants": [
-        "Ait kaci Azzou Sarah",
-        "Bachferrag Bouchra"
-      ],
-      "Encadrants": [
-        {
-          "NomComplet": "Amar Balla",
-          "_id": "a_balla@esi.dz",
-          "role": "encadrant"
-        },
-        {
-          "NomComplet": "Samira Azzou",
-          "_id": "Null",
-          "role": "Null"
-        }
-      ]
-    },
-    {
-      "_id": {
-        "$oid": "660096a07654baa3c3bed13b"
-      },
-      "Type": "PFE",
-      "Titre": "Intelligence Artificielle",
-      "AnneeD": "2020",
-      "AnneeF": "2021",
-      "Etudiants": [
-        "Heti Amina",
-        "Soupe Baraka"
-      ],
-      "Encadrants": [
-        {
-          "nomComplet": "Boualem Khelouat",
-          "_id": "b_khelouat@esi.dz",
-          "role": "encadrant"
-        },
-        {
-          "nomComplet": "Fatima Si Tayeb ",
-          "_id": "f_sitayeb@esi.dz",
-          "role": "co-encadrant"
-        }
-      ]
-    },
-    // Les autres éléments de données...
-  ]);
+  const [data, setData] = useState([ ]);
 
   return (
     <>

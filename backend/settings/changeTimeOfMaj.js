@@ -12,7 +12,7 @@ const get_maj_time = async (req , res) => {
 const change_maj_time = async (req, res) => {
     const newTime = req.body;
     console.log(newTime);
-    const id = "maj_time";
+    const id = "maj_tim e";
     //if faut avant creer un document pour maj_time
 
 

@@ -65,7 +65,11 @@ export function ColumnsChercheur() {
               </AvatarFallback>
             </Avatar>
           </div>
-          <div className="lowercase">{row.getValue('nomComplet')}</div>
+          <div className="lowercase">
+            {
+            console.log("row is nomComplet" , row.getValue('nomComplet'))}
+              {  row.getValue('nomComplet')}
+          </div>
         </div>
       ),
     },
