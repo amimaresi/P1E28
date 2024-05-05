@@ -19,8 +19,8 @@ import AddProject from './Pages/Technical Pages/Control Pannel/Pages/AddProject.
 import EditLandingPage from './Pages/Technical Pages/Control Pannel/Pages/EditLandingPage.jsx';
 import Update from './Pages/Technical Pages/Control Pannel/Pages/Update.jsx';
 import CPLayout from './Pages/Profiles/Chercheur/CPLayout.jsx';
-import Informations from './Pages/Profiles/Chercheur/Outlets/Informations.jsx';
-import Encadrements from './Pages/Profiles/Chercheur/Outlets/Encadrements.jsx';
+import Informations from './Pages/Profiles/Chercheur/Outlets/informations.jsx';
+import Encadrements from './Pages/Profiles/Chercheur/Outlets/encadrements.jsx';
 import Publications from './Pages/Profiles/Chercheur/Outlets/Publications.jsx';
 import PPLayout from './Pages/Profiles/Publication/PPLayout.jsx';
 import Settings from './Pages/settings/Settings.jsx';
@@ -30,6 +30,8 @@ import Statistiques from './Pages/statistiques/Statistiques.jsx';
 import PrPLayout from './Pages/Profiles/Project/PrPLayout.jsx';
 import CJLayout from './Pages/Profiles/ConfJourn/CJLayout.jsx';
 import ProfileChercheur from './Pages/Profiles/Chercheur/profileChercheur.jsx';
+import Projets from './Pages/Profiles/Chercheur/Outlets/Projets.jsx';
+import ELayout from './Pages/Profiles/Encadrement/ELayout.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -68,7 +70,9 @@ const router = createBrowserRouter(
         <Route path="informations" element={<Informations />} />
         <Route path="encadrements" element={<Encadrements />} /> 
         <Route path="publications" element={<Publications />} />
-        <Route path="projets" element={<Projets />} />
+        <Route path="projets" element={< Projets />} />
+
+        
       </Route>
       <Route
         path="chercheur/"
@@ -76,9 +80,10 @@ const router = createBrowserRouter(
       />
       <Route path="publication/:id" element={<PPLayout />} />
       <Route path="projet/:id" element={<PrPLayout />} />
+      <Route path="encadrement/:id" element={<ELayout />} />
       <Route path="settings" element={<Settings />} />
       <Route path="statistiques" element={<Statistiques />} />
-      <Route path="encadrement/:id" element={<ELayout />} />
+     
       <Route path="control" element={<Outlet />}>
         <Route index element={<NotFound />} />
         <Route path="LandingPage" element={<EditLandingPage />} />

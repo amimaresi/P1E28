@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import CPLayout from "./CPLayout";
 import Informations from "./Outlets/informations";
 import Encadrements from "./Outlets/encadrements";
-import Publications from "./Outlets/publications";
+import Publications from "./Outlets/Publications";
 
 const ProfileChercheur = () => {
   return (
