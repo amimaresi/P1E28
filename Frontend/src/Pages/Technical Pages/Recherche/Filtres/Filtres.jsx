@@ -97,30 +97,6 @@ export default function Filtres({ searchby, onSubmit }) {
     ),
   });
 
-  // const onSubmit = async (data) => {
-
-  //   console.log('Filtres : ', data);
-  //   const searchform = {};
-
-  //   Object.entries(data).forEach((value, key) => {
-  //     if (value != 0) {
-  //       searchform[key] = value;
-  //     }
-  //   });
-  //   console.log(form.getValues() + ' ' + searchform);
-
-  //   setSearchParams(searchform);
-  //   try{
-  //     const resultat = await axios.post(
-  //       `http://localhost:3000/recherche/Chercheur`, data );
-  //         console.log(res.data);
-
-  //   }
-  //   catch(err){
-  //     console.log(err.message);
-  //   }
-  // };
-
   return (
     <>
       <Sheet>
@@ -427,7 +403,7 @@ function Fpublication({ form }) {
         )}
       />
       <Separator />
-      {/* <FormField
+      <FormField
         control={form.control}
         name="Date"
         render={({ field }) => (
@@ -448,7 +424,7 @@ function Fpublication({ form }) {
             <FormMessage />
           </FormItem>
         )}
-      /> */}
+      />
       <FormField
         control={form.control}
         name="MaisonEdition"
