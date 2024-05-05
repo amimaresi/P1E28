@@ -95,8 +95,12 @@ export function RechercheTable({ navigate, searchby }) {
         DataToFetch,
       );
       console.log('search by ' + searchby);
-      console.log(resultat.data);
-      setData(resultat.data);
+      console.log(resultat.data.ConfJourns);
+      if (searchby === 'chercheur') setData(resultat.data.Chercheurs);
+      if (searchby === 'publication') setData(resultat.data.Publications);
+      if (searchby === 'confJourn') setData(resultat.data.ConfJourns);
+      if (searchby === 'encadrement') setData(resultat.data.Encadrements);
+      if (searchby === 'projet') setData(resultat.data.projet);
     } catch (err) {
       console.log(err.message);
     }
