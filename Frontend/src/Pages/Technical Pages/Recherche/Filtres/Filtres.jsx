@@ -34,14 +34,14 @@ import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { Slider } from '@/components/ui/slider';
 
-export default function Filtres({ searchby, onSubmit , params}) {
+export default function Filtres({ searchby, onSubmit }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // const params = {};
+  const params = {};
 
-  // searchParams.forEach((value, key) => {
-  //   params[key] = value;
-  // });
+  searchParams.forEach((value, key) => {
+    params[key] = value;
+  });
 
   const form = useForm({
     defaultValues:
