@@ -63,22 +63,23 @@ const router = createBrowserRouter(
       <Route path="chercheur/:id" element={<CPLayout />}>
         <Route index element={<Navigate to="informations" />} />
         <Route path="informations" element={<Informations />} />
+
         {/* <Route path="projets" element={<Publications />} /> */}
         <Route path="encadrements" element={<Encadrements />} />
         <Route path="publications" element={<Publications />} />
         <Route path="Projets" element={<Projets />} /> 
         
+
       </Route>
       <Route
         path="chercheur/"
         element={<Navigate to="/chercheur/NotFound/informations" />}
       />
       <Route path="publication/:id" element={<PPLayout />} />
-      <Route path="encadrement/:id" element={<ELayout />} />
       <Route path="projet/:id" element={<PrPLayout />} />
       <Route path="settings" element={<Settings />} />
-      <Route path="statistiques" element={<Statistiques />} />
-
+      <Route path="statistiques" element={<sdd />} />
+     
       <Route path="control" element={<Outlet />}>
         <Route index element={<NotFound />} />
         <Route path="LandingPage" element={<EditLandingPage />} />
