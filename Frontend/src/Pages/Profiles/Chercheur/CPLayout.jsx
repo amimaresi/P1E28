@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Informations from './Outlets/Informations.jsx';
 import Publications from './Outlets/Publications.jsx';
 import Encadrements from './Outlets/Encadrements.jsx';
+import Projets from './Outlets/Projets.jsx';
 import axios from 'axios';
 import { data } from 'autoprefixer';
 
