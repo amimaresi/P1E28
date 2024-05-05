@@ -17,7 +17,7 @@ const rechercheConf = (req, res) => {
 
     ConfJourn.find(options)
         .then((resultats) => {
-            res.status(200).json({ error: false, ConfJourn: resultats });
+            res.status(200).json({ error: false, ConfJourns: resultats });
         })
         .catch((erreur) => {
             console.error(erreur);

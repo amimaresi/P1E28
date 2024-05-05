@@ -65,6 +65,7 @@ const router = createBrowserRouter(
         <Route path="informations" element={<Informations />} />
         <Route path="encadrements" element={<Encadrements />} />
         <Route path="publications" element={<Publications />} />
+        <Route path="Projets" element={<Projets />} /> 
         
       </Route>
       <Route
@@ -72,6 +73,7 @@ const router = createBrowserRouter(
         element={<Navigate to="/chercheur/NotFound/informations" />}
       />
       <Route path="publication/:id" element={<PPLayout />} />
+      <Route path="encadrement/:id" element={<ELayout />} />
       <Route path="projet/:id" element={<PrPLayout />} />
       <Route path="settings" element={<Settings />} />
       <Route path="statistiques" element={<Statistiques />} />

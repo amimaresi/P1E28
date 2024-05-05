@@ -31,6 +31,7 @@ import {
 //import data from './data.js';
 import { GetColumns } from './RechercheTable.config.jsx';
 import { useEffect ,useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { set } from 'react-hook-form';
 //import { data } from 'autoprefixer';
 export function RechercheTable({ navigate, searchby }) {
@@ -39,6 +40,7 @@ export function RechercheTable({ navigate, searchby }) {
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [columnVisibility, setColumnVisibility] = React.useState({});
+  //const [searchParams, setSearchParams] = useSearchParams();
   const [pagination, setPagination] = React.useState({
     pageIndex: 0,
     pageSize: 6,
@@ -58,10 +60,8 @@ export function RechercheTable({ navigate, searchby }) {
         
        }
      });
-    //console.log(form.getValues() + ' ' + searchform);
-    
-
-    //setSearchParams(searchform);
+      // console.log(form.getValues() + ' ' + searchform); //some changes here 
+      // setSearchParams(searchform);
     try{
       const resultat = await axios.post(
         `http://localhost:3000/recherche/${searchby}`, data );
@@ -71,7 +71,9 @@ export function RechercheTable({ navigate, searchby }) {
          if(searchby==="publication") setData(resultat.data.Publications)
         if(searchby==="confJourn") setData(resultat.data.ConfJourns)
         if(searchby==="encadrement") setData(resultat.data.Encadrements)
-          if (searchby==="projet") setData(resultat.data.projet)
+        if (searchby==="projet") {setData(resultat.data.Projets)
+
+        }
     
         
     }
@@ -80,6 +82,31 @@ export function RechercheTable({ navigate, searchby }) {
     }
   };
   ////////////////////////////////
+  useEffect(() => {
+    const fetch =async()=>{
+     console.log("fetching")
+     try{
+    //
+     const resultat = await axios.get(`http://localhost:3000/recherche/${searchby}`)
+     if(searchby==="chercheur") setData(resultat.data.Chercheurs)
+      if(searchby==="publication") setData(resultat.data.Publications)
+     if(searchby==="confJourn") setData(resultat.data.ConfJourns)
+     if(searchby==="encadrement") setData(resultat.data.Encadrements)
+     if (searchby==="projet") {setData(resultat.data.Projets)
+      
+     console.log(resultat.data)
+     console.log("fetching chercheurs")
+     }
+    }
+     catch(err){
+       console.log("error")
+        console.log(err.message)
+    }
+   }
+ 
+ fetch()
+   }
+ ,[])
 
 
 
