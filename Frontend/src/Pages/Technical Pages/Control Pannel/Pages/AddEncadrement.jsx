@@ -79,7 +79,7 @@ export default function AddEncadrement() {
  
      try {
        const resutlt = await axios.post(
-         'http://localhost:3000/insertion/projet',
+         'http://localhost:3000/encadrements/encadrement/ajouter',
          data,
        );
        console.log(resutlt);

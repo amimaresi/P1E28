@@ -12,12 +12,14 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { DialogClose } from '@radix-ui/react-dialog';
 import { CheckIcon, Pencil1Icon, Pencil2Icon } from '@radix-ui/react-icons';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { VideoIcon, ViewIcon } from 'lucide-react';
 
 // Composant pour un champ éditable
-const EditableField = ({ label, value, onChange }) => {
+const EditableField = ({ label,key, value, onChange,isPicture, isPassword }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedValue, setEditedValue] = useState(value);
-
+const [visible,setVisible]=useState(false)
   const handleEdit = () => {
     setIsEditing(true);
     setEditedValue(value);
@@ -26,22 +28,41 @@ const EditableField = ({ label, value, onChange }) => {
   const handleSave = () => {
     setIsEditing(false);
     onChange(editedValue);
+    // fetch with key
   };
 
   return (
-    <div className="flex flex-row items-center gap-5">
-      <Label htmlFor={label} className="text-right">
+    <div className={`flex flex-row items-center justify-between ${!isPicture?'w-[350px]':'w-[500px]'}`}>
+      <div className="flex flex-row items-center gap-5">
+      {!isPicture?<Label htmlFor={label} className="text-right">
         {label}:
-      </Label>
+      </Label>:<Avatar>
+              <AvatarImage
+                className=" rounded-full"
+                src={
+                  value ||
+                  'https://avatars.githubusercontent.com/u/2981046?v=4'
+                }
+              />
+              <AvatarFallback>
+                No
+              </AvatarFallback>
+            </Avatar>}
       {isEditing ? (
-        <Input
-          id={label}
-          value={editedValue}
-          onChange={(e) => setEditedValue(e.target.value)}
-        />
+        isPassword?<><Input
+        id={label}
+        type={visible?'text':'password'}
+        value={editedValue}
+        onChange={(e) => setEditedValue(e.target.value)}
+      ></Input><Button onClick={()=>setVisible(!visible)} ><ViewIcon/></Button></>:<Input
+        id={label}
+        value={editedValue}
+        onChange={(e) => setEditedValue(e.target.value)}
+      />
       ) : (
-        <span >{value}</span>
+        <span >{typeof value === 'string'&&isPassword ? value.split('').map(()=>'*').join('') : value}</span>
       )}
+      </div>
       <div>
         {isEditing ? (
           <Button onClick={handleSave} ><CheckIcon/></Button>
@@ -57,7 +78,7 @@ export default function Informations() {
   const [editedData, setEditedData] = useState({
     _id: 'k_benatchba@esi.dz',
     nomComplet: 'Karima Benatchba',
-    GradeEnsegnement: null,
+    GradeEnsegnement: "hi",
     qualité: 'Chercheure',
     GradeRecherche: 'Maitre de recherche',
     H_index: 20,
@@ -66,6 +87,7 @@ export default function Informations() {
     Diplome: 'Doctorat',
     Equipe: 'Optimisation',
     tel: '0123456789', // Ajouté un numéro de téléphone pour l'exemple
+    password:'123456'
   });
 
   const handleChange = (key, value) => {
@@ -74,15 +96,22 @@ export default function Informations() {
 
   return (
     <div className="container mx-auto min-h-screen bg-white px-4 py-8">
-      <div className="mx-auto max-w-3xl">
+      <div className="mx-auto max-w-5xl">
           <div className="mb-10 flex items-center gap-[330px]">
             <h1 className="text-3xl font-bold">Profil</h1>
-             
-          </div>
-
-            <div className="grid gap-4 py-4 sm:grid-cols-2">
-              <EditableField
+            <EditableField
                 label="Nom complet"
+                isPicture
+                value={editedData.image_path}
+                onChange={(value) => handleChange('image_path', value)}
+              />
+          </div>
+         
+            <div className="grid gap-4 py-4 sm:grid-cols-2">
+            
+            <EditableField
+                label="Nom complet"
+                key='_id'
                 value={editedData.nomComplet}
                 onChange={(value) => handleChange('nomComplet', value)}
               />
@@ -128,6 +157,12 @@ export default function Informations() {
               />
               <EditableField
                 label="Téléphone"
+                value={editedData.tel}
+                onChange={(value) => handleChange('tel', value)}
+              />
+               <EditableField
+                label="password"
+                isPassword
                 value={editedData.tel}
                 onChange={(value) => handleChange('tel', value)}
               />
