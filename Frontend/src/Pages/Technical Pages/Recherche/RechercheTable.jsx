@@ -92,7 +92,7 @@ export function RechercheTable({ navigate, searchby }) {
     try {
       const resultat = await axios.post(
         `http://localhost:3000/recherche/${searchby}`,
-        data,
+        DataToFetch,
       );
       console.log('search by ' + searchby);
       console.log(resultat.data.ConfJourns);
