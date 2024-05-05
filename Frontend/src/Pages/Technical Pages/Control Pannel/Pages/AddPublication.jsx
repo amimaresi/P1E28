@@ -22,7 +22,7 @@ export default function AddPublication() {
     Date: yup.string().required('la date  est requise'),
     confJourn: yup.string().required(' la  confJourn est requise  '),
     idCherch: yup.string().required(' le champ chercheur est requis  '),
-    rang: yup.string().required(' le rang est requis '),
+    rang: yup.number().integer().required(' le rang est requis '),
     volume: yup.string().required(' le volume est requis '),
     pages: yup.string().required(' les pages sont requises '),
     Lien: yup.string(),
@@ -41,7 +41,7 @@ export default function AddPublication() {
       Date: '',
       confJourn: '',
       idCherch: '',
-      rang: '',
+      rang: 0 ,
       volume: '',
       pages: '',
       Membres: [''],
@@ -71,11 +71,12 @@ export default function AddPublication() {
     console.log('data :', data);
 
     try {
+      console.log('dataaaaaaaaa :', data);
       const resutlt = await axios.post(
-        'http://localhost:3000/insertion/projet',
+        'http://localhost:3000/chercheur/inserPub',
         data,
       );
-      console.log(resutlt);
+      console.log('resulttttttt',resutlt);
     } catch (err) {
       console.log(err.response.data.message);
     }
