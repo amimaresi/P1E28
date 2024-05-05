@@ -25,6 +25,7 @@ const rechercherEncadrement = async (req, res) => {
             options['Etudiants'] = new RegExp('^' + req.query.Etudiants, 'i');
         }
 if (req.query.idEncadrant) {
+    console.log("id chercheur : " + req.query.idEncadrant);
             options['Encadrants._id'] = req.query.idEncadrant;
         }
     

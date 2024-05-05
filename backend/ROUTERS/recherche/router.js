@@ -8,10 +8,10 @@ const RechercheRouter = require('express').Router()
 
 RechercheRouter.post('/Chercheur', queryChercheur)
 RechercheRouter.get('/Chercheur/:id', queryChercheurByid)
-RechercheRouter.get('toutChercheur', queryToutChercheur)
+RechercheRouter.get('/Chercheur', queryToutChercheur)
 
 RechercheRouter.post('/Publication', queryPublication)
-//RechercheRouter.get('/Publication',recherchePublication)
+RechercheRouter.get('/Publication',recherchePublication)
 RechercheRouter.get('/Publication/:id', queryPublicationByid)
 
 RechercheRouter.post('/ConfJourn', rechercheConference )

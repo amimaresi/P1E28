@@ -35,22 +35,7 @@ export function GetColumns(searchby) {
 }
 
 export function ColumnsChercheur() {
-//   useEffect(() => {
-//    const fetch =async()=>{
-//     console.log("fetching")
-//     try{
-//     const resultat = await axios.get('http//localhost:3000/recherche/toutChercheur')
-//     console.log(resultat)
-//     }
-//     catch(err){
-//       console.log("error")
-//       console.log(err)
-//    }
-//   }
-
-// fetch()
-//   }
-// ,[])
+  
 
   return [
     
@@ -196,6 +181,7 @@ export function ColumnsPublication() {
       accessorKey: 'Date',
       header: ({ column }) => {
         return (
+
           <Button
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
@@ -207,7 +193,10 @@ export function ColumnsPublication() {
         );
       },
       cell: ({ row }) => (
-        <div className="lowercase">{row.getValue('Date')}</div>
+       
+        <div className="lowercase">{row.getValue('Date') } 
+        
+        </div>
       ),
     },
     {
@@ -248,7 +237,7 @@ export function ColumnsPublication() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <NavLink to={`../../publication/${row.original._id.$oid}`}>
+              <NavLink to={`../../publication/${row.original._id}`}>
                 <DropdownMenuItem>Plus d'info</DropdownMenuItem>
               </NavLink>
               <a href={row.original.Lien} target="_blanc">
@@ -390,7 +379,8 @@ export function ColumnsProjet() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <NavLink to={`../../projet/${row.original._id.$numberInt}`}>
+              <NavLink to={`../../projet/${row.original._id}`}>
+                  
                 <DropdownMenuItem>Plus d'info</DropdownMenuItem>
               </NavLink>
             </DropdownMenuContent>
@@ -644,7 +634,7 @@ export function ColumnsEncadrement() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <NavLink to={`../../encadrement/${row.original._id.$oid}`}>
+              <NavLink to={`../../encadrement/${row.original._id}`}>
                 <DropdownMenuItem>Plus d'info</DropdownMenuItem>
               </NavLink>
             </DropdownMenuContent>
