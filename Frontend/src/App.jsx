@@ -28,8 +28,6 @@ import AddPublication from './Pages/Technical Pages/Control Pannel/Pages/AddPubl
 import AddEncadrement from './Pages/Technical Pages/Control Pannel/Pages/AddEncadrement.jsx';
 import Statistiques from './Pages/statistiques/Statistiques.jsx';
 import PrPLayout from './Pages/Profiles/Project/PrPLayout.jsx';
-import CJLayout from './Pages/Profiles/ConfJourn/CJLayout.jsx';
-import ProfileChercheur from './Pages/Profiles/Chercheur/profileChercheur.jsx';
 import Projets from './Pages/Profiles/Chercheur/Outlets/Projets.jsx';
 import ELayout from './Pages/Profiles/Encadrement/ELayout.jsx';
 
@@ -61,29 +59,25 @@ const router = createBrowserRouter(
           element={<RechercheLayout searchby="confJourn" />}
         />
       </Route>
-      
-       
-      
+
       <Route path="chercheur/:id" element={<CPLayout />}>
-       
         <Route index element={<Navigate to="informations" />} />
         <Route path="informations" element={<Informations />} />
-        <Route path="encadrements" element={<Encadrements />} /> 
+        <Route path="projets" element={<Publications />} />
+        <Route path="encadrements" element={<Encadrements />} />
         <Route path="publications" element={<Publications />} />
-        <Route path="projets" element={< Projets />} />
-
-        
       </Route>
       <Route
         path="chercheur/"
         element={<Navigate to="/chercheur/NotFound/informations" />}
       />
       <Route path="publication/:id" element={<PPLayout />} />
+      <Route path="encadrement/:id" element={<ELayout />} />
       <Route path="projet/:id" element={<PrPLayout />} />
       <Route path="encadrement/:id" element={<ELayout />} />
       <Route path="settings" element={<Settings />} />
       <Route path="statistiques" element={<Statistiques />} />
-     
+
       <Route path="control" element={<Outlet />}>
         <Route index element={<NotFound />} />
         <Route path="LandingPage" element={<EditLandingPage />} />

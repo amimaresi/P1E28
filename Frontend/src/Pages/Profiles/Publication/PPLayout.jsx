@@ -1,112 +1,110 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink, Outlet , useParams} from 'react-router-dom';
+import { NavLink, Outlet, useParams } from 'react-router-dom';
+import axios from 'axios';
 
-// un exemple d'une publication
-const Pub = {
-  _id:{
-    $oid: "66112c732dd5fcb5d05589bd"
-    },
-    Date: "2013",
-    idCherch:  "a_balla@esi.dz",
-    confJourn: "ICITST",
-    volume: "indefini",
-    pages: "182-187",
- rang: 3,
- Titre: "DA5DCSWS: A Distributed Architecture for semantic Web services Discovery and Composition.",
- Lien: "https://doi.org/10.1109/ICITST.2013.6750188",
- Membres: [
- "Adel Boukhadra",
- "Karima Benatchba",
- "Amar Balla"
- ],
- Classement: ["yoyoyo","A+"],
- __v: 0,
- createdAt: {
- $date: "2024-04-06T11:05:23.061Z"
- },
- updatedAt: {
- $date: "2024-04-06T11:05:23.061Z"
- }
-};
+// un exemple d'un encadrement
+/*const prjt =
+{
+  "_id":{"$numberInt":"2"},
+  "Titre":"ALGORITHMS AND DATA STRUCTURES",
+  "ChefDeProjet":"k_benatchba@esi.dz",
+  "liste_members":["a_balla@esi.dz","mouloud.koudil@esi.dz","b_khelouat@esi.dz"],
+  "DateDebut":"20/3/2024",
+  "DateFin":"23/5/2024",
+  "Theme":"ALGORTIHMS ANALYSIS",
+  "createdAt":{"$date":{"$numberLong":"1712474730446"}},
+  "updatedAt":{"$date":{"$numberLong":"1712474730446"}},
+  "__v":{"$numberInt":"0"}
+  }*/
 
+export default function PrPLayout() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [data, setData] = useState({});
+  const { id } = useParams();
+  useEffect(() => {
+    const fetchtData = async () => {
+      try {
+        const result = await axios.get(
+          `http://localhost:3000/recherche/Publication/${id}`,
+        );
 
-export default function PPLayout() {
+        console.log(result.data.Publications);
 
-  let {id} = useParams();
- //console.log(id);
- useEffect(()=>{
+        setData(result.data.Publications);
+        return result;
+      } catch (err) {
+        console.log('error');
+        console.log(err);
+      }
+    };
+    fetchtData();
+  }, []);
+  return (
+    <>
+      <div className="bg-white">
+        <div className="p-12">
+          <div className=" flex justify-center ">
+            {/* titre de la publication*/}
+            <h1 className="    mb-4 px-2 pb-6 pt-2 text-xl font-bold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-2xl">
+              Publication:
+            </h1>
+            <h1 className="  mb-4 px-9 pb-6 pt-2 text-xl font-bold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-2xl">
+              {data.Titre}
+            </h1>
+          </div>
 
- })
+          <div className="flex justify-center space-x-20 p-4 ">
+            <div>
+              {/* Classement de la publication */}
+              <h3 className="pb-2 font-bold">Classement</h3>
+              {data.Classement &&
+                data.Classement.map((Classm, index) => (
+                  <h3 key={index}>{Classm}_</h3>
+                ))}
+            </div>
 
+            <div>
+              {/* conference/journal de la publication*/}
+              <h3 className="pb-2  font-bold ">conference/journal</h3>
+              <h3>{data.confJourn}</h3>
+            </div>
 
-  return <>
-   <div className='bg-white'>
-    <div className='p-12'>
+            <div>
+              {/* Volume de la publication*/}
+              <h3 className="pb-2  font-bold ">Volume</h3>
+              <h3>{data.volume}</h3>
+            </div>
 
-  <div className=' flex justify-center '>
-  {/* titre de la publication*/}
-  <h1 className='    pt-2 pb-6 px-2 mb-4 text-xl font-bold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-2xl dark:text-white'>Publication:</h1>
-  <h1 className='  pt-2 pb-6 px-9 mb-4 text-xl font-bold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-2xl dark:text-white'>{Pub.Titre}</h1>
-  </div>
+            <div>
+              {/* pages de la publication*/}
+              <h3 className="pb-2 font-bold">Pages</h3>
+              <h3>{data.pages}</h3>
+            </div>
 
+            <div>
+              {/* annee de la publication*/}
+              <h3 className="pb-2  font-bold">année</h3>
+              <h3>{data.Date}</h3>
+            </div>
+          </div>
 
-  <div className='p-4 flex space-x-20 justify-center '>
-
-
-    <div>
-      {/* classment de la publication*/}
-      <h3 className='font-bold  pb-2 '>Classement</h3>
-      {Pub.Classement.map((Classm  )=>
-     <h3 > {Classm}_</h3>
-      )}
-    </div>
-
-
-    <div>
-      {/* conference/journal de la publication*/}
-      <h3 className='font-bold  pb-2 '>conference/journal</h3>
-      <h3 >{Pub.confJourn}</h3>
-    </div>
-
-
-
-    <div>
-       {/* Volume de la publication*/}
-      <h3 className='font-bold  pb-2 '>Volume</h3>
-      <h3 >{Pub.volume}</h3>
-    </div>
-
-
-
-    <div>
-      {/* pages de la publication*/}
-      <h3 className='font-bold pb-2'>Pages</h3>
-      <h3>{Pub.pages}</h3>
-    </div>
-
-
-    <div>
-      {/* annee de la publication*/}
-      <h3 className='font-bold  pb-2'>année</h3>
-      <h3 >{Pub.Date}</h3>
-    </div>
-    
-  </div>
-
-  
-  <div className=" px-64 ">
-    {/* La liste des chercheurs de la publication*/}
-  <h2 className='p-6 font-bold'>La liste des chercheurs:</h2>
-    {Pub.Membres.map((Membre , index  )=>
-      <div  className="   flex border bg-[#EFF3FF] rounded-2xl p-4 mr-4 w-full h-16  mb-4  items-center   ">
-     <h3 >{index +1 }_{Membre}</h3>
-     </div>
-      )}
-</div>
-
-
-
-</div>
-</div>
-  </>;
+          <div className="px-64">
+            {/* La liste des chercheurs de la publication */}
+            <h2 className="p-6 font-bold">La liste des chercheurs:</h2>
+            {data.Membres &&
+              data.Membres.map((Membre, index) => (
+                <div
+                  className="mb-4 mr-4 flex h-16 w-full items-center rounded-2xl border bg-[#EFF3FF] p-4"
+                  key={index}
+                >
+                  <h3>
+                    {index + 1}_{Membre}
+                  </h3>
+                </div>
+              ))}
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
