@@ -53,8 +53,8 @@ useEffect( ()=>{
    
         const result = await axios.get(`http://localhost:3000/recherche/encadrement/${id}`)
     
-      console.log(result.data.Encadrements )
-      setData(result.data.Encadrements)
+      console.log(result.data.Encadrement )
+     setData(result.data.Encadrement)
       return result
       
     }catch(err){

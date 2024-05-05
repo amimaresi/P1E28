@@ -17,11 +17,12 @@ const projet_recherche = (req, res) => {
 
     }
     if (req.query.ChefDeProjet) {
+        console.log("chefProje" + req.query.ChefDeProjet)
         option.ChefDeProjet = req.query.ChefDeProjet;
     }
 
     Projet.find(option).then((result) => {
-        res.status(200).json({ err: false, Projects: result })
+        res.status(200).json({ err: false, Projets: result })
 
     }).catch((err) => {
         console.log(err);
@@ -128,6 +129,7 @@ const queryProjet = async (req, res) => {
 const projet_by_id = async(req, res) => {
     try {
         const id = req.params.id;
+        console.log("id : " + id)
         const projet = await Projet.findById(id);
         if (projet) {
             return res.status(200).json({ error: false, projet })

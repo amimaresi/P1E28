@@ -1,9 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect , useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import axios from 'axios' 
+import { useParams } from 'react-router-dom';
 
 export default function Encadrements() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [data, setData] = useState([ ]);
+  const {id} = useParams()
+   useEffect(()=>{
+    const fetcheData= async ()=>{
+      try {
+      const resulta = await axios.get(`http://localhost:3000/recherche/encadrement?idEncadrant=${id}`)
+      console.log(resulta.data.Encadrements)
+      setData(resulta.data.Encadrements)
+    }
+    catch(err){
+      console.log(err);
+
+    }
+
+   } 
+   console.log("id : "+id)
+    fetcheData();
+  },[])
 
   return (
     <>
@@ -19,7 +38,7 @@ export default function Encadrements() {
         <ul>
           {data.map((item, index) => (
             <li className="mb-4 border rounded-lg bg-gray-100 px-4 py-2 flex justify-between items-center" key={index}>
-              <NavLink to={`/encadrement/{_id}`} className="text-sm hover:text-buttonDark">{item.Titre}</NavLink>
+              <NavLink to={`/encadrement/${item._id}`} className="text-sm hover:text-buttonDark">{item.Titre}</NavLink>
               <span>{item.Type}</span>
               <span>{item.AnneeD}</span>
             </li>
