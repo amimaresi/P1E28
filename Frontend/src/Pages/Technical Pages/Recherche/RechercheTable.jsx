@@ -88,7 +88,7 @@ export function RechercheTable({ navigate, searchby }) {
     }
 
     setSearchParams(DataToFetch);
-    console.log('Filtres : ', DataToFetch);
+    console.log('Filtres : ', data);
     try {
       const resultat = await axios.post(
         `http://localhost:3000/recherche/${searchby}`,
