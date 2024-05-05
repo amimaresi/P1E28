@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useParams } from 'react-router-dom';
 import { ChevronLeftIcon } from '@radix-ui/react-icons';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import Informations from './Outlets/Informations.jsx';
+import Informations from './Outlets/informations.jsx';
 import Publications from './Outlets/Publications.jsx';
-import Encadrements from './Outlets/Encadrements.jsx';
-import Projets from './Outlets/Projets.jsx';
+import Encadrements from './Outlets/encadrements.jsx';
 import axios from 'axios';
 import { data } from 'autoprefixer';
 
