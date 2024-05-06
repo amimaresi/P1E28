@@ -12,7 +12,7 @@ const maj = async () => {
         // Parcourir les documents pour extraire les données
         for (let doc of docs) {
             const cherch = doc.nomComplet;
-
+console.log("chercheur", cherch)
             const lien = "https://dblp.org/search/publ/api?q=" + cherch + "&format=json";
             const response = await fetch(lien);
             const data = await response.json();
@@ -42,12 +42,14 @@ const maj = async () => {
                     tabPublie[i].info.pages = "indefini";
                 };
                 if (rang !== -1) {
+                    const confJ = extraireParametreDblp(tabPublie[i].info.url)
+                    console.log(confJ)
                     const publie = {
 
                         Date: tabPublie[i].info.year,
                         idCherch: doc._id,
                         volume: tabPublie[i].info.volume,
-                        confJourn: tabPublie[i].info.venue,
+                        confJourn: confJ,
                         pages: tabPublie[i].info.pages,
                         rang: rang,
 
@@ -56,11 +58,31 @@ const maj = async () => {
                         Membres: tabA,
                     };
                     donneesAInserer.push(publie);
-                    const confjourn = await conf.findOneAndUpdate(
-                        { _id: tabPublie[i].info.venue },
-                        { _id: tabPublie[i].info.venue, type: tabPublie[i].info.type },
+                    cooo = await conf.findById(confJ)
+                    if (!cooo) {
+                    const lienn = "https://dblp.org/search/venue/api?q=" + confJ + "&format=json";
+                    console.log("link", lienn)
+            const respon = await fetch(lienn);
+            
+            const datat = await respon.json();
+        
+            const titt = datat.result.hits.hit[0].info.venue
+                    const link = "https://dblp.org/db/" + extraireChaineApresRec(tabPublie[i].info.url) + "/"
+                   /* const confjourn = await conf.findOneAndUpdate(
+                        { _id: confJ },
+                        { _id: confJ, type: tabPublie[i].info.type, nom: titt , lien: link },
                         { upsert: true, new: true }
-                    );
+                    );*/
+                    const nouveauDocument = new conf({
+                        _id: confJ ,
+                        type: tabPublie[i].info.type,
+                        lien: link,
+                        nom: titt
+                    });
+        
+                    // Enregistrer le nouveau document dans la base de données
+                    await nouveauDocument.save();
+                }
                 }
             }
 
@@ -87,5 +109,30 @@ const maj = async () => {
         console.error('Une erreur s\'est produite :', error);
     }
 };
+
+
+
+function extraireParametreDblp(chaine) {
+    const regexp = /\/([^\/]+)\/([^\/]+)\/([^\/]+)\/([^\/]+)/; // Expression régulière pour capturer le deuxième paramètre après le troisième slash
+    const match = regexp.exec(chaine);
+
+    if (match && match.length >= 4) {
+        return match[4].toUpperCase(); // Le deuxième paramètre après le troisième slash
+    } else {
+        return null; // Retourne null si aucune correspondance n'est trouvée
+    }
+}
+
+
+function extraireChaineApresRec(chaine) {
+    const regexp = /\/rec\/([^/]+\/[^/]+)\//; // Expression régulière pour capturer la partie après "/rec/"
+    const match = regexp.exec(chaine);
+
+    if (match && match.length >= 2) {
+        return match[1]; // La partie extraite de la chaîne
+    } else {
+        return null; // Retourne null si aucune correspondance n'est trouvée
+    }
+}
 
 module.exports = { maj };
