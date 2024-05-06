@@ -48,22 +48,6 @@ export default function AddChercheur() {
     graderecherche: yup.string().required(' le grade-recherche est requis '),
     qualitee: yup.string().required(' la qualitee est requise '),
     hIndex: yup.string(),
-    nom: yup.string().required('le nom est requis'),
-    prenom: yup.string().required('le prenom est requis'),
-    email: yup
-      .string()
-      .email('email format is not valid')
-      .required(" l'email est requis"),
-    diplome: yup.string().required('le diplome est requis'),
-    etablissementdorigine: yup
-      .string()
-      .required(" l'etabliisement d'origine est requis "),
-    gradeenseignement: yup
-      .string()
-      .required(' le  grade-enseignement est requis '),
-    graderecherche: yup.string().required(' le grade-recherche est requis '),
-    qualitee: yup.string().required(' la qualitee est requise '),
-    hIndex: yup.number(),
 
     equipe: yup.string(),
     lien: yup.string(),
@@ -120,12 +104,6 @@ export default function AddChercheur() {
           </div>
         </AlertDialogTrigger>
         <AlertDialogContent className=" h-[95%]">
-          <AlertDialogHeader>
-            <AlertDialogTitle>Ajouter une Periodicité</AlertDialogTitle>
-            <AlertDialogDescription>
-              modifier la Periodicité d'une ConfJourn par id
-            </AlertDialogDescription>
-          </AlertDialogHeader>
           <ScrollArea className="h-[99%] w-[99%] pr-5">
             {' '}
             <Form {...form}>
@@ -479,13 +457,16 @@ export default function AddChercheur() {
                   )}
                 />
 
-                <div className="p-5">
+                <div className="flex gap-3 p-5">
                   <Button
                     className="mb-2 h-[35px] rounded-lg bg-buttonDark p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline  "
                     type="submit"
                   >
                     Ajouter
                   </Button>
+                  <AlertDialogCancel className=" h-auto w-auto border-none">
+                    Annuler
+                  </AlertDialogCancel>
                 </div>
               </form>
             </Form>

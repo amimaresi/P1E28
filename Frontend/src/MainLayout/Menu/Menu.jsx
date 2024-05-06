@@ -39,6 +39,9 @@ import {
 } from '@/components/ui/select';
 import { useState } from 'react';
 import AddChercheur from '@/Pages/Technical Pages/Control Pannel/Pages/AddChercheur';
+import AddEncadrement from '@/Pages/Technical Pages/Control Pannel/Pages/AddEncadrement';
+import AddProject from '@/Pages/Technical Pages/Control Pannel/Pages/AddProject';
+import AddPublication from '@/Pages/Technical Pages/Control Pannel/Pages/AddPublication';
 export default function Menu({ isLogged, setIsLogged, role, name }) {
   return (
     <nav className="fixed left-0 right-0 top-0 z-50 flex h-[60px] flex-row items-center  justify-between  bg-white bg-opacity-90 px-[1vw] shadow-sm backdrop-blur-md">
@@ -472,15 +475,9 @@ function ProfileMenu({ name, role, setIsLogged }) {
           <NavigationMenuContent>
             <ul className=" grid w-[179px]">
               <LinkItem to="/chercheur/me" title="Profile" />
-              <LinkItem to="/control/AddProject" title="Ajouter un Projet" />
-              <LinkItem
-                to="/control/AddEncadrement"
-                title="Ajouter un Encadrement"
-              />
-              <LinkItem
-                to="/control/AddPublication"
-                title="Ajouter une Publication"
-              />
+              <AddEncadrement />
+              <AddProject />
+              <AddPublication />
               <LinkItem to="/settings" title="Settings" />
               <LinkItem
                 to="."
