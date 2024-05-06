@@ -96,7 +96,9 @@ export default function Filtres({ searchby, onSubmit }) {
               : schema.ConfJourn,
     ),
   });
-
+  function onError() {
+    console.log('error');
+  }
   return (
     <>
       <Sheet>
@@ -113,7 +115,7 @@ export default function Filtres({ searchby, onSubmit }) {
             {' '}
             <Form {...form}>
               <form
-                onSubmit={form.handleSubmit(onSubmit)}
+                onSubmit={form.handleSubmit(onSubmit, onError)}
                 className="space-y-8"
               >
                 {searchby === 'chercheur' ? (
@@ -183,6 +185,7 @@ function Fchercheur({ form }) {
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
+                <SelectItem value="Null">Choisir un grade</SelectItem>
                 <SelectItem value="Professeur">Professeur</SelectItem>
                 <SelectItem value="MCA">MCA</SelectItem>
                 <SelectItem value="MCB">MCB</SelectItem>
@@ -206,6 +209,7 @@ function Fchercheur({ form }) {
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
+                <SelectItem value="Null">Choisir un grade</SelectItem>
                 <SelectItem value="Directeur de recherche">
                   Directeur de recherche
                 </SelectItem>
@@ -620,6 +624,7 @@ function FEncadrement({ form }) {
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
+                <SelectItem value="Null">Choisir un type</SelectItem>
                 <SelectItem value="PFE">PFE</SelectItem>
                 <SelectItem value="Master2">Master 2</SelectItem>
                 <SelectItem value="Doctorat">Doctorat</SelectItem>
@@ -671,6 +676,7 @@ function FEncadrement({ form }) {
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
+                <SelectItem value="Null">Choisir un role</SelectItem>
                 <SelectItem value="Encadrant">Encadrant</SelectItem>
                 <SelectItem value="Co-encadrant">Co-encadrant</SelectItem>
               </SelectContent>
@@ -767,6 +773,7 @@ function FConfJourn({ form }) {
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
+                <SelectItem value="Null">Choisir un type</SelectItem>
                 <SelectItem value="Conference">Conference</SelectItem>
                 <SelectItem value="Workshop Papers">Workshop Papers</SelectItem>
                 <SelectItem value="Journal Articles">
