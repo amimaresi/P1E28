@@ -109,6 +109,7 @@ export function RechercheTable({ navigate, searchby }) {
 
   useEffect(() => {
     const fetch =async()=>{
+      
      console.log("fetching")
      try{
     //
