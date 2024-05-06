@@ -52,9 +52,9 @@ const pfeParAnnee = async(req, res) => {
             AnneD: {
                 $gt: Number(dateDebut),
                 $lt: Number(dateFin)
-            }
+            },
+          
         }).filter((e) => e.Type == "PFE");
-
 
 
 

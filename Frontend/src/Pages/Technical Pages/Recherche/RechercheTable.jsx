@@ -31,7 +31,7 @@ import {
 //import data from './data.js';
 import { GetColumns } from './RechercheTable.config.jsx';
 import { useEffect ,useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams  } from 'react-router-dom';
 import { set } from 'react-hook-form';
 //import { data } from 'autoprefixer';
 export function RechercheTable({ navigate, searchby }) {
@@ -46,7 +46,7 @@ export function RechercheTable({ navigate, searchby }) {
     pageSize: 6,
   });
 
-  //ttest //////////////////////////
+  
   const onSubmit = async (data) => {
     
    
@@ -58,10 +58,13 @@ export function RechercheTable({ navigate, searchby }) {
     if (value != 0) {
         searchform[key] = value;
         
+        
        }
      });
       // console.log(form.getValues() + ' ' + searchform); //some changes here 
-      // setSearchParams(searchform);
+     // history.push(searchform)
+    // console.log("searchform" + searchform['Email'])
+     
     try{
       const resultat = await axios.post(
         `http://localhost:3000/recherche/${searchby}`, data );

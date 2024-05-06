@@ -29,7 +29,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import axios from 'axios';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   Select,
@@ -39,8 +38,15 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
+//import { c } from 'vite/dist/node/types.d-aGj9QkWt';
+
+import incrementHexColor from './Chartss/incrColor';
 
 export default function Statistiques() {
+  const [selectValue , setSelectValue] = useState('')
+  const [dateDebut, setDateDebut] = useState(2020);
+  const [dateFin, setDateFin] = useState(2024);
   const [userData, setUserData] = useState({
     labels: UserData.map((data) => data.year),
     datasets: [
@@ -51,6 +57,42 @@ export default function Statistiques() {
       },
     ],
   });
+  const handleClick =  async() => {
+      try {
+        console.log(selectValue)
+        console.log(dateDebut)
+        console.log(dateFin)
+        console.log("select value for feching"+ selectValue)
+         const resultat = await axios.post( `http://localhost:3000/statistiques/${selectValue}`, {dateDebut, dateFin})
+         console.log(resultat.data)
+         let resultatArry = []
+         switch(selectValue){
+          case 'publication':
+            resultatArry = resultat.data.numberOfPubOfYear  
+            break
+          case 'encadrement':
+            resultatArry = resultat.data.numberOfEncadrementOfYear  
+            break
+          
+         }
+         setUserData({
+          labels: resultatArry.map((data) => data.year),
+          datasets: [
+            {
+              label: `nombre de ${selectValue}`,
+              data: resultatArry.map((data) => data.count),
+              backgroundColor: resultatArry.map((data) => incrementHexColor('#2536eb','#030517' )),
+            },
+          ],
+          
+         })
+      }
+      catch (error) {
+        console.log(error)
+      }
+
+
+  }
   return (
     <>
       <div className=" min-h-screen bg-white">
@@ -106,15 +148,15 @@ export default function Statistiques() {
                     <CardContent className="space-y-2">
                       <div className="space-y-1">
                         <Label htmlFor="anneeDebut">De:</Label>
-                        <Input id="anneeDebut" defaultValue="2020" />
+                        <Input id="anneeDebut" defaultValue="2020"  onChange={(e)=>{if(e.target.value) setDateDebut(e.target.value) }} />
                       </div>
                       <div className="space-y-1">
                         <Label htmlFor="anneeFin">Jusqu'a :</Label>
-                        <Input id="anneeFin" defaultValue="2024" />
+                        <Input id="anneeFin" defaultValue="2024"  onChange={(e)=>{if(e.target.value) setDateDebut(e.target.value) }} />
                       </div>
                     </CardContent>
                     <CardFooter>
-                      <Button className="bg-buttonDark">Enregistrer</Button>
+                      <Button className="bg-buttonDark" onClick={handleClick}>Enregistrer</Button>
                     </CardFooter>
                   </Card>
                 </TabsContent>
@@ -129,13 +171,13 @@ export default function Statistiques() {
                     <CardContent className="space-y-2">
                       <div className="space-y-1">
                         <Label htmlFor="current">Le thémes:</Label>
-                        <Select>
+                        <Select onValueChange={(value)=> setSelectValue(value)}>
                           <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder="Theme" />
                           </SelectTrigger>
                           <SelectContent>
                             <h3 className="font-bold">nombre de :</h3>
-                            <SelectItem value="publication">
+                            <SelectItem value="publication" >
                               publications
                             </SelectItem>
                             <SelectItem value="encadrement">
@@ -153,9 +195,10 @@ export default function Statistiques() {
                           </SelectContent>
                         </Select>
                       </div>
+                      {console.log(selectValue)}
                     </CardContent>
                     <CardFooter>
-                      <Button className="bg-buttonDark">Enregistrer</Button>
+                      <Button className="bg-buttonDark"  onClick={handleClick}>Enregistrer</Button>
                     </CardFooter>
                   </Card>
                 </TabsContent>
