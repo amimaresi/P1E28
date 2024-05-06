@@ -134,7 +134,7 @@ export default function Menu({ isLogged, setIsLogged, role, name }) {
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
-        <NavigationMenu>
+        {/* <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuTrigger className=" text-[16.5px]">
@@ -184,7 +184,7 @@ export default function Menu({ isLogged, setIsLogged, role, name }) {
               </NavigationMenuContent>
             </NavigationMenuItem>
           </NavigationMenuList>
-        </NavigationMenu>
+        </NavigationMenu>*/}
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
@@ -314,7 +314,7 @@ function MiseAJour() {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Ajouter une Periodicité</AlertDialogTitle>
+<AlertDialogTitle>la Mise a jour</AlertDialogTitle>
           <AlertDialogDescription>
             modifier la Mise a jour
           </AlertDialogDescription>
@@ -336,29 +336,45 @@ function MiseAJour() {
                   value={data}
                   onChange={(e) => setData(e.target.value)}
                 />
+                <div className='p-2'>
                 <Select onValueChange={(e) => setSelectValue(e)}>
                   <SelectTrigger className="h-7 w-[180px] rounded-full pl-6">
                     <SelectValue placeholder="duree" />
                   </SelectTrigger>
-
                   <SelectContent>
                     <SelectItem value="annees">Années</SelectItem>
                     <SelectItem value="mois">Mois</SelectItem>
-                    <SelectItem value="jours">Jours</SelectItem>
                   </SelectContent>
                 </Select>
+                </div>
               </div>
-              <h2 className="text-1xl text-center font-bold dark:text-white">
-                mettre a jour manuellement:
-              </h2>
-              <hr className="my-8 h-px border-0  bg-black bg-opacity-50 "></hr>
               <button
                 onClick={() => maj({ data, selectValue })}
                 className="mb-2 h-[35px] rounded-lg bg-buttonDark p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline  "
                 type="submit"
               >
+                Sauvgarder
+              </button>
+              <h2 className="text-1xl text-center font-bold dark:text-white p-2">
+                mettre a jour manuellement:
+              </h2>
+              <hr className="my-8 h-px border-0  bg-black bg-opacity-50 "></hr>
+              <button
+                
+                className="mb-2 h-[35px] rounded-lg bg-buttonDark p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline  "
+                type="submit"
+              >
                 mettre a jour
               </button>
+              <hr className="my-8 h-px border-0  bg-black bg-opacity-50 "></hr>
+              <button
+                
+                className="mb-2 h-[35px] rounded-lg bg-buttonDark p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline  "
+                type="submit"
+              >
+                mettre a jour le h-index
+              </button>
+              <hr className="my-8 h-px border-0  bg-black bg-opacity-50 "></hr>
               <AlertDialogCancel className="m-5">Cancel</AlertDialogCancel>
             </div>
           </>
