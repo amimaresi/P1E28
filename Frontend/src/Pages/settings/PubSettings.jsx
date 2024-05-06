@@ -20,7 +20,7 @@ const EditableField = ({ label, value, onChange }) => {
   };
 
   return ( 
-    <div className={`flex flex-row items-center justify-between w-[350px]`}>
+    <div className="flex flex-row items-center justify-between w-[350px]">
       <div className="flex flex-row items-center gap-5">
         <Label htmlFor={label} className="text-right">
           {label}:
@@ -32,7 +32,17 @@ const EditableField = ({ label, value, onChange }) => {
             onChange={(e) => setEditedValue(e.target.value)}
           />
         ) : (
-          <span>{typeof value === 'string' ? value : JSON.stringify(value)}</span>
+          <div>
+            {Array.isArray(value) ? (
+              <ul>
+                {value.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
+              </ul>
+            ) : (
+              <span>{value}</span>
+            )}
+          </div>
         )}
       </div>
       <div>
@@ -52,6 +62,7 @@ const EditableField = ({ label, value, onChange }) => {
 
 export default function PubSettings() {
   const [editedData, setEditedData] = useState([
+    // Vos données initiales
     {
       "_id": {
         "$oid": "66112c732dd5fcb5d05589bd"
@@ -59,6 +70,7 @@ export default function PubSettings() {
       "Date": "2013",
       "idCherch": "a_balla@esi.dz",
       "confJourn": "ICITST",
+      "maisonEdition": "ESIST",
       "volume": "indefini",
       "pages": "182-187",
       "rang": 3,
@@ -85,6 +97,7 @@ export default function PubSettings() {
       "Date": "2016",
       "idCherch": "a_balla@esi.dz",
       "confJourn": "IDC",
+      "maisonEdition": "ESIST",
       "volume": "indefini",
       "pages": "13-22",
       "rang": 3,
@@ -122,46 +135,53 @@ export default function PubSettings() {
         <div className="grid gap-4 py-4 sm:grid-cols-2">
           {editedData.map((data, index) => (
             <React.Fragment key={index}>
-              <EditableField
-                label="Email"
-                value={data.idCherch}
-                onChange={(value) => handleChange('Email', value, index)}
-              />
-              <EditableField
-                label="Titre"
-                value={data.Titre}
-                onChange={(value) => handleChange('Titre', value, index)}
-              />
-              <EditableField
-                label="Date"
-                value={data.Date}
-                onChange={(value) => handleChange('Date', value, index)}
-              />
-              <EditableField
-                label="Conférence/Journal"
-                value={data.confJourn}
-                onChange={(value) => handleChange('Conférence/Journal', value, index)}
-              />
-              <EditableField
-                label="Volume"
-                value={data.volume}
-                onChange={(value) => handleChange('Volume', value, index)}
-              />
-              <EditableField
-                label="Pages"
-                value={data.pages}
-                onChange={(value) => handleChange('Pages', value, index)}
-              />
-              <EditableField
-                label="Membres"
-                value={data.Membres}
-                onChange={(value) => handleChange('Membres', value, index)}
-              />
-              <EditableField
-                label="Classement"
-                value={data.Classement}
-                onChange={(value) => handleChange('Classement', value, index)}
-              />
+              <div className="border border-gray-300 p-4">
+                <EditableField
+                  label="Email"
+                  value={data.idCherch}
+                  onChange={(value) => handleChange('Email', value, index)}
+                />
+                <EditableField
+                  label="Titre"
+                  value={data.Titre}
+                  onChange={(value) => handleChange('Titre', value, index)}
+                />
+                <EditableField
+                  label="Date"
+                  value={data.Date}
+                  onChange={(value) => handleChange('Date', value, index)}
+                />
+                <EditableField
+                  label="Conférence/Journal"
+                  value={data.confJourn}
+                  onChange={(value) => handleChange('Conférence/Journal', value, index)}
+                />
+                <EditableField
+                  label="Maison D'édition"
+                  value={data.maisonEdition}
+                  onChange={(value) => handleChange("Maison D'édition", value, index)}
+                />
+                <EditableField
+                  label="Volume"
+                  value={data.volume}
+                  onChange={(value) => handleChange('Volume', value, index)}
+                />
+                <EditableField
+                  label="Pages"
+                  value={data.pages}
+                  onChange={(value) => handleChange('Pages', value, index)}
+                />
+                <EditableField
+                  label="Membres"
+                  value={data.Membres}
+                  onChange={(value) => handleChange('Membres', value, index)}
+                />
+                <EditableField
+                  label="Classement"
+                  value={data.Classement}
+                  onChange={(value) => handleChange('Classement', value, index)}
+                />
+              </div>
             </React.Fragment>
           ))}
         </div>
