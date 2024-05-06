@@ -816,7 +816,7 @@ const schema = {
     qualité: yup.string().max(50),
     Equipe: yup.string().max(50),
     EtablisementOrigine: yup.string().max(50),
-    H_index: yup.number(),
+    H_index: yup.number().integer(),
     orcid: yup.string(),
     Matricule: yup.string(),
   }),
@@ -831,7 +831,7 @@ const schema = {
     Theme: yup.number(),
   }),
   Encadrement: yup.object().shape({
-    Type: yup.string().max(50),
+    Type: yup.string(),
     Titre: yup.string(),
     EmailEncadrant: yup.string().email(),
     NomEncadrant: yup.string(),
@@ -857,6 +857,6 @@ const schema = {
     GradeRecherche: yup.string(),
     MaisonEdition: yup.string(),
     Classement: yup.string(),
-    rang: yup.string(),
+    rang: yup.number().integer(),
   }),
 };
