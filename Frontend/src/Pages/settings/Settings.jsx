@@ -1,26 +1,17 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { DialogClose } from '@radix-ui/react-dialog';
-import { CheckIcon, Pencil1Icon, Pencil2Icon } from '@radix-ui/react-icons';
+import { CheckIcon, Pencil1Icon } from '@radix-ui/react-icons';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { VideoIcon, ViewIcon } from 'lucide-react';
+import { ViewIcon } from 'lucide-react';
 
 // Composant pour un champ éditable
 const EditableField = ({ label,key, value, onChange,isPicture, isPassword }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedValue, setEditedValue] = useState(value);
+const [isEditing, setIsEditing] = useState(false);
+const [editedValue, setEditedValue] = useState(value);
 const [visible,setVisible]=useState(false)
-  const handleEdit = () => {
+const handleEdit = () => {
     setIsEditing(true);
     setEditedValue(value);
   };
@@ -161,10 +152,10 @@ export default function Informations() {
                 onChange={(value) => handleChange('tel', value)}
               />
                <EditableField
-                label="password"
+                label="Password"
                 isPassword
                 value={editedData.tel}
-                onChange={(value) => handleChange('tel', value)}
+                onChange={(value) => handleChange('password', value)}
               />
             </div>
 

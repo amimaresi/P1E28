@@ -19,11 +19,11 @@ const PublicationSchema = new Schema({
     },
     volume: {
         type: String,
-        required: true
+       
     },
     pages: {
         type: String,
-        required: true
+       
     },
     rang: {
         type: Number,
