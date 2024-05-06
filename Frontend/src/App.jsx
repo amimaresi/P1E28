@@ -90,7 +90,6 @@ const router = createBrowserRouter(
         <Route path="Update" element={<Update />} />
         <Route path="AddEncadrement" element={<AddEncadrement />} />
         <Route path="AddPublication" element={<AddPublication />} />
-        <Route path="AddChercheur" element={<AddChercheur />} />
         <Route path="AddProject" element={<AddProject />} />
         {/* + control pages */}
       </Route>
