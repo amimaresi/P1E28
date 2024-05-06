@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DevTool } from '@hookform/devtools';
 import { useForm } from 'react-hook-form';
 //import {  BarChart } from "./Chartss/BarChart";
@@ -47,6 +47,8 @@ export default function Statistiques() {
   const [selectValue , setSelectValue] = useState('')
   const [dateDebut, setDateDebut] = useState(2020);
   const [dateFin, setDateFin] = useState(2024);
+  const [nombreEncadrement , setnombreEncadrement] = useState()
+  const [count , setCount] = useState({})
   const [userData, setUserData] = useState({
     labels: UserData.map((data) => data.year),
     datasets: [
@@ -93,6 +95,21 @@ export default function Statistiques() {
 
 
   }
+  useEffect(() => {
+    const fetch = async () => {
+       try {
+        const resultat = await axios.get('http://localhost:3000/statistiques/countDocuments')
+        console.log(resultat)
+        setCount(resultat.data)
+       }
+       catch (error) {  
+        console.log(error)
+       }
+      
+    }
+    fetch()
+
+  },[])
   return (
     <>
       <div className=" min-h-screen bg-white">
@@ -115,17 +132,17 @@ export default function Statistiques() {
         </p>
         <div className="flex justify-center space-x-20 p-4 ">
           <div className="flex justify-center rounded-xl border bg-buttonDark px-12 pb-4 pt-4 text-white ">
-            <h2 className="px-4 font-extrabold  ">1234</h2>
-            <h2>Publications</h2>
+            <h2 className="px-4 font-extrabold  ">{count. countChercheur}</h2>
+            <h2>Chercheurs</h2>
           </div>
 
           <div className="flex justify-center rounded-xl border bg-buttonDark px-12 pb-4 pt-4 text-white">
-            <h2 className="px-4 font-extrabold ">150</h2>
+            <h2 className="px-4 font-extrabold ">{count.countProjet}</h2>
             <h2>Projet</h2>
           </div>
 
           <div className="flex justify-center rounded-xl border bg-buttonDark px-12 pb-4 pt-4 text-white">
-            <h2 className="px-4 font-extrabold ">900</h2>
+            <h2 className="px-4 font-extrabold ">{count.countEncadrement}</h2>
             <h2>Encadrement</h2>
           </div>
         </div>
@@ -152,7 +169,7 @@ export default function Statistiques() {
                       </div>
                       <div className="space-y-1">
                         <Label htmlFor="anneeFin">Jusqu'a :</Label>
-                        <Input id="anneeFin" defaultValue="2024"  onChange={(e)=>{if(e.target.value) setDateDebut(e.target.value) }} />
+                        <Input id="anneeFin" defaultValue="2024"  onChange={(e)=>{if(e.target.value) setDateFin(e.target.value) }} />
                       </div>
                     </CardContent>
                     <CardFooter>

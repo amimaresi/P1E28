@@ -4,9 +4,11 @@ const nombreEncadrement = async(req, res) => {
     try {
         let dateDebut;
         if (req.body) dateDebut = req.body.dateDebut
+        
         else dateDebut = 1966;
+        
 
-        const encadrement = await Encadrement.find({ AnneeD: { $gt: dateDebut } });
+        const encadrement = await Encadrement.find({ AnneeD: { $gt: dateDebut }});
         // TYPE : PFE AND DOCTORAT 
         let pfe = 0,
             doctorat = 0;
@@ -16,6 +18,9 @@ const nombreEncadrement = async(req, res) => {
 
 
         }
+
+        console.log(encadrement.length);
+
         res.status(200).json({ nombreEncadrement: encadrement.length, nombrePfe: pfe, nombreDoctorat: doctorat })
 
 
