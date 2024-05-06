@@ -256,7 +256,7 @@ function Fchercheur({ form }) {
           <FormItem>
             <FormLabel>Diplome</FormLabel>
             <FormControl>
-              <Input placeholder="Entrez le numero de telephone" {...field} />
+              <Input placeholder="Entrez le diplome" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -269,7 +269,7 @@ function Fchercheur({ form }) {
           <FormItem>
             <FormLabel>Equipe</FormLabel>
             <FormControl>
-              <Input placeholder="Entrez le numero de telephone" {...field} />
+              <Input placeholder="Entrez l'equipe'" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -284,7 +284,7 @@ function Fchercheur({ form }) {
           <FormItem>
             <FormLabel>H index</FormLabel>
             <FormControl>
-              <Input placeholder="Entrez le numero de telephone" {...field} />
+              <Input placeholder="Entrez le H-index" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -297,7 +297,7 @@ function Fchercheur({ form }) {
           <FormItem>
             <FormLabel>Orcid</FormLabel>
             <FormControl>
-              <Input placeholder="Entrez le numero de telephone" {...field} />
+              <Input placeholder="Entrez l'orcid'" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -372,7 +372,7 @@ function Fpublication({ form }) {
           <FormItem>
             <FormLabel>Volume</FormLabel>
             <FormControl>
-              <Input placeholder="entrez le mot clé" {...field} />
+              <Input placeholder="entrez le volume" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
