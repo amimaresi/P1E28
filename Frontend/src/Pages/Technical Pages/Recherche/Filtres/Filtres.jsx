@@ -168,19 +168,6 @@ function Fchercheur({ form }) {
             <FormMessage />
           </FormItem>
         )}
-      />{' '}
-      <FormField
-        control={form.control}
-        name="contact"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Contact (Tel)</FormLabel>
-            <FormControl>
-              <Input placeholder="Entrez le numero de telephone" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
       />
       <Separator />
       <FormField
@@ -189,10 +176,20 @@ function Fchercheur({ form }) {
         render={({ field }) => (
           <FormItem>
             <FormLabel>Grade d'ensegnement</FormLabel>
-            <FormControl>
-              <Input placeholder="Entrez le numero de telephone" {...field} />
-            </FormControl>
-            <FormMessage />
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue placeholder="Choisir un grade" />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                <SelectItem value="Professeur">Professeur</SelectItem>
+                <SelectItem value="MCA">MCA</SelectItem>
+                <SelectItem value="MCB">MCB</SelectItem>
+                <SelectItem value="MAA">MAA</SelectItem>
+                <SelectItem value="MAB">MAB</SelectItem>
+              </SelectContent>
+            </Select>
           </FormItem>
         )}
       />
@@ -202,10 +199,27 @@ function Fchercheur({ form }) {
         render={({ field }) => (
           <FormItem>
             <FormLabel>Grade de recherche</FormLabel>
-            <FormControl>
-              <Input placeholder="Entrez le numero de telephone" {...field} />
-            </FormControl>
-            <FormMessage />
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue placeholder="Choisir un grade" />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                <SelectItem value="Directeur de recherche">
+                  Directeur de recherche
+                </SelectItem>
+                <SelectItem value="Maitre de recherche">
+                  Maitre de recherche
+                </SelectItem>
+                <SelectItem value="Charge de recherche">
+                  Charge de recherche
+                </SelectItem>
+                <SelectItem value="Attache de recherche">
+                  Attache de recherche
+                </SelectItem>
+              </SelectContent>
+            </Select>
           </FormItem>
         )}
       />
@@ -261,32 +275,7 @@ function Fchercheur({ form }) {
           </FormItem>
         )}
       />
-      <FormField
-        control={form.control}
-        name="Publication"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Publication</FormLabel>
-            <FormControl>
-              <Input placeholder="Entrez le numero de telephone" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="projet"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Projet</FormLabel>
-            <FormControl>
-              <Input placeholder="Entrez le numero de telephone" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+
       <Separator />
       <FormField
         control={form.control}
@@ -490,9 +479,9 @@ function Fprojet({ form }) {
         name="_id"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Projet ID</FormLabel>
+            <FormLabel>Numero de Projet</FormLabel>
             <FormControl>
-              <Input placeholder="entrez l'ID du projet" {...field} />
+              <Input placeholder="entrez le numero du projet" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -530,7 +519,7 @@ function Fprojet({ form }) {
         name="ChefDeProjet"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Projet ID</FormLabel>
+            <FormLabel>Chef De Projet</FormLabel>
             <FormControl>
               <Input
                 placeholder="Entrez l'email du chef de projet"
@@ -607,19 +596,6 @@ function FEncadrement({ form }) {
     <>
       <FormField
         control={form.control}
-        name="_id"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Encadrement ID</FormLabel>
-            <FormControl>
-              <Input placeholder="entrez l'ID de l'encadrement" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
         name="Titre"
         render={({ field }) => (
           <FormItem>
@@ -628,6 +604,27 @@ function FEncadrement({ form }) {
               <Input placeholder="entrez le titre" {...field} />
             </FormControl>
             <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="type"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Type</FormLabel>
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue placeholder="Choisir un type" />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                <SelectItem value="PFE">PFE</SelectItem>
+                <SelectItem value="Master2">Master 2</SelectItem>
+                <SelectItem value="Doctorat">Doctorat</SelectItem>
+              </SelectContent>
+            </Select>
           </FormItem>
         )}
       />
@@ -667,10 +664,17 @@ function FEncadrement({ form }) {
         render={({ field }) => (
           <FormItem>
             <FormLabel>Encadrement (Role)</FormLabel>
-            <FormControl>
-              <Input placeholder="entrez le role de l'encadrant" {...field} />
-            </FormControl>
-            <FormMessage />
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue placeholder="Choisir un role" />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                <SelectItem value="Encadrant">Encadrant</SelectItem>
+                <SelectItem value="Co-encadrant">Co-encadrant</SelectItem>
+              </SelectContent>
+            </Select>
           </FormItem>
         )}
       />
@@ -742,9 +746,9 @@ function FConfJourn({ form }) {
         name="_id"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>ID</FormLabel>
+            <FormLabel>Acronyme</FormLabel>
             <FormControl>
-              <Input placeholder="entrez l'ID" {...field} />
+              <Input placeholder="entrez l'acronyme" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -756,10 +760,20 @@ function FConfJourn({ form }) {
         render={({ field }) => (
           <FormItem>
             <FormLabel>Type</FormLabel>
-            <FormControl>
-              <Input placeholder="entrez le type" {...field} />
-            </FormControl>
-            <FormMessage />
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue placeholder="Choisir un type" />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                <SelectItem value="Conference">Conference</SelectItem>
+                <SelectItem value="Workshop Papers">Workshop Papers</SelectItem>
+                <SelectItem value="Journal Articles">
+                  Journal Articles
+                </SelectItem>
+              </SelectContent>
+            </Select>
           </FormItem>
         )}
       />{' '}
@@ -793,19 +807,13 @@ function FConfJourn({ form }) {
   );
 }
 
-const phoneRegExp = /^\+?(\d{1,3})?[-. ]?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/;
 const schema = {
   Chercheur: yup.object().shape({
     nomComplet: yup.string().max(50),
     _id: yup.string().email(),
-    cantact: yup
-      .string()
-      .matches(phoneRegExp, { message: 'Invalid phone number' }),
     GradeEnsegnement: yup.string(),
     GradeRecherche: yup.string(),
     qualité: yup.string().max(50),
-    projet: yup.string().max(50),
-    Publication: yup.string().max(50),
     Equipe: yup.string().max(50),
     EtablisementOrigine: yup.string().max(50),
     H_index: yup.number(),
