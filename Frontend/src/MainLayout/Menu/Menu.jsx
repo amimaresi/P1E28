@@ -134,7 +134,7 @@ export default function Menu({ isLogged, setIsLogged, role, name }) {
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
-        <NavigationMenu>
+        {/* <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuTrigger className=" text-[16.5px]">
@@ -184,7 +184,7 @@ export default function Menu({ isLogged, setIsLogged, role, name }) {
               </NavigationMenuContent>
             </NavigationMenuItem>
           </NavigationMenuList>
-        </NavigationMenu>
+        </NavigationMenu>*/}
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
