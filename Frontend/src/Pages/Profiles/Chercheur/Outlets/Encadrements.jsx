@@ -61,7 +61,7 @@ export default function Encadrements() {
         <ul>
           <li className="mb-4 px-4 py-2 flex justify-between items-center">
             <span className="text-lg font-bold">Titre</span>
-            <span className="text-lg font-bold">Type</span>
+            <span className="text-lg font-bold ml-20">Type</span>
             <span className="text-lg font-bold">Année Début</span>
           </li>
         </ul>
@@ -69,13 +69,13 @@ export default function Encadrements() {
         <ul>
           {currentItems.map((item, index) => (
             <li
-              className="mb-4 border rounded-lg bg-gray-100 px-4 py-2 flex justify-between items-center"
+              className=" mb-4 border rounded-lg bg-gray-100 px-4 py-2 flex place-content-between"
               key={index}
             >
-              <NavLink to={`/encadrement/${item._id}`} className="text-sm hover:text-blue-500">
+              <NavLink to={`/encadrement/${item._id}`} className={` text-sm hover:text-blue-500 w-24`}>
                 {item.Titre}
               </NavLink>
-              <span>{item.Type}</span>
+              <span className=' mr-5'>{item.Type}</span>
               <span>{item.AnneeD}</span>
             </li>
           ))}
