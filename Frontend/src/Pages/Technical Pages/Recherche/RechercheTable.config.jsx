@@ -35,10 +35,7 @@ export function GetColumns(searchby) {
 }
 
 export function ColumnsChercheur() {
-  
-
   return [
-    
     {
       accessorKey: 'nomComplet',
       header: ({ column }) => {
@@ -54,7 +51,7 @@ export function ColumnsChercheur() {
         );
       },
       cell: ({ row }) => (
-       // console.log(row.original),
+        // console.log(row.original),
         <div className=" flex flex-row items-center gap-3">
           <div className=" flex h-9 w-9 items-center justify-center rounded-full bg-gray-300">
             <Avatar>
@@ -71,9 +68,8 @@ export function ColumnsChercheur() {
             </Avatar>
           </div>
           <div className="lowercase">
-            {
-            console.log("row is nomComplet" , row.getValue('nomComplet'))}
-              {  row.getValue('nomComplet')}
+            {console.log('row is nomComplet', row.getValue('nomComplet'))}
+            {row.getValue('nomComplet')}
           </div>
         </div>
       ),
@@ -111,13 +107,8 @@ export function ColumnsChercheur() {
         );
       },
       cell: ({ row }) => (
-        console.log("look here" , Object.keys(row.original)),
-        <div className="lowercase">{
-          
-          row.getValue('_id')}
-         
-          </div>//here is the change
-        
+        console.log('look here', Object.keys(row.original)),
+        (<div className="lowercase">{row.getValue('_id')}</div>) //here is the change
       ),
     },
 
@@ -140,11 +131,9 @@ export function ColumnsChercheur() {
               <DropdownMenuSeparator />
               <NavLink
                 //to={`../../chercheur/${row.original.id + '/informations'}`}
-               to={`../../chercheur/${row.getValue('_id')}/informations`}// some changes here
-
-
+                to={`../../chercheur/${row.getValue('_id')}/informations`} // some changes here
               >
-                {console.log("email",row.getValue('_id'))}
+                {console.log('email', row.getValue('_id'))}
                 <DropdownMenuItem>Voir le profil</DropdownMenuItem>
               </NavLink>
             </DropdownMenuContent>
@@ -181,7 +170,6 @@ export function ColumnsPublication() {
       accessorKey: 'Date',
       header: ({ column }) => {
         return (
-
           <Button
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
@@ -193,10 +181,7 @@ export function ColumnsPublication() {
         );
       },
       cell: ({ row }) => (
-       
-        <div className="lowercase">{row.getValue('Date') } 
-        
-        </div>
+        <div className="lowercase">{row.getValue('Date')}</div>
       ),
     },
     {
@@ -239,6 +224,9 @@ export function ColumnsPublication() {
               <DropdownMenuSeparator />
               <NavLink to={`../../publication/${row.original._id}`}>
                 <DropdownMenuItem>Plus d'info</DropdownMenuItem>
+              </NavLink>
+              <NavLink to={`../../editpublication/${row.original._id}`}>
+                <DropdownMenuItem>Modifier</DropdownMenuItem>
               </NavLink>
               <a href={row.original.Lien} target="_blanc">
                 <DropdownMenuItem>Lien externe</DropdownMenuItem>
@@ -380,8 +368,10 @@ export function ColumnsProjet() {
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <NavLink to={`../../projet/${row.original._id}`}>
-                  
                 <DropdownMenuItem>Plus d'info</DropdownMenuItem>
+              </NavLink>
+              <NavLink to={`../../editprojet/${row.original._id}`}>
+                <DropdownMenuItem>Modifier</DropdownMenuItem>
               </NavLink>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -478,11 +468,15 @@ export function ColumnsConfJourn() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
+
               {row.original.Lien && (
                 <a href={row.original.Lien} target="_blanc">
                   <DropdownMenuItem>Lien externe</DropdownMenuItem>
                 </a>
               )}
+              <NavLink to={`../../editconfjourn/${row.original._id}`}>
+                <DropdownMenuItem>Modifier</DropdownMenuItem>
+              </NavLink>
             </DropdownMenuContent>
           </DropdownMenu>
         );
@@ -621,8 +615,6 @@ export function ColumnsEncadrement() {
       id: 'actions',
       enableHiding: false,
       cell: ({ row }) => {
-        const chercheur = row.original;
-
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -636,6 +628,9 @@ export function ColumnsEncadrement() {
               <DropdownMenuSeparator />
               <NavLink to={`../../encadrement/${row.original._id}`}>
                 <DropdownMenuItem>Plus d'info</DropdownMenuItem>
+              </NavLink>
+              <NavLink to={`../../editencadrement/${row.original._id}`}>
+                <DropdownMenuItem>Modifier</DropdownMenuItem>
               </NavLink>
             </DropdownMenuContent>
           </DropdownMenu>
