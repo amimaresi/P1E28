@@ -41,6 +41,48 @@ import {
 import { NavLink } from 'react-router-dom';
 
 export default function Statistiques() {
+  const schema = yup.object().shape({
+    dateDebut: yup.string().required('l annee de debut  est requise'),
+    dateFin: yup.string().required('l annee de fin  est requise'),
+  });
+
+  const schema1 = yup.object().shape({
+    Theme: yup.string().required('l annee de debut  est requise'),
+  });
+   
+  const form1 = useForm({
+    defaultValues: {
+      Theme: '',
+    },
+    resolver: yupResolver(schema1),
+  });
+  
+
+  const form = useForm({
+    defaultValues: {
+      dateDebut: '',
+      dateFin: '',
+
+    },
+    resolver: yupResolver(schema),
+  });
+  const onSubmit1 = async (data) => {
+    console.log('dataTwo :', data); };
+  const onSubmit = async (data) => {
+    console.log('data :', data);
+
+    try {
+      console.log('dataaaaaaaaa :', data);
+      const resutlt = await axios.post(
+        'http://localhost:3000/chercheur/inserPub',
+        data,
+      );
+      console.log('resulttttttt',resutlt);
+    } catch (err) {
+      console.log(err.response.data.message);
+    }
+  };
+
   const [userData, setUserData] = useState({
     labels: UserData.map((data) => data.year),
     datasets: [
@@ -95,6 +137,8 @@ export default function Statistiques() {
                   <TabsTrigger value="annees">Les années</TabsTrigger>
                   <TabsTrigger value="theme"> Le théme</TabsTrigger>
                 </TabsList>
+                <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                 <TabsContent value="annees">
                   <Card>
                     <CardHeader>
@@ -105,20 +149,67 @@ export default function Statistiques() {
                     </CardHeader>
                     <CardContent className="space-y-2">
                       <div className="space-y-1">
-                        <Label htmlFor="anneeDebut">De:</Label>
-                        <Input id="anneeDebut" defaultValue="2020" />
+                      <FormField
+            control={form.control}
+            name="dateDebut"
+            render={({ field }) => (
+              <>
+                <FormItem>
+                  <div >
+                    <div>
+                      <FormLabel>annee debut:</FormLabel>
+                    </div>
+                    <FormControl>
+                      <Input
+                        
+                        placeholder="entrez l'annee de debut "
+                        {...field}
+                      />
+                    </FormControl>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              </>
+            )}
+          />
                       </div>
                       <div className="space-y-1">
-                        <Label htmlFor="anneeFin">Jusqu'a :</Label>
-                        <Input id="anneeFin" defaultValue="2024" />
+                      <FormField
+            control={form.control}
+            name="dateFin"
+            render={({ field }) => (
+              <>
+                <FormItem>
+                  <div >
+                    <div >
+                      <FormLabel>annee Fin:</FormLabel>
+                    </div>
+                    <FormControl>
+                      <Input
+                        
+                        placeholder="entrez l'annee de fin "
+                        {...field}
+                      />
+                    </FormControl>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              </>
+            )}
+          />
                       </div>
                     </CardContent>
                     <CardFooter>
-                      <Button className="bg-buttonDark">Enregistrer</Button>
+                      <Button type="submit" className="bg-buttonDark">Enregistrer</Button>
                     </CardFooter>
                   </Card>
                 </TabsContent>
+                </form>
+      </Form>
+      <DevTool control={form.control} />
                 <TabsContent value="theme">
+                <Form {...form1}>
+        <form onSubmit={form1.handleSubmit(onSubmit1)} className="space-y-8">
                   <Card>
                     <CardHeader>
                       <CardTitle>Le théme</CardTitle>
@@ -128,9 +219,22 @@ export default function Statistiques() {
                     </CardHeader>
                     <CardContent className="space-y-2">
                       <div className="space-y-1">
-                        <Label htmlFor="current">Le thémes:</Label>
-                        <Select>
-                          <SelectTrigger className="w-[180px]">
+                      <FormField
+            control={form1.control}
+            name="Theme"
+            render={({ field }) => (
+              <>
+                <FormItem>
+                  <div className="flex flex-row items-center justify-start   ">
+                    <div className="px-5">
+                      <FormLabel>Les themes:</FormLabel>
+                    </div>
+                    <FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
+                        <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder="Theme" />
                           </SelectTrigger>
                           <SelectContent>
@@ -144,20 +248,26 @@ export default function Statistiques() {
                             <SelectItem value="projet">projets</SelectItem>
                             <h3 className="font-bold"> type encadrement:</h3>
                             <SelectItem value="pfe">PFE</SelectItem>
-                            <SelectItem value="master">Master</SelectItem>
-                            <h3 className="font-bold"> theme projet:</h3>
-                            <SelectItem value="ai">
-                              intilligence Artificielle
-                            </SelectItem>
-                            <SelectItem value="cs">Computer Science</SelectItem>
+                            <SelectItem value="master">Master2</SelectItem>
+                            <SelectItem value="doctorat">Doctorat</SelectItem>
                           </SelectContent>
-                        </Select>
+                      </Select>
+                    </FormControl>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              </>
+            )}
+          />
                       </div>
                     </CardContent>
                     <CardFooter>
-                      <Button className="bg-buttonDark">Enregistrer</Button>
+                      <Button type="submit" className="bg-buttonDark">Enregistrer</Button>
                     </CardFooter>
                   </Card>
+                  </form>
+      </Form>
+      <DevTool control={form1.control} />
                 </TabsContent>
               </Tabs>
             </div>
@@ -188,7 +298,18 @@ export default function Statistiques() {
                 </TabsContent>
 
                 <TabsContent value="liste">
-                  <div></div>
+                  <div>
+                  { 
+              UserData.map((data) => (
+                <div
+                  key={data}
+                  className="   mb-4 mr-4 flex h-16 w-full items-center rounded-2xl border  bg-[#EFF3FF]  p-4   "
+                >
+                  <h3>_{data.year}</h3>
+                  <h3>_{data.nbrPub}</h3>
+                </div>
+              ))}
+                  </div>
                 </TabsContent>
               </Tabs>
             </div>
