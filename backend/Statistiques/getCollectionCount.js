@@ -1,6 +1,6 @@
-const Chercheur = require('../../schema/Chercheur');
-const Projet = require('../../schema/Projet');
-const Encadrement = require('../../schema/Encadrement');
+const Chercheur = require('../schema/Chercheur');
+const Projet = require('../schema/Projet');
+const Encadrement = require('../schema/Encadrement');
 
 const getCollectionCount = async (req, res) => {
     try {
@@ -8,6 +8,7 @@ const getCollectionCount = async (req, res) => {
         const countChercheur = await Chercheur.countDocuments();
         const countProjet = await Projet.countDocuments();
         const countEncadrement = await Encadrement.countDocuments();
+
 
         // Retourner les résultats sous forme d'un objet JSON
         res.status(200).json({ countChercheur, countProjet, countEncadrement });
