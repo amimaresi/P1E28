@@ -20,7 +20,7 @@ const EditableField = ({ label, value, onChange }) => {
   };
 
   return ( 
-    <div className={`flex flex-row items-center justify-between w-[350px]`}>
+    <div className="flex flex-row items-center justify-between w-[350px]">
       <div className="flex flex-row items-center gap-5">
         <Label htmlFor={label} className="text-right">
           {label}:
@@ -32,7 +32,17 @@ const EditableField = ({ label, value, onChange }) => {
             onChange={(e) => setEditedValue(e.target.value)}
           />
         ) : (
-          <span>{typeof value === 'string' ? value : JSON.stringify(value)}</span>
+          <div>
+            {Array.isArray(value) ? (
+              <ul>
+                {value.map((item, index) => (
+                  <li key={index}>{item.nomComplet}</li>
+                ))}
+              </ul>
+            ) : (
+              <span>{value}</span>
+            )}
+          </div>
         )}
       </div>
       <div>
@@ -52,6 +62,7 @@ const EditableField = ({ label, value, onChange }) => {
 
 export default function EncSettings() {
   const [editedData, setEditedData] = useState([
+    // Vos données initiales
     {
       "_id": {
       "$oid": "660096a07654baa3c3bed13b"
@@ -119,36 +130,38 @@ export default function EncSettings() {
         <div className="grid gap-4 py-4 sm:grid-cols-2">
           {editedData.map((data, index) => (
             <React.Fragment key={index}>
-              <EditableField
-                label="Type"
-                value={data.Type}
-                onChange={(value) => handleChange('Type', value, index)}
-              />
-              <EditableField
-                label="Titre"
-                value={data.Titre}
-                onChange={(value) => handleChange('Titre', value, index)}
-              />
-              <EditableField
-                label="Année de Début"
-                value={data.AnneeD}
-                onChange={(value) => handleChange('Année de Début', value, index)}
-              />
-              <EditableField
-                label="Année de Fin"
-                value={data.AnneeF}
-                onChange={(value) => handleChange('Année de Fin', value, index)}
-              />
-              <EditableField
-                label="Etudiants"
-                value={data.Etudiants}
-                onChange={(value) => handleChange('Etudiants', value, index)}
-              />
-              <EditableField
-                label="Encadrants"
-                value={data.Encadrants}
-                onChange={(value) => handleChange('Encadrants', value, index)}
-              />
+              <div className="border border-gray-300 p-4">
+                <EditableField
+                  label="Type"
+                  value={data.Type}
+                  onChange={(value) => handleChange('Type', value, index)}
+                />
+                <EditableField
+                  label="Titre"
+                  value={data.Titre}
+                  onChange={(value) => handleChange('Titre', value, index)}
+                />
+                <EditableField
+                  label="Année de Début"
+                  value={data.AnneeD}
+                  onChange={(value) => handleChange('Année de Début', value, index)}
+                />
+                <EditableField
+                  label="Année de Fin"
+                  value={data.AnneeF}
+                  onChange={(value) => handleChange('Année de Fin', value, index)}
+                />
+                <EditableField
+                  label="Etudiants"
+                  value={data.Etudiants}
+                  onChange={(value) => handleChange('Etudiants', value, index)}
+                />
+                <EditableField
+                  label="Encadrants"
+                  value={data.Encadrants}
+                  onChange={(value) => handleChange('Encadrants', value, index)}
+                />
+              </div>
             </React.Fragment>
           ))}
         </div>

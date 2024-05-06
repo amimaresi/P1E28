@@ -1,5 +1,5 @@
 const Encadrement = require("../schema/Encadrement");
-const nombreEncadrement = async(req, res) => {
+/*const nombreEncadrement = async(req, res) => {
 
     try {
         let dateDebut;
@@ -43,6 +43,7 @@ const nombreEncadrement = async(req, res) => {
 
 
 
+
 const pfeParAnnee = async(req, res) => {
     try {
 
@@ -57,9 +58,8 @@ const pfeParAnnee = async(req, res) => {
             AnneD: {
                 $gt: Number(dateDebut),
                 $lt: Number(dateFin)
-            },
-          
-        }).filter((e) => e.Type == "PFE");
+            }
+        }).getFilter((e) => e.Type == "PFE");
 
 
 
@@ -160,7 +160,107 @@ const doctoratParAnnee = async(req, res) => {
 
 
 
-}
+}*/
+const encadrementsParAnneeSansT = async (req, res) => {
+    try {
+        const { dateDebut, dateFin } = req.body;
+
+        const encadrements = await Encadrement.find({
+            AnneeD: {
+                $gte: Number(dateDebut), // Utilisation de $gte pour inclure également dateDebut
+                $lte: Number(dateFin)    // Utilisation de $lte pour inclure également dateFin
+            }
+        }).sort({ AnneeD: 1 });
+
+        let encadrementsParAnnee = [];
+        let currentYear = Number(dateDebut); // Commence à partir de dateDebut
+        let countIndex = 0;
+
+        encadrements.forEach(encadrement => {
+            const encadrementYear = encadrement.AnneeD;
+
+            // Ajoute les années manquantes avec 0 encadrements
+            while (currentYear < encadrementYear) {
+                encadrementsParAnnee.push({ year: currentYear, count: 0 });
+                currentYear++;
+            }
+
+            // Ajoute l'année avec le nombre d'encadrements
+            encadrementsParAnnee.push({ year: encadrementYear, count: ++countIndex });
+            currentYear++;
+        });
+
+        // Ajoute les années restantes avec 0 encadrements jusqu'à dateFin
+        while (currentYear <= Number(dateFin)) {
+            encadrementsParAnnee.push({ year: currentYear, count: 0 });
+            currentYear++;
+        }
+        encadrementsParAnnee  = encadrementsParAnnee.map(item => ({ year: parseInt(item.year), count: item.count }));
+        res.json({ 
+           
+            encadrementsParAnnee 
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(404).json({ error: true });
+    }
+};
+
+const encadrementsParAnnee = async (req, res, type) => {
+    try {
+        const { dateDebut, dateFin } = req.body;
+  
+        const encadrements = await Encadrement.find({
+            AnneeD: {
+                $gte: Number(dateDebut), // Utilisation de $gte pour inclure également dateDebut
+                $lte: Number(dateFin)    // Utilisation de $lte pour inclure également dateFin
+            },
+            Type: type
+        }).sort({ AnneeD: 1 });
+  
+        let encadrementsParAnnee = [];
+        let currentYear = Number(dateDebut); // Commence à partir de dateDebut
+        let countIndex = 0;
+  
+        encadrements.forEach(encadrement => {
+            const encadrementYear = encadrement.AnneeD;
+  
+            // Ajoute les années manquantes avec 0 encadrements
+            while (currentYear < encadrementYear) {
+                encadrementsParAnnee.push({ year: currentYear, count: 0 });
+                currentYear++;
+            }
+  
+            // Ajoute l'année avec le nombre d'encadrements
+            encadrementsParAnnee.push({ year: encadrementYear, count: ++countIndex });
+            currentYear++;
+        });
+  
+        // Ajoute les années restantes avec 0 encadrements jusqu'à dateFin
+        while (currentYear <= Number(dateFin)) {
+            encadrementsParAnnee.push({ year: currentYear, count: 0 });
+            currentYear++;
+        }
+        encadrementsParAnnee  = encadrementsParAnnee.map(item => ({ year: parseInt(item.year), count: item.count }));
+        res.json({ 
+            
+            encadrementsParAnnee 
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(404).json({ error: true });
+    }
+  };
+  
+  const pfeParAnnee = async (req, res) => {
+    await encadrementsParAnnee(req, res, "PFE");
+  };
+  const master2ParAnnee = async (req, res) => {
+    await encadrementsParAnnee(req, res, "Master2");
+  };
+  const doctoratParAnnee = async (req, res) => {
+    await encadrementsParAnnee(req, res, "Doctorat");
+  };
 
 
 
@@ -174,4 +274,6 @@ const doctoratParAnnee = async(req, res) => {
 
 
 
-module.exports = { nombreEncadrement, pfeParAnnee, doctoratParAnnee }
+
+
+module.exports = { encadrementsParAnneeSansT,master2ParAnnee , pfeParAnnee, doctoratParAnnee }
