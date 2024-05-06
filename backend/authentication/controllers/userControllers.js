@@ -36,7 +36,7 @@ const loginUser = async (req , res)=>{
     //catch any error that occurs during the login process
     catch(err){
 
-        res.status(400).json({message: err.message})
+        res.status(401).json({message: err.message})
     }
 }
 

@@ -14,6 +14,7 @@
                   dateDebut,
                   dateFin
               } = req.body;
+              console.log(dateDebut, dateFin)
 
 
               pubTabAvecDouble = await Publication.find({

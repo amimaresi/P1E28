@@ -28,6 +28,7 @@ const routerConf = require('./ROUTERS/crudConfJourn/routeConf')
 const setRouter = require('./settings/router')
 const authRouter = require('./authentication/router/userRouter')
 const RechercheRouter = require('./ROUTERS/recherche/router')
+const staticRouter = require('./Statistiques/router')
 app.use('/auth', authRouter)
 app.use('/insertions', crud)
 app.use('/settings' , setRouter)
@@ -36,6 +37,9 @@ app.use('/recherche', RechercheRouter)
 app.use('/encadrements', routerEnc)
 app.use('/conf',routerConf)
 app.post('/maj',maj)
+app.use('/statistiques', staticRouter)
+
+
 
 
 

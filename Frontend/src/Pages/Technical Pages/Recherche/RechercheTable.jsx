@@ -107,6 +107,33 @@ export function RechercheTable({ navigate, searchby }) {
   };
   ////////////////////////////////
 
+  useEffect(() => {
+    const fetch =async()=>{
+     console.log("fetching")
+     try{
+    //
+     const resultat = await axios.get(`http://localhost:3000/recherche/${searchby}`)
+     if(searchby==="chercheur") setData(resultat.data.Chercheurs)
+      if(searchby==="publication") setData(resultat.data.Publications)
+     if(searchby==="confJourn") setData(resultat.data.ConfJourns)
+     if(searchby==="encadrement") setData(resultat.data.Encadrements)
+     if (searchby==="projet") {setData(resultat.data.Projets)
+      
+     console.log(resultat.data)
+     console.log("fetching chercheurs")
+     }
+    }
+     catch(err){
+       console.log("error")
+        console.log(err.message)
+    }
+   }
+ 
+ fetch()
+   }
+ ,[])
+ //
+
   const table = useReactTable({
     data,
     // searchby == 'chercheur'

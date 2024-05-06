@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DevTool } from '@hookform/devtools';
 import { useForm } from 'react-hook-form';
 //import {  BarChart } from "./Chartss/BarChart";
@@ -29,7 +29,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import axios from 'axios';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   Select,
@@ -39,8 +38,17 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
+//import { c } from 'vite/dist/node/types.d-aGj9QkWt';
+
+import incrementHexColor from './Chartss/incrColor';
 
 export default function Statistiques() {
+  const [selectValue , setSelectValue] = useState('')
+  const [dateDebut, setDateDebut] = useState(2020);
+  const [dateFin, setDateFin] = useState(2024);
+  const [nombreEncadrement , setnombreEncadrement] = useState()
+  const [count , setCount] = useState({})
   const [userData, setUserData] = useState({
     labels: UserData.map((data) => data.year),
     datasets: [
@@ -51,6 +59,69 @@ export default function Statistiques() {
       },
     ],
   });
+  const handleClick =  async() => {
+      try {
+        console.log(selectValue)
+        console.log(dateDebut)
+        console.log(dateFin)
+        console.log("select value for feching"+ selectValue)
+         const resultat = await axios.post( `http://localhost:3000/statistiques/${selectValue}`, {dateDebut, dateFin})
+         console.log(resultat.data)
+         let resultatArry = []
+         switch(selectValue){
+          case 'publication':
+            resultatArry = resultat.data.numberOfPubOfYear  
+            break
+          case 'encadrement' :
+          case 'pfe' : 
+          case 'master': 
+            resultatArry = resultat.data.encadrementsParAnnee 
+            console.log(resultatArry)
+             break
+          case 'projet' : 
+              resultatArry = resultat.data.projetsParAnnee
+              break
+          // case 'pfe':
+          //   resultatArry= resultat.data.encadrementsParAnnee
+          //   console.log(resultatArry)
+          //   break
+          // case 'master':
+
+          
+         }
+         setUserData({
+          labels: resultatArry.map((data) => data.year),
+          datasets: [
+            {
+              label: `nombre de ${selectValue}`,
+              data: resultatArry.map((data) => data.count),
+              backgroundColor: resultatArry.map((data) => incrementHexColor('#2536eb','#030517' )),
+            },
+          ],
+          
+         })
+      }
+      catch (error) {
+        console.log(error)
+      }
+
+
+  }
+  useEffect(() => {
+    const fetch = async () => {
+       try {
+        const resultat = await axios.get('http://localhost:3000/statistiques/countDocuments')
+        console.log(resultat)
+        setCount(resultat.data)
+       }
+       catch (error) {  
+        console.log(error)
+       }
+      
+    }
+    fetch()
+
+  },[])
   return (
     <>
       <div className=" min-h-screen bg-white">
@@ -73,17 +144,17 @@ export default function Statistiques() {
         </p>
         <div className="flex justify-center space-x-20 p-4 ">
           <div className="flex justify-center rounded-xl border bg-buttonDark px-12 pb-4 pt-4 text-white ">
-            <h2 className="px-4 font-extrabold  ">1234</h2>
-            <h2>Publications</h2>
+            <h2 className="px-4 font-extrabold  ">{count. countChercheur}</h2>
+            <h2>Chercheurs</h2>
           </div>
 
           <div className="flex justify-center rounded-xl border bg-buttonDark px-12 pb-4 pt-4 text-white">
-            <h2 className="px-4 font-extrabold ">150</h2>
+            <h2 className="px-4 font-extrabold ">{count.countProjet}</h2>
             <h2>Projet</h2>
           </div>
 
           <div className="flex justify-center rounded-xl border bg-buttonDark px-12 pb-4 pt-4 text-white">
-            <h2 className="px-4 font-extrabold ">900</h2>
+            <h2 className="px-4 font-extrabold ">{count.countEncadrement}</h2>
             <h2>Encadrement</h2>
           </div>
         </div>
@@ -106,15 +177,15 @@ export default function Statistiques() {
                     <CardContent className="space-y-2">
                       <div className="space-y-1">
                         <Label htmlFor="anneeDebut">De:</Label>
-                        <Input id="anneeDebut" defaultValue="2020" />
+                        <Input id="anneeDebut" defaultValue="2020"  onChange={(e)=>{if(e.target.value) setDateDebut(e.target.value) }} />
                       </div>
                       <div className="space-y-1">
                         <Label htmlFor="anneeFin">Jusqu'a :</Label>
-                        <Input id="anneeFin" defaultValue="2024" />
+                        <Input id="anneeFin" defaultValue="2024"  onChange={(e)=>{if(e.target.value) setDateFin(e.target.value) }} />
                       </div>
                     </CardContent>
                     <CardFooter>
-                      <Button className="bg-buttonDark">Enregistrer</Button>
+                      <Button className="bg-buttonDark" onClick={handleClick}>Enregistrer</Button>
                     </CardFooter>
                   </Card>
                 </TabsContent>
@@ -129,13 +200,13 @@ export default function Statistiques() {
                     <CardContent className="space-y-2">
                       <div className="space-y-1">
                         <Label htmlFor="current">Le thémes:</Label>
-                        <Select>
+                        <Select onValueChange={(value)=> setSelectValue(value)}>
                           <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder="Theme" />
                           </SelectTrigger>
                           <SelectContent>
                             <h3 className="font-bold">nombre de :</h3>
-                            <SelectItem value="publication">
+                            <SelectItem value="publication" >
                               publications
                             </SelectItem>
                             <SelectItem value="encadrement">
@@ -145,17 +216,14 @@ export default function Statistiques() {
                             <h3 className="font-bold"> type encadrement:</h3>
                             <SelectItem value="pfe">PFE</SelectItem>
                             <SelectItem value="master">Master</SelectItem>
-                            <h3 className="font-bold"> theme projet:</h3>
-                            <SelectItem value="ai">
-                              intilligence Artificielle
-                            </SelectItem>
-                            <SelectItem value="cs">Computer Science</SelectItem>
+                            
                           </SelectContent>
                         </Select>
                       </div>
+                      {console.log(selectValue)}
                     </CardContent>
                     <CardFooter>
-                      <Button className="bg-buttonDark">Enregistrer</Button>
+                      <Button className="bg-buttonDark"  onClick={handleClick}>Enregistrer</Button>
                     </CardFooter>
                   </Card>
                 </TabsContent>
