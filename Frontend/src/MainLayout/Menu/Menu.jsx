@@ -161,6 +161,31 @@ export default function Menu({ isLogged, setIsLogged, role, name }) {
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
+              <NavigationMenuTrigger className=" text-[16.5px]">
+                Edit
+              </NavigationMenuTrigger>
+
+              <NavigationMenuContent>
+                <ul className="grid w-[125px] grid-flow-row">
+                  <LinkItem
+                    to="/editpublication/test"
+                    isSimple
+                    title="publication"
+                  />
+                  <LinkItem to="/editprojet/test" isSimple title="projet" />{' '}
+                  <LinkItem
+                    to="/editencadrement/test"
+                    isSimple
+                    title="Encadrement"
+                  />
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem>
               <NavLink
                 to="/statistiques"
                 className={` ${navigationMenuTriggerStyle()} text-[16.7px]`}
@@ -356,18 +381,19 @@ function Periodicité() {
     try {
       const inf = {
         acronyme: data.acronyme,
-        periodicite: data.Periodicité
+        periodicite: data.Periodicité,
       };
       console.log(inf);
-      console.log("clicked");
+      console.log('clicked');
 
-      const res = await axios.post('http://localhost:3000/conf/confJourn/ajouterPeriode',
-      inf);
+      const res = await axios.post(
+        'http://localhost:3000/conf/confJourn/ajouterPeriode',
+        inf,
+      );
       console.log(res.data.message);
     } catch (err) {
       if (err.response) console.log(err.response.data.message); //this error is for displaying the error message from the server
     }
-    
   };
 
   return (

@@ -30,6 +30,9 @@ import Statistiques from './Pages/statistiques/Statistiques.jsx';
 import PrPLayout from './Pages/Profiles/Project/PrPLayout.jsx';
 import Projets from './Pages/Profiles/Chercheur/Outlets/Projets.jsx';
 import ELayout from './Pages/Profiles/Encadrement/ELayout.jsx';
+import ProSettings from './Pages/settings/ProSettings.jsx';
+import PubSettings from './Pages/settings/PubSettings.jsx';
+import EncSettings from './Pages/settings/EncSettings.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -63,22 +66,24 @@ const router = createBrowserRouter(
       <Route path="chercheur/:id" element={<CPLayout />}>
         <Route index element={<Navigate to="informations" />} />
         <Route path="informations" element={<Informations />} />
-        {/* <Route path="projets" element={<Publications />} /> */}
+
         <Route path="encadrements" element={<Encadrements />} />
         <Route path="publications" element={<Publications />} />
-        <Route path="Projets" element={<Projets />} /> 
-        
+        <Route path="Projets" element={<Projets />} />
       </Route>
       <Route
         path="chercheur/"
         element={<Navigate to="/chercheur/NotFound/informations" />}
       />
       <Route path="publication/:id" element={<PPLayout />} />
-      <Route path="encadrement/:id" element={<ELayout />} />
       <Route path="projet/:id" element={<PrPLayout />} />
+      <Route path="encadrement/:id" element={<ELayout />} />
       <Route path="settings" element={<Settings />} />
-      <Route path="statistiques" element={<Statistiques />} />
 
+      <Route path="statistiques" element={<Statistiques />} />
+      <Route path="editProjet/:id" element={<ProSettings />} />
+      <Route path="editPublication/:id" element={<PubSettings />} />
+      <Route path="editEncadrement/:id" element={<EncSettings />} />
       <Route path="control" element={<Outlet />}>
         <Route index element={<NotFound />} />
         <Route path="LandingPage" element={<EditLandingPage />} />

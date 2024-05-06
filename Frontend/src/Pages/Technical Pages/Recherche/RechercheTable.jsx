@@ -7,13 +7,13 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
@@ -30,100 +30,94 @@ import {
 } from '@/components/ui/table';
 //import data from './data.js';
 import { GetColumns } from './RechercheTable.config.jsx';
-import { useEffect ,useState } from 'react';
-import { useSearchParams  } from 'react-router-dom';
-import { set } from 'react-hook-form';
-//import { data } from 'autoprefixer';
+import { useEffect, useState } from 'react';
 export function RechercheTable({ navigate, searchby }) {
   const Columns = GetColumns(searchby);
-  const [data , setData] = React.useState([]);
+  const [data, setData] = React.useState([]);
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [columnVisibility, setColumnVisibility] = React.useState({});
-  //const [searchParams, setSearchParams] = useSearchParams();
   const [pagination, setPagination] = React.useState({
     pageIndex: 0,
     pageSize: 6,
   });
-
-  
+  const [searchParams, setSearchParams] = useSearchParams();
+  //test //////////////////////////
   const onSubmit = async (data) => {
-    
-   
     console.log('Filtres : ', data);
-    console.log("search by "+searchby)
+    console.log('search by ' + searchby);
     const searchform = {};
-    
-    Object.entries(data).forEach((value, key) => {
-    if (value != 0) {
-        searchform[key] = value;
-        
-        
-       }
-     });
-      // console.log(form.getValues() + ' ' + searchform); //some changes here 
-     // history.push(searchform)
-    // console.log("searchform" + searchform['Email'])
-     
-    try{
-      const resultat = await axios.post(
-        `http://localhost:3000/recherche/${searchby}`, data );
-        console.log("search by "+searchby)
-        console.log(resultat.data.ConfJourns)
-         if(searchby==="chercheur") setData(resultat.data.Chercheurs)
-         if(searchby==="publication") setData(resultat.data.Publications)
-        if(searchby==="confJourn") setData(resultat.data.ConfJourns)
-        if(searchby==="encadrement") setData(resultat.data.Encadrements)
-        if (searchby==="projet") {setData(resultat.data.Projets)
 
+    Object.entries(data).forEach(([key, value]) => {
+      if (value) {
+        searchform[key] = value;
+      }
+    });
+    let DataToFetch = { ...searchform };
+    switch (searchby) {
+      case 'publication':
+        {
+          if (data.Date[0] > 2000) DataToFetch.DateMin = data.Date[0];
+          if (data.Date[1] < new Date().getFullYear())
+            DataToFetch.DateMax = data.Date[1];
+          delete DataToFetch.Date;
         }
-    
-        
+        break;
+      case 'encadrement': {
+        if (data.AnneeD[0] > 2000) DataToFetch.AnneeDMin = data.AnneeD[0];
+        if (data.AnneeD[1] < new Date().getFullYear())
+          DataToFetch.AnneeDMax = data.AnneeD[1];
+        delete DataToFetch.AnneeD;
+        if (data.AnneeF[0] > 2000) DataToFetch.AnneeFMin = data.AnneeF[0];
+        if (data.AnneeF[1] < new Date().getFullYear() + 6)
+          DataToFetch.AnneeFMax = data.AnneeF[1];
+        delete DataToFetch.AnneeF;
+        break;
+      }
+      case 'projet': {
+        if (data.DateDebut[0] > 2000)
+          DataToFetch.DateDebutMin = data.DateDebut[0];
+        if (data.DateDebut[1] < new Date().getFullYear())
+          DataToFetch.DateDebutMax = data.DateDebut[1];
+        delete DataToFetch.DateDebut;
+        if (data.DateFin[0] > 2000) DataToFetch.DateFinMin = data.DateFin[0];
+        if (data.DateFin[1] < new Date().getFullYear() + 10)
+          DataToFetch.DateFinMax = data.DateFin[1];
+        delete DataToFetch.DateFin;
+      }
     }
-    catch(err){
+
+    setSearchParams(DataToFetch);
+    console.log('Filtres : ', data);
+    try {
+      const resultat = await axios.post(
+        `http://localhost:3000/recherche/${searchby}`,
+        DataToFetch,
+      );
+      console.log('search by ' + searchby);
+      console.log(resultat.data.ConfJourns);
+      if (searchby === 'chercheur') setData(resultat.data.Chercheurs);
+      if (searchby === 'publication') setData(resultat.data.Publications);
+      if (searchby === 'confJourn') setData(resultat.data.ConfJourns);
+      if (searchby === 'encadrement') setData(resultat.data.Encadrements);
+      if (searchby === 'projet') setData(resultat.data.projet);
+    } catch (err) {
       console.log(err.message);
     }
   };
   ////////////////////////////////
-  useEffect(() => {
-    const fetch =async()=>{
-     console.log("fetching")
-     try{
-    //
-     const resultat = await axios.get(`http://localhost:3000/recherche/${searchby}`)
-     if(searchby==="chercheur") setData(resultat.data.Chercheurs)
-      if(searchby==="publication") setData(resultat.data.Publications)
-     if(searchby==="confJourn") setData(resultat.data.ConfJourns)
-     if(searchby==="encadrement") setData(resultat.data.Encadrements)
-     if (searchby==="projet") {setData(resultat.data.Projets)
-      
-     console.log(resultat.data)
-     console.log("fetching chercheurs")
-     }
-    }
-     catch(err){
-       console.log("error")
-        console.log(err.message)
-    }
-   }
- 
- fetch()
-   }
- ,[])
-
-
 
   const table = useReactTable({
-    data ,
-      // searchby == 'chercheur'
-      //   ? { Matricule: "123", orcid: "", H_index: 20, Equipe: "", Publication: "", projet: "", "qualité": "", GradeRecherche: "", GradeEnsegnement: "", _id: "mo_nemamcha@esi.dz"}
-      //   : searchby == 'publication'
-      //     ? data.Publication
-      //     : searchby == 'projet'
-      //       ? data.Projet
-      //       : searchby == 'encadrement'
-      //         ? data.Encadrement
-      //         : data.ConfJourn,
+    data,
+    // searchby == 'chercheur'
+    //   ? { Matricule: "123", orcid: "", H_index: 20, Equipe: "", Publication: "", projet: "", "qualité": "", GradeRecherche: "", GradeEnsegnement: "", _id: "mo_nemamcha@esi.dz"}
+    //   : searchby == 'publication'
+    //     ? data.Publication
+    //     : searchby == 'projet'
+    //       ? data.Projet
+    //       : searchby == 'encadrement'
+    //         ? data.Encadrement
+    //         : data.ConfJourn,
     columns: Columns(navigate),
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -141,8 +135,8 @@ export function RechercheTable({ navigate, searchby }) {
     },
   });
   useEffect(() => {
-    console.log("rendering");
-  }, [data])
+    console.log('rendering');
+  }, [data]);
   const paginationButtons = [];
   for (let i = 0; i < table.getPageCount(); i++) {
     paginationButtons[i] = (
@@ -167,7 +161,7 @@ export function RechercheTable({ navigate, searchby }) {
               className="h-15 w-[15rem] rounded-xl border border-gray-300 shadow md:w-[17rem] "
             />
             {/* filtriing is here  */}
-             <Filtres searchby={searchby}  onSubmit={onSubmit}  /> 
+            <Filtres searchby={searchby} onSubmit={onSubmit} />
           </div>
           <div className=" md-m-0 m-2 flex flex-row items-center justify-between">
             <span className=" mr-2">Lignes par page : </span>
@@ -203,20 +197,15 @@ export function RechercheTable({ navigate, searchby }) {
           <Table>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
-                 
                 <TableRow key={headerGroup.id} className=" border-b-buttonDark">
                   {headerGroup.headers.map((header) => {
                     return (
-                      
-                     
                       <TableHead key={header.id}>
-                       
                         {header.isPlaceholder
                           ? null
                           : flexRender(
                               header.column.columnDef.header,
                               header.getContext(),
-                              
                             )}
                       </TableHead>
                     );
@@ -227,21 +216,13 @@ export function RechercheTable({ navigate, searchby }) {
             <TableBody>
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
-                
                   <TableRow key={row.id} className=" border-b-grey-400">
-                  
                     {row.getVisibleCells().map((cell) => (
-                     
                       <TableCell key={cell.id}>
-
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext(),
-                          
-                          
-                        )
-                        
-                        }
+                        )}
                         {/* {console.log(cell.getContext().column.id)} */}
                         {/* {console.log("under flex "+cell.column.columnDef.cell)} */}
                       </TableCell>

@@ -96,31 +96,9 @@ export default function Filtres({ searchby, onSubmit }) {
               : schema.ConfJourn,
     ),
   });
-
-  // const onSubmit = async (data) => {
-
-  //   console.log('Filtres : ', data);
-  //   const searchform = {};
-
-  //   Object.entries(data).forEach((value, key) => {
-  //     if (value != 0) {
-  //       searchform[key] = value;
-  //     }
-  //   });
-  //   console.log(form.getValues() + ' ' + searchform);
-
-  //   setSearchParams(searchform);
-  //   try{
-  //     const resultat = await axios.post(
-  //       `http://localhost:3000/recherche/Chercheur`, data );
-  //         console.log(res.data);
-
-  //   }
-  //   catch(err){
-  //     console.log(err.message);
-  //   }
-  // };
-
+  function onError() {
+    console.log('error');
+  }
   return (
     <>
       <Sheet>
@@ -137,7 +115,7 @@ export default function Filtres({ searchby, onSubmit }) {
             {' '}
             <Form {...form}>
               <form
-                onSubmit={form.handleSubmit(onSubmit)}
+                onSubmit={form.handleSubmit(onSubmit, onError)}
                 className="space-y-8"
               >
                 {searchby === 'chercheur' ? (
@@ -192,19 +170,6 @@ function Fchercheur({ form }) {
             <FormMessage />
           </FormItem>
         )}
-      />{' '}
-      <FormField
-        control={form.control}
-        name="contact"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Contact (Tel)</FormLabel>
-            <FormControl>
-              <Input placeholder="Entrez le numero de telephone" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
       />
       <Separator />
       <FormField
@@ -213,10 +178,21 @@ function Fchercheur({ form }) {
         render={({ field }) => (
           <FormItem>
             <FormLabel>Grade d'ensegnement</FormLabel>
-            <FormControl>
-              <Input placeholder="Entrez le numero de telephone" {...field} />
-            </FormControl>
-            <FormMessage />
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue placeholder="Choisir un grade" />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                <SelectItem value="Null">Choisir un grade</SelectItem>
+                <SelectItem value="Professeur">Professeur</SelectItem>
+                <SelectItem value="MCA">MCA</SelectItem>
+                <SelectItem value="MCB">MCB</SelectItem>
+                <SelectItem value="MAA">MAA</SelectItem>
+                <SelectItem value="MAB">MAB</SelectItem>
+              </SelectContent>
+            </Select>
           </FormItem>
         )}
       />
@@ -226,10 +202,28 @@ function Fchercheur({ form }) {
         render={({ field }) => (
           <FormItem>
             <FormLabel>Grade de recherche</FormLabel>
-            <FormControl>
-              <Input placeholder="Entrez le numero de telephone" {...field} />
-            </FormControl>
-            <FormMessage />
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue placeholder="Choisir un grade" />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                <SelectItem value="Null">Choisir un grade</SelectItem>
+                <SelectItem value="Directeur de recherche">
+                  Directeur de recherche
+                </SelectItem>
+                <SelectItem value="Maitre de recherche">
+                  Maitre de recherche
+                </SelectItem>
+                <SelectItem value="Charge de recherche">
+                  Charge de recherche
+                </SelectItem>
+                <SelectItem value="Attache de recherche">
+                  Attache de recherche
+                </SelectItem>
+              </SelectContent>
+            </Select>
           </FormItem>
         )}
       />
@@ -266,7 +260,7 @@ function Fchercheur({ form }) {
           <FormItem>
             <FormLabel>Diplome</FormLabel>
             <FormControl>
-              <Input placeholder="Entrez le numero de telephone" {...field} />
+              <Input placeholder="Entrez le diplome" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -279,38 +273,13 @@ function Fchercheur({ form }) {
           <FormItem>
             <FormLabel>Equipe</FormLabel>
             <FormControl>
-              <Input placeholder="Entrez le numero de telephone" {...field} />
+              <Input placeholder="Entrez l'equipe'" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
         )}
       />
-      <FormField
-        control={form.control}
-        name="Publication"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Publication</FormLabel>
-            <FormControl>
-              <Input placeholder="Entrez le numero de telephone" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="projet"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Projet</FormLabel>
-            <FormControl>
-              <Input placeholder="Entrez le numero de telephone" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+
       <Separator />
       <FormField
         control={form.control}
@@ -319,7 +288,7 @@ function Fchercheur({ form }) {
           <FormItem>
             <FormLabel>H index</FormLabel>
             <FormControl>
-              <Input placeholder="Entrez le numero de telephone" {...field} />
+              <Input placeholder="Entrez le H-index" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -332,7 +301,7 @@ function Fchercheur({ form }) {
           <FormItem>
             <FormLabel>Orcid</FormLabel>
             <FormControl>
-              <Input placeholder="Entrez le numero de telephone" {...field} />
+              <Input placeholder="Entrez l'orcid'" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -407,7 +376,7 @@ function Fpublication({ form }) {
           <FormItem>
             <FormLabel>Volume</FormLabel>
             <FormControl>
-              <Input placeholder="entrez le mot clé" {...field} />
+              <Input placeholder="entrez le volume" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -427,7 +396,7 @@ function Fpublication({ form }) {
         )}
       />
       <Separator />
-      {/* <FormField
+      <FormField
         control={form.control}
         name="Date"
         render={({ field }) => (
@@ -448,7 +417,7 @@ function Fpublication({ form }) {
             <FormMessage />
           </FormItem>
         )}
-      /> */}
+      />
       <FormField
         control={form.control}
         name="MaisonEdition"
@@ -514,9 +483,9 @@ function Fprojet({ form }) {
         name="_id"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Projet ID</FormLabel>
+            <FormLabel>Numero de Projet</FormLabel>
             <FormControl>
-              <Input placeholder="entrez l'ID du projet" {...field} />
+              <Input placeholder="entrez le numero du projet" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -554,7 +523,7 @@ function Fprojet({ form }) {
         name="ChefDeProjet"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Projet ID</FormLabel>
+            <FormLabel>Chef De Projet</FormLabel>
             <FormControl>
               <Input
                 placeholder="Entrez l'email du chef de projet"
@@ -631,19 +600,6 @@ function FEncadrement({ form }) {
     <>
       <FormField
         control={form.control}
-        name="_id"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Encadrement ID</FormLabel>
-            <FormControl>
-              <Input placeholder="entrez l'ID de l'encadrement" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
         name="Titre"
         render={({ field }) => (
           <FormItem>
@@ -652,6 +608,28 @@ function FEncadrement({ form }) {
               <Input placeholder="entrez le titre" {...field} />
             </FormControl>
             <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="type"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Type</FormLabel>
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue placeholder="Choisir un type" />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                <SelectItem value="Null">Choisir un type</SelectItem>
+                <SelectItem value="PFE">PFE</SelectItem>
+                <SelectItem value="Master2">Master 2</SelectItem>
+                <SelectItem value="Doctorat">Doctorat</SelectItem>
+              </SelectContent>
+            </Select>
           </FormItem>
         )}
       />
@@ -691,10 +669,18 @@ function FEncadrement({ form }) {
         render={({ field }) => (
           <FormItem>
             <FormLabel>Encadrement (Role)</FormLabel>
-            <FormControl>
-              <Input placeholder="entrez le role de l'encadrant" {...field} />
-            </FormControl>
-            <FormMessage />
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue placeholder="Choisir un role" />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                <SelectItem value="Null">Choisir un role</SelectItem>
+                <SelectItem value="Encadrant">Encadrant</SelectItem>
+                <SelectItem value="Co-encadrant">Co-encadrant</SelectItem>
+              </SelectContent>
+            </Select>
           </FormItem>
         )}
       />
@@ -766,9 +752,9 @@ function FConfJourn({ form }) {
         name="_id"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>ID</FormLabel>
+            <FormLabel>Acronyme</FormLabel>
             <FormControl>
-              <Input placeholder="entrez l'ID" {...field} />
+              <Input placeholder="entrez l'acronyme" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -780,10 +766,21 @@ function FConfJourn({ form }) {
         render={({ field }) => (
           <FormItem>
             <FormLabel>Type</FormLabel>
-            <FormControl>
-              <Input placeholder="entrez le type" {...field} />
-            </FormControl>
-            <FormMessage />
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue placeholder="Choisir un type" />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                <SelectItem value="Null">Choisir un type</SelectItem>
+                <SelectItem value="Conference">Conference</SelectItem>
+                <SelectItem value="Workshop Papers">Workshop Papers</SelectItem>
+                <SelectItem value="Journal Articles">
+                  Journal Articles
+                </SelectItem>
+              </SelectContent>
+            </Select>
           </FormItem>
         )}
       />{' '}
@@ -817,27 +814,29 @@ function FConfJourn({ form }) {
   );
 }
 
-const phoneRegExp = /^\+?(\d{1,3})?[-. ]?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/;
 const schema = {
   Chercheur: yup.object().shape({
     nomComplet: yup.string().max(50),
     _id: yup.string().email(),
-    cantact: yup
-      .string()
-      .matches(phoneRegExp, { message: 'Invalid phone number' }),
     GradeEnsegnement: yup.string(),
     GradeRecherche: yup.string(),
     qualité: yup.string().max(50),
-    projet: yup.string().max(50),
-    Publication: yup.string().max(50),
     Equipe: yup.string().max(50),
     EtablisementOrigine: yup.string().max(50),
-    H_index: yup.number(),
+    H_index: yup
+      .number('entrez un nombre entier')
+      .integer('entrez un nombre entier')
+      .nullable(true)
+      .transform((_, val) => (val == Number(val) ? Number(val) : null)),
     orcid: yup.string(),
     Matricule: yup.string(),
   }),
   Projet: yup.object().shape({
-    _id: yup.number(),
+    _id: yup
+      .number('entrez un nombre entier')
+      .integer('entrez un nombre entier')
+      .nullable(true)
+      .transform((_, val) => (val == Number(val) ? Number(val) : null)),
     Titre: yup.string(),
     ChefDeProjet: yup.string().email(),
     Mombre: yup.string().email(),
@@ -847,13 +846,12 @@ const schema = {
     Theme: yup.number(),
   }),
   Encadrement: yup.object().shape({
-    Type: yup.string().max(50),
+    Type: yup.string(),
     Titre: yup.string(),
     EmailEncadrant: yup.string().email(),
     NomEncadrant: yup.string(),
     roleEncadrant: yup.string(),
     Etudiant: yup.string(),
-    _id: yup.string(),
     AnneeD: yup.array().of(yup.number()),
     AnneeF: yup.array().of(yup.number()),
   }),
@@ -873,6 +871,10 @@ const schema = {
     GradeRecherche: yup.string(),
     MaisonEdition: yup.string(),
     Classement: yup.string(),
-    rang: yup.string(),
+    rang: yup
+      .number('entrez un nombre entier')
+      .integer('entrez un nombre entier')
+      .nullable(true)
+      .transform((_, val) => (val == Number(val) ? Number(val) : null)),
   }),
 };

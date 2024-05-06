@@ -1,25 +1,75 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { DialogClose } from '@radix-ui/react-dialog';
+import { CheckIcon, Pencil1Icon } from '@radix-ui/react-icons';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ViewIcon } from 'lucide-react';
+
+// Composant pour un champ éditable
+const EditableField = ({ label,key, value, onChange,isPicture, isPassword }) => {
+const [isEditing, setIsEditing] = useState(false);
+const [editedValue, setEditedValue] = useState(value);
+const [visible,setVisible]=useState(false)
+const handleEdit = () => {
+    setIsEditing(true);
+    setEditedValue(value);
+  };
+
+  const handleSave = () => {
+    setIsEditing(false);
+    onChange(editedValue);
+    // fetch with key
+  };
+
+  return (
+    <div className={`flex flex-row items-center justify-between ${!isPicture?'w-[350px]':'w-[500px]'}`}>
+      <div className="flex flex-row items-center gap-5">
+      {!isPicture?<Label htmlFor={label} className="text-right">
+        {label}:
+      </Label>:<Avatar>
+              <AvatarImage
+                className=" rounded-full"
+                src={
+                  value ||
+                  'https://avatars.githubusercontent.com/u/2981046?v=4'
+                }
+              />
+              <AvatarFallback>
+                No
+              </AvatarFallback>
+            </Avatar>}
+      {isEditing ? (
+        isPassword?<><Input
+        id={label}
+        type={visible?'text':'password'}
+        value={editedValue}
+        onChange={(e) => setEditedValue(e.target.value)}
+      ></Input><Button onClick={()=>setVisible(!visible)} ><ViewIcon/></Button></>:<Input
+        id={label}
+        value={editedValue}
+        onChange={(e) => setEditedValue(e.target.value)}
+      />
+      ) : (
+        <span >{typeof value === 'string'&&isPassword ? value.split('').map(()=>'*').join('') : value}</span>
+      )}
+      </div>
+      <div>
+        {isEditing ? (
+          <Button onClick={handleSave} ><CheckIcon/></Button>
+        ) : (
+          <Button onClick={handleEdit} className='bg-white hover:bg-white'><Pencil1Icon color='black'/></Button>
+        )}
+      </div>
+    </div>
+  );
+};
 
 export default function Informations() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
   const [editedData, setEditedData] = useState({
     _id: 'k_benatchba@esi.dz',
     nomComplet: 'Karima Benatchba',
-    GradeEnsegnement: null,
+    GradeEnsegnement: "hi",
     qualité: 'Chercheure',
     GradeRecherche: 'Maitre de recherche',
     H_index: 20,
@@ -27,217 +77,90 @@ export default function Informations() {
     statut: 'Actif',
     Diplome: 'Doctorat',
     Equipe: 'Optimisation',
+    tel: '0123456789', // Ajouté un numéro de téléphone pour l'exemple
+    password:'123456'
   });
-
-  useEffect(() => {
-    // Fetch data here
-    // setData(fetchedData)
-  }, []);
 
   const handleChange = (key, value) => {
     setEditedData({ ...editedData, [key]: value });
   };
 
-  const handleSubmit = () => {
-    // Submit editedData to backend
-    // setIsSubmitting(true);
-    // perform submission logic
-    // setIsSubmitting(false);
-  };
-
   return (
     <div className="container mx-auto min-h-screen bg-white px-4 py-8">
-      <div className="mx-auto max-w-3xl">
-        <Dialog>
+      <div className="mx-auto max-w-5xl">
           <div className="mb-10 flex items-center gap-[330px]">
             <h1 className="text-3xl font-bold">Profil</h1>
-            <DialogTrigger asChild>
-              <Button variant="outline" className="border-buttonDark">
-                Modifier
-              </Button>
-            </DialogTrigger>
+            <EditableField
+                label="Nom complet"
+                isPicture
+                value={editedData.image_path}
+                onChange={(value) => handleChange('image_path', value)}
+              />
           </div>
-
-          <DialogContent className="sm:max-w-[900px]">
-            <DialogHeader>
-              <DialogTitle>Modifier le profil</DialogTitle>
-              <DialogDescription>
-                Modifiez votre profile ici. Cliquez sur Sauvegarder lorsque vous
-                avez terminé.
-              </DialogDescription>
-            </DialogHeader>
+         
             <div className="grid gap-4 py-4 sm:grid-cols-2">
-              <div className="grid grid-cols-2 items-center gap-4 sm:grid-cols-4">
-                <Label htmlFor="nomComplet" className="text-right">
-                  Nom complet:
-                </Label>
-                <Input
-                  id="nomComplet"
-                  value={editedData.nomComplet}
-                  onChange={(e) => handleChange('nomComplet', e.target.value)}
-                  className="col-span-2 sm:col-span-3"
-                />
-              </div>
-              <div className="grid grid-cols-2 items-center gap-4 sm:grid-cols-4">
-                <Label htmlFor="qualité" className="text-right">
-                  Qualité:
-                </Label>
-                <Input
-                  id="qualité"
-                  value={editedData.qualité}
-                  onChange={(e) => handleChange('qualité', e.target.value)}
-                  className="col-span-2 sm:col-span-3"
-                />
-              </div>
-              <div className="grid grid-cols-2 items-center gap-4 sm:grid-cols-4">
-                <Label htmlFor="EtablissementOrigine" className="text-right">
-                  Etablissement d'origine:
-                </Label>
-                <Input
-                  id="EtablissementOrigine"
-                  value={editedData.EtablissementOrigine}
-                  onChange={(e) =>
-                    handleChange('EtablissementOrigine', e.target.value)
-                  }
-                  className="col-span-2 sm:col-span-3"
-                />
-              </div>
-              <div className="grid grid-cols-2 items-center gap-4 sm:grid-cols-4">
-                <Label htmlFor="Diplome" className="text-right">
-                  Diplôme:
-                </Label>
-                <Input
-                  id="Diplome"
-                  value={editedData.Diplome}
-                  onChange={(e) => handleChange('Diplome', e.target.value)}
-                  className="col-span-2 sm:col-span-3"
-                />
-              </div>
-              <div className="grid grid-cols-2 items-center gap-4 sm:grid-cols-4">
-                <Label htmlFor="GradeRecherche" className="text-right">
-                  Grade de recherche:
-                </Label>
-                <Input
-                  id="GradeRecherche"
-                  value={editedData.GradeRecherche}
-                  onChange={(e) =>
-                    handleChange('GradeRecherche', e.target.value)
-                  }
-                  className="col-span-2 sm:col-span-3"
-                />
-              </div>
-              <div className="grid grid-cols-2 items-center gap-4 sm:grid-cols-4">
-                <Label htmlFor="_id" className="text-right">
-                  Email:
-                </Label>
-                <Input
-                  id="_id"
-                  value={editedData._id}
-                  onChange={(e) => handleChange('_id', e.target.value)}
-                  className="col-span-2 sm:col-span-3"
-                />
-              </div>
-              <div className="grid grid-cols-2 items-center gap-4 sm:grid-cols-4">
-                <Label htmlFor="GradeEnsegnement" className="text-right">
-                  Grade ensegnement:
-                </Label>
-                <Input
-                  id="GradeEnsegnement"
-                  value={editedData.GradeEnsegnement}
-                  onChange={(e) =>
-                    handleChange('GradeEnsegnement', e.target.value)
-                  }
-                  className="col-span-2 sm:col-span-3"
-                />
-              </div>
-              <div className="grid grid-cols-2 items-center gap-4 sm:grid-cols-4">
-                <Label htmlFor="H_index" className="text-right">
-                  H_index:
-                </Label>
-                <Input
-                  id="H_index"
-                  value={editedData.H_index}
-                  onChange={(e) => handleChange('H_index', e.target.value)}
-                  className="col-span-2 sm:col-span-3"
-                />
-              </div>
-              <div className="grid grid-cols-2 items-center gap-4 sm:grid-cols-4">
-                <Label htmlFor="Equipe" className="text-right">
-                  Equipe:
-                </Label>
-                <Input
-                  id="Equipe"
-                  value={editedData.Equipe}
-                  onChange={(e) => handleChange('Equipe', e.target.value)}
-                  className="col-span-2 sm:col-span-3"
-                />
-              </div>
-              <div className="grid grid-cols-2 items-center gap-4 sm:grid-cols-4">
-                <Label htmlFor="tel" className="text-right">
-                  Téléphone:
-                </Label>
-                <Input
-                  id="tel"
-                  value={editedData.tel}
-                  onChange={(e) => handleChange('tel', e.target.value)}
-                  className="col-span-2 sm:col-span-3"
-                />
-              </div>
+            
+            <EditableField
+                label="Nom complet"
+                key='_id'
+                value={editedData.nomComplet}
+                onChange={(value) => handleChange('nomComplet', value)}
+              />
+              <EditableField
+                label="Qualité"
+                value={editedData.qualité}
+                onChange={(value) => handleChange('qualité', value)}
+              />
+              <EditableField
+                label="Etablissement d'origine"
+                value={editedData.EtablissementOrigine}
+                onChange={(value) => handleChange('EtablissementOrigine', value)}
+              />
+              <EditableField
+                label="Diplôme"
+                value={editedData.Diplome}
+                onChange={(value) => handleChange('Diplome', value)}
+              />
+              <EditableField
+                label="Grade de recherche"
+                value={editedData.GradeRecherche}
+                onChange={(value) => handleChange('GradeRecherche', value)}
+              />
+              <EditableField
+                label="Email"
+                value={editedData._id}
+                onChange={(value) => handleChange('_id', value)}
+              />
+              <EditableField
+                label="Grade enseignement"
+                value={editedData.GradeEnsegnement}
+                onChange={(value) => handleChange('GradeEnsegnement', value)}
+              />
+              <EditableField
+                label="H_index"
+                value={editedData.H_index}
+                onChange={(value) => handleChange('H_index', value)}
+              />
+              <EditableField
+                label="Equipe"
+                value={editedData.Equipe}
+                onChange={(value) => handleChange('Equipe', value)}
+              />
+              <EditableField
+                label="Téléphone"
+                value={editedData.tel}
+                onChange={(value) => handleChange('tel', value)}
+              />
+               <EditableField
+                label="Password"
+                isPassword
+                value={editedData.tel}
+                onChange={(value) => handleChange('password', value)}
+              />
             </div>
 
-            <DialogFooter>
-              <DialogClose>
-                {' '}
-                <Button type="button" onClick={handleSubmit}>
-                  Sauvegarder
-                </Button>
-              </DialogClose>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-        <div className="grid grid-cols-1 gap-x-12 gap-y-6 sm:grid-cols-2">
-          <div className="flex flex-col">
-            <h2 className="font-bold">Nom complet:</h2>
-            <span>{editedData.nomComplet}</span>
-          </div>
-          <div className="flex flex-col">
-            <h2 className="font-bold">Qualité:</h2>
-            <span>{editedData.qualité}</span>
-          </div>
-          <div className="flex flex-col">
-            <h2 className="font-bold">Etablissement d'origine:</h2>
-            <span>{editedData.EtablissementOrigine}</span>
-          </div>
-          <div className="flex flex-col">
-            <h2 className="font-bold">Diplôme:</h2>
-            <span>{editedData.Diplome}</span>
-          </div>
-          <div className="flex flex-col">
-            <h2 className="font-bold">Grade de recherche:</h2>
-            <span>{editedData.GradeRecherche}</span>
-          </div>
-          <div className="flex flex-col">
-            <h2 className="font-bold">Email:</h2>
-            <span>{editedData._id}</span>
-          </div>
-          <div className="flex flex-col">
-            <h2 className="font-bold">Grade enseignement:</h2>
-            <span>{editedData.GradeEnsegnement}</span>
-          </div>
-          <div className="flex flex-col">
-            <h2 className="font-bold">H_index:</h2>
-            <span>{editedData.H_index}</span>
-          </div>
-          <div className="flex flex-col">
-            <h2 className="font-bold">Equipe:</h2>
-            <span>{editedData.Equipe}</span>
-          </div>
-          <div className="flex flex-col">
-            <h2 className="font-bold">Téléphone:</h2>
-            <span>{editedData.tel}</span>
-          </div>
-        </div>
       </div>
+      
     </div>
   );
 }
