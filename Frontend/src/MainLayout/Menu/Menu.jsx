@@ -366,7 +366,15 @@ function MiseAJour() {
               >
                 mettre a jour
               </button>
-
+              <hr className="my-8 h-px border-0  bg-black bg-opacity-50 "></hr>
+              <button
+                
+                className="mb-2 h-[35px] rounded-lg bg-buttonDark p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline  "
+                type="submit"
+              >
+                mettre a jour le h-index
+              </button>
+              <hr className="my-8 h-px border-0  bg-black bg-opacity-50 "></hr>
               <AlertDialogCancel className="m-5">Cancel</AlertDialogCancel>
             </div>
           </>
