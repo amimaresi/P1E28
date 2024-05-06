@@ -38,6 +38,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useState } from 'react';
+import AddChercheur from '@/Pages/Technical Pages/Control Pannel/Pages/AddChercheur';
 export default function Menu({ isLogged, setIsLogged, role, name }) {
   return (
     <nav className="fixed left-0 right-0 top-0 z-50 flex h-[60px] flex-row items-center  justify-between  bg-white bg-opacity-90 px-[1vw] shadow-sm backdrop-blur-md">
@@ -120,11 +121,9 @@ export default function Menu({ isLogged, setIsLogged, role, name }) {
 
                   <MiseAJour />
                 </ul>
+
                 <ul className="grid w-[500px] grid-flow-col gap-3 p-2">
-                  <LinkItem
-                    to="/control/AddChercheur"
-                    title="Ajouter un Chercheur"
-                  />
+                  <AddChercheur />
 
                   <Periodicité />
                 </ul>
@@ -367,6 +366,7 @@ function MiseAJour() {
     </AlertDialog>
   );
 }
+
 function Periodicité() {
   const schema = yup.object().shape({
     acronyme: yup.string(),

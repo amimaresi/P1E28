@@ -14,7 +14,6 @@ import Guide from './Pages/Guide/Guide.jsx';
 import NotFound from './Pages/NotFound/NotFound.jsx';
 import ResetPassword from './Pages/Login/ResetPassword.jsx';
 import RechercheLayout from './Pages/Technical Pages/Recherche/RechercheLayout.jsx';
-import AddChercheur from './Pages/Technical Pages/Control Pannel/Pages/AddChercheur.jsx';
 import AddProject from './Pages/Technical Pages/Control Pannel/Pages/AddProject.jsx';
 import EditLandingPage from './Pages/Technical Pages/Control Pannel/Pages/EditLandingPage.jsx';
 import Update from './Pages/Technical Pages/Control Pannel/Pages/Update.jsx';
@@ -33,6 +32,7 @@ import ELayout from './Pages/Profiles/Encadrement/ELayout.jsx';
 import ProSettings from './Pages/settings/ProSettings.jsx';
 import PubSettings from './Pages/settings/PubSettings.jsx';
 import EncSettings from './Pages/settings/EncSettings.jsx';
+import AddChercheur from './Pages/Technical Pages/Control Pannel/Pages/AddChercheur.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
