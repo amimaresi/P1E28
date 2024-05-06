@@ -816,12 +816,20 @@ const schema = {
     qualité: yup.string().max(50),
     Equipe: yup.string().max(50),
     EtablisementOrigine: yup.string().max(50),
-    H_index: yup.number().integer(),
+    H_index: yup
+      .number('entrez un nombre entier')
+      .integer('entrez un nombre entier')
+      .nullable(true)
+      .transform((_, val) => (val == Number(val) ? Number(val) : null)),
     orcid: yup.string(),
     Matricule: yup.string(),
   }),
   Projet: yup.object().shape({
-    _id: yup.number(),
+    _id: yup
+      .number('entrez un nombre entier')
+      .integer('entrez un nombre entier')
+      .nullable(true)
+      .transform((_, val) => (val == Number(val) ? Number(val) : null)),
     Titre: yup.string(),
     ChefDeProjet: yup.string().email(),
     Mombre: yup.string().email(),
@@ -837,7 +845,6 @@ const schema = {
     NomEncadrant: yup.string(),
     roleEncadrant: yup.string(),
     Etudiant: yup.string(),
-    _id: yup.string(),
     AnneeD: yup.array().of(yup.number()),
     AnneeF: yup.array().of(yup.number()),
   }),
@@ -857,6 +864,10 @@ const schema = {
     GradeRecherche: yup.string(),
     MaisonEdition: yup.string(),
     Classement: yup.string(),
-    rang: yup.number().integer(),
+    rang: yup
+      .number('entrez un nombre entier')
+      .integer('entrez un nombre entier')
+      .nullable(true)
+      .transform((_, val) => (val == Number(val) ? Number(val) : null)),
   }),
 };
