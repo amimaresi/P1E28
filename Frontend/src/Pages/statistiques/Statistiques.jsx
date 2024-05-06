@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { DevTool } from '@hookform/devtools';
 import { useForm } from 'react-hook-form';
-//import {  BarChart } from "./Chartss/BarChart";
 import { ChevronLeftIcon } from '@radix-ui/react-icons';
 import { Bar } from 'react-chartjs-2';
 import { Line, Pie } from 'react-chartjs-2';
@@ -41,23 +40,14 @@ import {
 import { NavLink } from 'react-router-dom';
 
 export default function Statistiques() {
+
+
+  //form annee
   const schema = yup.object().shape({
     dateDebut: yup.string().required('l annee de debut  est requise'),
     dateFin: yup.string().required('l annee de fin  est requise'),
   });
-
-  const schema1 = yup.object().shape({
-    Theme: yup.string().required('l annee de debut  est requise'),
-  });
-   
-  const form1 = useForm({
-    defaultValues: {
-      Theme: '',
-    },
-    resolver: yupResolver(schema1),
-  });
   
-
   const form = useForm({
     defaultValues: {
       dateDebut: '',
@@ -66,8 +56,8 @@ export default function Statistiques() {
     },
     resolver: yupResolver(schema),
   });
-  const onSubmit1 = async (data) => {
-    console.log('dataTwo :', data); };
+   
+
   const onSubmit = async (data) => {
     console.log('data :', data);
 
@@ -83,16 +73,33 @@ export default function Statistiques() {
     }
   };
 
+
+  //form theme
+  const schema1 = yup.object().shape({
+    Theme: yup.string().required('l annee de debut  est requise'),
+  });
+   
+  const form1 = useForm({
+    defaultValues: {
+      Theme: '',
+    },
+    resolver: yupResolver(schema1),
+  });
+  
+  const onSubmit1 = async (data) => {
+    console.log('dataTwo :', data); };
+  
+// chart code (userData from backend )
   const [userData, setUserData] = useState({
     labels: UserData.map((data) => data.year),
     datasets: [
       {
-        label: 'nombre de publication',
-        data: UserData.map((data) => data.nbrPub),
+        data: UserData.map((data) => data.count),
         backgroundColor: ['#2536eb', '#3b82f6', '#2E2787', '#002D62'],
       },
     ],
   });
+  
   return (
     <>
       <div className=" min-h-screen bg-white">
