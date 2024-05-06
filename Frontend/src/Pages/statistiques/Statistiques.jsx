@@ -72,9 +72,21 @@ export default function Statistiques() {
           case 'publication':
             resultatArry = resultat.data.numberOfPubOfYear  
             break
-          case 'encadrement':
-            resultatArry = resultat.data.numberOfEncadrementOfYear  
-            break
+          case 'encadrement' :
+          case 'pfe' : 
+          case 'master': 
+            resultatArry = resultat.data.encadrementsParAnnee 
+            console.log(resultatArry)
+             break
+          case 'projet' : 
+              resultatArry = resultat.data.projetsParAnnee
+              break
+          // case 'pfe':
+          //   resultatArry= resultat.data.encadrementsParAnnee
+          //   console.log(resultatArry)
+          //   break
+          // case 'master':
+
           
          }
          setUserData({
@@ -204,11 +216,7 @@ export default function Statistiques() {
                             <h3 className="font-bold"> type encadrement:</h3>
                             <SelectItem value="pfe">PFE</SelectItem>
                             <SelectItem value="master">Master</SelectItem>
-                            <h3 className="font-bold"> theme projet:</h3>
-                            <SelectItem value="ai">
-                              intilligence Artificielle
-                            </SelectItem>
-                            <SelectItem value="cs">Computer Science</SelectItem>
+                            
                           </SelectContent>
                         </Select>
                       </div>
