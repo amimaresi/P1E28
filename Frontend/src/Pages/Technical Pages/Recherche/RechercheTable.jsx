@@ -42,6 +42,11 @@ export function RechercheTable({ navigate, searchby }) {
     pageSize: 6,
   });
   const [searchParams, setSearchParams] = useSearchParams();
+  const params = {};
+
+  searchParams.forEach((value, key) => {
+    params[key] = value;
+  });
   //test //////////////////////////
   const onSubmit = async (data) => {
     console.log('Filtres : ', data);
@@ -92,7 +97,7 @@ export function RechercheTable({ navigate, searchby }) {
     try {
       const resultat = await axios.post(
         `http://localhost:3000/recherche/${searchby}`,
-        DataToFetch,
+        data,
       );
       console.log('search by ' + searchby);
       console.log(resultat.data.ConfJourns);
@@ -108,31 +113,46 @@ export function RechercheTable({ navigate, searchby }) {
   ////////////////////////////////
 
   useEffect(() => {
-    const fetch =async()=>{
-     console.log("fetching")
-     try{
-    //
-     const resultat = await axios.get(`http://localhost:3000/recherche/${searchby}`)
-     if(searchby==="chercheur") setData(resultat.data.Chercheurs)
-      if(searchby==="publication") setData(resultat.data.Publications)
-     if(searchby==="confJourn") setData(resultat.data.ConfJourns)
-     if(searchby==="encadrement") setData(resultat.data.Encadrements)
-     if (searchby==="projet") {setData(resultat.data.Projets)
-      
-     console.log(resultat.data)
-     console.log("fetching chercheurs")
-     }
-    }
-     catch(err){
-       console.log("error")
-        console.log(err.message)
-    }
-   }
- 
- fetch()
-   }
- ,[])
- //
+    const fetch = async () => {
+      console.log(
+        'fetching : ',
+        params,
+        JSON.stringify(params) === JSON.stringify({}),
+        {},
+      );
+      try {
+        if (JSON.stringify(params) != JSON.stringify({})) {
+          const resultat = await axios.post(
+            `http://localhost:3000/recherche/${searchby}`,
+            params,
+          );
+          console.log('search by ' + searchby);
+          console.log(resultat.data.ConfJourns);
+          if (searchby === 'chercheur') setData(resultat.data.Chercheurs);
+          if (searchby === 'publication') setData(resultat.data.Publications);
+          if (searchby === 'confJourn') setData(resultat.data.ConfJourns);
+          if (searchby === 'encadrement') setData(resultat.data.Encadrements);
+          if (searchby === 'projet') setData(resultat.data.projet);
+        } else {
+          const resultat = await axios.get(
+            `http://localhost:3000/recherche/${searchby}`,
+          );
+          if (searchby === 'chercheur') setData(resultat.data.Chercheurs);
+          if (searchby === 'publication') setData(resultat.data.Publications);
+          if (searchby === 'confJourn') setData(resultat.data.ConfJourns);
+          if (searchby === 'encadrement') setData(resultat.data.Encadrements);
+          if (searchby === 'projet') {
+            setData(resultat.data.Projets);
+          }
+        }
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+
+    fetch();
+  }, []);
+  //
 
   const table = useReactTable({
     data,
