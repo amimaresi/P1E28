@@ -35,14 +35,18 @@ export default function Login() {
 
   const onSubmit = async (data) => {
     console.log(data);
+
     try {
+      ///////// here is fetching ////////////////
       console.log('trying to login');
       const resutlt = await axios.post(
         'http://localhost:3000/auth/login',
         data,
         { withCredentials: true },
       );
-      console.log('this is result ', resutlt);
+
+      /////// end of fetching /////////////
+      console.log('this is result :', resutlt);
       setUserInfo(resutlt.data);
       setIsLogged(true);
       localStorage.setItem('userInfo', JSON.stringify(resutlt.data));
@@ -53,7 +57,7 @@ export default function Login() {
     } catch (err) {
       setError({
         is: true,
-        content: err.response ? err.response.data.message : err,
+        content: err.response ? err.response.data.message : 'big error',
       });
       console.log('the error is here : ' + err);
       if (err.response) console.log(err.response.data.message);
