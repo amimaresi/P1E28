@@ -3,8 +3,8 @@ const Encadrement = require('../../../../../schema/Encadrement');
 
 const modifyEncadrement = async (req, res) => {
     try {
-        const chercheurId = req.params.id; 
-        const encadrementId = req.params.encadrementId; 
+        const chercheurId = req.params; 
+        const encadrementId = req.params; 
 
         // Vérifier si l'encadrement existe et s'il appartient au chercheur
         const encadrement = await Encadrement.findOne({ _id: encadrementId, "Encadrants._id": chercheurId });
