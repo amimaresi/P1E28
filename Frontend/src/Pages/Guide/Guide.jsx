@@ -74,7 +74,7 @@ export default function Guide() {
               <AccordionContent className="accordion-content">
                 <div>1. Utiliser la fonction de panneau de control: Vous pouvez la trouver en haut de la page.</div>
                 <div>2. Ajout d'un nouveau chercheur: Une fois dans la section du panneau de control, cherchez une option pour ajouter un nouvel chercheur. Cette option est étiquetée comme "Ajouter un chercheur".</div>
-                <div>3. Remplissage du formulaire d'ajout: Vous serez probablement dirigé vers un formulaire où vous pourrez saisir les informations du nouveau chercheur.</div>
+                <div>3. Remplissage du formulaire d'ajout: Vous serez dirigé vers un formulaire où vous pourrez saisir les informations du nouveau chercheur.</div>
                 <div>4. Enregistrement des modifications: Une fois que vous avez saisi toutes les informations nécessaires, enregistrez les modifications. Cela est fait en cliquant sur un bouton "Ajouter".</div>
               </AccordionContent>
             </AccordionItem>
@@ -84,7 +84,10 @@ export default function Guide() {
                 chercheurs du laboratoire ?
               </AccordionTrigger>
               <AccordionContent className="accordion-content">
-                <div>Bla bla</div>
+                <div>Cette partie est pour l'assistant:</div>
+              <div>1. Utiliser la fonction de panneau de control: Vous pouvez la trouver en haut de la page.</div>
+              <div>2. Faire la mise à jour: Une fois dans la section du panneau de control, cherchez une option pour faire la mise à jour. Cette option est étiquetée comme "Mise à jour".</div>
+              <div>3. Choix de la màj: L'assistant peut choisir son mise à jour que ça soit manuelle ou bien la màj automatique et même la mise à jour de H-index de chaque chercheur.</div>
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-7">
