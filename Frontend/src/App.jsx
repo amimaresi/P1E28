@@ -87,10 +87,7 @@ const router = createBrowserRouter(
       <Route path="control" element={<Outlet />}>
         <Route index element={<NotFound />} />
         <Route path="LandingPage" element={<EditLandingPage />} />
-        <Route path="Update" element={<Update />} />
-        <Route path="AddEncadrement" element={<AddEncadrement />} />
-        <Route path="AddPublication" element={<AddPublication />} />
-        <Route path="AddProject" element={<AddProject />} />
+
         {/* + control pages */}
       </Route>
       <Route path="*" element={<NotFound />} />

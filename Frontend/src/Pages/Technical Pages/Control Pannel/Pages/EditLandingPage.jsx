@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import leftArrow from './assets/left arrow.svg';
 import rightArrow from './assets/right arrow.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import {
@@ -64,6 +64,15 @@ export default function EditLandingPage() {
     Subject: yup.string(),
   });
   const [boxes, setBoxes] = useState(LandingPage.news); //title, paragraphe, Consept
+
+  useEffect(() => {
+    async function fetchNews() {
+      //setBoxes(response.data)
+    }
+
+    fetchNews();
+  }, []);
+
   const [index, setIndex] = useState(0);
   const [show, setShow] = useState(true);
   function timeout(delay) {

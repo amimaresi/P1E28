@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import BgElement from './assets/BgElement.svg';
 import leftArrow from './assets/left arrow.svg';
 import rightArrow from './assets/right arrow.svg';
@@ -17,54 +17,16 @@ import bg1 from './assets/bg2.png';
 import bg2 from './assets/bg1.png';
 import { Button } from '@/components/ui/button';
 export default function LandingPage() {
-  const LandingPage = {
-    // fetching
-    news: [
-      {
-        title: 'title',
-        paragraphe:
-          'import React, { useState } from react \n import { NavLink, Outlet } from "react-router-dom" \n import Menu from ./Menu/Menu.jsx',
-        img: bg1,
-        Subject: 'Best Publication',
-      },
-      {
-        title: 'Not a title',
-        paragraphe:
-          'imrgregt, { useState } from react \n ietghtyrthgLink, Outlet } from "react-router-dom" \n irgergegpojoj*zolmajn,vjaerkhga',
-        img: bg2,
-        Subject: 'Best Chercheur',
-      },
-    ],
-    leaders: [
-      {
-        _id: 'k_benatchba@esi.dz',
-        nomComplet: 'Karima Benatchba',
-        GradeEnsegnement: null,
-        qualité: 'Chercheure',
-        GradeRecherche: 'Maitre de recherche',
-        H_index: 20,
-        EtablissementOrigine: 'ESI',
-        statut: 'Actif',
-        Diplome: 'Doctorat',
-        Equipe: 'Optimisation',
-      },
-      {
-        _id: 'mouloud.koudil@esi.dz',
-        nomComplet: 'Mouloud Koudil',
-        GradeEnsegnement: 'MCA',
-        qualité: 'Enseignat-Chercheur',
-        GradeRecherche: 'Directeur de recherche',
-        H_index: 27,
-        EtablissementOrigine: 'ESI',
-        statut: 'Actif',
-        Equipe: 'EIAH',
-        Diplome: 'Doctorat',
-      },
-    ],
-  };
+  const [landingPage, setLandingPage] = useState({ leaders: [], news: [] });
+  useEffect(() => {
+    async function fetchNews() {
+      //setBoxes(response.data)
+    }
 
-  const boxes = LandingPage.news; //title, paragraphe, Consept
-  const leaders = LandingPage.leaders;
+    fetchNews();
+  }, []);
+  const boxes = landingPage.news; //title, paragraphe, Consept
+  const leaders = landingPage.leaders;
   const [index, setIndex] = useState(0);
   const [show, setShow] = useState(true);
   function timeout(delay) {
