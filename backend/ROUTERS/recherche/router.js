@@ -3,6 +3,7 @@ const {recherchePublication,queryPublication , queryPublicationByid} = require('
 const {rechercheConf, rechercheConference, rechercherConfParId} = require('./recherche_confJourn')
 const { rechercherEncadrement, queryEncadrement, queryEncadrementById } = require('./reche_encadrement')
 const {projet_recherche, queryProjet, projet_by_id } = require('./recherche-projet')
+const rechercherUserParId = require('./rech_users')
 const RechercheRouter = require('express').Router()
 
 
@@ -26,6 +27,7 @@ RechercheRouter.post('/projet',  queryProjet)
 RechercheRouter.get('/projet',projet_recherche )
 RechercheRouter.get('/projet/:id', projet_by_id )
 
+RechercheRouter.get('/user/:id', rechercherUserParId )
 
 
 
