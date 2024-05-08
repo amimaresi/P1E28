@@ -17,10 +17,46 @@ import bg1 from './assets/bg2.png';
 import bg2 from './assets/bg1.png';
 import { Button } from '@/components/ui/button';
 export default function LandingPage() {
-  const [landingPage, setLandingPage] = useState({ leaders: [], news: [] });
+  const [landingPage, setLandingPage] = useState({
+    // fetching
+    news: [
+      {
+        title: 'LMCS:Track',
+        paragraphe: 'LMCS:Track vous souhaite la bienvenue',
+        img: 'https://lmcs.esi.dz/wp-content/uploads/2023/11/seminaire-3-1024x492.jpg',
+        Subject: 'Bienvenue',
+      },
+    ],
+    leaders: [
+      {
+        _id: 'k_benatchba@esi.dz',
+        nomComplet: 'Karima Benatchba',
+        GradeEnsegnement: null,
+        qualité: 'Chercheure',
+        GradeRecherche: 'Maitre de recherche',
+        H_index: 20,
+        EtablissementOrigine: 'ESI',
+        statut: 'Actif',
+        Diplome: 'Doctorat',
+        Equipe: 'Optimisation',
+      },
+      {
+        _id: 'mouloud.koudil@esi.dz',
+        nomComplet: 'Mouloud Koudil',
+        GradeEnsegnement: 'MCA',
+        qualité: 'Enseignat-Chercheur',
+        GradeRecherche: 'Directeur de recherche',
+        H_index: 27,
+        EtablissementOrigine: 'ESI',
+        statut: 'Actif',
+        Equipe: 'EIAH',
+        Diplome: 'Doctorat',
+      },
+    ],
+  });
   useEffect(() => {
     async function fetchNews() {
-      //setBoxes(response.data)
+      //setLandingPage(response.data)
     }
 
     fetchNews();

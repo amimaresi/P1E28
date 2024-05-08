@@ -14,17 +14,11 @@ import Guide from './Pages/Guide/Guide.jsx';
 import NotFound from './Pages/NotFound/NotFound.jsx';
 import ResetPassword from './Pages/Login/ResetPassword.jsx';
 import RechercheLayout from './Pages/Technical Pages/Recherche/RechercheLayout.jsx';
-import AddProject from './Pages/Technical Pages/Control Pannel/Pages/AddProject.jsx';
 import EditLandingPage from './Pages/Technical Pages/Control Pannel/Pages/EditLandingPage.jsx';
-import Update from './Pages/Technical Pages/Control Pannel/Pages/Update.jsx';
-import CPLayout from './Pages/Profiles/Chercheur/CPLayout.jsx';
 import Informations from './Pages/Profiles/Chercheur/Outlets/Informations.jsx';
 import Encadrements from './Pages/Profiles/Chercheur/Outlets/Encadrements.jsx';
 import Publications from './Pages/Profiles/Chercheur/Outlets/Publications.jsx';
 import PPLayout from './Pages/Profiles/Publication/PPLayout.jsx';
-import Settings from './Pages/settings/Settings.jsx';
-import AddPublication from './Pages/Technical Pages/Control Pannel/Pages/AddPublication.jsx';
-import AddEncadrement from './Pages/Technical Pages/Control Pannel/Pages/AddEncadrement.jsx';
 import Statistiques from './Pages/statistiques/Statistiques.jsx';
 import PrPLayout from './Pages/Profiles/Project/PrPLayout.jsx';
 import Projets from './Pages/Profiles/Chercheur/Outlets/Projets.jsx';
@@ -32,7 +26,8 @@ import ELayout from './Pages/Profiles/Encadrement/ELayout.jsx';
 import ProSettings from './Pages/settings/ProSettings.jsx';
 import PubSettings from './Pages/settings/PubSettings.jsx';
 import EncSettings from './Pages/settings/EncSettings.jsx';
-import AddChercheur from './Pages/Technical Pages/Control Pannel/Pages/AddChercheur.jsx';
+import SettingsController from './Pages/settings/SettingsController.jsx';
+import ProfileController from './Pages/Profiles/ProfileController.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -63,7 +58,7 @@ const router = createBrowserRouter(
         />
       </Route>
 
-      <Route path="chercheur/:id" element={<CPLayout />}>
+      <Route path="chercheur/:id" element={<ProfileController />}>
         <Route index element={<Navigate to="informations" />} />
         <Route path="informations" element={<Informations />} />
 
@@ -78,7 +73,7 @@ const router = createBrowserRouter(
       <Route path="publication/:id" element={<PPLayout />} />
       <Route path="projet/:id" element={<PrPLayout />} />
       <Route path="encadrement/:id" element={<ELayout />} />
-      <Route path="settings" element={<Settings />} />
+      <Route path="settings" element={<SettingsController />} />
 
       <Route path="statistiques" element={<Statistiques />} />
       <Route path="editProjet/:id" element={<ProSettings />} />

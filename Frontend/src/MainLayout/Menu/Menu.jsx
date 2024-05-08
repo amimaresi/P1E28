@@ -42,7 +42,7 @@ import AddChercheur from '@/Pages/Technical Pages/Control Pannel/Pages/AddCherch
 import AddEncadrement from '@/Pages/Technical Pages/Control Pannel/Pages/AddEncadrement';
 import AddProject from '@/Pages/Technical Pages/Control Pannel/Pages/AddProject';
 import AddPublication from '@/Pages/Technical Pages/Control Pannel/Pages/AddPublication';
-export default function Menu({ isLogged, setIsLogged, role, name }) {
+export default function Menu({ isLogged, setIsLogged, userInfo, setUserInfo }) {
   return (
     <nav className="fixed left-0 right-0 top-0 z-50 flex h-[60px] flex-row items-center  justify-between  bg-white bg-opacity-90 px-[1vw] shadow-sm backdrop-blur-md">
       <div className="ml-[5vw] flex flex-row items-center justify-start gap-[10px]">
@@ -220,11 +220,7 @@ export default function Menu({ isLogged, setIsLogged, role, name }) {
             </NavigationMenuItem>
             <NavigationMenuItem>
               {isLogged ? (
-                <ProfileMenu
-                  name={name}
-                  role={role}
-                  setIsLogged={setIsLogged}
-                />
+                <ProfileMenu userInfo={userInfo} setIsLogged={setIsLogged} />
               ) : (
                 <NavLink to="/login">
                   <Button
@@ -314,7 +310,7 @@ function MiseAJour() {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-<AlertDialogTitle>la Mise a jour</AlertDialogTitle>
+          <AlertDialogTitle>la Mise a jour</AlertDialogTitle>
           <AlertDialogDescription>
             modifier la Mise a jour
           </AlertDialogDescription>
@@ -336,16 +332,16 @@ function MiseAJour() {
                   value={data}
                   onChange={(e) => setData(e.target.value)}
                 />
-                <div className='p-2'>
-                <Select onValueChange={(e) => setSelectValue(e)}>
-                  <SelectTrigger className="h-7 w-[180px] rounded-full pl-6">
-                    <SelectValue placeholder="duree" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="annees">Années</SelectItem>
-                    <SelectItem value="mois">Mois</SelectItem>
-                  </SelectContent>
-                </Select>
+                <div className="p-2">
+                  <Select onValueChange={(e) => setSelectValue(e)}>
+                    <SelectTrigger className="h-7 w-[180px] rounded-full pl-6">
+                      <SelectValue placeholder="duree" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="annees">Années</SelectItem>
+                      <SelectItem value="mois">Mois</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
               <button
@@ -355,12 +351,11 @@ function MiseAJour() {
               >
                 Sauvgarder
               </button>
-              <h2 className="text-1xl text-center font-bold dark:text-white p-2">
+              <h2 className="text-1xl p-2 text-center font-bold dark:text-white">
                 mettre a jour manuellement:
               </h2>
               <hr className="my-8 h-px border-0  bg-black bg-opacity-50 "></hr>
               <button
-                
                 className="mb-2 h-[35px] rounded-lg bg-buttonDark p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline  "
                 type="submit"
               >
@@ -368,7 +363,6 @@ function MiseAJour() {
               </button>
               <hr className="my-8 h-px border-0  bg-black bg-opacity-50 "></hr>
               <button
-                
                 className="mb-2 h-[35px] rounded-lg bg-buttonDark p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline  "
                 type="submit"
               >
@@ -472,7 +466,7 @@ function Periodicité() {
 
 LinkItem.displayName = 'LinkItem';
 
-function ProfileMenu({ name, role, setIsLogged }) {
+function ProfileMenu({ userInfo, setIsLogged }) {
   return (
     <NavigationMenu>
       <NavigationMenuList>
@@ -483,8 +477,12 @@ function ProfileMenu({ name, role, setIsLogged }) {
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
             <div className="mx-3 flex flex-col items-start justify-center">
-              <span className="m-0 text-sm font-medium">{name}</span>
-              <span className="text-xs text-muted-foreground">{role}</span>
+              <span className="m-0 text-sm font-medium">
+                {userInfo ? userInfo.nomComplet : 'Amar'}
+              </span>
+              <span className="text-xs text-muted-foreground">
+                {userInfo ? userInfo.type : 'Chercheur'}
+              </span>
             </div>
           </NavigationMenuTrigger>
 

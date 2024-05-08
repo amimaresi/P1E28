@@ -39,20 +39,10 @@ export default function EditLandingPage() {
     // fetching
     news: [
       {
-        id: 0,
-        title: 'title',
-        paragraphe:
-          'import React, { useState } from react \n import { NavLink, Outlet } from "react-router-dom" \n import Menu from ./Menu/Menu.jsx',
-        img: 'https://img.freepik.com/photos-gratuite/peinture-lac-montagne-montagne-arriere-plan_188544-9126.jpg',
-        Subject: 'Best Publication',
-      },
-      {
-        id: 1,
-        title: 'Not a title',
-        paragraphe:
-          'imrgregt, { useState } from react \n ietghtyrthgLink, Outlet } from "react-router-dom" \n irgergegpojoj*zolmajn,vjaerkhga',
-        img: 'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg',
-        Subject: 'Best Chercheur',
+        title: 'LMCS:Track',
+        paragraphe: 'LMCS:Track vous souhaite la bienvenue',
+        img: 'https://lmcs.esi.dz/wp-content/uploads/2023/11/seminaire-3-1024x492.jpg',
+        Subject: 'Bienvenue',
       },
     ],
   };
