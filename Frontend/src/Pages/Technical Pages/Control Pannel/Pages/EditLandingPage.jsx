@@ -39,6 +39,7 @@ export default function EditLandingPage() {
     // fetching
     news: [
       {
+        id: 0,
         title: 'title',
         paragraphe:
           'import React, { useState } from react \n import { NavLink, Outlet } from "react-router-dom" \n import Menu from ./Menu/Menu.jsx',
@@ -46,6 +47,7 @@ export default function EditLandingPage() {
         Subject: 'Best Publication',
       },
       {
+        id: 1,
         title: 'Not a title',
         paragraphe:
           'imrgregt, { useState } from react \n ietghtyrthgLink, Outlet } from "react-router-dom" \n irgergegpojoj*zolmajn,vjaerkhga',
@@ -73,6 +75,7 @@ export default function EditLandingPage() {
   });
   const updateForm = (i) => {
     setIndex(i);
+    form.setValue('id', boxes[i].id);
     form.setValue('title', boxes[i].title);
     form.setValue('paragraphe', boxes[i].paragraphe);
     form.setValue('img', boxes[i].img);
@@ -80,9 +83,13 @@ export default function EditLandingPage() {
   };
   const onSubmit = (data) => {
     setBoxes((oldBoxes) => {
-      const newBoxes = oldBoxes.map((box, idx) => {
-        if (idx === index) {
+      const newBoxes = oldBoxes.map((box) => {
+        if (box.id === index) {
           return { ...box, ...data };
+          /////////////////////////////////////
+          // save changes to box
+
+          ///////////////////////////////////
         }
         return box;
       });
@@ -201,6 +208,7 @@ export default function EditLandingPage() {
                           setBoxes((old) => {
                             let newboxes = structuredClone(old);
                             newboxes.push({
+                              id: boxes.length,
                               Subject: '',
                               img: '',
                               title: '',
@@ -267,6 +275,7 @@ export default function EditLandingPage() {
               setShow(false);
               await timeout(100);
               updateForm(index == 0 ? boxes.length - 1 : index - 1);
+
               await timeout(100);
               setShow(true);
             }}
