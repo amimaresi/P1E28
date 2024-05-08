@@ -4,6 +4,7 @@ const {rechercheConf, rechercheConference, rechercherConfParId} = require('./rec
 const { rechercherEncadrement, queryEncadrement, queryEncadrementById } = require('./reche_encadrement')
 const {projet_recherche, queryProjet, projet_by_id } = require('./recherche-projet')
 const rechercherUserParId = require('./rech_users')
+const {rechercherPageAccParId,TousPages} = require('./reche_PageAcc')
 const RechercheRouter = require('express').Router()
 
 
@@ -28,6 +29,9 @@ RechercheRouter.get('/projet',projet_recherche )
 RechercheRouter.get('/projet/:id', projet_by_id )
 
 RechercheRouter.get('/user/:id', rechercherUserParId )
+
+RechercheRouter.get('/PageAcc',TousPages)
+RechercheRouter.get('/PageAcc/:id',rechercherPageAccParId)
 
 
 
