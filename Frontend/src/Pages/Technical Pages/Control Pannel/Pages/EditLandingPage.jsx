@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import leftArrow from './assets/left arrow.svg';
 import rightArrow from './assets/right arrow.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import {
@@ -39,18 +39,10 @@ export default function EditLandingPage() {
     // fetching
     news: [
       {
-        title: 'title',
-        paragraphe:
-          'import React, { useState } from react \n import { NavLink, Outlet } from "react-router-dom" \n import Menu from ./Menu/Menu.jsx',
-        img: 'https://img.freepik.com/photos-gratuite/peinture-lac-montagne-montagne-arriere-plan_188544-9126.jpg',
-        Subject: 'Best Publication',
-      },
-      {
-        title: 'Not a title',
-        paragraphe:
-          'imrgregt, { useState } from react \n ietghtyrthgLink, Outlet } from "react-router-dom" \n irgergegpojoj*zolmajn,vjaerkhga',
-        img: 'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg',
-        Subject: 'Best Chercheur',
+        title: 'LMCS:Track',
+        paragraphe: 'LMCS:Track vous souhaite la bienvenue',
+        img: 'https://lmcs.esi.dz/wp-content/uploads/2023/11/seminaire-3-1024x492.jpg',
+        Subject: 'Bienvenue',
       },
     ],
   };
@@ -62,6 +54,15 @@ export default function EditLandingPage() {
     Subject: yup.string(),
   });
   const [boxes, setBoxes] = useState(LandingPage.news); //title, paragraphe, Consept
+
+  useEffect(() => {
+    async function fetchNews() {
+      //setBoxes(response.data)
+    }
+
+    fetchNews();
+  }, []);
+
   const [index, setIndex] = useState(0);
   const [show, setShow] = useState(true);
   function timeout(delay) {
@@ -73,6 +74,7 @@ export default function EditLandingPage() {
   });
   const updateForm = (i) => {
     setIndex(i);
+    form.setValue('id', boxes[i].id);
     form.setValue('title', boxes[i].title);
     form.setValue('paragraphe', boxes[i].paragraphe);
     form.setValue('img', boxes[i].img);
@@ -80,9 +82,13 @@ export default function EditLandingPage() {
   };
   const onSubmit = (data) => {
     setBoxes((oldBoxes) => {
-      const newBoxes = oldBoxes.map((box, idx) => {
-        if (idx === index) {
+      const newBoxes = oldBoxes.map((box) => {
+        if (box.id === index) {
           return { ...box, ...data };
+          /////////////////////////////////////
+          // save changes to box
+
+          ///////////////////////////////////
         }
         return box;
       });
@@ -201,6 +207,7 @@ export default function EditLandingPage() {
                           setBoxes((old) => {
                             let newboxes = structuredClone(old);
                             newboxes.push({
+                              id: boxes.length,
                               Subject: '',
                               img: '',
                               title: '',
@@ -267,6 +274,7 @@ export default function EditLandingPage() {
               setShow(false);
               await timeout(100);
               updateForm(index == 0 ? boxes.length - 1 : index - 1);
+
               await timeout(100);
               setShow(true);
             }}
