@@ -294,7 +294,22 @@ function MiseAJour() {
 
   const [data, setData] = useState('');
   const [selectValue, setSelectValue] = useState('');
+const [message, setMessage] = useState('');
 
+  // Fonction pour effectuer la maj manuelle
+  const effectuerRequete = () => {
+    // Ici, vous pouvez effectuer votre requête POST
+    axios.post('http://localhost:3000/maj', {})
+      .then(response => {
+        // Si la requête réussit, vous pouvez mettre à jour l'état ou faire d'autres actions
+        setMessage('Requête effectuée avec succès !');
+      })
+      .catch(error => {
+        // Si la requête échoue, vous pouvez gérer l'erreur ici
+        console.error('Erreur lors de la requête :', error);
+      });
+  };
+  
   return (
     <AlertDialog>
       <AlertDialogTrigger>
@@ -360,7 +375,7 @@ function MiseAJour() {
               </h2>
               <hr className="my-8 h-px border-0  bg-black bg-opacity-50 "></hr>
               <button
-                
+                onClick={effectuerRequete} 
                 className="mb-2 h-[35px] rounded-lg bg-buttonDark p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline  "
                 type="submit"
               >
