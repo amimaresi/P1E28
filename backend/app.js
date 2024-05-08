@@ -8,6 +8,7 @@ const routerEnc = require("./ROUTERS/CRUD_Encadrements/routes");
 const crud = require("./ROUTERS/crud_project/routes");
 const cherchRoute = require("./ROUTERS/crud_chercheure/insertion/router")
 const cron = require("node-cron");
+const PageRoute = require('./ROUTERS/crud_PageAcc/routPage')
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookie());
@@ -38,6 +39,7 @@ app.use('/encadrements', routerEnc)
 app.use('/conf',routerConf)
 app.post('/maj',maj)
 app.use('/statistiques', staticRouter)
+app.use('/pageAcc',PageRoute)
 
 
 
