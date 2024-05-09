@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, Outlet, useParams } from 'react-router-dom';
 import axios from 'axios';
+import NotFound from '@/Pages/NotFound/NotFound';
 
 // un exemple d'un encadrement
 /*const prjt =
@@ -18,7 +19,6 @@ import axios from 'axios';
   }*/
 
 export default function PrPLayout() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [data, setData] = useState({});
   const { id } = useParams();
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function PrPLayout() {
     };
     fetchtData();
   }, []);
-  return (
+  return data ? (
     <>
       <div className="bg-white">
         <div className="p-12 px-64">
@@ -100,5 +100,7 @@ export default function PrPLayout() {
         </div>
       </div>
     </>
+  ) : (
+    <NotFound />
   );
 }

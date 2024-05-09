@@ -62,21 +62,23 @@ export default function Login() {
       console.log('the error is here : ' + err);
       if (err.response) console.log(err.response.data.message);
     }
-    localStorage.setItem(
-      'userInfo',
-      JSON.stringify({
+    if (!userInfo) {
+      localStorage.setItem(
+        'userInfo',
+        JSON.stringify({
+          nomComplet: 'Saleh',
+          type: data.email == 'Admin' ? 'Admin' : 'Chercheur',
+        }),
+      );
+      setUserInfo({
         nomComplet: 'Saleh',
         type: data.email == 'Admin' ? 'Admin' : 'Chercheur',
-      }),
-    );
-    setUserInfo({
-      nomComplet: 'Saleh',
-      type: data.email == 'Admin' ? 'Admin' : 'Chercheur',
-    });
-    setError({ is: false, content: '' });
-    setIsLogged(true);
-    localStorage.setItem('isLogged', 'true');
-    navigate('/');
+      });
+      setError({ is: false, content: '' });
+      setIsLogged(true);
+      localStorage.setItem('isLogged', 'true');
+      navigate('/');
+    }
   };
 
   return (
