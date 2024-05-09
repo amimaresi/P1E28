@@ -93,7 +93,7 @@ export default function Guide() {
             <AccordionItem value="item-7">
               <AccordionTrigger className="accordion-trigger">
                 Comment mettre à jour les détails des publications, des projets
-                et des encadrements sur mon profil ?
+                et des encadrements sur mon profil?
               </AccordionTrigger>
               <AccordionContent className="accordion-content">
               <div>Pour modifier et mettre à jour les détails des publications, des projets et des encadrements sur votre profil en accédant aux paramètres (settings), suivez ces étapes générales :</div>
