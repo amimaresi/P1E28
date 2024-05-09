@@ -45,7 +45,8 @@
     "sheetjs": "^2.0.0",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
-    "yup": "^1.4.0"
+    "yup": "^1.4.0",
+    "yup-password": "^0.4.0"
   },
   "devDependencies": {
     "@hookform/devtools": "^4.3.1",
