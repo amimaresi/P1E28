@@ -20,21 +20,21 @@ export default function AboutUs() {
         </p>
       </div>
 
-      <div className="mt-8 flex items-center justify-between p-10">
-        <div className="text-center">
+      <div className="mt-8 flex p-10 w-full">
+        <div className="text-center w-1/3 flex flex-col items-center justify-center">
           <img src={Group} alt="Frame 1" />
           <div>
-            <h1 className="text-2xl font-bold">Nos sponsors</h1>
+            <h1 className="text-2xl font-bold ">Nos sponsors</h1>
             <p className="mx-auto max-w-xs">
               ESI–Ecole nationale Supérieure d'Informatique.
             </p>
           </div>
         </div>
-        <div className="text-center">
+        <div className="text-center w-1/3 flex flex-col items-center justify-center">
           <img src={esi_white} alt="Frame 2" width="190" height="114"/>
           <h1 className="text-2xl font-bold">Ecole nationale Supérieure d'Informatique</h1>
         </div>
-        <div className="text-center">
+        <div className="text-center w-1/3 flex flex-col items-center justify-center">
           <img src={local} alt="Frame 2" />
           <h1 className="text-2xl font-bold">Localisation</h1>
           <p className="mx-auto max-w-xs">
