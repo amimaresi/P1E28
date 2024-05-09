@@ -71,7 +71,7 @@ const queryPublication = async(req , res)=>{
 
        console.log(query)      
         const docs = await Publication.find(query).exec()
-        if(docs.length === 0) return res.status(400).json({message: "Aucune publication trouvée"})
+        if(docs.length === 0) return res.status(400).json({message: "Aucune publication trouvée" , Publications: []})
       
          console.log(docs)
         res.status(200).json({Publications: docs})

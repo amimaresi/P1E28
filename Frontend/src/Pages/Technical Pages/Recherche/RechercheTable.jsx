@@ -102,6 +102,7 @@ export function RechercheTable({ navigate, searchby }) {
       if (searchby === 'encadrement') setData(resultat.data.Encadrements);
       if (searchby === 'projet') setData(resultat.data.projet);
     } catch (err) {
+      setData([])
       console.log(err.message);
     }
   };
