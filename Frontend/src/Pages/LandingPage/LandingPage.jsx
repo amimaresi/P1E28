@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import BgElement from './assets/BgElement.svg';
 import leftArrow from './assets/left arrow.svg';
 import rightArrow from './assets/right arrow.svg';
@@ -17,22 +17,14 @@ import bg1 from './assets/bg2.png';
 import bg2 from './assets/bg1.png';
 import { Button } from '@/components/ui/button';
 export default function LandingPage() {
-  const LandingPage = {
+  const [landingPage, setLandingPage] = useState({
     // fetching
     news: [
       {
-        title: 'title',
-        paragraphe:
-          'import React, { useState } from react \n import { NavLink, Outlet } from "react-router-dom" \n import Menu from ./Menu/Menu.jsx',
-        img: bg1,
-        Subject: 'Best Publication',
-      },
-      {
-        title: 'Not a title',
-        paragraphe:
-          'imrgregt, { useState } from react \n ietghtyrthgLink, Outlet } from "react-router-dom" \n irgergegpojoj*zolmajn,vjaerkhga',
-        img: bg2,
-        Subject: 'Best Chercheur',
+        title: 'LMCS:Track',
+        paragraphe: 'LMCS:Track vous souhaite la bienvenue',
+        img: 'https://lmcs.esi.dz/wp-content/uploads/2023/11/seminaire-3-1024x492.jpg',
+        Subject: 'Bienvenue',
       },
     ],
     leaders: [
@@ -61,10 +53,16 @@ export default function LandingPage() {
         Diplome: 'Doctorat',
       },
     ],
-  };
+  });
+  useEffect(() => {
+    async function fetchNews() {
+      //setLandingPage(response.data)
+    }
 
-  const boxes = LandingPage.news; //title, paragraphe, Consept
-  const leaders = LandingPage.leaders;
+    fetchNews();
+  }, []);
+  const boxes = landingPage.news; //title, paragraphe, Consept
+  const leaders = landingPage.leaders;
   const [index, setIndex] = useState(0);
   const [show, setShow] = useState(true);
   function timeout(delay) {
