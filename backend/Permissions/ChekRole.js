@@ -1,6 +1,6 @@
 function verifierRole(rolesAutorises) {
     return function(req, res, next) {
-        const roleUtilisateur = req.headers.role; // Supposons que le rôle de l'utilisateur est envoyé dans les en-têtes de la demande
+        const roleUtilisateur = req.headers.type; // Supposons que le rôle de l'utilisateur est envoyé dans les en-têtes de la demande
 
         // Vérifier si le rôle de l'utilisateur est autorisé à accéder à la fonctionnalité
         if (rolesAutorises.includes(roleUtilisateur)) {
