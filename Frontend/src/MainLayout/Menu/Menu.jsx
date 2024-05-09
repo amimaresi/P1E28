@@ -499,6 +499,7 @@ function ProfileMenu({ userInfo, setIsLogged }) {
               </span>
               <span className="text-xs text-muted-foreground">
                 {userInfo ? userInfo.type : 'Chercheur'}
+                {console.log(userInfo)}
               </span>
             </div>
           </NavigationMenuTrigger>
