@@ -34,7 +34,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<MLayout />}>
       <Route index element={<LandingPage />} />
       <Route path="login" element={<Login />} />
-      <Route path="resetpassword" element={<ResetPassword />} />
+      <Route path="login/resetpassword" element={<ResetPassword />} />
       <Route path="aboutus" element={<AboutUs />} />
       <Route path="guide" element={<Guide />} />
       <Route path="recherche" element={<Outlet />}>
