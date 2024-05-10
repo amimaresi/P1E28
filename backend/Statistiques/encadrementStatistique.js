@@ -162,7 +162,7 @@ const doctoratParAnnee = async(req, res) => {
 
 }*/
 const encadrementsParAnneeSansT = async (req, res) => {
-    try {
+   /* try {
         const { dateDebut, dateFin } = req.body;
 
         const encadrements = await Encadrement.find({
@@ -174,7 +174,6 @@ const encadrementsParAnneeSansT = async (req, res) => {
 
         let encadrementsParAnnee = [];
         let currentYear = Number(dateDebut); // Commence à partir de dateDebut
-        let countIndex = 0;
 
         encadrements.forEach(encadrement => {
             const encadrementYear = encadrement.AnneeD;
@@ -185,8 +184,15 @@ const encadrementsParAnneeSansT = async (req, res) => {
                 currentYear++;
             }
 
-            // Ajoute l'année avec le nombre d'encadrements
-            encadrementsParAnnee.push({ year: encadrementYear, count: ++countIndex });
+            // Vérifie si l'année existe déjà, si oui, incrémente le compteur
+            const existingYear = encadrementsParAnnee.find(item => item.year === encadrementYear);
+            if (existingYear) {
+                existingYear.count++;
+            } else {
+                // Ajoute l'année avec le nombre d'encadrements
+                encadrementsParAnnee.push({ year: encadrementYear, count: 1 });
+            }
+            
             currentYear++;
         });
 
@@ -195,55 +201,100 @@ const encadrementsParAnneeSansT = async (req, res) => {
             encadrementsParAnnee.push({ year: currentYear, count: 0 });
             currentYear++;
         }
-        encadrementsParAnnee  = encadrementsParAnnee.map(item => ({ year: parseInt(item.year), count: item.count }));
+
+        encadrementsParAnnee = encadrementsParAnnee.map(item => ({ year: parseInt(item.year), count: item.count }));
         res.json({ 
-           
+            encadrementsParAnnee 
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(404).json({ error: true });
+    }*/
+    try {
+        const { dateDebut, dateFin } = req.body;
+
+        if (dateDebut.localeCompare(dateFin) === 1) {
+            throw new Error("La date de début ne peut pas être superieur à la date de fin.");
+        }
+        const encadrements = await Encadrement.find({
+            AnneeD: {
+                $gte: Number(dateDebut), // Utilisation de $gte pour inclure également dateDebut
+                $lte: Number(dateFin)    // Utilisation de $lte pour inclure également dateFin
+            }
+        }).sort({ AnneeD: 1 });
+
+        let encadrementsParAnnee = [];
+        let currentYear = Number(dateDebut); // Commence à partir de dateDebut
+
+        encadrements.forEach(encadrement => {
+            const encadrementYear = encadrement.AnneeD;
+
+            // Ajoute les années manquantes avec 0 encadrements
+            while (currentYear < encadrementYear) {
+                encadrementsParAnnee.push({ year: currentYear, count: 0 });
+                currentYear++;
+            }
+
+            // Vérifie si l'année existe déjà, si oui, incrémente le compteur
+            const existingYear = encadrementsParAnnee.find(item => item.year === encadrementYear);
+            if (existingYear) {
+                existingYear.count++;
+            } else {
+                // Ajoute l'année avec le nombre d'encadrements
+                encadrementsParAnnee.push({ year: encadrementYear, count: 1 });
+            }
+        });
+
+        // Ajoute les années restantes avec 0 encadrements jusqu'à dateFin inclus
+        while (currentYear <= Number(dateFin)) {
+            encadrementsParAnnee.push({ year: currentYear, count: 0 });
+            currentYear++;
+        }
+
+        encadrementsParAnnee = encadrementsParAnnee.map(item => ({ year: parseInt(item.year), count: item.count }));
+        res.json({ 
             encadrementsParAnnee 
         });
     } catch (err) {
         console.log(err);
         res.status(404).json({ error: true });
     }
+    
 };
 
 const encadrementsParAnnee = async (req, res, type) => {
+  
     try {
         const { dateDebut, dateFin } = req.body;
-  
+
+        if (dateDebut.localeCompare(dateFin) === 1) {
+            throw new Error("La date de début ne peut pas être superieur à la date de fin.");
+        }
         const encadrements = await Encadrement.find({
             AnneeD: {
-                $gte: Number(dateDebut), // Utilisation de $gte pour inclure également dateDebut
-                $lte: Number(dateFin)    // Utilisation de $lte pour inclure également dateFin
+                $gte: Number(dateDebut),
+                $lte: Number(dateFin)
             },
             Type: type
         }).sort({ AnneeD: 1 });
-  
-        let encadrementsParAnnee = [];
-        let currentYear = Number(dateDebut); // Commence à partir de dateDebut
-        let countIndex = 0;
-  
-        encadrements.forEach(encadrement => {
-            const encadrementYear = encadrement.AnneeD;
-  
-            // Ajoute les années manquantes avec 0 encadrements
-            while (currentYear < encadrementYear) {
-                encadrementsParAnnee.push({ year: currentYear, count: 0 });
-                currentYear++;
-            }
-  
-            // Ajoute l'année avec le nombre d'encadrements
-            encadrementsParAnnee.push({ year: encadrementYear, count: ++countIndex });
-            currentYear++;
-        });
-  
-        // Ajoute les années restantes avec 0 encadrements jusqu'à dateFin
-        while (currentYear <= Number(dateFin)) {
-            encadrementsParAnnee.push({ year: currentYear, count: 0 });
-            currentYear++;
-        }
-        encadrementsParAnnee  = encadrementsParAnnee.map(item => ({ year: parseInt(item.year), count: item.count }));
+
+        // Créer un tableau d'années entre dateDebut et dateFin
+        const yearsInRange = Array.from({ length: Number(dateFin) - Number(dateDebut) + 1 }, (_, index) => Number(dateDebut) + index);
+
+        // Compter le nombre d'encadrements par année
+        const encadrementsCountByYear = encadrements.reduce((acc, encadrement) => {
+            const year = encadrement.AnneeD;
+            acc[year] = acc[year] ? acc[year] + 1 : 1;
+            return acc;
+        }, {});
+
+        // Créer un tableau avec le nombre d'encadrements par année
+        const encadrementsParAnnee = yearsInRange.map(year => ({
+            year,
+            count: encadrementsCountByYear[year] || 0 // Utiliser 0 si aucune valeur trouvée pour cette année
+        }));
+
         res.json({ 
-            
             encadrementsParAnnee 
         });
     } catch (err) {
