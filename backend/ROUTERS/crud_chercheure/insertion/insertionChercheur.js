@@ -12,8 +12,8 @@ const sendMailCherch = require('../../tools/sendMailCherch')
 const creatToken = require('../../tools/generToken')
 
 //import getOrcid and getLienDblp 
-const getOrcidFromName = require("../getOrcid");
-const getLienDblp = require("../getLienDblp");
+const getOrcidFromName = require("../getInfo/getOrcid");
+const getLienDblp = require("../getInfo/getLienDblp");
 
 const updateHindex = require('../../../màj/upDateHindex')
 
