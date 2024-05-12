@@ -48,7 +48,7 @@ export default function Menu({ isLogged, setIsLogged, userInfo, setUserInfo }) {
       <div className="ml-[5vw] flex flex-row items-center justify-start gap-[10px]">
         <NavigationMenu>
           <NavigationMenuList>
-            <NavigationMenuItem>
+            <NavigationMenuItem className=" bg-transparent">
               <NavLink
                 to="/"
                 className={` items-baseline font-title font-black text-buttonDark underline decoration-[3px] underline-offset-4 hover:bg-white hover:text-buttonLight focus:bg-white focus:text-buttonDark focus:hover:text-buttonLight ${navigationMenuTriggerStyle()}`}
@@ -103,35 +103,37 @@ export default function Menu({ isLogged, setIsLogged, userInfo, setUserInfo }) {
               </NavigationMenuContent>
             </NavigationMenuItem>
 
-            <NavigationMenuItem>
-              <NavigationMenuTrigger className=" text-[16.5px]">
-                Panneau de control
-              </NavigationMenuTrigger>
+            {userInfo.type == 'Assistant' && isLogged ? (
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className=" text-[16.5px]">
+                  Gestion du laboratoire
+                </NavigationMenuTrigger>
 
-              <NavigationMenuContent>
-                <div
-                  className=" flex h-[50px] w-full select-none flex-col items-center  justify-center bg-textLight from-muted/50 to-muted py-6 pb-8 no-underline shadow-sm outline-none"
-                  to="/control"
-                >
-                  <div className="mb-2 mt-4 flex flex-row  items-baseline gap-2 text-lg font-medium">
-                    paneau de control
+                <NavigationMenuContent>
+                  <div
+                    className=" flex h-[50px] w-full select-none flex-col items-center  justify-center bg-textLight from-muted/50 to-muted py-6 pb-8 no-underline shadow-sm outline-none"
+                    to="/control"
+                  >
+                    <div className="mb-2 mt-4 flex flex-row  items-baseline gap-2 text-lg font-medium">
+                      Gestion du laboratoire
+                    </div>
                   </div>
-                </div>
-                <ul className="grid gap-3 border-b-2 border-gray-200 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                  <LinkItem to="/control/landingPage" title="Page d'acceill">
-                    Modifier le contenu de la page d'acceill
-                  </LinkItem>
+                  <ul className="grid gap-3 border-b-2 border-gray-200 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                    <LinkItem to="/control/landingPage" title="Page d'acceill">
+                      Modifier le contenu de la page d'acceill
+                    </LinkItem>
 
-                  <MiseAJour />
-                </ul>
+                    <MiseAJour />
+                  </ul>
 
-                <ul className="grid w-[500px] grid-flow-col gap-3 p-2">
-                  <AddChercheur />
+                  <ul className="grid w-[500px] grid-flow-col gap-3 p-2">
+                    <AddChercheur />
 
-                  <Periodicité />
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
+                    <Periodicité />
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            ) : null}
           </NavigationMenuList>
         </NavigationMenu>
         {/* <NavigationMenu>
@@ -199,7 +201,7 @@ export default function Menu({ isLogged, setIsLogged, userInfo, setUserInfo }) {
         </NavigationMenu>
       </div>
 
-      <div className="flex flex-row items-center justify-end">
+      <div className="mr-5 flex flex-row items-center justify-end">
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
@@ -381,17 +383,17 @@ function MiseAJour() {
               <hr className="my-8 h-px border-0  bg-black bg-opacity-50 "></hr>
               <button
                 className="mb-2 h-[35px] rounded-lg bg-buttonDark p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline  "
-                 onClick={async () => {
+                onClick={async () => {
                   try {
                     console.log('clicked');
-                    const res = await axios.get('http://localhost:3000/update-hindex')
-                    console.log(res.data.message)
-
-                  }
-                  catch (err) {
+                    const res = await axios.get(
+                      'http://localhost:3000/update-hindex',
+                    );
+                    console.log(res.data.message);
+                  } catch (err) {
                     if (err.response) console.log(err.response.data.message); //this error is for displaying the error message from the server
                   }
-                 }}
+                }}
               >
                 mettre a jour le h-index
               </button>

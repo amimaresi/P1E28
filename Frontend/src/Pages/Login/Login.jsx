@@ -62,18 +62,17 @@ export default function Login() {
       console.log('the error is here : ' + err);
       if (err.response) console.log(err.response.data.message);
     }
-    if (!userInfo) {
+    if (!userInfo || Error.is) {
       localStorage.setItem(
         'userInfo',
         JSON.stringify({
-          
           nomComplet: 'Saleh',
-          type: data.email == 'Admin' ? 'Admin' : 'Chercheur',
+          type: data.email,
         }),
       );
       setUserInfo({
         nomComplet: 'Saleh',
-        type: data.email == 'Admin' ? 'Admin' : 'Chercheur',
+        type: data.email,
       });
       setError({ is: false, content: '' });
       setIsLogged(true);
