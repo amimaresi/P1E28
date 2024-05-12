@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -6,15 +6,19 @@ import { CheckIcon, Pencil1Icon } from '@radix-ui/react-icons';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ViewIcon } from 'lucide-react';
 import NotFound from '../NotFound/NotFound';
+import axios from 'axios';
+import { set } from 'react-hook-form';
 
 // Composant pour un champ éditable
 const EditableField = ({
+  _id ,
   label,
   key,
   value,
   onChange,
   isPicture,
   isPassword,
+
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedValue, setEditedValue] = useState(value);
@@ -24,10 +28,25 @@ const EditableField = ({
     setEditedValue(value);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setIsEditing(false);
     onChange(editedValue);
     // fetch with key
+    let obj = {}
+    obj[label]=editedValue
+    console.log(obj);
+    console.log("base de donne" + _id);
+    try {
+      const result = await axios.put(
+        `http://localhost:3000/modification/chercheur/${_id}`,
+        obj
+      );
+      console.log(result);
+    }
+    catch (err) {
+      console.log(err);
+    }
+
   };
 
   return (
@@ -97,6 +116,7 @@ const EditableField = ({
 };
 
 export default function Settings() {
+  const [_id , setId ] = useState('')
   const [editedData, setEditedData] = useState({
     _id: 'k_benatchba@esi.dz',
     nomComplet: 'Karima Benatchba',
@@ -111,8 +131,26 @@ export default function Settings() {
     tel: '0123456789', // Ajouté un numéro de téléphone pour l'exemple
     password: '123456',
   });
+   useEffect(() => {
+     localStorage.setItem('user', 'y_aissaoui@esi.dz')
+    const  _id = localStorage.getItem('user')
+    console.log(_id); 
+    setId(_id)
+    const fetch = async ()=>{
+      try{
+      const result = await axios.get('http://localhost:3000/recherche/chercheur/'+_id)
+      console.log(result.data.Chercheur);
+      setEditedData(result.data.Chercheur);
+      }
+      catch(err){
+        console.log(err);
+      }
+    }
+    fetch() 
 
+   }, [])
   const handleChange = (key, value) => {
+    console.log("here is the mail "  + _id)
     setEditedData({ ...editedData, [key]: value });
   };
 
@@ -122,6 +160,7 @@ export default function Settings() {
         <div className="mb-10 flex items-center gap-[330px]">
           <h1 className="text-3xl font-bold">Profil</h1>
           <EditableField
+            _id={_id}
             label="Nom complet"
             isPicture
             value={editedData.image_path}
@@ -131,57 +170,68 @@ export default function Settings() {
 
         <div className="grid gap-4 py-4 sm:grid-cols-2">
           <EditableField
+          _id={ _id}
             label="Nom complet"
             key="_id"
             value={editedData.nomComplet}
             onChange={(value) => handleChange('nomComplet', value)}
           />
           <EditableField
+          _id={ _id}
             label="Qualité"
             value={editedData.qualité}
             onChange={(value) => handleChange('Qualité', value)}
           />
           <EditableField
+          _id={ _id}
             label="Etablissement d'origine"
             value={editedData.EtablissementOrigine}
             onChange={(value) => handleChange('EtablissementOrigine', value)}
           />
           <EditableField
+          _id={ _id}
             label="Diplôme"
             value={editedData.Diplome}
             onChange={(value) => handleChange('Diplome', value)}
           />
           <EditableField
+          _id={ _id}
             label="Grade de recherche"
             value={editedData.GradeRecherche}
             onChange={(value) => handleChange('GradeRecherche', value)}
           />
           <EditableField
+          _id={ _id}
             label="Email"
             value={editedData._id}
             onChange={(value) => handleChange('_id', value)}
           />
           <EditableField
+          _id={ _id}
             label="Grade enseignement"
             value={editedData.GradeEnsegnement}
             onChange={(value) => handleChange('GradeEnsegnement', value)}
           />
           <EditableField
+          _id={ _id}
             label="H_index"
             value={editedData.H_index}
             onChange={(value) => handleChange('H_index', value)}
           />
           <EditableField
+          _id ={ _id}
             label="Equipe"
             value={editedData.Equipe}
             onChange={(value) => handleChange('Equipe', value)}
           />
           <EditableField
+          _id={ _id}
             label="Téléphone"
             value={editedData.tel}
             onChange={(value) => handleChange('tel', value)}
           />
           <EditableField
+          _id={ _id}
             label="Password"
             isPassword
             value={editedData.tel}

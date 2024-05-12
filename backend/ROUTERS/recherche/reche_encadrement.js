@@ -57,7 +57,7 @@ const queryEncadrement = async (req, res) => {
         AnneeFMin,
         AnneeFMax
     } = req.body;
-    console.log(req.body)
+   
     let query = {};
 
     if (Type) {
