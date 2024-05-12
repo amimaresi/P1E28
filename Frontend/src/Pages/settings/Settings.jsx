@@ -138,7 +138,7 @@ export default function Settings() {
           <EditableField
             label="Qualité"
             value={editedData.qualité}
-            onChange={(value) => handleChange('qualité', value)}
+            onChange={(value) => handleChange('Qualité', value)}
           />
           <EditableField
             label="Etablissement d'origine"
