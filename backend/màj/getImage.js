@@ -3,15 +3,15 @@ const { getJson } = require("serpapi");
 
 
 
-const updateHindex = async (nomComplet) => {
+const updateImageLienGoogle = async (nomComplet) => {
    
     return new Promise(async (resolve, reject) => {
         try {
             const id = await getChercheurId(nomComplet)
-            const hindex = await getHindex(id)
-            resolve(hindex)
+            const { image_path ,  GoogleScholar } = await getImageGoogleScholar(id)
+            resolve({image_path , GoogleScholar })
         } catch (err) {
-            resolve(0)
+            resolve({image_path: '' , GoogleScholar:''})
         }
     })
 
@@ -45,20 +45,22 @@ const getChercheurId = async(nomComplet)=>{
 
 }
 
-const getHindex = async (id) => {
+const getImageGoogleScholar = async (id) => {
     return new Promise((resolve, reject) => {
         getJson({
             engine: "google_scholar_author",
             author_id: id,
             api_key: process.env.SERP_API_KEY
         }, (json) => {
-            resolve(json["cited_by"].table[1].h_index.all)
+            resolve({
+                image_path :json["author"].thumbnail , 
+                GoogleScholar: json["search_metadata"].google_scholar_author_url})
             
         })
     })
 }
 
-module.exports = updateHindex
+module.exports = updateImageLienGoogle
 
 
 

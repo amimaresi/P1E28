@@ -455,6 +455,7 @@ function Fpublication({ form }) {
             <FormLabel>Rang</FormLabel>
             <FormControl>
               <Input placeholder="entrez le rang" {...field} />
+             
             </FormControl>
 
             <FormMessage />
@@ -613,11 +614,12 @@ function FEncadrement({ form }) {
       />
       <FormField
         control={form.control}
-        name="type"
+        name="Type"
         render={({ field }) => (
           <FormItem>
             <FormLabel>Type</FormLabel>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
+             
               <FormControl>
                 <SelectTrigger>
                   <SelectValue placeholder="Choisir un type" />
@@ -626,7 +628,7 @@ function FEncadrement({ form }) {
               <SelectContent>
                 <SelectItem value="Null">Choisir un type</SelectItem>
                 <SelectItem value="PFE">PFE</SelectItem>
-                <SelectItem value="Master2">Master 2</SelectItem>
+                <SelectItem value="Master 2">Master 2</SelectItem>
                 <SelectItem value="Doctorat">Doctorat</SelectItem>
               </SelectContent>
             </Select>

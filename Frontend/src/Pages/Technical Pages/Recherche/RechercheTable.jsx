@@ -104,9 +104,12 @@ export function RechercheTable({ navigate, searchby }) {
       if (searchby === 'chercheur') setData(resultat.data.Chercheurs);
       if (searchby === 'publication') setData(resultat.data.Publications);
       if (searchby === 'confJourn') setData(resultat.data.ConfJourns);
-      if (searchby === 'encadrement') setData(resultat.data.Encadrements);
+      if (searchby === 'encadrement'){ setData(resultat.data.Encadrements)
+        console.log(resultat.data.Encadrements)
+      };
       if (searchby === 'projet') setData(resultat.data.projet);
     } catch (err) {
+      setData([])
       console.log(err.message);
     }
   };

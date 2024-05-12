@@ -61,17 +61,22 @@ const queryPublication = async(req , res)=>{
         //trouve les publications qui respectent les conditions
         let query = {}
         if (Titre) query.Titre = {$regex: new RegExp('^'+Titre, 'i')}
-       // if (Date) query.Date = {$regex: new RegExp('^'+Date, 'i')}
+        if (Date) {
+            query.Date = {}
+            query.Date.$gte = Date[0]
+            query.Date.$lte = Date[1]
+        }
         if (confJourn) query.confJourn = {$regex: new RegExp('^'+confJourn, 'i')}
         if (idCherch) query.idCherch = {$regex: new RegExp('^'+idCherch, 'i')}
-        if (rang) query.rang = rang 
+        
+        if (rang) query.rang = Number(rang) 
         if (MaisonEdition) query.MaisonEdition = {$regex: new RegExp('^'+MaisonEdition, 'i')}
         if (volume) query.volume = {$regex: new RegExp('^'+volume, 'i')}
         if (pages) query.pages = {$regex: new RegExp('^'+pages, 'i')}
 
        console.log(query)      
         const docs = await Publication.find(query).exec()
-        if(docs.length === 0) return res.status(400).json({message: "Aucune publication trouvée"})
+        if(docs.length === 0) return res.status(400).json({message: "Aucune publication trouvée" , Publications: []})
       
          console.log(docs)
         res.status(200).json({Publications: docs})

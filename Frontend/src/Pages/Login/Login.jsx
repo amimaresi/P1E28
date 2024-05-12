@@ -66,6 +66,7 @@ export default function Login() {
       localStorage.setItem(
         'userInfo',
         JSON.stringify({
+          
           nomComplet: 'Saleh',
           type: data.email == 'Admin' ? 'Admin' : 'Chercheur',
         }),

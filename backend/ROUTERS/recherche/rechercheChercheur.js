@@ -121,7 +121,7 @@ const Chercheur = require('../../schema/Chercheur')
        const docs = await Chercheur.find(query).exec() 
         console.log(docs)
         if(docs.length === 0){
-            return res.status(404).json({message: "Aucun chercheur trouvé"})
+            return res.status(404).json({message: "Aucun chercheur trouvé" ,  Chercheurs :[]})
         }
         else{
         res.status(200).json({Chercheurs: docs})

@@ -144,7 +144,7 @@ export default function Statistiques() {
         </p>
         <div className="flex justify-center space-x-20 p-4 ">
           <div className="flex justify-center rounded-xl border bg-buttonDark px-12 pb-4 pt-4 text-white ">
-            <h2 className="px-4 font-extrabold  ">{count. countChercheur}</h2>
+            <h2 className="px-4 font-extrabold  ">{count.countChercheur}</h2>
             <h2>Chercheurs</h2>
           </div>
 
@@ -256,7 +256,9 @@ export default function Statistiques() {
                 </TabsContent>
 
                 <TabsContent value="liste">
-                  <div></div>
+                  <div>
+                    
+                  </div>
                 </TabsContent>
               </Tabs>
             </div>

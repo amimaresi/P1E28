@@ -98,8 +98,8 @@ export default function CPLayout() {
         <div className="flex w-1/5 flex-col gap-y-2">
           <Link
             // to={headerData.lien.GoogleScholar}
-            to={'https://scholar.google.com/'}
-            className="rounded-lg bg-buttonDark px-1 py-1 text-center text-white hover:bg-buttonLight"
+            to= { headerData['lien.GoogleScholar']}
+            className="rounded-lg bg-buttonDark px-1 py-1 text-white hover:bg-buttonLight text-center"
           >
             Compte Google Scholar
           </Link>

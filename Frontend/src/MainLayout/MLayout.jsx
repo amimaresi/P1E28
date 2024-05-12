@@ -4,7 +4,8 @@ import Menu from './Menu/Menu.jsx';
 
 export default function MLayout() {
   const [isLogged, setIsLogged] = useState(
-    localStorage.getItem('isLogged') == 'true',
+   // localStorage.getItem('isLogged') == 'true',
+   true
   );
   const [userInfo, setUserInfo] = useState(
     JSON.parse(localStorage.getItem('userInfo')),
