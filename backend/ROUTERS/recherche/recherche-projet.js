@@ -118,7 +118,7 @@ const queryProjet = async (req, res) => {
             }
         }
         if (projets.length === 0) {
-            return res.status(404).json({ message: "Aucun projet trouvé" });
+            return res.status(404).json({ message: "Aucun projet trouvé" , Projets :[]});
         } else {
             res.status(200).json({ Projets: projets });
         }

@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { CheckIcon, Pencil1Icon } from '@radix-ui/react-icons';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const EditableField = ({ label, value, onChange }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -118,12 +120,30 @@ export default function PubSettings() {
       }
     }
   ]);
+  const {id} = useParams()
 
   const handleChange = (key, value, index) => {
     const newData = [...editedData];
     newData[index][key] = value;
     setEditedData(newData);
   };
+  useEffect(()=>{
+    console.log("id"+ id)
+    const fetch = async()=>{
+      try{
+        const result = await axios.get('http://localhost:3000/recherche/publication/'+id)
+        console.log(result.data.Publications)
+       // setEditedData(result.data.Publication)
+      }
+      catch(err)
+      {
+        console.log(err)
+      }
+    }
+    fetch()
+  },[])
+
+
 
   return (
     <div className="container mx-auto min-h-screen bg-white px-4 py-8">

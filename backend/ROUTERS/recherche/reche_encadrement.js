@@ -57,7 +57,7 @@ const queryEncadrement = async (req, res) => {
         AnneeFMin,
         AnneeFMax
     } = req.body;
-
+   
     let query = {};
 
     if (Type) {
@@ -133,7 +133,7 @@ const queryEncadrement = async (req, res) => {
             }
         }
         if (encadrements.length === 0) {
-            return res.status(404).json({ message: "Aucun encadrement trouvé" });
+            return res.status(404).json({ message: "Aucun encadrement trouvé"  ,  Encadrements :[]});
         } else {
             res.status(200).json({ Encadrements: encadrements });
         }

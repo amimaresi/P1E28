@@ -30,6 +30,8 @@ const setRouter = require('./settings/router')
 const authRouter = require('./authentication/router/userRouter')
 const RechercheRouter = require('./ROUTERS/recherche/router')
 const staticRouter = require('./Statistiques/router')
+const {upDataCherchH , chercheurImageGoogleScholar} = require('./màj/upDataCherchH')
+const ModifierCherRouter = require('./ROUTERS/crud_chercheure/modification/modifInfoProfile/router')
 app.use('/auth', authRouter)
 app.use('/insertions', crud)
 app.use('/settings' , setRouter)
@@ -40,6 +42,9 @@ app.use('/conf',routerConf)
 app.post('/maj',maj)
 app.use('/statistiques', staticRouter)
 app.use('/pageAcc',PageRoute)
+app.get('/update-hindex', upDataCherchH)
+app.get('/update-chercheur-img' , chercheurImageGoogleScholar)
+app.use('/modification', ModifierCherRouter)
 
 
 

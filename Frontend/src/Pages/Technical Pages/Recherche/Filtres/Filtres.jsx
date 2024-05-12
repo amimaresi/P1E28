@@ -520,7 +520,7 @@ function FEncadrement({ form }) {
     <>
       <FormField
         control={form.control}
-        name="type"
+        name="Type"
         render={({ field }) => (
           <FormItem>
             <FormLabel>Type</FormLabel>
@@ -533,7 +533,7 @@ function FEncadrement({ form }) {
               <SelectContent>
                 <SelectItem value="Null">Choisir un type</SelectItem>
                 <SelectItem value="PFE">PFE</SelectItem>
-                <SelectItem value="Master2">Master 2</SelectItem>
+                <SelectItem value="Master 2">Master 2</SelectItem>
                 <SelectItem value="Doctorat">Doctorat</SelectItem>
               </SelectContent>
             </Select>

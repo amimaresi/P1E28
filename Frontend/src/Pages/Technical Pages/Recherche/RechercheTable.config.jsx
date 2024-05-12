@@ -58,8 +58,8 @@ export function ColumnsChercheur() {
               <AvatarImage
                 className=" rounded-full"
                 src={
-                  row.original.image_path ||
-                  'https://avatars.githubusercontent.com/u/2981046?v=4'
+                  row.original.image_path 
+                
                 }
               />
               <AvatarFallback>
