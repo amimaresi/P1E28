@@ -21,9 +21,9 @@ export default function Guide() {
       </h3>
       </div>
       
-      <div className="m-8 flex items-center justify-center bg-white p-8">
+      <div className="flex items-center justify-center bg-white mx-12 px-8 my-12 rounded-lg">
         <div className="flex w-full flex-col items-center">
-          <Accordion type="single" collapsible className="m-14 p-16">
+          <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-1">
               <AccordionTrigger className="accordion-trigger">
                 Comment effectuer une recherche sur le site ?

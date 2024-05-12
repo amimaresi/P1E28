@@ -62,6 +62,9 @@ const projetParAnne = async (req, res) => {
     try {
         const { dateDebut, dateFin } = req.body;
 
+        if (dateDebut.localeCompare(dateFin) === 1) {
+            throw new Error("La date de début ne peut pas être superieur à la date de fin.");
+        }
         const projets = await Projet.find({
             DateDebut: {
                 $gte: Number(dateDebut), // Utilisation de $gte pour inclure également dateDebut

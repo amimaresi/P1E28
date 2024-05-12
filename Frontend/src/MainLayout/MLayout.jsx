@@ -6,16 +6,13 @@ export default function MLayout() {
   const [isLogged, setIsLogged] = useState(
     localStorage.getItem('isLogged') == 'true',
   );
-  const [userInfo, setUserInfo] = useState({});
+  const [userInfo, setUserInfo] = useState(
+    JSON.parse(localStorage.getItem('userInfo')),
+  );
   console.log(localStorage.getItem('isLogged') == 'true');
   return (
     <div className="  z-0 w-full bg-textLight pt-[60px]">
-      <Menu
-        isLogged={isLogged}
-        name="Amar"
-        role="Chercheur"
-        setIsLogged={setIsLogged}
-      />
+      <Menu isLogged={isLogged} userInfo={userInfo} setIsLogged={setIsLogged} />
       <div className=" min-h-screen">
         <Outlet
           context={{

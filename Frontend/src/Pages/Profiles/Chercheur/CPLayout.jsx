@@ -2,15 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useParams } from 'react-router-dom';
 import { ChevronLeftIcon } from '@radix-ui/react-icons';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import Informations from './Outlets/Informations.jsx';
-import Publications from './Outlets/Publications.jsx';
-import Encadrements from './Outlets/Encadrements.jsx';
 import axios from 'axios';
-import { data } from 'autoprefixer';
+import NotFound from '@/Pages/NotFound/NotFound';
 
 export default function CPLayout() {
   const [activeTab, setActiveTab] = useState(0);
-  const [headerData , SetHeaderData]  = useState({}) 
+  const [headerData, SetHeaderData] = useState({});
   const tabs = [
     {
       title: 'Informations',
@@ -25,24 +22,21 @@ export default function CPLayout() {
       title: 'Encadrements',
     },
   ];
- const {id}= useParams() 
- useEffect(()=>{
-  
-  const fetch = async ()=>{
-    const resultat = await axios.get('http://localhost:3000/recherche/chercheur/'+id)
-    console.log("id"+id)
-    console.log(resultat.data.Chercheur)
-    SetHeaderData(resultat.data.Chercheur)
+  const { id } = useParams();
+  useEffect(() => {
+    const fetch = async () => {
+      const resultat = await axios.get(
+        'http://localhost:3000/recherche/chercheur/' + id,
+      );
+      console.log('id' + id);
+      console.log(resultat.data.Chercheur);
+      SetHeaderData(resultat.data.Chercheur);
 
-  console.log("rendering chercheru layout")
-  
-  
-  }
-  fetch()
-
-
- } , [])
-  return (
+      console.log('rendering chercheru layout');
+    };
+    fetch();
+  }, []);
+  return headerData ? (
     <div className="h-full w-full">
       {/* Navigate back */}
       <div className="flex items-center">
@@ -61,7 +55,9 @@ export default function CPLayout() {
           {/* Status */}
           <div className="grid grid-cols-[20%_20%_auto] grid-rows-2 p-6">
             <Avatar className="row-span-2">
-              <AvatarImage src= {headerData.image_path || "https://github.com/shadcn.png" } />
+              <AvatarImage
+                src={headerData.image_path || 'https://github.com/shadcn.png'}
+              />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
 
@@ -75,10 +71,16 @@ export default function CPLayout() {
           {/* Tabs */}
           <div className="flex justify-between  p-4 ">
             {tabs.map((tab) => (
-              <NavLink to={`./${tab.title}`} className= {({ isActive, isPending }) =>
-              isPending ? "no-underline hover:underline underline-offset-6 decoration-2" : isActive ? " underline underline-offset-6 decoration-2" : ""
-            }>
-               
+              <NavLink
+                to={`./${tab.title}`}
+                className={({ isActive, isPending }) =>
+                  isPending
+                    ? 'underline-offset-6 no-underline decoration-2 hover:underline'
+                    : isActive
+                      ? ' underline-offset-6 underline decoration-2'
+                      : ''
+                }
+              >
                 <div
                   key={tab.title}
                   onClick={() => setActiveTab(index)}
@@ -102,13 +104,15 @@ export default function CPLayout() {
             Compte Google Scholar
           </Link>
           <Link
-            to={"https://dblp.org/"}
-            className="rounded-lg bg-buttonDark px-1 py-1 text-white hover:bg-buttonLight text-center"
+            to={'https://dblp.org/'}
+            className="rounded-lg bg-buttonDark px-1 py-1 text-center text-white hover:bg-buttonLight"
           >
             Compte DBLP
           </Link>
         </div>
       </div>
     </div>
+  ) : (
+    <NotFound />
   );
 }

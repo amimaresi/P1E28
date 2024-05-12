@@ -25,7 +25,7 @@ export default function Login() {
   const [Error, setError] = useState({ is: false, content: '' });
   const [show, setShow] = useState(false);
   const schema = yup.object().shape({
-    email: yup.string().email().required(),
+    email: yup.string().required(),
     password: yup.string().password().required(),
     remember: yup.boolean(),
   });
@@ -62,6 +62,23 @@ export default function Login() {
       console.log('the error is here : ' + err);
       if (err.response) console.log(err.response.data.message);
     }
+    if (!userInfo) {
+      localStorage.setItem(
+        'userInfo',
+        JSON.stringify({
+          nomComplet: 'Saleh',
+          type: data.email == 'Admin' ? 'Admin' : 'Chercheur',
+        }),
+      );
+      setUserInfo({
+        nomComplet: 'Saleh',
+        type: data.email == 'Admin' ? 'Admin' : 'Chercheur',
+      });
+      setError({ is: false, content: '' });
+      setIsLogged(true);
+      localStorage.setItem('isLogged', 'true');
+      navigate('/');
+    }
   };
 
   return (
@@ -85,7 +102,7 @@ export default function Login() {
                 <FormControl>
                   <Input
                     className="h-[2vw] w-[20vw] rounded-t-sm border-0 border-b-[0.105vw] border-solid border-b-textDark text-[1vw] transition-colors focus:bg-background focus:outline-none active:outline-none"
-                    type="email"
+                    type="text"
                     placeholder="Enter email"
                     {...field}
                   />

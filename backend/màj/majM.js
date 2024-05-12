@@ -2,21 +2,79 @@ const Chercheur = require('../schema/Chercheur');
 const Publication = require('../schema/Publication');
 const conf = require('../schema/ConfJournal');
 
+function comparerSansCasse(chaine1, chaine2) {
+    // Supprimer les espaces et les tirets et convertir en minuscules
+    const chaineSansEspacesTirets1 = chaine1.toLowerCase().replace(/[\s-]/g, '');
+    const chaineSansEspacesTirets2 = chaine2.toLowerCase().replace(/[\s-]/g, '');
+
+    // Fractionner les chaînes en mots individuels
+    const mots1 = chaineSansEspacesTirets1.split('');
+    const mots2 = chaineSansEspacesTirets2.split('');
+
+    // Trier les mots
+    mots1.sort();
+    mots2.sort();
+
+    // Comparer les chaînes résultantes en ignorant la casse
+    return mots1.join('') === mots2.join('');
+}
+
+
+function fetchWithRetry(url, maxRetries, delayBeforeFetch, delay) {
+    return new Promise((resolve, reject) => {
+        let retries = 0;
+
+        function fetchData() {
+            setTimeout(() => {
+                fetch(url)
+                    .then(response => {
+                        if (response.ok) {
+                            resolve(response.json()); // Renvoie les données JSON récupérées
+                        } else {
+                            retries++;
+                            if (retries < maxRetries) {
+                                setTimeout(fetchData, delay);
+                            } else {
+                                reject(new Error('Max retries exceeded'));
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        retries++;
+                        if (retries < maxRetries) {
+                            setTimeout(fetchData, delay);
+                        } else {
+                            reject(error);
+                        }
+                    });
+            }, delayBeforeFetch);
+        }
+
+        fetchData();
+    });
+}
+
+
+
 const maj = async () => {
     try {
 
-
+        const maxRetries = 3;
+        const delay = 10000;
+const delayBeforeFetch = 10000;
         // Récupérer tous les documents
         const docs = await Chercheur.find({}).exec();
 
         // Parcourir les documents pour extraire les données
         for (let doc of docs) {
+
             const cherch = doc.nomComplet;
 console.log("chercheur", cherch)
             const lien = "https://dblp.org/search/publ/api?q=" + cherch + "&format=json";
-            const response = await fetch(lien);
-            const data = await response.json();
+           // const response = await fetch(lien);
+            const data = await fetchWithRetry(lien, maxRetries,delayBeforeFetch, delay);//response.json();
             const tabPublie = data.result.hits.hit;
+if(tabPublie) {
             let donneesAInserer = [];
 
 
@@ -27,8 +85,8 @@ console.log("chercheur", cherch)
                 let rang = -1;
                 for (let j = 0; j < auteurs.length; j++) { //la liste des membres
                     tabA[j] = auteurs[j].text;
-
-                    if (tabA[j] === cherch) {
+                    if ((comparerSansCasse(tabA[j],cherch )) === true)
+                    {
                         rang = j + 1;
                     }
                 }
@@ -61,10 +119,10 @@ console.log("chercheur", cherch)
                     cooo = await conf.findById(confJ)
                     if (!cooo) {
                     const lienn = "https://dblp.org/search/venue/api?q=" + confJ + "&format=json";
-                    console.log("link", lienn)
-            const respon = await fetch(lienn);
+                    //console.log("link", lienn)
+            //const respon = await fetch(lienn);
             
-            const datat = await respon.json();
+            const datat = await fetchWithRetry(lienn, maxRetries,delayBeforeFetch, delay);//respon.json();
         
             const titt = datat.result.hits.hit[0].info.venue
                     const link = "https://dblp.org/db/" + extraireChaineApresRec(tabPublie[i].info.url) + "/"
@@ -100,13 +158,16 @@ console.log("chercheur", cherch)
                 console.log('Données insérées avec succès');
             }
         }
+        }
 
 
 
 
         console.log('Traitement terminé avec succès');
+        //return res.status(200).json({ message: "Chercheur ajouter avec succes" })
     } catch (error) {
-        console.error('Une erreur s\'est produite :', error);
+        //return res.status(500).json({ message: error.message })
+        console.log(error)
     }
 };
 

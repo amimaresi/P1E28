@@ -5,6 +5,7 @@ import { Label } from '@/components/ui/label';
 import { CheckIcon, Pencil1Icon } from '@radix-ui/react-icons';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ViewIcon } from 'lucide-react';
+import NotFound from '../NotFound/NotFound';
 
 // Composant pour un champ éditable
 const EditableField = ({
@@ -115,7 +116,7 @@ export default function Settings() {
     setEditedData({ ...editedData, [key]: value });
   };
 
-  return (
+  return editedData ? (
     <div className="container mx-auto min-h-screen bg-white px-4 py-8">
       <div className="mx-auto max-w-5xl">
         <div className="mb-10 flex items-center gap-[330px]">
@@ -189,5 +190,7 @@ export default function Settings() {
         </div>
       </div>
     </div>
+  ) : (
+    <NotFound />
   );
 }
