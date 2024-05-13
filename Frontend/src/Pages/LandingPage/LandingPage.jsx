@@ -229,7 +229,7 @@ export default function LandingPage() {
                 Les statistiques du LMCS 
               </h1>
               {
-                'imrgregt, {useState} from react \n ietghtyrthgLink, Outlet } from "react-router-dom" \n irgergegpojoj*zolmajn,vjaerkhga'
+               'Explorez les Statistiques de LMCS  selon Votre Thème Préféré '
               }
             </p>
             <NavLink to="/login">
