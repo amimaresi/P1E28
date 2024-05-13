@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { CheckIcon, Pencil1Icon } from '@radix-ui/react-icons';
-
-const EditableField = ({ label, value, onChange }) => {
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+const EditableField = ({ attribut , id , label, value, onChange }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedValue, setEditedValue] = useState(value);
 
@@ -13,10 +14,20 @@ const EditableField = ({ label, value, onChange }) => {
     setEditedValue(value);
   };
   
-  const handleSave = () => {
+  const handleSave = async() => {
     setIsEditing(false);
     onChange(editedValue);
     // fetch with key
+    let obj = {}
+    obj[attribut] = editedValue
+    try{
+      const result = await axios.put('http://localhost:3000/modification/encadrement/'+id,obj , {withCredentials: true})
+      console.log(result)
+    }
+    catch(err){
+      console.log(err)
+    }
+     
   };
 
   return ( 
@@ -62,63 +73,30 @@ const EditableField = ({ label, value, onChange }) => {
 
 export default function EncSettings() {
   const [editedData, setEditedData] = useState([
-    // Vos données initiales
-    {
-      "_id": {
-      "$oid": "660096a07654baa3c3bed13b"
-      },
-      "Type": "PFE",
-      "Titre": "Intelligence Artificielle",
-      "AnneeD": "2020",
-      "AnneeF": "2021",
-      "Etudiants": [
-      "Heti Amina",
-      "Soupe Baraka"
-      ],
-      "Encadrants": [
-      {
-      "nomComplet": "Boualem Khelouat",
-      "_id": "b_khelouat@esi.dz",
-      "role": "encadrant"
-      },
-      {
-      "nomComplet": "Fatima Si Tayeb ",
-      "_id": "f_sitayeb@esi.dz",
-      "role": "co-encadrant"
-      }
-      ]
-     },
-     {
-      "_id": {
-      "$oid": "660097a4c8da1dd8d8c90775"
-      },
-      "Type": "Doctorat",
-      "Titre": "Réseaux",
-      "AnneeD": "2022",
-      "AnneeF": "2024",
-      "Etudiants": [
-      "Hassam Amar"
-      ],
-      "Encadrants": [
-      {
-      "nomComplet": "KHELOUAT Boualem",
-      "_id": "b_khelouat@esi.dz",
-      "role": "encadrant"
-      },
-      {
-      "nomComplet": "Ait Kaci Azzou Samira",
-      "_id": "Null",
-      "role": "Null"
-      }
-      ]
-     }
+    
   ]);
+
+  const {id} = useParams()
+  console.log(id)
 
   const handleChange = (key, value, index) => {
     const newData = [...editedData];
     newData[index][key] = value;
     setEditedData(newData);
-  };
+  }
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const result = await axios.get('http://localhost:3000/recherche/encadrement/'+id)
+        console.log(result.data.Encadrement)
+        setEditedData([result.data.Encadrement])
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    fetch()
+  }, []);
 
   return (
     <div className="container mx-auto min-h-screen bg-white px-4 py-8">
@@ -132,31 +110,43 @@ export default function EncSettings() {
             <React.Fragment key={index}>
               <div className="border border-gray-300 p-4">
                 <EditableField
+                id={id}
+                attribut="Type"
                   label="Type"
                   value={data.Type}
                   onChange={(value) => handleChange('Type', value, index)}
                 />
                 <EditableField
+                id={id}
+                attribut="Titre"
                   label="Titre"
                   value={data.Titre}
                   onChange={(value) => handleChange('Titre', value, index)}
                 />
                 <EditableField
+                id={id}
+                  attribut="AnneeD"
                   label="Année de Début"
                   value={data.AnneeD}
-                  onChange={(value) => handleChange('Année de Début', value, index)}
+                  onChange={(value) => handleChange('AnneeD', value, index)}
                 />
                 <EditableField
+                id={id}
+                attribut="AnneeF"
                   label="Année de Fin"
                   value={data.AnneeF}
-                  onChange={(value) => handleChange('Année de Fin', value, index)}
+                  onChange={(value) => handleChange('AnneeF', value, index)}
                 />
                 <EditableField
+                id={id}
+                 attribut="Etudiants"
                   label="Etudiants"
                   value={data.Etudiants}
                   onChange={(value) => handleChange('Etudiants', value, index)}
                 />
                 <EditableField
+                id={id}
+                  attribut="Encadrants"
                   label="Encadrants"
                   value={data.Encadrants}
                   onChange={(value) => handleChange('Encadrants', value, index)}

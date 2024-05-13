@@ -6,7 +6,7 @@ import { CheckIcon, Pencil1Icon } from '@radix-ui/react-icons';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-const EditableField = ({ label, value, onChange }) => {
+const EditableField = ({id , label, attribut,value, onChange }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedValue, setEditedValue] = useState(value);
 
@@ -15,10 +15,21 @@ const EditableField = ({ label, value, onChange }) => {
     setEditedValue(value);
   };
   
-  const handleSave = () => {
+  const handleSave =async () => {
     setIsEditing(false);
     onChange(editedValue);
-    // fetch with key
+    let obj = {}
+    obj[attribut] = editedValue 
+    console.log(obj)
+    // fetch with attribut
+    try {
+      const result = await axios.put('http://localhost:3000/modification/Publication/'+id,obj , {withCredentials: true})
+      console.log(result)
+    }
+    catch(err){
+      console.log(err)
+    }
+
   };
 
   return ( 
@@ -63,69 +74,19 @@ const EditableField = ({ label, value, onChange }) => {
 };
 
 export default function PubSettings() {
-  const [editedData, setEditedData] = useState([
-    // Vos données initiales
-    {
-      "_id": {
-        "$oid": "66112c732dd5fcb5d05589bd"
-      },
-      "Date": "2013",
-      "idCherch": "a_balla@esi.dz",
-      "confJourn": "ICITST",
-      "maisonEdition": "ESIST",
-      "volume": "indefini",
-      "pages": "182-187",
-      "rang": 3,
-      "Titre": "DA5DCSWS: A Distributed Architecture for semantic Web services Discovery and Composition.",
-      "Lien": "https://doi.org/10.1109/ICITST.2013.6750188",
-      "Membres": [
-        "Adel Boukhadra",
-        "Karima Benatchba",
-        "Amar Balla"
-      ],
-      "Classement": [],
-      "__v": 0,
-      "createdAt": {
-        "$date": "2024-04-06T11:05:23.061Z"
-      },
-      "updatedAt": {
-        "$date": "2024-04-06T11:05:23.061Z"
-      }
-    },
-    {
-      "_id": {
-        "$oid": "66112c732dd5fcb5d05589b1"
-      },
-      "Date": "2016",
-      "idCherch": "a_balla@esi.dz",
-      "confJourn": "IDC",
-      "maisonEdition": "ESIST",
-      "volume": "indefini",
-      "pages": "13-22",
-      "rang": 3,
-      "Titre": "A Dynamic Model to enhance the Distributed Discovery of services in P2P Overlay Networks.",
-      "Lien": "https://doi.org/10.1007/978-3-319-48829-5_2",
-      "Membres": [
-        "Adel Boukhadra",
-        "Karima Benatchba",
-        "Amar Balla"
-      ],
-      "Classement": [],
-      "__v": 0,
-      "createdAt": {
-        "$date": "2024-04-06T11:05:23.060Z"
-      },
-      "updatedAt": {
-        "$date": "2024-04-06T11:05:23.060Z"
-      }
-    }
-  ]);
+  const [editedData, setEditedData] = useState([]);
   const {id} = useParams()
 
   const handleChange = (key, value, index) => {
-    const newData = [...editedData];
-    newData[index][key] = value;
-    setEditedData(newData);
+     const newData = [...editedData];
+     console.log(newData)
+     newData[index][key] = value;
+     console.log(index)
+    console.log(key)
+    console.log(value)
+   
+   
+    setEditedData(newData)
   };
   useEffect(()=>{
     console.log("id"+ id)
@@ -133,7 +94,7 @@ export default function PubSettings() {
       try{
         const result = await axios.get('http://localhost:3000/recherche/publication/'+id)
         console.log(result.data.Publications)
-       // setEditedData(result.data.Publication)
+       setEditedData([result.data.Publications])
       }
       catch(err)
       {
@@ -157,46 +118,64 @@ export default function PubSettings() {
             <React.Fragment key={index}>
               <div className="border border-gray-300 p-4">
                 <EditableField
-                  label="Email"
+                  id={id}
+                  attribut={'idCherch'}
+                  label={'Email'}
                   value={data.idCherch}
-                  onChange={(value) => handleChange('Email', value, index)}
+                  onChange={(value) => handleChange('idCherch', value, index)}
                 />
                 <EditableField
-                  label="Titre"
+                 id={id}
+                  attribut={'Titre'}
+                  label={'Titre'}
                   value={data.Titre}
                   onChange={(value) => handleChange('Titre', value, index)}
                 />
                 <EditableField
+                 id={id}
+                 attribut={'Date'}
                   label="Date"
                   value={data.Date}
                   onChange={(value) => handleChange('Date', value, index)}
                 />
                 <EditableField
-                  label="Conférence/Journal"
+                 id={id}
+                  attribut={'confJourn'}
+                  label={'conferece/Journal'}
                   value={data.confJourn}
-                  onChange={(value) => handleChange('Conférence/Journal', value, index)}
+                  onChange={(value) => handleChange('confJourn', value, index)}
                 />
                 <EditableField
-                  label="Maison D'édition"
-                  value={data.maisonEdition}
-                  onChange={(value) => handleChange("Maison D'édition", value, index)}
+                 id={id}
+                 attribut={'MaisonEdistion'}
+                  label={'Maison D\'édition'}
+                  value={data.MaisonEdistion}
+                  onChange={(value) => handleChange("MaisonEdistion", value, index)}
                 />
                 <EditableField
-                  label="Volume"
+                 id={id}
+                  label="volume"
+                  attribut={'volume'}
                   value={data.volume}
-                  onChange={(value) => handleChange('Volume', value, index)}
+                  onChange={(value) => handleChange('volume', value, index)}
                 />
                 <EditableField
+                 id={id}
                   label="Pages"
+                  attribut={'pages'}
                   value={data.pages}
-                  onChange={(value) => handleChange('Pages', value, index)}
+                  onChange={(value) => handleChange('pages', value, index)}
                 />
                 <EditableField
+                 id={id}
+                 attribut={'Membres'}
                   label="Membres"
                   value={data.Membres}
                   onChange={(value) => handleChange('Membres', value, index)}
                 />
                 <EditableField
+                 id={id}
+                 attribut={'Classement'}
                   label="Classement"
                   value={data.Classement}
                   onChange={(value) => handleChange('Classement', value, index)}
