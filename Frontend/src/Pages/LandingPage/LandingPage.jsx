@@ -97,7 +97,7 @@ export default function LandingPage() {
     for (let i = 0; i < leaders.length; i++) {
       leaderboxes[i] = (
         <NavLink to={`chercheur/${leaders[i]._id}`}>
-          <Card className=" h-[27vw] w-[30vw] border-[0.15vw] p-[1vw] shadow-md transition-shadow hover:mb-3 hover:translate-x-2 hover:shadow-lg md:h-[22vw] md:w-[30vw] lg:h-[20vw] lg:w-[30vw]">
+          <Card className=" h-[27vw] w-[30vw] border-[0.5vw] p-[1vw] shadow-md border-buttonDark transition-shadow hover:mb-3 hover:translate-x-2 hover:shadow-lg md:h-[22vw] md:w-[30vw] lg:h-[20vw] lg:w-[30vw]">
             <CardHeader className="p-[1vw]">
               <Avatar className="h-[4vw] w-[4vw]">
                 <AvatarImage src={leaders[i].nomComplet} />
