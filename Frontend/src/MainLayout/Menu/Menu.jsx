@@ -103,7 +103,7 @@ export default function Menu({ isLogged, setIsLogged, userInfo, setUserInfo }) {
               </NavigationMenuContent>
             </NavigationMenuItem>
 
-            {userInfo.type && userInfo.type == 'Assistant' && isLogged ? (
+            {userInfo && userInfo.type == 'Assistant' && isLogged ? (
               <NavigationMenuItem>
                 <NavigationMenuTrigger className=" text-[16.5px]">
                   Gestion du laboratoire
@@ -533,9 +533,9 @@ function ProfileMenu({ userInfo, setIsLogged }) {
                     const res = await axios.get(
                       'http://localhost:3000/auth/logout',
                       { withCredentials: true },
-                    ); 
-                    
-                    localStorage.clear()
+                    );
+
+                    localStorage.clear();
                     console.log(res.data.message);
                     redirect('/');
                   } catch (e) {

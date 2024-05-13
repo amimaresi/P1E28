@@ -18,6 +18,16 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
+import {
+  AlertDialogDescription,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogCancel,
+} from '@/components/ui/alert-dialog';
 YupPassword(yup);
 export default function Login() {
   const navigate = useNavigate();
@@ -164,40 +174,39 @@ export default function Login() {
                 </FormItem>
               )}
             />
-            <Dialog>
-            <DialogTrigger asChild>
-            <Button
-              
-              className="m-0 font-title text-[0.8vw] font-medium text-buttonLight no-underline bg-transparent active:text-buttonDark"
-            >
-              Forgot password ?
-           </Button>
-            </DialogTrigger>
-      <DialogContent className="sm:max-w-[500px]">
-        <DialogHeader>
-          <DialogTitle>vous avez oublié le mot de passe?</DialogTitle>
-          <DialogDescription>
-            nous vous enverrons un e-mail avec un lien pour réinitialiser votre mot de passe
-          </DialogDescription>
-        </DialogHeader>
-        <div className="grid gap-4 py-4  justify-start">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="email" className="text-right">
-              E-mail
-            </Label>
-            <Input
-              id="email"
-              defaultValue=""
-              className="col-span-3"
-            />
-          </div>
-          
-        </div>
-        <DialogFooter>
-          <Button className="bg-buttonDark" type="submit">réinitialiser votre mot de passe</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button className="m-0 bg-transparent font-title text-[0.8vw] font-medium text-buttonLight no-underline active:text-buttonDark">
+                  Forgot password ?
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent className="sm:max-w-[500px]">
+                <AlertDialogHeader>
+                  <AlertDialogTitle>
+                    vous avez oublié le mot de passe?
+                  </AlertDialogTitle>
+                  <AlertDialogDescription>
+                    nous vous enverrons un e-mail avec un lien pour
+                    réinitialiser votre mot de passe
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <div className="grid justify-start gap-4  py-4">
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="email" className="text-right">
+                      E-mail
+                    </Label>
+                    <Input id="email" defaultValue="" className="col-span-3" />
+                  </div>
+                </div>
+
+                <AlertDialogFooter>
+                  <Button className="bg-buttonDark" type="submit">
+                    réinitialiser votre mot de passe
+                  </Button>
+                  <AlertDialogCancel>cancel</AlertDialogCancel>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
 
           <Button
