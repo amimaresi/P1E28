@@ -1,10 +1,12 @@
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import leftArrow from './assets/left arrow.svg';
 import rightArrow from './assets/right arrow.svg';
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import NotFound from '@/Pages/NotFound/NotFound';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -36,15 +38,7 @@ import {
 } from '@/components/ui/card';
 export default function EditLandingPage() {
   const LandingPage = {
-    // fetching
-    news: [
-      {
-        title: 'LMCS:Track',
-        paragraphe: 'LMCS:Track vous souhaite la bienvenue',
-        img: 'https://lmcs.esi.dz/wp-content/uploads/2023/11/seminaire-3-1024x492.jpg',
-        Subject: 'Bienvenue',
-      },
-    ],
+   
   };
 
   const schema = yup.object().shape({
@@ -57,9 +51,17 @@ export default function EditLandingPage() {
 
   useEffect(() => {
     async function fetchNews() {
-      //setBoxes(response.data)
+      try {
+      const response = await axios.get('http://localhost:3000/recherche/PageAcc'); // Replace with your actual API endpoint
+       
+        const newsData = response.data.Pages; // Assuming data is in response.data.Pages
+        console.log("newsData",newsData)
+        setBoxes(newsData);
+    } catch (error) {
+      console.error('Error fetching news:', error);
+      // Gérer les erreurs
     }
-
+  }
     fetchNews();
   }, []);
 
@@ -69,7 +71,7 @@ export default function EditLandingPage() {
     return new Promise((res) => setTimeout(res, delay));
   }
   const form = useForm({
-    defaultValues: LandingPage.news[index],
+    defaultValues: {},
     resolver: yupResolver(schema),
   });
   const updateForm = (i) => {
@@ -80,22 +82,49 @@ export default function EditLandingPage() {
     form.setValue('img', boxes[i].img);
     form.setValue('Subject', boxes[i].Subject);
   };
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    console.log("data",data);
+    const dataWithId = { ...data, id: index }; // Spread existing data and add id
+    console.log("data (with id):", dataWithId);
+    try {
+      const response = await axios.post('http://localhost:3000/pageAcc/insertion', dataWithId ,); // Replace with your API endpoint
+    console.log(response.data); 
     setBoxes((oldBoxes) => {
       const newBoxes = oldBoxes.map((box) => {
         if (box.id === index) {
+         
           return { ...box, ...data };
           /////////////////////////////////////
-          // save changes to box
-
+          // save changes to b
           ///////////////////////////////////
         }
         return box;
       });
       return newBoxes;
     });
+  } catch (err) {
+    if (err.response) console.log(err.response.data.message); //this error is for displaying the error message from the server
+  }
+  };
+
+  const handleRemoveBox = async () => {
+    if (boxes.length <= 6 && boxes.length !== 1) {
+      try {
+        await axios.delete(`http://localhost:3000/pageAcc/supression/${index}`);
+        setBoxes((old) => {
+          const newBoxes = [...old];
+          newBoxes.splice(index, 1);
+          setIndex((oldIndex) => (oldIndex !== 0 ? oldIndex - 1 : 0));
+          return newBoxes;
+        });
+      } catch (error) {
+        console.error('Error removing box:', error);
+        // Gérer les erreurs de suppression
+      }
+    }
   };
   const paginationButtons = [];
+  if (boxes) {
   for (let i = 0; i < boxes.length; i++) {
     paginationButtons[i] = (
       <button
@@ -106,7 +135,8 @@ export default function EditLandingPage() {
       ></button>
     );
   }
-  return (
+}
+  return boxes ? (
     <div className="flex flex-col items-center justify-center gap-5 pt-5">
       <Card>
         <CardHeader>
@@ -219,13 +249,13 @@ export default function EditLandingPage() {
                       }}
                     >
                       <span className=" mr-2 ">+</span>
-                      New
+                      Nouveau
                     </Button>
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
                         <Button className="rounded-full">
                           <span className=" mr-2">x</span>
-                          Remove
+                          Suprimer
                         </Button>
                       </AlertDialogTrigger>
                       <AlertDialogContent>
@@ -233,28 +263,18 @@ export default function EditLandingPage() {
                           <AlertDialogTitle>
                             {boxes.length == 1
                               ? 'Error !'
-                              : 'Are you absolutely sure?'}
+                              : 'Etes-vous sure?'}
                           </AlertDialogTitle>
                           <AlertDialogDescription>
-                            At least one element should be present !
+                            Au moins un element doit etre present !
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogCancel>Annuler</AlertDialogCancel>
                           <AlertDialogAction
-                            onClick={() => {
-                              if (boxes.length <= 6 && boxes.length != 1) {
-                                setBoxes((old) => {
-                                  let newboxes = structuredClone(old);
-                                  newboxes.splice(index, 1);
-                                  index != 0 ? setIndex(index - 1) : null;
-                                  console.log(newboxes);
-                                  return newboxes;
-                                });
-                              }
-                            }}
+                            onClick={handleRemoveBox}
                           >
-                            Continue
+                            Continuer
                           </AlertDialogAction>
                         </AlertDialogFooter>
                       </AlertDialogContent>
@@ -339,5 +359,7 @@ export default function EditLandingPage() {
         </div>
       </div>
     </div>
+  ) : (
+    <NotFound />
   );
 }

@@ -62,18 +62,17 @@ export default function Login() {
       console.log('the error is here : ' + err);
       if (err.response) console.log(err.response.data.message);
     }
-    if (!userInfo) {
+    if (!userInfo || Error.is) {
       localStorage.setItem(
         'userInfo',
         JSON.stringify({
-          
           nomComplet: 'Saleh',
-          type: data.email == 'Admin' ? 'Admin' : 'Chercheur',
+          type: data.email,
         }),
       );
       setUserInfo({
         nomComplet: 'Saleh',
-        type: data.email == 'Admin' ? 'Admin' : 'Chercheur',
+        type: data.email,
       });
       setError({ is: false, content: '' });
       setIsLogged(true);
@@ -83,7 +82,7 @@ export default function Login() {
   };
 
   return (
-    <div className="relative h-screen bg-opacity-5 bg-[url('https://lmcs.esi.dz/wp-content/uploads/2022/05/auditorium.jpg')] bg-cover bg-center">
+    <div className="relative h-screen ">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

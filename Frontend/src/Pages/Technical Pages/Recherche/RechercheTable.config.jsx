@@ -57,10 +57,7 @@ export function ColumnsChercheur() {
             <Avatar>
               <AvatarImage
                 className=" rounded-full"
-                src={
-                  row.original.image_path 
-                
-                }
+                src={row.original.image_path}
               />
               <AvatarFallback>
                 {row.getValue('nomComplet').slice(0, 2)}

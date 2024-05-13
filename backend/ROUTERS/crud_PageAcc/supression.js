@@ -4,7 +4,7 @@ const InfoPageAcc = require('../../schema/InfoPageAccueil')
 
 
 const supprimer = async (req, res) => {
-    const { id } = req.body; // Supposons que l'ID de la page  soit passé en tant que paramètre de requête
+    const { id } = req.params; // Supposons que l'ID de la page  soit passé en tant que paramètre de requête
   
     try {
       // Trouver et supprimer le document par son ID

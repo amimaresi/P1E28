@@ -28,6 +28,7 @@ import PubSettings from './Pages/settings/PubSettings.jsx';
 import EncSettings from './Pages/settings/EncSettings.jsx';
 import SettingsController from './Pages/settings/SettingsController.jsx';
 import ProfileController from './Pages/Profiles/ProfileController.jsx';
+import Control from './Pages/Technical Pages/Control.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -79,7 +80,7 @@ const router = createBrowserRouter(
       <Route path="editProjet/:id" element={<ProSettings />} />
       <Route path="editPublication/:id" element={<PubSettings />} />
       <Route path="editEncadrement/:id" element={<EncSettings />} />
-      <Route path="control" element={<Outlet />}>
+      <Route path="control" element={<Control />}>
         <Route index element={<NotFound />} />
         <Route path="LandingPage" element={<EditLandingPage />} />
 

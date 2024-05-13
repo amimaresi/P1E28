@@ -296,19 +296,6 @@ function Fchercheur({ form }) {
       />
       <FormField
         control={form.control}
-        name="orcid"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Orcid</FormLabel>
-            <FormControl>
-              <Input placeholder="Entrez l'orcid'" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
         name="Matricule"
         render={({ field }) => (
           <FormItem>
@@ -347,14 +334,13 @@ function Fpublication({ form }) {
           <FormItem>
             <FormLabel>chercheur (Email)</FormLabel>
             <FormControl>
-              <Input placeholder="entrez le titre" {...field} />
+              <Input placeholder="entrez l'email'" {...field} />
             </FormControl>
 
             <FormMessage />
           </FormItem>
         )}
-      />{' '}
-      <Separator />
+      />
       <FormField
         control={form.control}
         name="confJourn"
@@ -365,32 +351,6 @@ function Fpublication({ form }) {
               <Input placeholder="entrez le mot clé" {...field} />
             </FormControl>
 
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="volume"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Volume</FormLabel>
-            <FormControl>
-              <Input placeholder="entrez le volume" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="pages"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Pages</FormLabel>
-            <FormControl>
-              <Input placeholder="entrez le numero des pages" {...field} />
-            </FormControl>
             <FormMessage />
           </FormItem>
         )}
@@ -418,6 +378,7 @@ function Fpublication({ form }) {
           </FormItem>
         )}
       />
+      <Separator />
       <FormField
         control={form.control}
         name="MaisonEdition"
@@ -426,36 +387,6 @@ function Fpublication({ form }) {
             <FormLabel>Maison d'edition</FormLabel>
             <FormControl>
               <Input placeholder="entrez le mot clé" {...field} />
-            </FormControl>
-
-            <FormMessage />
-          </FormItem>
-        )}
-      />{' '}
-      <Separator />
-      <FormField
-        control={form.control}
-        name="Classement"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Classement</FormLabel>
-            <FormControl>
-              <Input placeholder="entrez le classement" {...field} />
-            </FormControl>
-
-            <FormMessage />
-          </FormItem>
-        )}
-      />{' '}
-      <FormField
-        control={form.control}
-        name="rang"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Rang</FormLabel>
-            <FormControl>
-              <Input placeholder="entrez le rang" {...field} />
-             
             </FormControl>
 
             <FormMessage />
@@ -505,19 +436,7 @@ function Fprojet({ form }) {
           </FormItem>
         )}
       />
-      <FormField
-        control={form.control}
-        name="Theme"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Theme</FormLabel>
-            <FormControl>
-              <Input placeholder="entrez le theme" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+
       <Separator />
       <FormField
         control={form.control}
@@ -601,25 +520,11 @@ function FEncadrement({ form }) {
     <>
       <FormField
         control={form.control}
-        name="Titre"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Titre</FormLabel>
-            <FormControl>
-              <Input placeholder="entrez le titre" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
         name="Type"
         render={({ field }) => (
           <FormItem>
             <FormLabel>Type</FormLabel>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
-             
               <FormControl>
                 <SelectTrigger>
                   <SelectValue placeholder="Choisir un type" />
@@ -662,27 +567,6 @@ function FEncadrement({ form }) {
               <Input placeholder="entrez le nom de l'encadrant" {...field} />
             </FormControl>
             <FormMessage />
-          </FormItem>
-        )}
-      />{' '}
-      <FormField
-        control={form.control}
-        name="roleEncadrant"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Encadrement (Role)</FormLabel>
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
-              <FormControl>
-                <SelectTrigger>
-                  <SelectValue placeholder="Choisir un role" />
-                </SelectTrigger>
-              </FormControl>
-              <SelectContent>
-                <SelectItem value="Null">Choisir un role</SelectItem>
-                <SelectItem value="Encadrant">Encadrant</SelectItem>
-                <SelectItem value="Co-encadrant">Co-encadrant</SelectItem>
-              </SelectContent>
-            </Select>
           </FormItem>
         )}
       />
@@ -799,19 +683,6 @@ function FConfJourn({ form }) {
           </FormItem>
         )}
       />
-      <FormField
-        control={form.control}
-        name="periodicite"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Periodicité</FormLabel>
-            <FormControl>
-              <Input placeholder="entrez la periodicité" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
     </>
   );
 }
@@ -830,7 +701,6 @@ const schema = {
       .integer('entrez un nombre entier')
       .nullable(true)
       .transform((_, val) => (val == Number(val) ? Number(val) : null)),
-    orcid: yup.string(),
     Matricule: yup.string(),
   }),
   Projet: yup.object().shape({
@@ -845,14 +715,11 @@ const schema = {
 
     DateDebut: yup.array().of(yup.number()),
     DateFin: yup.array().of(yup.number()),
-    Theme: yup.number(),
   }),
   Encadrement: yup.object().shape({
     Type: yup.string(),
-    Titre: yup.string(),
     EmailEncadrant: yup.string().email(),
     NomEncadrant: yup.string(),
-    roleEncadrant: yup.string(),
     Etudiant: yup.string(),
     AnneeD: yup.array().of(yup.number()),
     AnneeF: yup.array().of(yup.number()),
@@ -861,22 +728,13 @@ const schema = {
     _id: yup.string().max(50),
     type: yup.string(),
     nom: yup.string(),
-    periodicite: yup.string(),
   }),
   Publication: yup.object().shape({
     Titre: yup.string().max(50),
     idCherch: yup.string().email(),
     confJourn: yup.string(),
-    volume: yup.string(),
-    pages: yup.number(),
     Date: yup.array().of(yup.number()),
     GradeRecherche: yup.string(),
     MaisonEdition: yup.string(),
-    Classement: yup.string(),
-    rang: yup
-      .number('entrez un nombre entier')
-      .integer('entrez un nombre entier')
-      .nullable(true)
-      .transform((_, val) => (val == Number(val) ? Number(val) : null)),
   }),
 };
