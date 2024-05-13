@@ -144,6 +144,7 @@ const queryEncadrement = async (req, res) => {
 
 const queryEncadrementById = async (req, res) => {
     const _id = req.params.id;
+    console.log(_id);
     try {
         const encadrement = await Encadrement.findById(_id).exec();
         console.log(encadrement);

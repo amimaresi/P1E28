@@ -533,7 +533,9 @@ function ProfileMenu({ userInfo, setIsLogged }) {
                     const res = await axios.get(
                       'http://localhost:3000/auth/logout',
                       { withCredentials: true },
-                    );
+                    ); 
+                    
+                    localStorage.clear()
                     console.log(res.data.message);
                     redirect('/');
                   } catch (e) {

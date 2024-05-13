@@ -1,7 +1,7 @@
 
 const updateHindex = require('./upDateHindex')
 const Chercheur = require('../schema/Chercheur')
-const updateImageLienGoogle = require('./getImage')
+const updateImageLienGoogle = require('./getData')
 
 const upDataCherchH = async (req, res) => {
 

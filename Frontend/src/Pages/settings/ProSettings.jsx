@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { CheckIcon, Pencil1Icon } from '@radix-ui/react-icons';
-
-const EditableField = ({ label, value, onChange }) => {
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+const EditableField = ({ attribut , label, value, onChange }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedValue, setEditedValue] = useState(value);
 
@@ -17,6 +18,16 @@ const EditableField = ({ label, value, onChange }) => {
     setIsEditing(false);
     onChange(editedValue);
     // fetch with key
+    let obj = {}
+    obj[attribut] = editedValue
+    console.log(obj)
+    try{
+      const result = axios.put('http://localhost:3000/modification/projet/'+id,obj , {withCredentials: true})
+      console.log(result)
+    }
+    catch(err){
+      console.log(err)
+    }
   };
 
   return (
@@ -62,23 +73,7 @@ const EditableField = ({ label, value, onChange }) => {
 
 export default function ProSettings() {
   const [editedData, setEditedData] = useState([
-    // Vos données initiales
-    {
-      _id: { $numberInt: '2' },
-      Titre: 'ALGORITHMS AND DATA STRUCTURES',
-      ChefDeProjet: 'k_benatchba@esi.dz',
-      liste_members: [
-        'a_balla@esi.dz',
-        'mouloud.koudil@esi.dz',
-        'b_khelouat@esi.dz',
-      ],
-      DateDebut: '20/3/2024',
-      DateFin: '23/5/2024',
-      Theme: 'ALGORTIHMS ANALYSIS',
-      createdAt: { $date: { $numberLong: '1712474730446' } },
-      updatedAt: { $date: { $numberLong: '1712474730446' } },
-      __v: { $numberInt: '0' },
-    },
+    
     {
       _id: { $numberInt: '3' },
       Titre: 'ALGORITHMS AND DATA STRUCTURES ',
@@ -102,7 +97,22 @@ export default function ProSettings() {
     newData[index][key] = value;
     setEditedData(newData);
   };
+  const {id} = useParams()
+useEffect(() => {
+  const fetch = async () => {
 
+    console.log(id)
+    try{
+      const result = await axios.get('http://localhost:3000/recherche/projet/'+id)
+      console.log(result.data.projet)
+      setEditedData([result.data.projet])
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+  fetch()
+}, []);
   return (
     <div className="container mx-auto min-h-screen bg-white px-4 py-8">
       <div className="mx-auto max-w-5xl">
@@ -115,39 +125,45 @@ export default function ProSettings() {
             <div key={index} className="border border-gray-300 p-4">
               <React.Fragment>
                 <EditableField
+                 attribut="Titre"
                   label="Titre"
                   value={data.Titre}
                   onChange={(value) => handleChange('Titre', value, index)}
                 />
                 <EditableField
+                 attribut="ChefDeProjet"
                   label="Chef De Projet"
                   value={data.ChefDeProjet}
                   onChange={(value) =>
-                    handleChange('Chef De Projet', value, index)
+                    handleChange('ChefDeProjet', value, index)
                   }
                 />
                 <EditableField
+                  attribut="liste_members"
                   label="Listes des membres"
                   value={data.liste_members}
                   onChange={(value) =>
-                    handleChange('Listes des membres', value, index)
+                    handleChange('liste_members', value, index)
                   }
                 />
                 <EditableField
+                  attribut="DateDebut"
                   label="Date de Début"
                   value={data.DateDebut}
                   onChange={(value) =>
-                    handleChange('Date de Début', value, index)
+                    handleChange('DateDebut', value, index)
                   }
                 />
                 <EditableField
+                  attribut="DateFin"
                   label="Date du Fin"
                   value={data.DateFin}
                   onChange={(value) =>
-                    handleChange('Date du Fin', value, index)
+                    handleChange('DateFin', value, index)
                   }
                 />
                 <EditableField
+                  attribut="Theme"
                   label="Theme"
                   value={data.Theme}
                   onChange={(value) => handleChange('Theme', value, index)}

@@ -132,8 +132,8 @@ export default function Settings() {
     password: '123456',
   });
    useEffect(() => {
-     localStorage.setItem('user', 'y_aissaoui@esi.dz')
-    const  _id = localStorage.getItem('user')
+//localStorage.setItem('user', 'y_aissaoui@esi.dz') ca just pour test 
+    const  _id = localStorage.getItem('user.Chercheur._id')
     console.log(_id); 
     setId(_id)
     const fetch = async ()=>{
@@ -150,7 +150,7 @@ export default function Settings() {
 
    }, [])
   const handleChange = (key, value) => {
-    console.log("here is the mail "  + _id)
+   // console.log("here is the mail "  + _id)
     setEditedData({ ...editedData, [key]: value });
   };
 
@@ -161,7 +161,7 @@ export default function Settings() {
           <h1 className="text-3xl font-bold">Profil</h1>
           <EditableField
             _id={_id}
-            label="Nom complet"
+            label="image_path"
             isPicture
             value={editedData.image_path}
             onChange={(value) => handleChange('image_path', value)}
@@ -171,7 +171,7 @@ export default function Settings() {
         <div className="grid gap-4 py-4 sm:grid-cols-2">
           <EditableField
           _id={ _id}
-            label="Nom complet"
+            label="nomComplet"
             key="_id"
             value={editedData.nomComplet}
             onChange={(value) => handleChange('nomComplet', value)}
@@ -184,19 +184,19 @@ export default function Settings() {
           />
           <EditableField
           _id={ _id}
-            label="Etablissement d'origine"
+            label="EtablissementOrigine"
             value={editedData.EtablissementOrigine}
             onChange={(value) => handleChange('EtablissementOrigine', value)}
           />
           <EditableField
           _id={ _id}
-            label="Diplôme"
+            label="Diplome"
             value={editedData.Diplome}
             onChange={(value) => handleChange('Diplome', value)}
           />
           <EditableField
           _id={ _id}
-            label="Grade de recherche"
+            label="GradeRecherche"
             value={editedData.GradeRecherche}
             onChange={(value) => handleChange('GradeRecherche', value)}
           />
@@ -208,7 +208,7 @@ export default function Settings() {
           />
           <EditableField
           _id={ _id}
-            label="Grade enseignement"
+            label="GradeEnsegnement"
             value={editedData.GradeEnsegnement}
             onChange={(value) => handleChange('GradeEnsegnement', value)}
           />
@@ -226,7 +226,7 @@ export default function Settings() {
           />
           <EditableField
           _id={ _id}
-            label="Téléphone"
+            label="contact"
             value={editedData.tel}
             onChange={(value) => handleChange('tel', value)}
           />
