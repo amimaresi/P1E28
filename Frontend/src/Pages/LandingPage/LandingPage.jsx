@@ -226,7 +226,7 @@ export default function LandingPage() {
           <div className="flex flex-col items-center gap-5">
             <p className="w-[50%] text-[2vw] md:text-[1vw]">
               <h1 className=" z-10 mb-3 font-title text-[4vw] md:text-[2vw]">
-                LMCS Stats
+                Les statistiques du LMCS 
               </h1>
               {
                 'imrgregt, {useState} from react \n ietghtyrthgLink, Outlet } from "react-router-dom" \n irgergegpojoj*zolmajn,vjaerkhga'
@@ -236,7 +236,7 @@ export default function LandingPage() {
               <Button
                 className={`h-[25px] rounded-xl bg-buttonDark px-4 text-sm text-textLight hover:bg-slate-700 hover:text-textLight md:h-[35px] md:text-lg `}
               >
-                Learn more
+                 En savoir plus
               </Button>
             </NavLink>
           </div>
