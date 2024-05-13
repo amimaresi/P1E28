@@ -113,7 +113,7 @@ const sendMailCherch = async (email , token) => {
         html :
         `<h1>Réinitialisation de mot de passe</h1>
         <p>Vous pouvez connecter à votre compte après changer votre mot de passe</p>
-        <a href= http://localhost:3000/settings/resetpassword/${email}/${token}>clique ici pour changer votre mot de passe </a>`
+        <a href= http://localhost:5173/login/resetpassword/${token}>clique ici pour changer votre mot de passe </a>`
 
     }
 

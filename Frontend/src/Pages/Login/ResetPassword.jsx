@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useParams } from 'react-router-dom';
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -11,8 +11,25 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-
+import axios from 'axios';
 export default function ResetPassword() {
+  const [password , setPassword] = useState('')
+  const {token} = useParams()
+  
+  const resetPassword = async ()=>{
+    console.log(password)
+    try {
+       const resutlt = await axios.post(
+        `http://localhost:3000/auth/reset-password/${token}`,
+        {password},
+        { withCredentials: true },
+      );
+      console.log('this is result :', resutlt.data);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return <>
     <div className='flex justify-center p-12'>
     <Card className="w-[600px]">
@@ -30,14 +47,14 @@ export default function ResetPassword() {
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="VerMtps">vérification du mot de passe</Label>
-              <Input id="VerMtps" placeholder="" />
+              <Input id="VerMtps" placeholder="" onChange={(e)=>setPassword(e.target.value)} />
             </div>
           </div>
         </form>
       </CardContent>
       <CardFooter className="flex justify-between">
         <Button className="bg-[#EFF3FF]" variant="outline">Annuler</Button>
-        <Button className="bg-buttonDark">changer votre mot de passe</Button>
+        <Button className="bg-buttonDark" onClick={resetPassword}>changer votre mot de passe</Button>
       </CardFooter>
     </Card>
     </div>

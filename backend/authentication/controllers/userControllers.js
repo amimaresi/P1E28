@@ -82,7 +82,7 @@ const loginUser = async (req , res)=>{
     console.log(password)
 
     //get the id and token from the request parameters
-    const { token} = req.params
+    const {token} = req.params
     console.log(token )
 
     try {
@@ -92,7 +92,7 @@ const loginUser = async (req , res)=>{
 
         //find the user by the id
         console.log(decoded)
-        const user = await User.findById(decoded.email)
+        const user = await User.findById(decoded._id)
 
         //hash the password
         const salt = await bcrypt.genSalt(10)
