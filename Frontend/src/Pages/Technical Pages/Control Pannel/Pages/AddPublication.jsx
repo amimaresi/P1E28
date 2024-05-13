@@ -116,7 +116,7 @@ export default function AddPublication() {
             </div>
           </div>
         </AlertDialogTrigger>
-        <AlertDialogContent>
+        <AlertDialogContent className=" h-[95%]">
           <ScrollArea className="h-[99%] w-[99%] pr-5">
             <Form {...form}>
               <form
@@ -143,11 +143,13 @@ export default function AddPublication() {
                             <FormLabel>Titre:</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-14'>
                             <Input
                               className=" w-300 h-7 rounded-full"
                               placeholder="entrez le titre "
                               {...field}
                             />
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -167,11 +169,13 @@ export default function AddPublication() {
                             <FormLabel>Date :</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-16'>
                             <Input
                               className=" w-300 h-7 rounded-full"
                               placeholder="entrez la date "
                               {...field}
                             />
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -186,16 +190,18 @@ export default function AddPublication() {
                   render={({ field }) => (
                     <>
                       <FormItem>
-                        <div className="flex flex-row items-center justify-start  pt-5">
+                        <div className="flex flex-row items-center justify-start  ">
                           <div className="pl-5 pr-9 ">
                             <FormLabel>Conf/journ:</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-4'>
                             <Input
                               className=" w-300 h-7 rounded-full"
                               placeholder="entrez la confJourn"
                               {...field}
                             />
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -215,11 +221,13 @@ export default function AddPublication() {
                             <FormLabel>chercheur :</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-4'>
                             <Input
                               className=" w-300 h-7 rounded-full"
-                              placeholder="entrez le champ chercheur "
+                              placeholder="entrez le  chercheur "
                               {...field}
                             />
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -238,11 +246,13 @@ export default function AddPublication() {
                             <FormLabel>rang :</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-16'>
                             <Input
                               className=" w-300 h-7 rounded-full"
-                              placeholder=" entrez votre rang"
+                              placeholder=" entrez le rang"
                               {...field}
                             />
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -262,11 +272,13 @@ export default function AddPublication() {
                             <FormLabel>volume :</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-12'>
                             <Input
                               className=" w-300 h-7 rounded-full"
                               placeholder=" entrez le volume "
                               {...field}
                             />
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -285,11 +297,13 @@ export default function AddPublication() {
                             <FormLabel>Pages :</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-14'>
                             <Input
                               className=" w-300 h-7 rounded-full"
                               placeholder=" entrez les pages"
                               {...field}
                             />
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -308,11 +322,13 @@ export default function AddPublication() {
                             <FormLabel>Lien :</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-16'>
                             <Input
                               className=" w-300 h-7 rounded-full"
                               placeholder=" entrez le Lien"
                               {...field}
                             />
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -320,7 +336,10 @@ export default function AddPublication() {
                     </>
                   )}
                 />
-
+                <h2 className="text-1xl text-center font-bold dark:text-white">
+                  Ajouter les membres{' '}
+                </h2>
+                <hr className="my-8 h-px border-0  bg-black bg-opacity-50 "></hr>
                 {membresFields.map((field, index) => (
                   <div key={field.id}>
                     <FormField
@@ -329,14 +348,14 @@ export default function AddPublication() {
                       render={({ field }) => (
                         <>
                           <FormItem>
-                            <div className="flex flex-row items-center justify-start   ">
+                            <div className="flex flex-row items-center justify-start pt-4   ">
                               <div className="px-5">
                                 <FormLabel>le membre :</FormLabel>
                               </div>
                               <FormControl>
                                 <Input
                                   className=" w-300 h-7 rounded-full"
-                                  placeholder=" entrez la liste des membres "
+                                  placeholder=" entrez le membre "
                                   {...field}
                                 />
                               </FormControl>
@@ -349,7 +368,7 @@ export default function AddPublication() {
 
                     {index > 0 && (
                       <button
-                        className="mb-2 h-[35px] rounded-lg bg-[#6A5ACD] p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline "
+                        className="mb-2 h-[35px] rounded-lg bg-buttonDark p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline "
                         type="button"
                         onClick={() => membresRemove(index)}
                       >
@@ -359,13 +378,16 @@ export default function AddPublication() {
                   </div>
                 ))}
                 <button
-                  className="mb-2 h-[35px] rounded-lg bg-[#6A5ACD] p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline "
+                  className="mb-2 h-[35px] rounded-lg bg-buttonDark p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline "
                   type="button"
-                  onClick={() => membresAppend({ membre: '' })}
+                  onClick={() => membresAppend({})}
                 >
                   Ajouter un membre
                 </button>
-
+                <h2 className="text-1xl text-center font-bold dark:text-white">
+                  le classement{' '}
+                </h2>
+                <hr className="my-8 h-px border-0  bg-black bg-opacity-50 "></hr>
                 {classFields.map((field, index) => (
                   <div key={field.id}>
                     <FormField
@@ -398,16 +420,18 @@ export default function AddPublication() {
                       render={({ field }) => (
                         <>
                           <FormItem>
-                            <div className="flex flex-row items-center justify-start   ">
+                            <div className="flex flex-row items-center justify-start pt-7  ">
                               <div className="px-5">
                                 <FormLabel>classement :</FormLabel>
                               </div>
                               <FormControl>
+                              <div className='ml-12'>
                                 <Input
                                   className=" w-300 h-7 rounded-full"
                                   placeholder=" entrez le classement "
                                   {...field}
                                 />
+                                </div>
                               </FormControl>
                             </div>
                             <FormMessage />
@@ -417,7 +441,7 @@ export default function AddPublication() {
                     />
                     {index > 0 && (
                       <button
-                        className="mb-2 h-[35px] rounded-lg bg-[#6A5ACD] p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline "
+                        className="mb-2 h-[35px] rounded-lg bg-buttonDark p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline "
                         type="button"
                         onClick={() => classRemove(index)}
                       >
@@ -428,7 +452,7 @@ export default function AddPublication() {
                 ))}
 
                 <button
-                  className="mb-2 h-[35px] rounded-lg bg-[#6A5ACD] p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline "
+                  className="mb-2 h-[35px] rounded-lg bg-buttonDark p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline "
                   type="button"
                   onClick={() => classAppend({ nom: '', valeur: ' ' })}
                 >
@@ -443,14 +467,16 @@ export default function AddPublication() {
                       <FormItem>
                         <div className="flex flex-row items-center justify-start   ">
                           <div className="px-5">
-                            <FormLabel>Maison D'edition :</FormLabel>
+                            <FormLabel>Maison d'édition :</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-4'>
                             <Input
                               className=" w-300 h-7 rounded-full"
-                              placeholder=" entrez la maison edition"
+                              placeholder=" entrez la maison d'édition"
                               {...field}
                             />
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />

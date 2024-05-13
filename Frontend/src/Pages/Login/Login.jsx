@@ -164,12 +164,40 @@ export default function Login() {
                 </FormItem>
               )}
             />
-            <NavLink
-              to="resetpassword"
-              className="m-0 font-title text-[0.8vw] font-medium text-buttonLight no-underline active:text-buttonDark"
+            <Dialog>
+            <DialogTrigger asChild>
+            <Button
+              
+              className="m-0 font-title text-[0.8vw] font-medium text-buttonLight no-underline bg-transparent active:text-buttonDark"
             >
               Forgot password ?
-            </NavLink>
+           </Button>
+            </DialogTrigger>
+      <DialogContent className="sm:max-w-[500px]">
+        <DialogHeader>
+          <DialogTitle>vous avez oublié le mot de passe?</DialogTitle>
+          <DialogDescription>
+            nous vous enverrons un e-mail avec un lien pour réinitialiser votre mot de passe
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-4  justify-start">
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="email" className="text-right">
+              E-mail
+            </Label>
+            <Input
+              id="email"
+              defaultValue=""
+              className="col-span-3"
+            />
+          </div>
+          
+        </div>
+        <DialogFooter>
+          <Button className="bg-buttonDark" type="submit">réinitialiser votre mot de passe</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
           </div>
 
           <Button

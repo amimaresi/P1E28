@@ -42,19 +42,19 @@ export default function PrPLayout() {
   }, []);
   return data ? (
     <>
-      <div className="bg-white">
+      <div className='bg-white'>
         <div className="p-12">
-          <div className=" flex justify-center ">
+          <div className="  bg-buttonDark flex items-center justify-left rounded-2xl h-48">
             {/* titre de la publication*/}
-            <h1 className="    mb-4 px-2 pb-6 pt-2 text-xl font-bold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-2xl">
-              Publication:
-            </h1>
-            <h1 className="  mb-4 px-9 pb-6 pt-2 text-xl font-bold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-2xl">
+            <h1 className="  mb-4 px-9  pt-2 text-xl font-bold leading-none tracking-tight text-white dark:text-white md:text-5xl lg:text-2xl">
               {data.Titre}
             </h1>
+            <div className="mt-24 justify-left">
+            <Button className='bg-white text-black text-center mr-4'>lien externe </Button>
+            </div>
           </div>
 
-          <div className="flex justify-center space-x-20 p-4 ">
+          <div className="flex justify-center space-x-20 p-4 pt-12 ">
             <div>
               {/* Classement de la publication */}
               <h3 className="pb-2 font-bold">Classement</h3>
@@ -89,7 +89,7 @@ export default function PrPLayout() {
             </div>
           </div>
 
-          <div className="px-64">
+          <div className=" pb-4 pt-8 flex flex-col justify-start ">
             {/* La liste des chercheurs de la publication */}
             <h2 className="p-6 font-bold">La liste des chercheurs:</h2>
             {data.Membres &&
@@ -98,14 +98,16 @@ export default function PrPLayout() {
                   className="mb-4 mr-4 flex h-16 w-full items-center rounded-2xl border bg-[#EFF3FF] p-4"
                   key={index}
                 >
-                  <h3>
+                  <h3 >
                     {index + 1}_{Membre}
                   </h3>
                 </div>
               ))}
           </div>
+          
         </div>
       </div>
+           
     </>
   ) : (
     <NotFound />

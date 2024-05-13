@@ -47,8 +47,7 @@ export default function AddChercheur() {
       .required(' le  grade-enseignement est requis '),
     graderecherche: yup.string().required(' le grade-recherche est requis '),
     qualitee: yup.string().required(' la qualitee est requise '),
-    hIndex: yup.string(),
-
+    matricule: yup.string().required('la Matricule est requise'),
     equipe: yup.string(),
     lien: yup.string(),
     projet: yup.string(),
@@ -122,20 +121,45 @@ export default function AddChercheur() {
                 <hr className="my-8 h-px border-0  bg-black bg-opacity-50 "></hr>
                 <FormField
                   control={form.control}
-                  name="nom"
+                  name="matricule"
                   render={({ field }) => (
                     <>
                       <FormItem>
                         <div className="flex flex-row items-center justify-start  pt-5">
                           <div className="pl-5 pr-9 ">
+                            <FormLabel>Matricule :</FormLabel>
+                          </div>
+                          <FormControl>
+                            <Input
+                              className=" w-300 h-7 rounded-full"
+                              placeholder="entrez la matricule "
+                              {...field}
+                            />
+                          </FormControl>
+                        </div>
+                        <FormMessage />
+                      </FormItem>
+                    </>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="nom"
+                  render={({ field }) => (
+                    <>
+                      <FormItem>
+                        <div className="flex flex-row items-center justify-start  ">
+                          <div className="px-5  ">
                             <FormLabel>Nom :</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-11'>
                             <Input
                               className=" w-300 h-7 rounded-full"
                               placeholder="entrez le nom "
                               {...field}
                             />
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -155,11 +179,13 @@ export default function AddChercheur() {
                             <FormLabel>prénom :</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-6'>
                             <Input
                               className=" w-300 h-7 rounded-full"
                               placeholder="entrez le prénom "
                               {...field}
                             />
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -179,11 +205,13 @@ export default function AddChercheur() {
                             <FormLabel>Email :</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-6'>
                             <Input
                               className=" w-300 h-7 rounded-full"
                               placeholder="entrez l'email "
                               {...field}
                             />
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -207,12 +235,13 @@ export default function AddChercheur() {
                             <FormLabel>grade enseignement :</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-6'>
                             <Select
                               onValueChange={field.onChange}
                               value={field.value}
                             >
                               <div className="pl-6">
-                                <SelectTrigger className="h-7 w-[180px] rounded-full pl-6">
+                                <SelectTrigger className="h-7 w-[190px] rounded-full pl-6">
                                   <SelectValue placeholder="choisissez" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -227,6 +256,7 @@ export default function AddChercheur() {
                                 </SelectContent>
                               </div>
                             </Select>
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -245,12 +275,13 @@ export default function AddChercheur() {
                             <FormLabel>grade recherche :</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-14'>
                             <Select
                               onValueChange={field.onChange}
                               value={field.value}
                             >
                               <div className="pl-6">
-                                <SelectTrigger className="h-7 w-[180px] rounded-full pl-6">
+                                <SelectTrigger className="h-7 w-[190px] rounded-full pl-6">
                                   <SelectValue placeholder="choisissez" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -270,6 +301,7 @@ export default function AddChercheur() {
                                 </SelectContent>
                               </div>
                             </Select>
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -288,11 +320,13 @@ export default function AddChercheur() {
                             <FormLabel>diplome :</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-32'>
                             <Input
                               className=" w-300 h-7 rounded-full"
-                              placeholder=" "
+                              placeholder=" entrez le diplome"
                               {...field}
                             />
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -309,14 +343,16 @@ export default function AddChercheur() {
                       <FormItem>
                         <div className="flex flex-row items-center justify-start   ">
                           <div className="px-5">
-                            <FormLabel>etablissement d origine :</FormLabel>
+                            <FormLabel>établissement d'origine :</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-6'>
                             <Input
                               className=" w-300 h-7 rounded-full"
-                              placeholder=" "
+                              placeholder="entrez l'établissement "
                               {...field}
                             />
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -333,15 +369,16 @@ export default function AddChercheur() {
                       <FormItem>
                         <div className="flex flex-row items-center justify-start   ">
                           <div className="px-5">
-                            <FormLabel>qualitee:</FormLabel>
+                            <FormLabel>qualitée :</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-24'>
                             <Select
                               onValueChange={field.onChange}
                               value={field.value}
                             >
                               <div className="pl-6">
-                                <SelectTrigger className="h-7 w-[180px] rounded-full pl-6">
+                                <SelectTrigger className="h-7 w-[190px] rounded-full pl-6">
                                   <SelectValue placeholder="choisissez" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -357,29 +394,7 @@ export default function AddChercheur() {
                                 </SelectContent>
                               </div>
                             </Select>
-                          </FormControl>
-                        </div>
-                        <FormMessage />
-                      </FormItem>
-                    </>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="hIndex"
-                  render={({ field }) => (
-                    <>
-                      <FormItem>
-                        <div className="flex flex-row items-center justify-start   ">
-                          <div className="px-5">
-                            <FormLabel>h-index :</FormLabel>
-                          </div>
-                          <FormControl>
-                            <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder=" "
-                              {...field}
-                            />
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -395,14 +410,16 @@ export default function AddChercheur() {
                       <FormItem>
                         <div className="flex flex-row items-center justify-start   ">
                           <div className="px-5">
-                            <FormLabel>equipe :</FormLabel>
+                            <FormLabel>équipe :</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-32'>
                             <Input
                               className=" w-300 h-7 rounded-full"
-                              placeholder=" "
+                              placeholder=" entrez l'équipe"
                               {...field}
                             />
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -421,11 +438,13 @@ export default function AddChercheur() {
                             <FormLabel>lien :</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-36'>
                             <Input
                               className=" w-300 h-7 rounded-full"
-                              placeholder=" "
+                              placeholder="entrez le lien "
                               {...field}
                             />
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -441,14 +460,16 @@ export default function AddChercheur() {
                       <FormItem>
                         <div className="flex flex-row items-center justify-start   ">
                           <div className="px-5">
-                            <FormLabel>projet:</FormLabel>
+                            <FormLabel>projet :</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-32'>
                             <Input
                               className=" w-300 h-7 rounded-full"
-                              placeholder=" "
+                              placeholder="entrez le projet"
                               {...field}
                             />
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />

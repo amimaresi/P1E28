@@ -36,7 +36,7 @@ authRouter.post('/forget-password' , forgetPassword )
 
 
 //create a patch request to the resetpassword route and use the resetPassword function to handle the request and make new password
-authRouter.post('/reset-password/:id/:token' , resetPassword )
+authRouter.post('/reset-password/:token' , resetPassword )
 
 
 module.exports = authRouter//export the router to be used in the server file

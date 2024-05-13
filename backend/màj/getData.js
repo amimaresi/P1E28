@@ -2,7 +2,6 @@ const { getJson } = require("serpapi");
 
 
 
-
 const updateImageLienGoogle = async (nomComplet) => {
    
     return new Promise(async (resolve, reject) => {
