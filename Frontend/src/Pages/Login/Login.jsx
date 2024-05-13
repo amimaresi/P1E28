@@ -35,7 +35,11 @@ export default function Login() {
   const [show, setShow] = useState(false);
   const schema = yup.object().shape({
     email: yup.string().required(),
+<<<<<<< HEAD
    // password: yup.string().password().required(),
+=======
+    password: yup.string().required(),
+>>>>>>> 7c87c13840641847552a74d81067e917584eb373
     remember: yup.boolean(),
   });
   const form = useForm({
@@ -56,13 +60,15 @@ export default function Login() {
 
       /////// end of fetching /////////////
       console.log('this is result :', resutlt);
-      setUserInfo(resutlt.data);
+      setUserInfo({ ...resutlt.data.Chercheur, type: resutlt.data.type });
       setIsLogged(true);
-      localStorage.setItem('userInfo', JSON.stringify(resutlt.data));
+      localStorage.setItem(
+        'userInfo',
+        JSON.stringify({ ...resutlt.data.Chercheur, type: resutlt.data.type }),
+      );
       setError({ is: false, content: '' });
       setIsLogged(true);
       localStorage.setItem('isLogged', 'true');
-      navigate('/');
     } catch (err) {
       setError({
         is: true,
@@ -95,7 +101,7 @@ export default function Login() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="absolute left-[10vw] top-[10vw] flex flex-col items-start justify-between gap-[2vw] border-[0.1vw] border-solid border-buttonDark bg-white p-[4vw] shadow-xl"
+          className="absolute left-[7vw] top-[6vw] flex flex-col items-start justify-between gap-[2vw] border-[0.1vw] border-solid border-buttonDark bg-white p-[4vw] shadow-xl"
         >
           <h1 className="m-0 font-title text-[2vw] font-semibold">LOGIN</h1>
           <FormField
