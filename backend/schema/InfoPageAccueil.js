@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const InfoPageAcceuilSchema = new Schema ({
 _id: {     //acronyme
-    type: String,
+    type: Number,
     required: true
 },
 

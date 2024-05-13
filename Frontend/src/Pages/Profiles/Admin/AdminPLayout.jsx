@@ -8,7 +8,7 @@ import { ViewIcon } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-// Composant pour un champ éditable
+// Composant pour un chamlp éditable
 const EditableField = ({ label, value, onChange, isPicture, isPassword }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedValue, setEditedValue] = useState(value);
@@ -81,22 +81,17 @@ const EditableField = ({ label, value, onChange, isPicture, isPassword }) => {
 };
 
 export default function AdminPLayout() {
-  const [editedData, setEditedData] = useState({
-    _id: '',
-    nomComplet: '',
-    user: '',
-    password: '',
-  });
+  const [editedData, setEditedData] = useState({});
   const { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const result = await axios.get(
-          `http://localhost:3000/recherche/chercheur/${id}`,
+          `http://localhost:3000/recherche/user/${id}`,
         );
-        console.log(result.data.Chercheur);
-        setEditedData(result.data.Chercheur);
+        console.log(result.data.User);
+        setEditedData(result.data.User);
         return result;
       } catch (err) {
         console.log('error');
@@ -106,6 +101,33 @@ export default function AdminPLayout() {
     fetchData();
   }, [id]);
 
+  const resetUserName = async (newUsername) => {
+    try {
+      const response = await axios.post('http://localhost:3000/settings/reset-user-name', {
+        username: newUsername
+      });
+      console.log(response.data.message);
+      // Mettre à jour l'état local avec les nouvelles données si nécessaire
+    } catch (error) {
+      console.error('Erreur lors de la réinitialisation du nom d\'utilisateur :', error);
+      // Gérer l'erreur de réinitialisation du nom d'utilisateur
+    }
+  };
+
+  const resetPassword = async (newPassword) => {
+    try {
+      const response = await axios.post('http://localhost:3000/settings/reset-user-password', {
+        password: newPassword
+      });
+      console.log(response.data.message);
+      // Gérer la réponse du serveur si nécessaire
+    } catch (error) {
+      console.error('Erreur lors de la réinitialisation du mot de passe :', error);
+      // Gérer l'erreur de réinitialisation du mot de passe
+    }
+  };
+
+
   const handleChange = (key, value) => {
     setEditedData({ ...editedData, [key]: value });
   };
@@ -114,14 +136,10 @@ export default function AdminPLayout() {
     <div className="container mx-auto min-h-screen bg-white px-4 py-8">
       <div className="bg-white p-8">
         <div className="m-6 grid grid-cols-2 gap-x-12 gap-y-6 p-4">
-          <div className="flex flex-col">
-            <h2 className="font-bold">Nom complet:</h2>
-            {/* {console.log("id"+_id)} */}
-            <span>{editedData.nomComplet}</span>
-          </div>
+          
           <div className="flex flex-col">
             <h2 className="font-bold">Nom d'utilisateur:</h2>
-            <span>{editedData.user}</span>
+            <span>{editedData.username}</span>
           </div>
           <div className="flex flex-col">
             <h2 className="font-bold">Email:</h2>
@@ -137,13 +155,10 @@ export default function AdminPLayout() {
             </div>
             <div className="bg-white p-8">
               <div className="m-6 grid grid-cols-2 gap-x-12 gap-y-6 p-4">
-                <div className="flex flex-col">
-                  <h2 className="font-bold">Nom complet:</h2>
-                  <span>{editedData.nomComplet}</span>
-                </div>
+                
                 <div className="flex flex-col">
                   <h2 className="font-bold">Nom d'utilisateur:</h2>
-                  <span>{editedData.user}</span>
+                  <span>{editedData.username}</span>
                 </div>
                 <div className="flex flex-col">
                   <h2 className="font-bold">Email:</h2>
@@ -152,28 +167,23 @@ export default function AdminPLayout() {
               </div>
             </div>
             <div className="grid gap-4 py-4 sm:grid-cols-2">
-              <EditableField
-                label="Nom complet"
-                key="_id"
-                value={editedData.nomComplet}
-                onChange={(value) => handleChange('nomComplet', value)}
-              />
+              
               <EditableField
                 label="Nom d'utilisateur"
-                key="user"
-                value={editedData.user}
-                onChange={(value) => handleChange('user', value)}
+                key="username"
+                value={editedData.username}
+                onChange={(value) => {handleChange('username', value);
+                resetUserName(value);
+                }}
               />
-              <EditableField
-                label="Email"
-                value={editedData._id}
-                onChange={(value) => handleChange('_id', value)}
-              />
+             
               <EditableField
                 label="Password"
                 isPassword
                 value={editedData.password}
-                onChange={(value) => handleChange('password', value)}
+                onChange={(value) => {handleChange('password', value);
+                resetPassword(value);
+                }}
               />
             </div>
           </div>

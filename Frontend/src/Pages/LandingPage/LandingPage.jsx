@@ -3,6 +3,7 @@ import BgElement from './assets/BgElement.svg';
 import leftArrow from './assets/left arrow.svg';
 import rightArrow from './assets/right arrow.svg';
 import graph from './assets/graph.png';
+import axios from 'axios';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   Card,
@@ -16,53 +17,41 @@ import { NavLink } from 'react-router-dom';
 import bg1 from './assets/bg2.png';
 import bg2 from './assets/bg1.png';
 import { Button } from '@/components/ui/button';
+import NotFound from '@/Pages/NotFound/NotFound';
 export default function LandingPage() {
   const [landingPage, setLandingPage] = useState({
-    // fetching
-    news: [
-      {
-        title: 'LMCS:Track',
-        paragraphe: 'LMCS:Track vous souhaite la bienvenue',
-        img: 'https://lmcs.esi.dz/wp-content/uploads/2023/11/seminaire-3-1024x492.jpg',
-        Subject: 'Bienvenue',
-      },
-    ],
-    leaders: [
-      {
-        _id: 'k_benatchba@esi.dz',
-        nomComplet: 'Karima Benatchba',
-        GradeEnsegnement: null,
-        qualité: 'Chercheure',
-        GradeRecherche: 'Maitre de recherche',
-        H_index: 20,
-        EtablissementOrigine: 'ESI',
-        statut: 'Actif',
-        Diplome: 'Doctorat',
-        Equipe: 'Optimisation',
-      },
-      {
-        _id: 'mouloud.koudil@esi.dz',
-        nomComplet: 'Mouloud Koudil',
-        GradeEnsegnement: 'MCA',
-        qualité: 'Enseignat-Chercheur',
-        GradeRecherche: 'Directeur de recherche',
-        H_index: 27,
-        EtablissementOrigine: 'ESI',
-        statut: 'Actif',
-        Equipe: 'EIAH',
-        Diplome: 'Doctorat',
-      },
-    ],
+    
   });
   useEffect(() => {
     async function fetchNews() {
-      //setLandingPage(response.data)
+      
+      try {
+        const response = await axios.get('http://localhost:3000/recherche/PageAcc'); // Replace with your actual API endpoint
+       
+        const newsData = response.data.Pages; // Assuming data is in response.data.Pages
+console.log("newsData",newsData)
+        // Update landingPage with just the news data (assuming no leaders data fetching)
+        
+        const resp = await axios.get('http://localhost:3000/pageAcc/leaders'); // Replace with your actual API endpoint
+        
+        const leadersData = resp.data
+        console.log("leaders",leadersData)
+      
+       setLandingPage({ news: newsData, leaders: leadersData });
+      } catch (error) {
+        console.error('Error fetching news:', error);
+        // Handle errors appropriately (e.g., display an error message to the user)
+      }
     }
 
     fetchNews();
+   
   }, []);
-  const boxes = landingPage.news; //title, paragraphe, Consept
+  console.log("testt",landingPage.news)
+ const boxes = landingPage.news;
+ 
   const leaders = landingPage.leaders;
+  console.log("leaders",leaders)
   const [index, setIndex] = useState(0);
   const [show, setShow] = useState(true);
   function timeout(delay) {
@@ -70,6 +59,8 @@ export default function LandingPage() {
   }
 
   const paginationButtons = [];
+  if (boxes) {
+   
   for (let i = 0; i < boxes.length; i++) {
     paginationButtons[i] = (
       <button
@@ -84,8 +75,9 @@ export default function LandingPage() {
       ></button>
     );
   }
-
+}
   const leaderboxes = [];
+  if (leaders) {
   for (let i = 0; i < leaders.length; i++) {
     leaderboxes[i] = (
       <NavLink to={`chercheur/${leaders[i]._id}`}>
@@ -120,7 +112,8 @@ export default function LandingPage() {
       </NavLink>
     );
   }
-  return (
+}
+  return boxes ? (
     <div>
       <div className=" bg-wh flex items-center justify-center pt-16">
         <div className="bg-whitep-1  flex min-w-[64vw] flex-col place-items-center ">
@@ -141,9 +134,10 @@ export default function LandingPage() {
                 className="mr-[0.1vw] h-[2vw]   active:opacity-70  md:h-[1vw] "
               />
             </button>
-
+          
             <AnimatePresence>
               {show && (
+                
                 <motion.div
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -233,5 +227,7 @@ export default function LandingPage() {
         </div>
       </div>
     </div>
+  ):  (
+    <NotFound />
   );
 }
