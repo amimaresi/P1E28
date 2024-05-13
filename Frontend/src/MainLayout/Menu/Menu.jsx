@@ -1,6 +1,7 @@
 import { NavLink, redirect } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -327,6 +328,7 @@ function MiseAJour() {
         </li>
       </AlertDialogTrigger>
       <AlertDialogContent className=" h-[95%]">
+        <ScrollArea className="h-[99%] w-[99%] pr-5">
         <AlertDialogHeader>
           
           <>
@@ -401,6 +403,7 @@ function MiseAJour() {
           {/*--------------------------------------------------------------------------------------------------------------------------------*/}
           ;
         </AlertDialogHeader>
+          </ScrollArea>
       </AlertDialogContent>
     </AlertDialog>
   );
