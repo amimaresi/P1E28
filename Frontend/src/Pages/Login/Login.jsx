@@ -26,7 +26,7 @@ export default function Login() {
   const [show, setShow] = useState(false);
   const schema = yup.object().shape({
     email: yup.string().required(),
-   // password: yup.string().password().required(),
+    password: yup.string().password().required(),
     remember: yup.boolean(),
   });
   const form = useForm({
