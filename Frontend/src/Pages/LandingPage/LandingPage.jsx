@@ -14,44 +14,84 @@ import {
 } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { NavLink } from 'react-router-dom';
-import bg1 from './assets/bg2.png';
-import bg2 from './assets/bg1.png';
 import { Button } from '@/components/ui/button';
-import NotFound from '@/Pages/NotFound/NotFound';
 export default function LandingPage() {
   const [landingPage, setLandingPage] = useState({
-    
+    // fetching
+    news: [
+      {
+        title: 'LMCS:Track',
+        paragraphe: 'LMCS:Track vous souhaite la bienvenue',
+        img: 'https://lmcs.esi.dz/wp-content/uploads/2023/11/seminaire-3-1024x492.jpg',
+        Subject: 'Bienvenue',
+      },
+    ],
+    leaders: [
+      {
+        _id: 'k_benatchba@esi.dz',
+        nomComplet: 'Karima Benatchba',
+        GradeEnsegnement: null,
+        qualité: 'Chercheure',
+        GradeRecherche: 'Maitre de recherche',
+        H_index: 20,
+        EtablissementOrigine: 'ESI',
+        statut: 'Actif',
+        Diplome: 'Doctorat',
+        Equipe: 'Optimisation',
+      },
+      {
+        _id: 'mouloud.koudil@esi.dz',
+        nomComplet: 'Mouloud Koudil',
+        GradeEnsegnement: 'MCA',
+        qualité: 'Enseignat-Chercheur',
+        GradeRecherche: 'Directeur de recherche',
+        H_index: 27,
+        EtablissementOrigine: 'ESI',
+        statut: 'Actif',
+        Equipe: 'EIAH',
+        Diplome: 'Doctorat',
+      },
+    ],
   });
   useEffect(() => {
     async function fetchNews() {
-      
       try {
-        const response = await axios.get('http://localhost:3000/recherche/PageAcc'); // Replace with your actual API endpoint
-       
+        const response = await axios.get(
+          'http://localhost:3000/recherche/PageAcc',
+        ); // Replace with your actual API endpoint
+
         const newsData = response.data.Pages; // Assuming data is in response.data.Pages
-console.log("newsData",newsData)
+        console.log(
+          'newsData--------------------------------------------------------------------',
+          newsData,
+        );
         // Update landingPage with just the news data (assuming no leaders data fetching)
-        
+
         const resp = await axios.get('http://localhost:3000/pageAcc/leaders'); // Replace with your actual API endpoint
-        
-        const leadersData = resp.data
-        console.log("leaders",leadersData)
-      
-       setLandingPage({ news: newsData, leaders: leadersData });
+
+        const leadersData = resp.data;
+        console.log(
+          'leaders-------------------------------------------------------------',
+          leadersData,
+        );
+
+        setLandingPage({ news: newsData, leaders: leadersData });
       } catch (error) {
-        console.error('Error fetching news:', error);
+        console.error(
+          'Error fetching news:-----------------------------------------------',
+          error,
+        );
         // Handle errors appropriately (e.g., display an error message to the user)
       }
     }
 
     fetchNews();
-   
   }, []);
-  console.log("testt",landingPage.news)
- const boxes = landingPage.news;
- 
+  console.log('testt', landingPage.news);
+  const boxes = landingPage.news;
+
   const leaders = landingPage.leaders;
-  console.log("leaders",leaders)
+  console.log('leaders', leaders);
   const [index, setIndex] = useState(0);
   const [show, setShow] = useState(true);
   function timeout(delay) {
@@ -60,60 +100,59 @@ console.log("newsData",newsData)
 
   const paginationButtons = [];
   if (boxes) {
-   
-  for (let i = 0; i < boxes.length; i++) {
-    paginationButtons[i] = (
-      <button
-        onClick={async () => {
-          setShow(false);
-          await timeout(100);
-          setIndex(i);
-          await timeout(100);
-          setShow(true);
-        }}
-        className={`mx-2 px-[0.6vw] py-[0.3vw] text-lg ${index == i ? 'bg-black' : 'bg-gray-400'} rounded-md transition-colors hover:text-black`}
-      ></button>
-    );
+    for (let i = 0; i < boxes.length; i++) {
+      paginationButtons[i] = (
+        <button
+          onClick={async () => {
+            setShow(false);
+            await timeout(100);
+            setIndex(i);
+            await timeout(100);
+            setShow(true);
+          }}
+          className={`mx-2 px-[0.6vw] py-[0.3vw] text-lg ${index == i ? 'bg-black' : 'bg-gray-400'} rounded-md transition-colors hover:text-black`}
+        ></button>
+      );
+    }
   }
-}
   const leaderboxes = [];
   if (leaders) {
-  for (let i = 0; i < leaders.length; i++) {
-    leaderboxes[i] = (
-      <NavLink to={`chercheur/${leaders[i]._id}`}>
-        <Card className=" h-[27vw] w-[30vw] border-[0.15vw] p-[1vw] shadow-md transition-shadow hover:mb-3 hover:translate-x-2 hover:shadow-lg md:h-[22vw] md:w-[20vw] lg:h-[20vw] lg:w-[16vw]">
-          <CardHeader className="p-[1vw]">
-            <Avatar className="h-[4vw] w-[4vw]">
-              <AvatarImage src={leaders[i].nomComplet} />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-            <CardTitle className="text-[2.2vw] md:text-[1.5vw] lg:text-[1.2vw]">
-              {leaders[i].nomComplet}
-            </CardTitle>
-            <CardDescription className="text-[1.7vw] md:text-[1.3vw] lg:text-[0.9vw]">
-              {leaders[i].GradeRecherche}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="p-[1vw] text-[1.7vw] md:text-[1.1vw] lg:text-[0.8vw]">
-            {' '}
-            <span className="font-semibold underline underline-offset-1">
-              Email
-            </span>
-            {' : '}
-            {leaders[i]._id}
-            <br />
-            <span className=" font-semibold underline underline-offset-1">
-              Equipe
-            </span>
-            {' : '}
-            {leaders[i].Equipe}
-          </CardContent>
-        </Card>
-      </NavLink>
-    );
+    for (let i = 0; i < leaders.length; i++) {
+      leaderboxes[i] = (
+        <NavLink to={`chercheur/${leaders[i]._id}`}>
+          <Card className=" h-[27vw] w-[30vw] border-[0.15vw] p-[1vw] shadow-md transition-shadow hover:mb-3 hover:translate-x-2 hover:shadow-lg md:h-[22vw] md:w-[20vw] lg:h-[20vw] lg:w-[16vw]">
+            <CardHeader className="p-[1vw]">
+              <Avatar className="h-[4vw] w-[4vw]">
+                <AvatarImage src={leaders[i].nomComplet} />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+              <CardTitle className="text-[2.2vw] md:text-[1.5vw] lg:text-[1.2vw]">
+                {leaders[i].nomComplet}
+              </CardTitle>
+              <CardDescription className="text-[1.7vw] md:text-[1.3vw] lg:text-[0.9vw]">
+                {leaders[i].GradeRecherche}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-[1vw] text-[1.7vw] md:text-[1.1vw] lg:text-[0.8vw]">
+              {' '}
+              <span className="font-semibold underline underline-offset-1">
+                Email
+              </span>
+              {' : '}
+              {leaders[i]._id}
+              <br />
+              <span className=" font-semibold underline underline-offset-1">
+                Equipe
+              </span>
+              {' : '}
+              {leaders[i].Equipe}
+            </CardContent>
+          </Card>
+        </NavLink>
+      );
+    }
   }
-}
-  return boxes ? (
+  return (
     <div>
       <div className=" bg-wh flex items-center justify-center pt-16">
         <div className="bg-whitep-1  flex min-w-[64vw] flex-col place-items-center ">
@@ -134,10 +173,9 @@ console.log("newsData",newsData)
                 className="mr-[0.1vw] h-[2vw]   active:opacity-70  md:h-[1vw] "
               />
             </button>
-          
+
             <AnimatePresence>
               {show && (
-                
                 <motion.div
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -227,7 +265,5 @@ console.log("newsData",newsData)
         </div>
       </div>
     </div>
-  ):  (
-    <NotFound />
   );
 }

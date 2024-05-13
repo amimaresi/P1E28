@@ -103,7 +103,7 @@ export default function Menu({ isLogged, setIsLogged, userInfo, setUserInfo }) {
               </NavigationMenuContent>
             </NavigationMenuItem>
 
-            {userInfo.type == 'Assistant' && isLogged ? (
+            {userInfo.type && userInfo.type == 'Assistant' && isLogged ? (
               <NavigationMenuItem>
                 <NavigationMenuTrigger className=" text-[16.5px]">
                   Gestion du laboratoire
