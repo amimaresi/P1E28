@@ -129,7 +129,7 @@ export default function Filtres({ searchby, onSubmit }) {
                 ) : (
                   <FConfJourn form={form} />
                 )}
-                <Button type="submit">Filtrer</Button>
+                <Button className='bg-buttonDark' type="submit">Filtrer</Button>
               </form>
             </Form>
           </ScrollArea>
