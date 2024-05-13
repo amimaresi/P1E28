@@ -175,8 +175,8 @@ export default function Login() {
               )}
             />
             <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <Button className="m-0 bg-transparent font-title text-[0.8vw] font-medium text-buttonLight no-underline active:text-buttonDark">
+              <AlertDialogTrigger asChild className="">
+                <Button className="m-0 bg-transparent font-title text-[0.8vw] font-medium text-buttonLight no-underline hover:bg-transparent hover:underline">
                   Forgot password ?
                 </Button>
               </AlertDialogTrigger>
