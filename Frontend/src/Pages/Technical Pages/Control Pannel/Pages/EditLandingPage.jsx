@@ -37,9 +37,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 export default function EditLandingPage() {
-  const LandingPage = {
-   
-  };
+  const LandingPage = {};
 
   const schema = yup.object().shape({
     title: yup.string().max(20),
@@ -52,16 +50,18 @@ export default function EditLandingPage() {
   useEffect(() => {
     async function fetchNews() {
       try {
-      const response = await axios.get('http://localhost:3000/recherche/PageAcc'); // Replace with your actual API endpoint
-       
+        const response = await axios.get(
+          'http://localhost:3000/recherche/PageAcc',
+        ); // Replace with your actual API endpoint
+
         const newsData = response.data.Pages; // Assuming data is in response.data.Pages
-        console.log("newsData",newsData)
+        console.log('newsData', newsData);
         setBoxes(newsData);
-    } catch (error) {
-      console.error('Error fetching news:', error);
-      // Gérer les erreurs
+      } catch (error) {
+        console.error('Error fetching news:', error);
+        // Gérer les erreurs
+      }
     }
-  }
     fetchNews();
   }, []);
 
@@ -83,28 +83,31 @@ export default function EditLandingPage() {
     form.setValue('Subject', boxes[i].Subject);
   };
   const onSubmit = async (data) => {
-    console.log("data",data);
+    console.log('data', data);
     const dataWithId = { ...data, id: index }; // Spread existing data and add id
-    console.log("data (with id):", dataWithId);
+    console.log('data (with id):', dataWithId);
     try {
-      const response = await axios.post('http://localhost:3000/pageAcc/insertion', dataWithId ,); // Replace with your API endpoint
-    console.log(response.data); 
-    setBoxes((oldBoxes) => {
-      const newBoxes = oldBoxes.map((box) => {
-        if (box.id === index) {
-         
-          return { ...box, ...data };
-          /////////////////////////////////////
-          // save changes to b
-          ///////////////////////////////////
-        }
-        return box;
+      const response = await axios.post(
+        'http://localhost:3000/pageAcc/insertion',
+        dataWithId,
+      ); // Replace with your API endpoint
+      console.log(response.data);
+      setBoxes((oldBoxes) => {
+        const newBoxes = oldBoxes.map((box, i) => {
+          console.log('index', index);
+          if (i == index) {
+            return { ...box, ...data };
+            /////////////////////////////////////
+            // save changes to b
+            ///////////////////////////////////
+          }
+          return box;
+        });
+        return newBoxes;
       });
-      return newBoxes;
-    });
-  } catch (err) {
-    if (err.response) console.log(err.response.data.message); //this error is for displaying the error message from the server
-  }
+    } catch (err) {
+      if (err.response) console.log(err.response.data.message); //this error is for displaying the error message from the server
+    }
   };
 
   const handleRemoveBox = async () => {
@@ -125,17 +128,17 @@ export default function EditLandingPage() {
   };
   const paginationButtons = [];
   if (boxes) {
-  for (let i = 0; i < boxes.length; i++) {
-    paginationButtons[i] = (
-      <button
-        onClick={() => {
-          updateForm(i);
-        }}
-        className={`mx-2 px-[0.6vw] py-[0.3vw] text-lg ${index == i ? 'bg-black' : 'bg-gray-400'} rounded-md transition-colors hover:text-black`}
-      ></button>
-    );
+    for (let i = 0; i < boxes.length; i++) {
+      paginationButtons[i] = (
+        <button
+          onClick={() => {
+            updateForm(i);
+          }}
+          className={`mx-2 px-[0.6vw] py-[0.3vw] text-lg ${index == i ? 'bg-black' : 'bg-gray-400'} rounded-md transition-colors hover:text-black`}
+        ></button>
+      );
+    }
   }
-}
   return boxes ? (
     <div className="flex flex-col items-center justify-center gap-5 pt-5">
       <Card>
@@ -261,9 +264,7 @@ export default function EditLandingPage() {
                       <AlertDialogContent>
                         <AlertDialogHeader>
                           <AlertDialogTitle>
-                            {boxes.length == 1
-                              ? 'Error !'
-                              : 'Etes-vous sure?'}
+                            {boxes.length == 1 ? 'Error !' : 'Etes-vous sure?'}
                           </AlertDialogTitle>
                           <AlertDialogDescription>
                             Au moins un element doit etre present !
@@ -271,9 +272,7 @@ export default function EditLandingPage() {
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                           <AlertDialogCancel>Annuler</AlertDialogCancel>
-                          <AlertDialogAction
-                            onClick={handleRemoveBox}
-                          >
+                          <AlertDialogAction onClick={handleRemoveBox}>
                             Continuer
                           </AlertDialogAction>
                         </AlertDialogFooter>

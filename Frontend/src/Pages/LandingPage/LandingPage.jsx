@@ -26,32 +26,7 @@ export default function LandingPage() {
         Subject: 'Bienvenue',
       },
     ],
-    leaders: [
-      {
-        _id: 'k_benatchba@esi.dz',
-        nomComplet: 'Karima Benatchba',
-        GradeEnsegnement: null,
-        qualité: 'Chercheure',
-        GradeRecherche: 'Maitre de recherche',
-        H_index: 20,
-        EtablissementOrigine: 'ESI',
-        statut: 'Actif',
-        Diplome: 'Doctorat',
-        Equipe: 'Optimisation',
-      },
-      {
-        _id: 'mouloud.koudil@esi.dz',
-        nomComplet: 'Mouloud Koudil',
-        GradeEnsegnement: 'MCA',
-        qualité: 'Enseignat-Chercheur',
-        GradeRecherche: 'Directeur de recherche',
-        H_index: 27,
-        EtablissementOrigine: 'ESI',
-        statut: 'Actif',
-        Equipe: 'EIAH',
-        Diplome: 'Doctorat',
-      },
-    ],
+    leaders: [],
   });
   useEffect(() => {
     async function fetchNews() {
@@ -61,10 +36,7 @@ export default function LandingPage() {
         ); // Replace with your actual API endpoint
 
         const newsData = response.data.Pages; // Assuming data is in response.data.Pages
-        console.log(
-          'newsData--------------------------------------------------------------------',
-          newsData,
-        );
+
         // Update landingPage with just the news data (assuming no leaders data fetching)
 
         const resp = await axios.get('http://localhost:3000/pageAcc/leaders'); // Replace with your actual API endpoint
@@ -76,6 +48,12 @@ export default function LandingPage() {
         );
 
         setLandingPage({ news: newsData, leaders: leadersData });
+        console.log(
+          'newsData--------------------------------------------------------------------',
+          newsData,
+          'news :',
+          landingPage,
+        );
       } catch (error) {
         console.error(
           'Error fetching news:-----------------------------------------------',
@@ -88,7 +66,6 @@ export default function LandingPage() {
     fetchNews();
   }, []);
   console.log('testt', landingPage.news);
-  const boxes = landingPage.news;
 
   const leaders = landingPage.leaders;
   console.log('leaders', leaders);
@@ -99,8 +76,8 @@ export default function LandingPage() {
   }
 
   const paginationButtons = [];
-  if (boxes) {
-    for (let i = 0; i < boxes.length; i++) {
+  if (landingPage.news) {
+    for (let i = 0; i < landingPage.news.length; i++) {
       paginationButtons[i] = (
         <button
           onClick={async () => {
@@ -120,14 +97,15 @@ export default function LandingPage() {
     for (let i = 0; i < leaders.length; i++) {
       leaderboxes[i] = (
         <NavLink to={`chercheur/${leaders[i]._id}`}>
-          <Card className=" h-[27vw] w-[30vw] border-[0.15vw] p-[1vw] shadow-md transition-shadow hover:mb-3 hover:translate-x-2 hover:shadow-lg md:h-[22vw] md:w-[20vw] lg:h-[20vw] lg:w-[16vw]">
+          <Card className=" h-[27vw] w-[30vw] border-[0.15vw] p-[1vw] shadow-md transition-shadow hover:mb-3 hover:translate-x-2 hover:shadow-lg md:h-[22vw] md:w-[20vw] lg:h-[20vw] lg:w-[22vw]">
             <CardHeader className="p-[1vw]">
               <Avatar className="h-[4vw] w-[4vw]">
                 <AvatarImage src={leaders[i].nomComplet} />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
               <CardTitle className="text-[2.2vw] md:text-[1.5vw] lg:text-[1.2vw]">
-                {leaders[i].nomComplet}
+                {leaders[i].nomComplet.split(' ')[0]} <br />{' '}
+                {leaders[i].nomComplet.split(' ')[1]}
               </CardTitle>
               <CardDescription className="text-[1.7vw] md:text-[1.3vw] lg:text-[0.9vw]">
                 {leaders[i].GradeRecherche}
@@ -162,7 +140,7 @@ export default function LandingPage() {
               onClick={async () => {
                 setShow(false);
                 await timeout(100);
-                setIndex(index == 0 ? boxes.length - 1 : index - 1);
+                setIndex(index == 0 ? landingPage.news.length - 1 : index - 1);
                 await timeout(100);
                 setShow(true);
               }}
@@ -185,19 +163,19 @@ export default function LandingPage() {
                 >
                   <div className="flex h-[15vw]  w-[22vw] flex-col items-start gap-[1.1vw]">
                     <h2 className="m-0 rounded-xl bg-buttonLight px-[0.9vw] py-[0.6vw] text-center font-sans text-[1.2vw] font-[500] text-textLight lg:px-[0.7vw] lg:py-[0.4vw] lg:text-[0.8vw]">
-                      {boxes[index].Subject}
+                      {landingPage.news[index].Subject}
                     </h2>
                     <div className="flex h-[17vw]  w-[23vw] flex-col items-start ">
                       <h1 className="m-0  text-center font-title text-[2.5vw] lg:text-[1.5vw]">
-                        {boxes[index].title}
+                        {landingPage.news[index].title}
                       </h1>
                       <p className="m-0 font-sans text-[1.8vw] font-normal text-textDark md:text-[1.2vw] lg:text-[0.8vw]">
-                        {boxes[index].paragraphe}
+                        {landingPage.news[index].paragraphe}
                       </p>
                     </div>
                   </div>
                   <img
-                    src={boxes[index].img}
+                    src={landingPage.news[index].img}
                     alt="background"
                     className=" mr-2 h-[17vw] w-[23vw] rounded-lg object-cover object-center md:h-[15vw] md:w-[27vw]"
                   />
@@ -210,7 +188,7 @@ export default function LandingPage() {
               onClick={async () => {
                 setShow(false);
                 await timeout(100);
-                setIndex(index == boxes.length - 1 ? 0 : index + 1);
+                setIndex(index == landingPage.news.length - 1 ? 0 : index + 1);
                 await timeout(100);
                 setShow(true);
               }}
