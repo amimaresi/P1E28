@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { NavLink, useNavigate, useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 import * as yup from 'yup';
-import { set, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import YupPassword from 'yup-password';
@@ -35,11 +35,7 @@ export default function Login() {
   const [show, setShow] = useState(false);
   const schema = yup.object().shape({
     email: yup.string().required(),
-<<<<<<< HEAD
-   // password: yup.string().password().required(),
-=======
     password: yup.string().required(),
->>>>>>> 7c87c13840641847552a74d81067e917584eb373
     remember: yup.boolean(),
   });
   const form = useForm({
@@ -196,23 +192,8 @@ export default function Login() {
   );
 }
 function ResetRequest() {
-  const [email, setEmail] = useState('')
-  const [isOpen, setIsOpen] = useState(true)
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    console.log(email);
-    try{
-      const res = await axios.post('http://localhost:3000/auth//forget-password', {email})
-      console.log(res.data)
-      setIsOpen(false)
-    }
-    catch(err){
-      console.log(err)
-
-    }
-  }
   return (
-    <Dialog isOpen={isOpen} >
+    <Dialog>
       <DialogTrigger asChild className="">
         <Button className="m-0 bg-transparent font-title text-[0.8vw] font-medium text-buttonLight no-underline hover:bg-transparent hover:underline">
           Forgot password ?
@@ -231,12 +212,12 @@ function ResetRequest() {
             <Label htmlFor="email" className="text-right">
               E-mail
             </Label>
-            <Input id="email" defaultValue="" onChange={(e)=>setEmail(e.target.value)} className="col-span-3" />
+            <Input id="email" defaultValue="" className="col-span-3" />
           </div>
         </div>
 
         <DialogFooter>
-          <Button className="bg-buttonDark"  onClick={onSubmit}>
+          <Button className="bg-buttonDark" type="submit">
             réinitialiser votre mot de passe
           </Button>
         </DialogFooter>
