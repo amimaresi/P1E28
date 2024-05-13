@@ -1,6 +1,7 @@
 import { NavLink, redirect } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -103,7 +104,7 @@ export default function Menu({ isLogged, setIsLogged, userInfo, setUserInfo }) {
               </NavigationMenuContent>
             </NavigationMenuItem>
 
-            {userInfo.type == 'Assistant' && isLogged ? (
+            {userInfo && userInfo.type == 'Assistant' && isLogged ? (
               <NavigationMenuItem>
                 <NavigationMenuTrigger className=" text-[16.5px]">
                   Gestion du laboratoire
@@ -326,12 +327,10 @@ function MiseAJour() {
           </span>
         </li>
       </AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent className=" h-[95%]">
+        <ScrollArea className="h-[99%] w-[99%] pr-5">
         <AlertDialogHeader>
-          <AlertDialogTitle>la Mise a jour</AlertDialogTitle>
-          <AlertDialogDescription>
-            modifier la Mise a jour
-          </AlertDialogDescription>
+          
           <>
             {/*--------------------------------------------------------------------------------------------------------------------------------*/}
             <div className="p-5 text-center ">
@@ -404,6 +403,7 @@ function MiseAJour() {
           {/*--------------------------------------------------------------------------------------------------------------------------------*/}
           ;
         </AlertDialogHeader>
+          </ScrollArea>
       </AlertDialogContent>
     </AlertDialog>
   );
@@ -533,9 +533,9 @@ function ProfileMenu({ userInfo, setIsLogged }) {
                     const res = await axios.get(
                       'http://localhost:3000/auth/logout',
                       { withCredentials: true },
-                    ); 
-                    
-                    localStorage.clear()
+                    );
+
+                    localStorage.clear();
                     console.log(res.data.message);
                     redirect('/');
                   } catch (e) {

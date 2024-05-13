@@ -18,6 +18,15 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
+import {
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  Dialog,
+  DialogContent,
+  DialogFooter,
+} from '@/components/ui/dialog';
 YupPassword(yup);
 export default function Login() {
   const navigate = useNavigate();
@@ -62,7 +71,7 @@ export default function Login() {
       console.log('the error is here : ' + err);
       if (err.response) console.log(err.response.data.message);
     }
-    if (!userInfo || Error.is) {
+    if (Error.is) {
       localStorage.setItem(
         'userInfo',
         JSON.stringify({
@@ -164,14 +173,8 @@ export default function Login() {
                 </FormItem>
               )}
             />
-            <NavLink
-              to="resetpassword"
-              className="m-0 font-title text-[0.8vw] font-medium text-buttonLight no-underline active:text-buttonDark"
-            >
-              Forgot password ?
-            </NavLink>
           </div>
-
+          <ResetRequest />
           <Button
             type="submit" // Added type for button
             className="h-auto w-[20.2vw] rounded-sm border-0 bg-buttonLight py-[0.65vw] font-title text-[1.1vw] font-medium text-textLight active:opacity-95"
@@ -184,5 +187,39 @@ export default function Login() {
         </form>
       </Form>
     </div>
+  );
+}
+function ResetRequest() {
+  return (
+    <Dialog>
+      <DialogTrigger asChild className="">
+        <Button className="m-0 bg-transparent font-title text-[0.8vw] font-medium text-buttonLight no-underline hover:bg-transparent hover:underline">
+          Forgot password ?
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[500px]">
+        <DialogHeader>
+          <DialogTitle>vous avez oublié le mot de passe?</DialogTitle>
+          <DialogDescription>
+            nous vous enverrons un e-mail avec un lien pour réinitialiser votre
+            mot de passe
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid justify-start gap-4  py-4">
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="email" className="text-right">
+              E-mail
+            </Label>
+            <Input id="email" defaultValue="" className="col-span-3" />
+          </div>
+        </div>
+
+        <DialogFooter>
+          <Button className="bg-buttonDark" type="submit">
+            réinitialiser votre mot de passe
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }

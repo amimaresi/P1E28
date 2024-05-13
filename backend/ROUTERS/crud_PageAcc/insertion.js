@@ -15,10 +15,10 @@ try {
 
     const infPage = await InfoPageAcc.findById(id);
     if (infPage) {
-        infPage.title;
-        infPage.paragraphe;
-        infPage.img;
-        infPage.Subject;
+        infPage.title = title;
+        infPage.paragraphe = paragraphe ;
+        infPage.img = img;
+        infPage.Subject = Subject;
 
         await  infPage.save()
     }

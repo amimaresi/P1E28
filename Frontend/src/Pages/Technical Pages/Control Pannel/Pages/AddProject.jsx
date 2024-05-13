@@ -93,7 +93,7 @@ export default function AddProject() {
             </div>
           </div>
         </AlertDialogTrigger>
-        <AlertDialogContent>
+        <AlertDialogContent className=" h-[95%]">
           <ScrollArea className="h-[99%] w-[99%] pr-5">
             <Form {...form}>
               <form
@@ -120,11 +120,13 @@ export default function AddProject() {
                             <FormLabel>Numero :</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-14'>
                             <Input
                               className=" w-300 h-7 rounded-full"
                               placeholder="entrez le numero "
                               {...field}
                             />
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -144,11 +146,13 @@ export default function AddProject() {
                             <FormLabel>titre :</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-24'>
                             <Input
                               className=" w-300 h-7 rounded-full"
                               placeholder="entrez le titre "
                               {...field}
                             />
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -168,11 +172,13 @@ export default function AddProject() {
                             <FormLabel>Date de debut :</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-4'>
                             <Input
                               className=" w-300 h-7 rounded-full"
                               placeholder="entrez la date de debut "
                               {...field}
                             />
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -191,11 +197,13 @@ export default function AddProject() {
                             <FormLabel>Chef de Projet :</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-8'>
                             <Input
                               className=" w-300 h-7 rounded-full"
                               placeholder=" entrez le chef de Projet"
                               {...field}
                             />
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -215,11 +223,13 @@ export default function AddProject() {
                             <FormLabel>date de fin :</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-14'>
                             <Input
                               className=" w-300 h-7 rounded-full"
                               placeholder=" entrez la date de fin "
                               {...field}
                             />
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -238,11 +248,13 @@ export default function AddProject() {
                             <FormLabel>Theme :</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-20'>
                             <Input
                               className=" w-300 h-7 rounded-full"
                               placeholder=" entrez le theme"
                               {...field}
                             />
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -261,11 +273,13 @@ export default function AddProject() {
                             <FormLabel>liste des membres :</FormLabel>
                           </div>
                           <FormControl>
+                          <div className='ml-2'>
                             <Input
                               className=" w-300 h-7 rounded-full"
-                              placeholder=" entrez la liste des membres "
+                              placeholder=" entrez la liste  "
                               {...field}
                             />
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -294,3 +308,4 @@ export default function AddProject() {
     </>
   );
 }
+

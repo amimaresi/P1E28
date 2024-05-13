@@ -146,15 +146,17 @@ export default function AddEncadrement() {
                     <>
                       <FormItem>
                         <div className="flex flex-row items-center justify-start  pt-5">
-                          <div className="pl-5 pr-9 ">
+                          <div className="pl-5 pr-8 ">
                             <FormLabel>Titre:</FormLabel>
                           </div>
                           <FormControl>
+                            <div className='pl-20'>
                             <Input
-                              className=" w-300 h-7 rounded-full"
+                              className=" w-300 h-7 rounded-full "
                               placeholder="entrez le titre "
                               {...field}
                             />
+                            </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -170,15 +172,17 @@ export default function AddEncadrement() {
                     <>
                       <FormItem>
                         <div className="flex flex-row items-center justify-start  pt-5">
-                          <div className="pl-5 pr-9 ">
+                          <div className="pl-5 pr-8 ">
                             <FormLabel>Annee Debut:</FormLabel>
                           </div>
                           <FormControl>
+                           <div className='pl-7'>
                             <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder="entrez le titre "
+                              className=" w-300 h-7 rounded-full pl-2"
+                              placeholder="entrez l'annee   "
                               {...field}
                             />
+                           </div>
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -194,15 +198,17 @@ export default function AddEncadrement() {
                     <>
                       <FormItem>
                         <div className="flex flex-row items-center justify-start  pt-5">
-                          <div className="pl-5 pr-9 ">
+                          <div className="pl-5 pr-8 ">
                             <FormLabel>Annee Fin:</FormLabel>
                           </div>
                           <FormControl>
+                          
                             <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder="entrez le titre "
+                              className=" w-300 h-7 rounded-full ml-12"
+                              placeholder="entrez l'annee  "
                               {...field}
                             />
+                            
                           </FormControl>
                         </div>
                         <FormMessage />
@@ -227,7 +233,7 @@ export default function AddEncadrement() {
                               value={field.value}
                             >
                               <div className="pl-6">
-                                <SelectTrigger className="h-7 w-[180px] rounded-full pl-6">
+                                <SelectTrigger className="h-7 w-[190px] rounded-full pl-6 ml-12">
                                   <SelectValue placeholder="choisissez" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -248,7 +254,10 @@ export default function AddEncadrement() {
                     </>
                   )}
                 />
-
+                <h2 className="text-1xl text-center font-bold dark:text-white">
+                les étudiants {' '}
+                </h2>
+                <hr className="my-8 h-px border-0  bg-black bg-opacity-50 "></hr>
                 {etudFields.map((field, index) => (
                   <div key={field.id}>
                     <FormField
@@ -263,8 +272,8 @@ export default function AddEncadrement() {
                               </div>
                               <FormControl>
                                 <Input
-                                  className=" w-300 h-7 rounded-full"
-                                  placeholder=" entrez le nom de l'etudiant "
+                                  className=" w-300 h-7 rounded-full  ml-4"
+                                  placeholder=" entrez le nom  "
                                   {...field}
                                 />
                               </FormControl>
@@ -281,16 +290,18 @@ export default function AddEncadrement() {
                       render={({ field }) => (
                         <>
                           <FormItem>
-                            <div className="flex flex-row items-center justify-start   ">
+                            <div className="flex flex-row items-center justify-start pt-7   ">
                               <div className="px-5">
                                 <FormLabel>le prenom de l'etudiant :</FormLabel>
                               </div>
                               <FormControl>
+                                
                                 <Input
-                                  className=" w-300 h-7 rounded-full"
-                                  placeholder=" entrez le prenom de l'etudiant "
+                                  className=" w-300 h-7 rounded-full "
+                                  placeholder=" entrez le prenom  "
                                   {...field}
                                 />
+                                
                               </FormControl>
                             </div>
                             <FormMessage />
@@ -300,7 +311,7 @@ export default function AddEncadrement() {
                     />
                     {index > 0 && (
                       <button
-                        className="mb-2 h-[35px] rounded-lg bg-[#6A5ACD] p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline "
+                        className="mb-2 h-[35px] rounded-lg bg-buttonDark p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline "
                         type="button"
                         onClick={() => etudRemove(index)}
                       >
@@ -310,13 +321,16 @@ export default function AddEncadrement() {
                   </div>
                 ))}
                 <button
-                  className="mb-2 h-[35px] rounded-lg bg-[#6A5ACD] p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline "
+                  className="mb-2 h-[35px] rounded-lg bg-buttonDark text-center p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline "
                   type="button"
                   onClick={() => etudAppend({ Nom: '', Prenom: '' })}
                 >
                   Ajouter un etudiant
                 </button>
-
+                <h2 className="text-1xl text-center font-bold dark:text-white">
+                les encadrants {' '}
+                </h2>
+                <hr className="my-8 h-px border-0  bg-black bg-opacity-50 "></hr>
                 {encadrantsFields.map((field, index) => (
                   <div key={field.id}>
                     <FormField
@@ -330,11 +344,13 @@ export default function AddEncadrement() {
                                 <FormLabel>nom de l'encadrant:</FormLabel>
                               </div>
                               <FormControl>
+                                <div className='ml-11'>
                                 <Input
-                                  className=" w-300 h-7 rounded-full"
-                                  placeholder=" entrez le nom de l'encadrant "
+                                  className=" w-300 h-7 rounded-full "
+                                  placeholder=" entrez le nom  "
                                   {...field}
                                 />
+                                </div>
                               </FormControl>
                             </div>
                             <FormMessage />
@@ -349,7 +365,7 @@ export default function AddEncadrement() {
                       render={({ field }) => (
                         <>
                           <FormItem>
-                            <div className="flex flex-row items-center justify-start   ">
+                            <div className="flex flex-row items-center justify-start pt-7   ">
                               <div className="px-5">
                                 <FormLabel>
                                   {' '}
@@ -357,11 +373,13 @@ export default function AddEncadrement() {
                                 </FormLabel>
                               </div>
                               <FormControl>
+                              <div className='ml-2'>
                                 <Input
-                                  className=" w-300 h-7 rounded-full"
-                                  placeholder=" entrez  le prenom de l'encadrant "
+                                  className=" w-300 h-7 rounded-full "
+                                  placeholder=" entrez  le prenom  "
                                   {...field}
                                 />
+                                </div>
                               </FormControl>
                             </div>
                             <FormMessage />
@@ -376,16 +394,18 @@ export default function AddEncadrement() {
                       render={({ field }) => (
                         <>
                           <FormItem>
-                            <div className="flex flex-row items-center justify-start   ">
+                            <div className="flex flex-row items-center justify-start  pt-7 ">
                               <div className="px-5">
                                 <FormLabel> l'email de l'encadrant :</FormLabel>
                               </div>
                               <FormControl>
+                              <div className='ml-7'>
                                 <Input
-                                  className=" w-300 h-7 rounded-full"
-                                  placeholder=" entrez  l'email de l'encadrant "
+                                  className=" w-300 h-7 rounded-full "
+                                  placeholder=" entrez  l'email  "
                                   {...field}
                                 />
+                                </div>
                               </FormControl>
                             </div>
                             <FormMessage />
@@ -400,7 +420,7 @@ export default function AddEncadrement() {
                       render={({ field }) => (
                         <>
                           <FormItem>
-                            <div className="flex flex-row items-center justify-start   ">
+                            <div className="flex flex-row items-center justify-start  pt-7 ">
                               <div className="px-5">
                                 <FormLabel> le role de l'encadrant :</FormLabel>
                               </div>
@@ -410,7 +430,7 @@ export default function AddEncadrement() {
                                   value={field.value}
                                 >
                                   <div className="pl-6">
-                                    <SelectTrigger className="h-7 w-[180px] rounded-full pl-6">
+                                    <SelectTrigger className="h-7 w-[190px] rounded-full pl-6 ">
                                       <SelectValue placeholder="choisissez" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -433,7 +453,7 @@ export default function AddEncadrement() {
                     />
                     {index > 0 && (
                       <button
-                        className="mb-2 h-[35px] rounded-lg bg-[#6A5ACD] p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline "
+                        className="mb-2 h-[35px] rounded-lg bg-buttonDark text-center p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline "
                         type="button"
                         onClick={() => encadrantsRemove(index)}
                       >
@@ -444,7 +464,7 @@ export default function AddEncadrement() {
                 ))}
 
                 <button
-                  className="mb-2 h-[35px] rounded-lg bg-[#6A5ACD] p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline "
+                  className="mb-2 h-[35px] rounded-lg bg-buttonDark p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight text-center focus:outline "
                   type="button"
                   onClick={() =>
                     encadrantsAppend({
@@ -478,3 +498,5 @@ export default function AddEncadrement() {
     </>
   );
 }
+
+ 
