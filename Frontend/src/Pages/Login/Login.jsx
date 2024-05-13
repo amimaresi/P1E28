@@ -82,7 +82,7 @@ export default function Login() {
   };
 
   return (
-    <div className="relative h-screen bg-opacity-5 bg-[url('https://lmcs.esi.dz/wp-content/uploads/2022/05/auditorium.jpg')] bg-cover bg-center">
+    <div className="relative h-screen ">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
