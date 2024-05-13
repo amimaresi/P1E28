@@ -42,6 +42,9 @@ import axios from 'axios';
 //import { c } from 'vite/dist/node/types.d-aGj9QkWt';
 
 import incrementHexColor from './Chartss/incrColor';
+import * as   XLSX from 'xlsx';
+
+
 
 export default function Statistiques() {
   const [selectValue , setSelectValue] = useState('')
@@ -122,6 +125,12 @@ export default function Statistiques() {
     fetch()
 
   },[])
+  const handleOnExport =() => {
+    var wb = XLSX.utils.book_new(),
+    ws = XLSX.utils.json_to_sheet(UserData)
+    XLSX.utils.book_append_sheet(wb,ws, "MySheet1");
+    XLSX.writeFile(wb , "MyExcel.xlsx");
+  };
   return (
     <>
       <div className=" min-h-screen bg-white">
@@ -156,6 +165,11 @@ export default function Statistiques() {
           <div className="flex justify-center rounded-xl border bg-buttonDark px-12 pb-4 pt-4 text-white">
             <h2 className="px-4 font-extrabold ">{count.countEncadrement}</h2>
             <h2>Encadrement</h2>
+          </div>
+
+          <div className="flex justify-center rounded-xl border bg-buttonDark px-12 pb-4 pt-4 text-white">
+            <h2 className="px-4 font-extrabold ">{count.countPublication}</h2>
+            <h2>Publications</h2>
           </div>
         </div>
         <div className="flex justify-center">
@@ -257,14 +271,27 @@ export default function Statistiques() {
 
                 <TabsContent value="liste">
                   <div>
-                    
+                  { 
+              UserData.map((data) => (
+                <div
+                  key={data}
+                  className="   mb-4 mr-4 max-w-48  flex flex-wrap rounded-2xl border  bg-[#EFF3FF]  p-4   "
+                >
+                  <h3 className=' font-bold p-2'>{data.year}:</h3>
+                  <h3 className='  p-2'>{data.count}</h3>
+                </div>
+              ))}
                   </div>
                 </TabsContent>
               </Tabs>
             </div>
           </div>
         </div>
+        <Button onClick={handleOnExport} className='ml-96 mb-24 bg-buttonDark '>Exportez en fichier excel</Button>
       </div>
+     
+        
+       
     </>
   );
 }
