@@ -212,7 +212,7 @@ export default function Menu({ isLogged, setIsLogged, userInfo, setUserInfo }) {
                 to="/aboutus"
                 className={`text-[16.5px] ${navigationMenuTriggerStyle()}`}
               >
-                About Us
+                À propos de nous
               </NavLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
