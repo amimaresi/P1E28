@@ -41,42 +41,38 @@ export default function PrPLayout() {
   }, []);
   return data ? (
     <>
-      <div className="bg-white">
-        <div className="p-12 px-64">
-          <h1 className=" mb-4 flex items-center   justify-center pb-6 pt-2 text-xl font-bold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-3xl">
-            Projet
-          </h1>
-          <div className=" flex justify-start px-64">
+       <div className="bg-white">
+        <div className="p-12 ">
+          
+          <div className="  bg-buttonDark flex items-center justify-left rounded-2xl h-48">
             {/* titre de projet*/}
-            <h1 className="    mb-4 pb-6 pt-2 text-xl font-bold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-2xl">
-              Titre:
-            </h1>
-            <h1 className="   mb-4 pb-6 pt-2 text-xl font-bold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-2xl">
+            
+            <h1 className="   pt-2 pb-6 px-9 mb-4 text-xl font-bold leading-none tracking-tight text-white md:text-5xl lg:text-2xl dark:text-white">
               {data.Titre}
             </h1>
           </div>
 
-          <div className="flex justify-start space-x-20 p-4  px-64">
-            <div>
+          <div className="p-4 flex space-x-20 justify-center">
+          <div className="flex justify-center rounded-xl border bg-buttonDark px-12 pb-4 pt-4 text-white items-center">
               {/* anneeD de projet*/}
-              <h3 className="pb-2 font-bold">date de debut</h3>
+              <h3 className=" pr-4 font-bold">date de debut:</h3>
               <h3>{data.DateDebut}</h3>
             </div>
 
-            <div>
+            <div className="flex justify-center rounded-xl border bg-buttonDark px-12 pb-4 pt-4 text-white items-center">
               {/* anneeF de projet*/}
-              <h3 className="pb-2 font-bold">Date de fin</h3>
+              <h3 className=" pr-4 font-bold">Date de fin:</h3>
               <h3>{data.DateFin}</h3>
             </div>
 
-            <div>
+            <div className="flex justify-center rounded-xl border bg-buttonDark px-12 pb-4 pt-4 text-white items-center">
               {/* theme de projet*/}
-              <h3 className="pb-2 font-bold">Type</h3>
+              <h3 className=" pr-4 font-bold">Type:</h3>
               <h3>{data.Theme}</h3>
             </div>
           </div>
 
-          <div className=" px-64 ">
+          <div className=" ">
             {/* La liste des membres*/}
             <div>
               {/* chef de projet*/}
