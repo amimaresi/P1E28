@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { NavLink, Outlet, useParams } from 'react-router-dom';
 import axios from 'axios';
 import NotFound from '@/Pages/NotFound/NotFound';
+import { Button } from '@/components/ui/button';
 
-// un exemple d'un encadrement
+// un exemple d'un encadrementp
 /*const prjt =
 {
   "_id":{"$numberInt":"2"},
@@ -50,7 +51,11 @@ export default function PrPLayout() {
               {data.Titre}
             </h1>
             <div className="mt-24 justify-left">
-            <Button className='bg-white text-black text-center mr-4'>lien externe </Button>
+            <Button className='bg-white text-black text-center mr-4'>
+              <a href={data.Lien} target="_blank" rel="noopener noreferrer">
+              Lien externe </a> 
+               </Button>
+              
             </div>
           </div>
 
