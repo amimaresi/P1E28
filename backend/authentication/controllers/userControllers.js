@@ -24,12 +24,12 @@ const loginUser = async (req , res)=>{
          
        //create a token for the user
        
-       const token =  jwt.sign({email: user._id} , process.env.SECRET_KEY)
+       const token =  jwt.sign({email: user._id , type :user.type } , process.env.SECRET_KEY)
        const chercheur = await Chercheur.findById(user._id)
        console.log(token)
        
        //send the user and token to the client and set the token in a cookie
-       res.status(200).cookie('jwt' , token , {httpOnly: true , maxAge: 1000*60*60*24*3}).json({Chercheur:chercheur})
+       res.status(200).cookie('jwt' , token , {httpOnly: true , maxAge: 1000*60*60*24*3}).json({Chercheur:chercheur , type : user.type})
 
     }
     
