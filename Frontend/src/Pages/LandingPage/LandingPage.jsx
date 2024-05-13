@@ -212,7 +212,7 @@ export default function LandingPage() {
           className="absolute bottom-0 left-0 top-0 z-0 h-[45vw] w-full object-cover md:h-[35vw]"
         />
         <h1 className="z-10 font-title text-[2vw] font-semibold">
-          LMCS Leaders
+          les responsables du  LMCS
         </h1>
         <div className="  z-10 flex flex-row  gap-[2vw]">{leaderboxes}</div>
       </div>
