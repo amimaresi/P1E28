@@ -326,12 +326,9 @@ function MiseAJour() {
           </span>
         </li>
       </AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent className=" h-[95%]">
         <AlertDialogHeader>
-          <AlertDialogTitle>la Mise a jour</AlertDialogTitle>
-          <AlertDialogDescription>
-            modifier la Mise a jour
-          </AlertDialogDescription>
+          
           <>
             {/*--------------------------------------------------------------------------------------------------------------------------------*/}
             <div className="p-5 text-center ">
