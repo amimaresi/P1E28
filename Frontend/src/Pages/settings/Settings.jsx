@@ -121,7 +121,7 @@ export default function Settings() {
    useEffect(() => {
     const  userInfo = localStorage.getItem('userInfo')
     const parsed = JSON.parse(userInfo)
-    const _id = parsed._id
+    const _id = parsed.Chercheur._id
     setId(_id)
     const fetch = async ()=>{
       try{
