@@ -3,9 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { CheckIcon, Pencil1Icon } from '@radix-ui/react-icons';
-import { useParams } from 'react-router-dom';
+import { useOutletContext, useParams } from 'react-router-dom';
 import axios from 'axios';
-const EditableField = ({ attribut , id , label, value, onChange }) => {
+const EditableField = ({ attribut, id, label, value, onChange }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedValue, setEditedValue] = useState(value);
 
@@ -13,25 +13,27 @@ const EditableField = ({ attribut , id , label, value, onChange }) => {
     setIsEditing(true);
     setEditedValue(value);
   };
-  
-  const handleSave = async() => {
+
+  const handleSave = async () => {
     setIsEditing(false);
     onChange(editedValue);
     // fetch with key
-    let obj = {}
-    obj[attribut] = editedValue
-    try{
-      const result = await axios.put('http://localhost:3000/modification/encadrement/'+id,obj , {withCredentials: true})
-      console.log(result)
+    let obj = {};
+    obj[attribut] = editedValue;
+    try {
+      const result = await axios.put(
+        'http://localhost:3000/modification/encadrement/' + id,
+        obj,
+        { withCredentials: true },
+      );
+      console.log(result);
+    } catch (err) {
+      console.log(err);
     }
-    catch(err){
-      console.log(err)
-    }
-     
   };
 
-  return ( 
-    <div className="flex flex-row items-center justify-between w-[350px]">
+  return (
+    <div className="flex w-[350px] flex-row items-center justify-between">
       <div className="flex flex-row items-center gap-5">
         <Label htmlFor={label} className="text-right">
           {label}:
@@ -62,8 +64,8 @@ const EditableField = ({ attribut , id , label, value, onChange }) => {
             <CheckIcon />
           </Button>
         ) : (
-          <Button onClick={handleEdit} className='bg-white hover:bg-white'>
-            <Pencil1Icon color='black'/>
+          <Button onClick={handleEdit} className="bg-white hover:bg-white">
+            <Pencil1Icon color="black" />
           </Button>
         )}
       </div>
@@ -72,33 +74,33 @@ const EditableField = ({ attribut , id , label, value, onChange }) => {
 };
 
 export default function EncSettings() {
-  const [editedData, setEditedData] = useState([
-    
-  ]);
-
-  const {id} = useParams()
-  console.log(id)
+  const [editedData, setEditedData] = useState([]);
+  const { userInfo, isLogged } = useOutletContext();
+  const { id } = useParams();
+  console.log(id);
 
   const handleChange = (key, value, index) => {
     const newData = [...editedData];
     newData[index][key] = value;
     setEditedData(newData);
-  }
+  };
 
   useEffect(() => {
     const fetch = async () => {
       try {
-        const result = await axios.get('http://localhost:3000/recherche/encadrement/'+id)
-        console.log(result.data.Encadrement)
-        setEditedData([result.data.Encadrement])
+        const result = await axios.get(
+          'http://localhost:3000/recherche/encadrement/' + id,
+        );
+        console.log(result.data.Encadrement);
+        setEditedData([result.data.Encadrement]);
       } catch (err) {
-        console.log(err)
+        console.log(err);
       }
-    }
-    fetch()
+    };
+    fetch();
   }, []);
 
-  return (
+  return isLogged && editedData.Encadrants.includes(userInfo._id) ? (
     <div className="container mx-auto min-h-screen bg-white px-4 py-8">
       <div className="mx-auto max-w-5xl">
         <div className="mb-10 flex items-center gap-[330px]">
@@ -110,42 +112,42 @@ export default function EncSettings() {
             <React.Fragment key={index}>
               <div className="border border-gray-300 p-4">
                 <EditableField
-                id={id}
-                attribut="Type"
+                  id={id}
+                  attribut="Type"
                   label="Type"
                   value={data.Type}
                   onChange={(value) => handleChange('Type', value, index)}
                 />
                 <EditableField
-                id={id}
-                attribut="Titre"
+                  id={id}
+                  attribut="Titre"
                   label="Titre"
                   value={data.Titre}
                   onChange={(value) => handleChange('Titre', value, index)}
                 />
                 <EditableField
-                id={id}
+                  id={id}
                   attribut="AnneeD"
                   label="Année de Début"
                   value={data.AnneeD}
                   onChange={(value) => handleChange('AnneeD', value, index)}
                 />
                 <EditableField
-                id={id}
-                attribut="AnneeF"
+                  id={id}
+                  attribut="AnneeF"
                   label="Année de Fin"
                   value={data.AnneeF}
                   onChange={(value) => handleChange('AnneeF', value, index)}
                 />
                 <EditableField
-                id={id}
-                 attribut="Etudiants"
+                  id={id}
+                  attribut="Etudiants"
                   label="Etudiants"
                   value={data.Etudiants}
                   onChange={(value) => handleChange('Etudiants', value, index)}
                 />
                 <EditableField
-                id={id}
+                  id={id}
                   attribut="Encadrants"
                   label="Encadrants"
                   value={data.Encadrants}
@@ -157,5 +159,5 @@ export default function EncSettings() {
         </div>
       </div>
     </div>
-  );
+  ) : null;
 }

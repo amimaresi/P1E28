@@ -11,14 +11,13 @@ import { set } from 'react-hook-form';
 
 // Composant pour un champ éditable
 const EditableField = ({
-  _id ,
+  _id,
   label,
   key,
   value,
   onChange,
   isPicture,
   isPassword,
-
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedValue, setEditedValue] = useState(value);
@@ -32,21 +31,19 @@ const EditableField = ({
     setIsEditing(false);
     onChange(editedValue);
     // fetch with key
-    let obj = {}
-    obj[label]=editedValue
+    let obj = {};
+    obj[label] = editedValue;
     console.log(obj);
-    console.log("base de donne" + _id);
+    console.log('base de donne' + _id);
     try {
       const result = await axios.put(
         `http://localhost:3000/modification/chercheur/${_id}`,
-        obj
+        obj,
       );
       console.log(result);
-    }
-    catch (err) {
+    } catch (err) {
       console.log(err);
     }
-
   };
 
   return (
@@ -116,7 +113,7 @@ const EditableField = ({
 };
 
 export default function Settings() {
-  const [_id , setId ] = useState('')
+  const [_id, setId] = useState('');
   const [editedData, setEditedData] = useState({
     _id: 'k_benatchba@esi.dz',
     nomComplet: 'Karima Benatchba',
@@ -131,26 +128,26 @@ export default function Settings() {
     tel: '0123456789', // Ajouté un numéro de téléphone pour l'exemple
     password: '123456',
   });
-   useEffect(() => {
-//localStorage.setItem('user', 'y_aissaoui@esi.dz') ca just pour test 
-    const  _id = localStorage.getItem('user.Chercheur._id')
-    console.log(_id); 
-    setId(_id)
-    const fetch = async ()=>{
-      try{
-      const result = await axios.get('http://localhost:3000/recherche/chercheur/'+_id)
-      console.log(result.data.Chercheur);
-      setEditedData(result.data.Chercheur);
-      }
-      catch(err){
+  useEffect(() => {
+    //localStorage.setItem('user', 'y_aissaoui@esi.dz') ca just pour test
+    const _id = localStorage.getItem('user.Chercheur._id');
+    console.log(_id);
+    setId(_id);
+    const fetch = async () => {
+      try {
+        const result = await axios.get(
+          'http://localhost:3000/recherche/chercheur/' + _id,
+        );
+        console.log(result.data.Chercheur);
+        setEditedData(result.data.Chercheur);
+      } catch (err) {
         console.log(err);
       }
-    }
-    fetch() 
-
-   }, [])
+    };
+    fetch();
+  }, []);
   const handleChange = (key, value) => {
-   // console.log("here is the mail "  + _id)
+    // console.log("here is the mail "  + _id)
     setEditedData({ ...editedData, [key]: value });
   };
 
@@ -170,68 +167,68 @@ export default function Settings() {
 
         <div className="grid gap-4 py-4 sm:grid-cols-2">
           <EditableField
-          _id={ _id}
+            _id={_id}
             label="nomComplet"
             key="_id"
             value={editedData.nomComplet}
             onChange={(value) => handleChange('nomComplet', value)}
           />
           <EditableField
-          _id={ _id}
+            _id={_id}
             label="Qualité"
             value={editedData.qualité}
             onChange={(value) => handleChange('Qualité', value)}
           />
           <EditableField
-          _id={ _id}
+            _id={_id}
             label="EtablissementOrigine"
             value={editedData.EtablissementOrigine}
             onChange={(value) => handleChange('EtablissementOrigine', value)}
           />
           <EditableField
-          _id={ _id}
+            _id={_id}
             label="Diplome"
             value={editedData.Diplome}
             onChange={(value) => handleChange('Diplome', value)}
           />
           <EditableField
-          _id={ _id}
+            _id={_id}
             label="GradeRecherche"
             value={editedData.GradeRecherche}
             onChange={(value) => handleChange('GradeRecherche', value)}
           />
           <EditableField
-          _id={ _id}
+            _id={_id}
             label="Email"
             value={editedData._id}
             onChange={(value) => handleChange('_id', value)}
           />
           <EditableField
-          _id={ _id}
+            _id={_id}
             label="GradeEnsegnement"
             value={editedData.GradeEnsegnement}
             onChange={(value) => handleChange('GradeEnsegnement', value)}
           />
           <EditableField
-          _id={ _id}
+            _id={_id}
             label="H_index"
             value={editedData.H_index}
             onChange={(value) => handleChange('H_index', value)}
           />
           <EditableField
-          _id ={ _id}
+            _id={_id}
             label="Equipe"
             value={editedData.Equipe}
             onChange={(value) => handleChange('Equipe', value)}
           />
           <EditableField
-          _id={ _id}
+            _id={_id}
             label="contact"
             value={editedData.tel}
             onChange={(value) => handleChange('tel', value)}
           />
           <EditableField
-          _id={ _id}
+            _id={_id}
             label="Password"
             isPassword
             value={editedData.tel}

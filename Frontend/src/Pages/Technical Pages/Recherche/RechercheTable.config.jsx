@@ -22,16 +22,16 @@ import {
   HoverCardTrigger,
 } from '@/components/ui/hover-card';
 import { useEffect } from 'react';
-export function GetColumns(searchby) {
+export function GetColumns(searchby, userInfo, isLogged) {
   return searchby === 'chercheur'
     ? ColumnsChercheur
     : searchby === 'publication'
-      ? ColumnsPublication
+      ? () => ColumnsPublication(userInfo, isLogged)
       : searchby === 'projet'
-        ? ColumnsProjet
+        ? () => ColumnsProjet(userInfo, isLogged)
         : searchby === 'encadrement'
           ? ColumnsEncadrement
-          : ColumnsConfJourn;
+          : () => ColumnsConfJourn(userInfo, isLogged);
 }
 
 export function ColumnsChercheur() {
@@ -141,7 +141,7 @@ export function ColumnsChercheur() {
   ];
 }
 
-export function ColumnsPublication() {
+export function ColumnsPublication(userInfo, isLogged) {
   return [
     {
       accessorKey: 'Titre',
@@ -222,9 +222,11 @@ export function ColumnsPublication() {
               <NavLink to={`../../publication/${row.original._id}`}>
                 <DropdownMenuItem>Plus d'info</DropdownMenuItem>
               </NavLink>
-              <NavLink to={`../../editpublication/${row.original._id}`}>
-                <DropdownMenuItem>Modifier</DropdownMenuItem>
-              </NavLink>
+              {isLogged && userInfo._id == row.original.idCherch ? (
+                <NavLink to={`../../editpublication/${row.original._id}`}>
+                  <DropdownMenuItem>Modifier</DropdownMenuItem>
+                </NavLink>
+              ) : null}
               <a href={row.original.Lien} target="_blanc">
                 <DropdownMenuItem>Lien externe</DropdownMenuItem>
               </a>
@@ -236,7 +238,7 @@ export function ColumnsPublication() {
   ];
 }
 
-export function ColumnsProjet() {
+export function ColumnsProjet(userInfo, isLogged) {
   return [
     {
       accessorKey: 'Titre',
@@ -367,9 +369,13 @@ export function ColumnsProjet() {
               <NavLink to={`../../projet/${row.original._id}`}>
                 <DropdownMenuItem>Plus d'info</DropdownMenuItem>
               </NavLink>
-              <NavLink to={`../../editprojet/${row.original._id}`}>
-                <DropdownMenuItem>Modifier</DropdownMenuItem>
-              </NavLink>
+              {isLogged &&
+              (row.original.ChefDeProjet == userInfo._id ||
+                row.original.liste_members.includes(userInfo._id)) ? (
+                <NavLink to={`../../editprojet/${row.original._id}`}>
+                  <DropdownMenuItem>Modifier</DropdownMenuItem>
+                </NavLink>
+              ) : null}
             </DropdownMenuContent>
           </DropdownMenu>
         );
@@ -378,7 +384,7 @@ export function ColumnsProjet() {
   ];
 }
 
-export function ColumnsConfJourn() {
+export function ColumnsConfJourn(userInfo, isLogged) {
   return [
     {
       accessorKey: '_id',
@@ -471,9 +477,12 @@ export function ColumnsConfJourn() {
                   <DropdownMenuItem>Lien externe</DropdownMenuItem>
                 </a>
               )}
-              <NavLink to={`../../editconfjourn/${row.original._id}`}>
-                <DropdownMenuItem>Modifier</DropdownMenuItem>
-              </NavLink>
+              {isLogged &&
+              (userInfo.type == 'Assistant' || userInfo.type == 'Directeur') ? (
+                <NavLink to={`../../editconfjourn/${row.original._id}`}>
+                  <DropdownMenuItem>Modifier</DropdownMenuItem>
+                </NavLink>
+              ) : null}
             </DropdownMenuContent>
           </DropdownMenu>
         );
@@ -482,7 +491,7 @@ export function ColumnsConfJourn() {
   ];
 }
 
-export function ColumnsEncadrement() {
+export function ColumnsEncadrement(userInfo, isLogged) {
   return [
     {
       accessorKey: 'Titre',
@@ -626,9 +635,11 @@ export function ColumnsEncadrement() {
               <NavLink to={`../../encadrement/${row.original._id}`}>
                 <DropdownMenuItem>Plus d'info</DropdownMenuItem>
               </NavLink>
-              <NavLink to={`../../editencadrement/${row.original._id}`}>
-                <DropdownMenuItem>Modifier</DropdownMenuItem>
-              </NavLink>
+              {isLogged && row.original.Encadrants.includes(userInfo._id) ? (
+                <NavLink to={`../../editencadrement/${row.original._id}`}>
+                  <DropdownMenuItem>Modifier</DropdownMenuItem>
+                </NavLink>
+              ) : null}
             </DropdownMenuContent>
           </DropdownMenu>
         );

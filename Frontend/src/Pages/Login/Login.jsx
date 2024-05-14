@@ -35,7 +35,7 @@ export default function Login() {
   const [show, setShow] = useState(false);
   const schema = yup.object().shape({
     email: yup.string().required(),
-    password: yup.string().required(),
+    password: yup.string().password().minSymbols(0).required(),
     remember: yup.boolean(),
   });
   const form = useForm({
@@ -65,6 +65,7 @@ export default function Login() {
       setError({ is: false, content: '' });
       setIsLogged(true);
       localStorage.setItem('isLogged', 'true');
+      navigate('/');
     } catch (err) {
       setError({
         is: true,
@@ -72,23 +73,6 @@ export default function Login() {
       });
       console.log('the error is here : ' + err);
       if (err.response) console.log(err.response.data.message);
-    }
-    if (Error.is) {
-      localStorage.setItem(
-        'userInfo',
-        JSON.stringify({
-          nomComplet: 'Saleh',
-          type: data.email,
-        }),
-      );
-      setUserInfo({
-        nomComplet: 'Saleh',
-        type: data.email,
-      });
-      setError({ is: false, content: '' });
-      setIsLogged(true);
-      localStorage.setItem('isLogged', 'true');
-      navigate('/');
     }
   };
 
