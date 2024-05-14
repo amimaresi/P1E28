@@ -55,6 +55,10 @@ export default function AddEncadrement() {
     ),
   });
 
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const handleButtonClick = () => {
+    form.handleSubmit(onSubmit)();
+  };
   const form = useForm({
     defaultValues: {
       Titre: '',
@@ -99,6 +103,7 @@ export default function AddEncadrement() {
     console.log('data :', data);
 
     try {
+      setIsSubmitted(true);
       const resutlt = await axios.post(
         'http://localhost:3000/encadrements/encadrement/ajouter',
         data,
@@ -479,9 +484,13 @@ export default function AddEncadrement() {
                 </button>
 
                 <div className="p-5">
+                  <div className="text-green-600 font-bold text-center">
+        {isSubmitted && <p> ajouté avec succès</p>}
+      </div>
                   <Button
                     className="mb-2 h-[35px] rounded-lg bg-buttonDark p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline  "
                     type="submit"
+                    onClick={handleButtonClick}
                   >
                     Ajouter
                   </Button>
