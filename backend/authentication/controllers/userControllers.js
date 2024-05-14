@@ -65,7 +65,7 @@ const loginUser = async (req , res)=>{
     }
     catch(err){
         //catch any error that occurs during the forget password process
-        res.status(400).json({message: "Une erreur s'est produite lors de la réinitialisation du mot de passe."})
+        res.status(400).json({message: err.message})
     }
 
     

@@ -201,7 +201,7 @@ function ResetRequest() {
       setIsOpen(false)
     }
     catch(err){
-      console.log(err)
+      console.log(err.response.data.message) // ce message sera affiché dans le cas ou l'email n'existe pas
 
     }
   }
