@@ -100,7 +100,7 @@ export function RechercheTable({ searchby, userInfo, isLogged }) {
         data,
       );
       console.log('search by ' + searchby);
-      console.log(resultat.data.ConfJourns);
+      console.log(resultat.data);
       if (searchby === 'chercheur') setData(resultat.data.Chercheurs);
       if (searchby === 'publication') setData(resultat.data.Publications);
       if (searchby === 'confJourn') setData(resultat.data.ConfJourns);
@@ -108,7 +108,8 @@ export function RechercheTable({ searchby, userInfo, isLogged }) {
         setData(resultat.data.Encadrements);
         console.log(resultat.data.Encadrements);
       }
-      if (searchby === 'projet') setData(resultat.data.projet);
+      if (searchby === 'projet') setData(resultat.data.Projets);
+      console.log('data : ', resultat.data);
     } catch (err) {
       setData([]);
       console.log(err.message);
@@ -136,7 +137,7 @@ export function RechercheTable({ searchby, userInfo, isLogged }) {
           if (searchby === 'publication') setData(resultat.data.Publications);
           if (searchby === 'confJourn') setData(resultat.data.ConfJourns);
           if (searchby === 'encadrement') setData(resultat.data.Encadrements);
-          if (searchby === 'projet') setData(resultat.data.projet);
+          if (searchby === 'projet') setData(resultat.data.Projets);
         } else {
           const resultat = await axios.get(
             `http://localhost:3000/recherche/${searchby}`,
@@ -148,6 +149,7 @@ export function RechercheTable({ searchby, userInfo, isLogged }) {
           if (searchby === 'projet') {
             setData(resultat.data.Projets);
           }
+          console.log('data : ', resultat.data);
         }
       } catch (err) {
         console.log(err.message);

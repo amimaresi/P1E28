@@ -337,7 +337,7 @@ export function ColumnsProjet(userInfo, isLogged) {
             onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
             className=" ml-[-15px]"
           >
-            Date Debut
+            Date Fin
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         );

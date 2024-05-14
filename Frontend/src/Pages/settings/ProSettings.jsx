@@ -117,9 +117,16 @@ export default function ProSettings() {
     };
     fetch();
   }, []);
+  console.log(
+    " droits d'access : ",
+    userInfo._id,
+    editedData[0].ChefDeProjet,
+    editedData[0].liste_members,
+    editedData.ChefDeProjet == userInfo._id,
+  );
   return isLogged &&
-    (editedData.ChefDeProjet == userInfo._id ||
-      editedData.liste_members.includes(userInfo._id)) ? (
+    (editedData[0].ChefDeProjet == userInfo._id ||
+      editedData[0].liste_members.includes(userInfo._id)) ? (
     <div className="container mx-auto min-h-screen bg-white px-4 py-8">
       <div className="mx-auto max-w-5xl">
         <div className="mb-10 flex items-center gap-[330px]">
