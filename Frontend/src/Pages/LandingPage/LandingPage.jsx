@@ -97,7 +97,7 @@ export default function LandingPage() {
     for (let i = 0; i < leaders.length; i++) {
       leaderboxes[i] = (
         <NavLink to={`chercheur/${leaders[i]._id}`}>
-          <Card className=" h-[27vw] w-[30vw] border-[0.5vw] p-[1vw] shadow-md border-buttonDark transition-shadow hover:mb-3 hover:translate-x-2 hover:shadow-lg md:h-[22vw] md:w-[20vw] lg:h-[20vw] lg:w-[20vw]">
+          <Card className=" h-[27vw] w-[30vw] border-[0.2vw] border-buttonDark p-[1vw] shadow-md transition-shadow hover:mb-3 hover:translate-x-2 hover:shadow-lg md:h-[22vw] md:w-[20vw] lg:h-[20vw] lg:w-[20vw]">
             <CardHeader className="p-[1vw]">
               <Avatar className="h-[4vw] w-[4vw]">
                 <AvatarImage src={leaders[i].nomComplet} />
@@ -212,7 +212,7 @@ export default function LandingPage() {
           className="absolute bottom-0 left-0 top-0 z-0 h-[45vw] w-full object-cover md:h-[35vw]"
         />
         <h1 className="z-10 font-title text-[2vw] font-semibold">
-          les responsables du  LMCS
+          les responsables du LMCS
         </h1>
         <div className="  z-10 flex flex-row  gap-[2vw]">{leaderboxes}</div>
       </div>
@@ -226,17 +226,15 @@ export default function LandingPage() {
           <div className="flex flex-col items-center gap-5">
             <p className="w-[50%] text-[2vw] md:text-[1vw]">
               <h1 className=" z-10 mb-3 font-title text-[4vw] md:text-[2vw]">
-                Les statistiques du LMCS 
+                Les statistiques du LMCS
               </h1>
-              {
-               'Explorez les Statistiques de LMCS  selon Votre Thème Préféré '
-              }
+              {'Explorez les Statistiques de LMCS  selon Votre Thème Préféré '}
             </p>
             <NavLink to="/login">
               <Button
                 className={`h-[25px] rounded-xl bg-buttonDark px-4 text-sm text-textLight hover:bg-slate-700 hover:text-textLight md:h-[35px] md:text-lg `}
               >
-                 En savoir plus
+                En savoir plus
               </Button>
             </NavLink>
           </div>
