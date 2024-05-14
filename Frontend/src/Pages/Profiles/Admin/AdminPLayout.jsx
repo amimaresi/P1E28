@@ -82,13 +82,18 @@ const EditableField = ({ label, value, onChange, isPicture, isPassword }) => {
 
 export default function AdminPLayout() {
   const [editedData, setEditedData] = useState({});
-  const { id } = useParams();
+  const [_id , setId] = useState('')
+  //const { id } = useParams();
 
   useEffect(() => {
+    const  userInfo = localStorage.getItem('userInfo')
+    const parsed = JSON.parse(userInfo)
+    const _id = parsed.email
+    setId(_id)
     const fetchData = async () => {
       try {
         const result = await axios.get(
-          `http://localhost:3000/recherche/user/${id}`,
+          `http://localhost:3000/recherche/user/${_id}`,
         );
         console.log(result.data.User);
         setEditedData(result.data.User);
@@ -99,7 +104,7 @@ export default function AdminPLayout() {
       }
     };
     fetchData();
-  }, [id]);
+  }, []);
 
   const resetUserName = async (newUsername) => {
     try {
