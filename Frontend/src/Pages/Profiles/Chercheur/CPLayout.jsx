@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Link, NavLink, Outlet, useParams } from 'react-router-dom';
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useOutletContext,
+  useParams,
+} from 'react-router-dom';
 import { ChevronLeftIcon } from '@radix-ui/react-icons';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import axios from 'axios';
 import NotFound from '@/Pages/NotFound/NotFound';
 
 export default function CPLayout() {
+  const { userInfo, isLogged } = useOutletContext();
   const [activeTab, setActiveTab] = useState(0);
   const [headerData, SetHeaderData] = useState({});
   const tabs = [
@@ -26,9 +33,16 @@ export default function CPLayout() {
   useEffect(() => {
     const fetch = async () => {
       const resultat = await axios.get(
-        'http://localhost:3000/recherche/chercheur/' + id,
+        `http://localhost:3000/recherche/chercheur/${
+          id == 'me' && isLogged ? userInfo._id : id
+        }`,
       );
-      console.log('id' + id);
+      console.log(
+        id,
+        'me',
+        id == 'me',
+        id == 'me' && isLogged ? userInfo._id : id,
+      );
       console.log(resultat.data.Chercheur);
       SetHeaderData(resultat.data.Chercheur);
 
@@ -98,8 +112,8 @@ export default function CPLayout() {
         <div className="flex w-1/5 flex-col gap-y-2">
           <Link
             // to={headerData.lien.GoogleScholar}
-            to= { headerData['lien.GoogleScholar']}
-            className="rounded-lg bg-buttonDark px-1 py-1 text-white hover:bg-buttonLight text-center"
+            to={headerData['lien.GoogleScholar']}
+            className="rounded-lg bg-buttonDark px-1 py-1 text-center text-white hover:bg-buttonLight"
           >
             Compte Google Scholar
           </Link>

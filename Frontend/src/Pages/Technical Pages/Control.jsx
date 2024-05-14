@@ -4,7 +4,9 @@ import NotAllowed from '../NotAllowed/NotAllowed';
 
 export default function Control() {
   const { isLogged, userInfo } = useOutletContext();
-  return userInfo && userInfo.type === 'Assistant' && isLogged ? (
+  return userInfo &&
+    (userInfo.type == 'Assistant' || userInfo.type == 'Directeur') &&
+    isLogged ? (
     <Outlet />
   ) : (
     <NotAllowed />

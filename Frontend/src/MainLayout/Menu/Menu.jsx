@@ -104,7 +104,9 @@ export default function Menu({ isLogged, setIsLogged, userInfo, setUserInfo }) {
               </NavigationMenuContent>
             </NavigationMenuItem>
 
-            {userInfo && userInfo.type == 'Assistant' && isLogged ? (
+            {userInfo &&
+            (userInfo.type == 'Assistant' || userInfo.type == 'Directeur') &&
+            isLogged ? (
               <NavigationMenuItem>
                 <NavigationMenuTrigger className=" text-[16.5px]">
                   Gestion du laboratoire
@@ -329,81 +331,80 @@ function MiseAJour() {
       </AlertDialogTrigger>
       <AlertDialogContent className=" h-[95%]">
         <ScrollArea className="h-[99%] w-[99%] pr-5">
-        <AlertDialogHeader>
-          
-          <>
-            {/*--------------------------------------------------------------------------------------------------------------------------------*/}
-            <div className="p-5 text-center ">
-              <h1 className="mb-4 text-xl font-bold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-2xl">
-                mise a jour
-              </h1>
-            </div>
-            <div className="p-10 text-center">
-              <h2 className="text-1xl text-center font-bold dark:text-white">
-                mise a jour automatique chaque :
-              </h2>
-              <hr className="my-8 h-px border-0  bg-black bg-opacity-50 "></hr>
-              <div className="align ">
-                <Input
-                  className=" w-300 h-7 rounded-full"
-                  value={data}
-                  onChange={(e) => setData(e.target.value)}
-                />
-                <div className="p-2">
-                  <Select onValueChange={(e) => setSelectValue(e)}>
-                    <SelectTrigger className="h-7 w-[180px] rounded-full pl-6">
-                      <SelectValue placeholder="duree" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="annees">Années</SelectItem>
-                      <SelectItem value="mois">Mois</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+          <AlertDialogHeader>
+            <>
+              {/*--------------------------------------------------------------------------------------------------------------------------------*/}
+              <div className="p-5 text-center ">
+                <h1 className="mb-4 text-xl font-bold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-2xl">
+                  mise a jour
+                </h1>
               </div>
-              <button
-                onClick={() => maj({ data, selectValue })}
-                className="mb-2 h-[35px] rounded-lg bg-buttonDark p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline  "
-                type="submit"
-              >
-                Sauvgarder
-              </button>
-              <h2 className="text-1xl p-2 text-center font-bold dark:text-white">
-                mettre a jour manuellement:
-              </h2>
-              <hr className="my-8 h-px border-0  bg-black bg-opacity-50 "></hr>
-              <button
-                onClick={effectuerRequete}
-                className="mb-2 h-[35px] rounded-lg bg-buttonDark p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline  "
-                type="submit"
-              >
-                mettre a jour
-              </button>
-              <hr className="my-8 h-px border-0  bg-black bg-opacity-50 "></hr>
-              <button
-                className="mb-2 h-[35px] rounded-lg bg-buttonDark p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline  "
-                onClick={async () => {
-                  try {
-                    console.log('clicked');
-                    const res = await axios.get(
-                      'http://localhost:3000/update-hindex',
-                    );
-                    console.log(res.data.message);
-                  } catch (err) {
-                    if (err.response) console.log(err.response.data.message); //this error is for displaying the error message from the server
-                  }
-                }}
-              >
-                mettre a jour le h-index
-              </button>
-              <hr className="my-8 h-px border-0  bg-black bg-opacity-50 "></hr>
-              <AlertDialogCancel className="m-5">Cancel</AlertDialogCancel>
-            </div>
-          </>
-          {/*--------------------------------------------------------------------------------------------------------------------------------*/}
-          ;
-        </AlertDialogHeader>
-          </ScrollArea>
+              <div className="p-10 text-center">
+                <h2 className="text-1xl text-center font-bold dark:text-white">
+                  mise a jour automatique chaque :
+                </h2>
+                <hr className="my-8 h-px border-0  bg-black bg-opacity-50 "></hr>
+                <div className="align ">
+                  <Input
+                    className=" w-300 h-7 rounded-full"
+                    value={data}
+                    onChange={(e) => setData(e.target.value)}
+                  />
+                  <div className="p-2">
+                    <Select onValueChange={(e) => setSelectValue(e)}>
+                      <SelectTrigger className="h-7 w-[180px] rounded-full pl-6">
+                        <SelectValue placeholder="duree" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="annees">Années</SelectItem>
+                        <SelectItem value="mois">Mois</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                <button
+                  onClick={() => maj({ data, selectValue })}
+                  className="mb-2 h-[35px] rounded-lg bg-buttonDark p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline  "
+                  type="submit"
+                >
+                  Sauvgarder
+                </button>
+                <h2 className="text-1xl p-2 text-center font-bold dark:text-white">
+                  mettre a jour manuellement:
+                </h2>
+                <hr className="my-8 h-px border-0  bg-black bg-opacity-50 "></hr>
+                <button
+                  onClick={effectuerRequete}
+                  className="mb-2 h-[35px] rounded-lg bg-buttonDark p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline  "
+                  type="submit"
+                >
+                  mettre a jour
+                </button>
+                <hr className="my-8 h-px border-0  bg-black bg-opacity-50 "></hr>
+                <button
+                  className="mb-2 h-[35px] rounded-lg bg-buttonDark p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline  "
+                  onClick={async () => {
+                    try {
+                      console.log('clicked');
+                      const res = await axios.get(
+                        'http://localhost:3000/update-hindex',
+                      );
+                      console.log(res.data.message);
+                    } catch (err) {
+                      if (err.response) console.log(err.response.data.message); //this error is for displaying the error message from the server
+                    }
+                  }}
+                >
+                  mettre a jour le h-index
+                </button>
+                <hr className="my-8 h-px border-0  bg-black bg-opacity-50 "></hr>
+                <AlertDialogCancel className="m-5">Cancel</AlertDialogCancel>
+              </div>
+            </>
+            {/*--------------------------------------------------------------------------------------------------------------------------------*/}
+            ;
+          </AlertDialogHeader>
+        </ScrollArea>
       </AlertDialogContent>
     </AlertDialog>
   );
