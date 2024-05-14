@@ -18,6 +18,7 @@ const EditableField = ({
   onChange,
   isPicture,
   isPassword,
+  attribut,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedValue, setEditedValue] = useState(value);
@@ -32,7 +33,7 @@ const EditableField = ({
     onChange(editedValue);
     // fetch with key
     let obj = {};
-    obj[label] = editedValue;
+    obj[attribut] = editedValue;
     console.log(obj);
     console.log('base de donne' + _id);
     try {
@@ -114,24 +115,11 @@ const EditableField = ({
 
 export default function Settings() {
   const [_id, setId] = useState('');
-  const [editedData, setEditedData] = useState({
-    _id: 'k_benatchba@esi.dz',
-    nomComplet: 'Karima Benatchba',
-    GradeEnsegnement: 'hi',
-    qualité: 'Chercheure',
-    GradeRecherche: 'Maitre de recherche',
-    H_index: 20,
-    EtablissementOrigine: 'ESI',
-    statut: 'Actif',
-    Diplome: 'Doctorat',
-    Equipe: 'Optimisation',
-    tel: '0123456789', // Ajouté un numéro de téléphone pour l'exemple
-    password: '123456',
-  });
+  const [editedData, setEditedData] = useState({});
   useEffect(() => {
-    //localStorage.setItem('user', 'y_aissaoui@esi.dz') ca just pour test
-    const _id = localStorage.getItem('user.Chercheur._id');
-    console.log(_id);
+    const userInfo = localStorage.getItem('userInfo');
+    const parsed = JSON.parse(userInfo);
+    const _id = parsed._id;
     setId(_id);
     const fetch = async () => {
       try {
@@ -168,64 +156,74 @@ export default function Settings() {
         <div className="grid gap-4 py-4 sm:grid-cols-2">
           <EditableField
             _id={_id}
-            label="nomComplet"
+            attribut="nomComplet"
+            label="Nom Complet"
             key="_id"
             value={editedData.nomComplet}
             onChange={(value) => handleChange('nomComplet', value)}
           />
           <EditableField
             _id={_id}
-            label="Qualité"
-            value={editedData.qualité}
+            label={'Qualité'}
+            attribut="Qualité"
+            value={editedData.Qualité}
             onChange={(value) => handleChange('Qualité', value)}
           />
           <EditableField
             _id={_id}
-            label="EtablissementOrigine"
+            attribut="EtablissementOrigine"
+            label={'Etablissement origine'}
             value={editedData.EtablissementOrigine}
             onChange={(value) => handleChange('EtablissementOrigine', value)}
           />
           <EditableField
             _id={_id}
+            attribut="Diplome"
             label="Diplome"
             value={editedData.Diplome}
             onChange={(value) => handleChange('Diplome', value)}
           />
           <EditableField
             _id={_id}
-            label="GradeRecherche"
+            attribut="GradeRecherche"
+            label={'Grade de recherche'}
             value={editedData.GradeRecherche}
             onChange={(value) => handleChange('GradeRecherche', value)}
           />
           <EditableField
             _id={_id}
-            label="Email"
+            attribut="Email"
+            label={'Email'}
             value={editedData._id}
             onChange={(value) => handleChange('_id', value)}
           />
           <EditableField
             _id={_id}
-            label="GradeEnsegnement"
+            attribut="GradeEnsegnement"
+            label={"Grade d'enseignement"}
             value={editedData.GradeEnsegnement}
             onChange={(value) => handleChange('GradeEnsegnement', value)}
           />
           <EditableField
             _id={_id}
-            label="H_index"
+            attribut="H_index"
+            label={'H index'}
             value={editedData.H_index}
             onChange={(value) => handleChange('H_index', value)}
           />
           <EditableField
             _id={_id}
-            label="Equipe"
+            attribut="Equipe"
+            label={'Equipe'}
             value={editedData.Equipe}
             onChange={(value) => handleChange('Equipe', value)}
           />
           <EditableField
             _id={_id}
-            label="contact"
-            value={editedData.tel}
-            onChange={(value) => handleChange('tel', value)}
+            attribut="contact"
+            label={'Contact'}
+            value={editedData.contact}
+            onChange={(value) => handleChange('contact', value)}
           />
           <EditableField
             _id={_id}
