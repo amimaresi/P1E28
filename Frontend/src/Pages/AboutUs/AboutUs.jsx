@@ -8,8 +8,8 @@ import esi_white from './image/esi_white.png';
 export default function AboutUs() {
   return (
     <>
-      <div className="relative">
-        <img src={Rectangle} alt="Rectangle" />
+      <div className="relative w-full">
+        <img src={Rectangle} alt="Rectangle" className="w-full" />
         <h1 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-title text-6xl font-bold">
           À propos de nous
         </h1>
@@ -31,15 +31,22 @@ export default function AboutUs() {
           </div>
         </div>
         <div className="text-center w-1/3 flex flex-col items-center justify-center">
-          <img src={esi_white} alt="Frame 2" width="190" height="114"/>
+          <img src={esi_white} alt="Frame 2" width="170" height="94"/>
           <h1 className="text-2xl font-bold">Ecole nationale Supérieure d'Informatique</h1>
-        </div>
+          <div>          
+            <p>Contactez-nous:</p>
+            <p>+213 23 93 91 32</p>
+            <p>contact@esi.dz</p></div>
+          </div>
         <div className="text-center w-1/3 flex flex-col items-center justify-center">
           <img src={local} alt="Frame 2" />
           <h1 className="text-2xl font-bold">Localisation</h1>
           <p className="mx-auto max-w-xs">
           Ecole nationale Supérieure d’Informatique ESI, Oued Smar Alger , 16309.
             </p>
+            <p>k_benatchba@esi.dz</p> 
+            <p>+213 23 93 91 30</p>
+          
         </div>
       </div>
     </>
