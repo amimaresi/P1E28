@@ -523,8 +523,9 @@ function ProfileMenu({ userInfo, setIsLogged }) {
               <AddEncadrement />
               <AddPublication />
               <AddProject />
-
-              <LinkItem to="/settings" title="Settings" />
+              {userInfo.type != 'Admin' && (
+                <LinkItem to="/settings" title="Settings" />
+              )}
               <LinkItem
                 to="."
                 title="Logout"
