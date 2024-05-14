@@ -63,6 +63,7 @@ export default function Login() {
       setIsLogged(true);
       localStorage.setItem('isLogged', 'true');
       navigate('/');
+      navigate('/');
     } catch (err) {
       setError({
         is: true,
@@ -70,23 +71,6 @@ export default function Login() {
       });
       console.log('the error is here : ' + err);
       if (err.response) console.log(err.response.data.message);
-    }
-    if (Error.is) {
-      localStorage.setItem(
-        'userInfo',
-        JSON.stringify({
-          nomComplet: 'Saleh',
-          type: data.email,
-        }),
-      );
-      setUserInfo({
-        nomComplet: 'Saleh',
-        type: data.email,
-      });
-      setError({ is: false, content: '' });
-      setIsLogged(true);
-      localStorage.setItem('isLogged', 'true');
-      navigate('/');
     }
   };
 

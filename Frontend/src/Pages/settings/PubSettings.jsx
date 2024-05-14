@@ -3,10 +3,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { CheckIcon, Pencil1Icon } from '@radix-ui/react-icons';
-import { useParams } from 'react-router-dom';
+import { useOutletContext, useParams } from 'react-router-dom';
 import axios from 'axios';
+import NotAllowed from '../NotAllowed/NotAllowed';
 
-const EditableField = ({id , label, attribut,value, onChange }) => {
+const EditableField = ({ id, label, attribut, value, onChange }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedValue, setEditedValue] = useState(value);
 
@@ -14,26 +15,28 @@ const EditableField = ({id , label, attribut,value, onChange }) => {
     setIsEditing(true);
     setEditedValue(value);
   };
-  
-  const handleSave =async () => {
+
+  const handleSave = async () => {
     setIsEditing(false);
     onChange(editedValue);
-    let obj = {}
-    obj[attribut] = editedValue 
-    console.log(obj)
+    let obj = {};
+    obj[attribut] = editedValue;
+    console.log(obj);
     // fetch with attribut
     try {
-      const result = await axios.put('http://localhost:3000/modification/Publication/'+id,obj , {withCredentials: true})
-      console.log(result)
+      const result = await axios.put(
+        'http://localhost:3000/modification/Publication/' + id,
+        obj,
+        { withCredentials: true },
+      );
+      console.log(result);
+    } catch (err) {
+      console.log(err);
     }
-    catch(err){
-      console.log(err)
-    }
-
   };
 
-  return ( 
-    <div className="flex flex-row items-center justify-between w-[350px]">
+  return (
+    <div className="flex w-[350px] flex-row items-center justify-between">
       <div className="flex flex-row items-center gap-5">
         <Label htmlFor={label} className="text-right">
           {label}:
@@ -64,8 +67,8 @@ const EditableField = ({id , label, attribut,value, onChange }) => {
             <CheckIcon />
           </Button>
         ) : (
-          <Button onClick={handleEdit} className='bg-white hover:bg-white'>
-            <Pencil1Icon color='black'/>
+          <Button onClick={handleEdit} className="bg-white hover:bg-white">
+            <Pencil1Icon color="black" />
           </Button>
         )}
       </div>
@@ -74,39 +77,39 @@ const EditableField = ({id , label, attribut,value, onChange }) => {
 };
 
 export default function PubSettings() {
+  const { userInfo, isLogged } = useOutletContext();
   const [editedData, setEditedData] = useState([]);
-  const {id} = useParams()
+  const { id } = useParams();
 
   const handleChange = (key, value, index) => {
-     const newData = [...editedData];
-     console.log(newData)
-     newData[index][key] = value;
-     console.log(index)
-    console.log(key)
-    console.log(value)
-   
-   
-    setEditedData(newData)
+    const newData = [...editedData];
+    console.log(newData);
+    newData[index][key] = value;
+    console.log(index);
+    console.log(key);
+    console.log(value);
+
+    setEditedData(newData);
   };
-  useEffect(()=>{
-    console.log("id"+ id)
-    const fetch = async()=>{
-      try{
-        const result = await axios.get('http://localhost:3000/recherche/publication/'+id)
-        console.log(result.data.Publications)
-       setEditedData([result.data.Publications])
+  useEffect(() => {
+    console.log('id' + id);
+    const fetch = async () => {
+      try {
+        const result = await axios.get(
+          'http://localhost:3000/recherche/publication/' + id,
+        );
+        console.log(result.data.Publications);
+        setEditedData([result.data.Publications]);
+      } catch (err) {
+        console.log(err);
       }
-      catch(err)
-      {
-        console.log(err)
-      }
-    }
-    fetch()
-  },[])
+    };
+    fetch();
+  }, []);
 
-
-
-  return (
+  return isLogged &&
+    (editedData.Membres.includes(userInfo.nomComplet) ||
+      editedData.idCherch == userInfo._id) ? (
     <div className="container mx-auto min-h-screen bg-white px-4 py-8">
       <div className="mx-auto max-w-5xl">
         <div className="mb-10 flex items-center gap-[330px]">
@@ -125,57 +128,59 @@ export default function PubSettings() {
                   onChange={(value) => handleChange('idCherch', value, index)}
                 />
                 <EditableField
-                 id={id}
+                  id={id}
                   attribut={'Titre'}
                   label={'Titre'}
                   value={data.Titre}
                   onChange={(value) => handleChange('Titre', value, index)}
                 />
                 <EditableField
-                 id={id}
-                 attribut={'Date'}
+                  id={id}
+                  attribut={'Date'}
                   label="Date"
                   value={data.Date}
                   onChange={(value) => handleChange('Date', value, index)}
                 />
                 <EditableField
-                 id={id}
+                  id={id}
                   attribut={'confJourn'}
                   label={'conferece/Journal'}
                   value={data.confJourn}
                   onChange={(value) => handleChange('confJourn', value, index)}
                 />
                 <EditableField
-                 id={id}
-                 attribut={'MaisonEdistion'}
-                  label={'Maison D\'édition'}
+                  id={id}
+                  attribut={'MaisonEdistion'}
+                  label={"Maison D'édition"}
                   value={data.MaisonEdistion}
-                  onChange={(value) => handleChange("MaisonEdistion", value, index)}
+                  onChange={(value) =>
+                    handleChange('MaisonEdistion', value, index)
+                  }
                 />
                 <EditableField
-                 id={id}
+                  id={id}
                   label="volume"
                   attribut={'volume'}
                   value={data.volume}
                   onChange={(value) => handleChange('volume', value, index)}
                 />
                 <EditableField
-                 id={id}
+                  id={id}
                   label="Pages"
                   attribut={'pages'}
                   value={data.pages}
                   onChange={(value) => handleChange('pages', value, index)}
                 />
                 <EditableField
-                 id={id}
-                 attribut={'Membres'}
+                  id={id}
+                  attribut={'Membres'}
                   label="Membres"
                   value={data.Membres}
                   onChange={(value) => handleChange('Membres', value, index)}
                 />
                 <EditableField
-                 id={id}
-                 attribut={'Classement'}
+                  id={id}
+                  attribut={'Classement'}
                   label="Classement"
                   value={data.Classement}
                   onChange={(value) => handleChange('Classement', value, index)}
@@ -186,5 +191,7 @@ export default function PubSettings() {
         </div>
       </div>
     </div>
+  ) : (
+    <NotAllowed />
   );
 }
