@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const Projet = require('../../../../schema/Projet');
-
+const jwt = require('jsonwebtoken');
 const ajouterModifierProjet = async (req, res) => {
     
     try {
         const { projetId } = req.params; // ID du projet à modifier (si fourni)
-        const { titre, dateDebut, dateFin, theme } = req.body; // Nouvelles informations du projet
+        //const { titre, dateDebut, dateFin, theme } = req.body; // Nouvelles informations du projet
 
         let projet; // Variable pour stocker le projet trouvé ou créé
         const idCherch = jwt.verify(req.cookies.jwt , process.env.SECRET_KEY).email

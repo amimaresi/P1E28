@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { NavLink, useNavigate, useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 import * as yup from 'yup';
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import YupPassword from 'yup-password';
@@ -35,7 +35,7 @@ export default function Login() {
   const [show, setShow] = useState(false);
   const schema = yup.object().shape({
     email: yup.string().required(),
-    password: yup.string().password().minSymbols(0).required(),
+   // password: yup.string().password().required(),
     remember: yup.boolean(),
   });
   const form = useForm({
@@ -56,15 +56,13 @@ export default function Login() {
 
       /////// end of fetching /////////////
       console.log('this is result :', resutlt);
-      setUserInfo({ ...resutlt.data.Chercheur, type: resutlt.data.type });
+      setUserInfo(resutlt.data);
       setIsLogged(true);
-      localStorage.setItem(
-        'userInfo',
-        JSON.stringify({ ...resutlt.data.Chercheur, type: resutlt.data.type }),
-      );
+      localStorage.setItem('userInfo', JSON.stringify(resutlt.data));
       setError({ is: false, content: '' });
       setIsLogged(true);
       localStorage.setItem('isLogged', 'true');
+      navigate('/');
       navigate('/');
     } catch (err) {
       setError({
@@ -81,7 +79,7 @@ export default function Login() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="absolute left-[7vw] top-[6vw] flex flex-col items-start justify-between gap-[2vw] border-[0.1vw] border-solid border-buttonDark bg-white p-[4vw] shadow-xl"
+          className="absolute left-[10vw] top-[10vw] flex flex-col items-start justify-between gap-[2vw] border-[0.1vw] border-solid border-buttonDark bg-white p-[4vw] shadow-xl"
         >
           <h1 className="m-0 font-title text-[2vw] font-semibold">LOGIN</h1>
           <FormField
@@ -176,8 +174,23 @@ export default function Login() {
   );
 }
 function ResetRequest() {
+  const [email, setEmail] = useState('')
+  const [isOpen, setIsOpen] = useState(true)
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    console.log(email);
+    try{
+      const res = await axios.post('http://localhost:3000/auth//forget-password', {email})
+      console.log(res.data)
+      setIsOpen(false)
+    }
+    catch(err){
+      console.log(err.response.data.message) // ce message sera affiché dans le cas ou l'email n'existe pas
+
+    }
+  }
   return (
-    <Dialog>
+    <Dialog isOpen={isOpen} >
       <DialogTrigger asChild className="">
         <Button className="m-0 bg-transparent font-title text-[0.8vw] font-medium text-buttonLight no-underline hover:bg-transparent hover:underline">
           Forgot password ?
@@ -196,12 +209,12 @@ function ResetRequest() {
             <Label htmlFor="email" className="text-right">
               E-mail
             </Label>
-            <Input id="email" defaultValue="" className="col-span-3" />
+            <Input id="email" defaultValue="" onChange={(e)=>setEmail(e.target.value)} className="col-span-3" />
           </div>
         </div>
 
         <DialogFooter>
-          <Button className="bg-buttonDark" type="submit">
+          <Button className="bg-buttonDark"  onClick={onSubmit}>
             réinitialiser votre mot de passe
           </Button>
         </DialogFooter>

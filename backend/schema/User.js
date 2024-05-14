@@ -78,6 +78,7 @@ UserSchema.statics.login = async function ({email, password})
 }
 UserSchema.statics.forgetPassword = async function ({email}){
     console.log(email)
+    try {
     if (!email)
     {
         throw new Error("Veuillez entrer votre email")
@@ -92,6 +93,10 @@ UserSchema.statics.forgetPassword = async function ({email}){
     else{
         throw new Error("Email incorrect")
     }
+}
+catch(err){
+    throw new Error(err.message)
+}
 
 }
 

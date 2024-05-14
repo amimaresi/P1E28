@@ -24,7 +24,7 @@ const EditableField = ({ attribut, id, label, value, onChange }) => {
     console.log(obj);
     try {
       const result = axios.put(
-        'http://localhost:3000/modification/projet/' + id,
+        'http://localhost:3000/modification/projet/'+id,
         obj,
         { withCredentials: true },
       );
@@ -108,7 +108,7 @@ export default function ProSettings() {
       console.log(id);
       try {
         const result = await axios.get(
-          'http://localhost:3000/recherche/projet/' + id,
+          'http://localhost:3000/recherche/projet/'+id,
         );
         console.log(result.data.projet);
         setEditedData([result.data.projet]);

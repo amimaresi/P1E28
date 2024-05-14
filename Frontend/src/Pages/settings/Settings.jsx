@@ -116,19 +116,18 @@ const EditableField = ({
 export default function Settings() {
   const [_id, setId] = useState('');
   const [editedData, setEditedData] = useState({});
-  useEffect(() => {
-    const userInfo = localStorage.getItem('userInfo');
-    const parsed = JSON.parse(userInfo);
-    const _id = parsed._id;
-    setId(_id);
-    const fetch = async () => {
-      try {
-        const result = await axios.get(
-          'http://localhost:3000/recherche/chercheur/' + _id,
-        );
-        console.log(result.data.Chercheur);
-        setEditedData(result.data.Chercheur);
-      } catch (err) {
+   useEffect(() => {
+    const  userInfo = localStorage.getItem('userInfo')
+    const parsed = JSON.parse(userInfo)
+    const _id = parsed.Chercheur._id
+    setId(_id)
+    const fetch = async ()=>{
+      try{
+      const result = await axios.get('http://localhost:3000/recherche/chercheur/'+_id)
+      console.log(result.data.Chercheur)
+      setEditedData(result.data.Chercheur)
+      }
+      catch(err){
         console.log(err);
       }
     };
