@@ -77,6 +77,7 @@ const EditableField = ({ attribut, id, label, value, onChange }) => {
 
 export default function ProSettings() {
   const { userInfo, isLogged } = useOutletContext();
+  const [loading, setLoading] = useState(true);
   const [editedData, setEditedData] = useState([
     {
       _id: { $numberInt: '3' },
@@ -111,19 +112,16 @@ export default function ProSettings() {
         );
         console.log(result.data.projet);
         setEditedData([result.data.projet]);
+        setLoading(false);
       } catch (err) {
         console.log(err);
       }
     };
     fetch();
   }, []);
-  console.log(
-    " droits d'access : ",
-    userInfo._id,
-    editedData[0].ChefDeProjet,
-    editedData[0].liste_members,
-    editedData.ChefDeProjet == userInfo._id,
-  );
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return isLogged &&
     (editedData[0].ChefDeProjet == userInfo._id ||
       editedData[0].liste_members.includes(userInfo._id)) ? (

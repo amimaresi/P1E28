@@ -79,6 +79,8 @@ const EditableField = ({ id, label, attribut, value, onChange }) => {
 export default function PubSettings() {
   const { userInfo, isLogged } = useOutletContext();
   const [editedData, setEditedData] = useState([]);
+
+  const [loading, setLoading] = useState(true);
   const { id } = useParams();
 
   const handleChange = (key, value, index) => {
@@ -98,18 +100,21 @@ export default function PubSettings() {
         const result = await axios.get(
           'http://localhost:3000/recherche/publication/' + id,
         );
-        console.log(result.data.Publications);
+        console.log('result : ', result.data.Publications);
         setEditedData([result.data.Publications]);
+        setLoading(false);
       } catch (err) {
         console.log(err);
       }
     };
     fetch();
   }, []);
-
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return isLogged &&
-    (editedData.Membres.includes(userInfo.nomComplet) ||
-      editedData.idCherch == userInfo._id) ? (
+    (editedData[0].Membres.includes(userInfo.nomComplet) ||
+      editedData[0].idCherch == userInfo._id) ? (
     <div className="container mx-auto min-h-screen bg-white px-4 py-8">
       <div className="mx-auto max-w-5xl">
         <div className="mb-10 flex items-center gap-[330px]">

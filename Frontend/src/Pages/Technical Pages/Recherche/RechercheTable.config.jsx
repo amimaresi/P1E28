@@ -628,7 +628,11 @@ export function ColumnsEncadrement(userInfo, isLogged) {
               <NavLink to={`../../encadrement/${row.original._id}`}>
                 <DropdownMenuItem>Plus d'info</DropdownMenuItem>
               </NavLink>
-              {isLogged && row.original.Encadrants.includes(userInfo._id) ? (
+              {isLogged &&
+              row.original.Encadrants.some((e) => {
+                console.log(e, userInfo._id, row.original.Encadrants);
+                return e._id == userInfo._id;
+              }) ? (
                 <NavLink to={`../../editencadrement/${row.original._id}`}>
                   <DropdownMenuItem>Modifier</DropdownMenuItem>
                 </NavLink>
