@@ -4,13 +4,12 @@ import Menu from './Menu/Menu.jsx';
 
 export default function MLayout() {
   const [isLogged, setIsLogged] = useState(
-   // localStorage.getItem('isLogged') == 'true',
-   true
+    // localStorage.getItem('isLogged') == 'true',
+    true,
   );
   const [userInfo, setUserInfo] = useState(
     JSON.parse(localStorage.getItem('userInfo')),
   );
-  console.log(localStorage.getItem('isLogged') == 'true');
   return (
     <div className="  z-0 w-full bg-textLight pt-[60px]">
       <Menu isLogged={isLogged} userInfo={userInfo} setIsLogged={setIsLogged} />

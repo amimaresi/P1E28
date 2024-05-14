@@ -5,7 +5,7 @@ import { RechercheTable } from './RechercheTable';
 export default function RechercheLayout({ searchby }) {
   const navigate = useNavigate();
   const { userInfo, isLogged } = useOutletContext();
-
+  console.log('userInfo : ', userInfo);
   return (
     <>
       <div className="  min-h-screen pl-[7vw] pt-16">

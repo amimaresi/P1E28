@@ -76,6 +76,7 @@ const EditableField = ({ attribut, id, label, value, onChange }) => {
 
 export default function EncSettings() {
   const [editedData, setEditedData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { userInfo, isLogged } = useOutletContext();
   const { id } = useParams();
   console.log(id);
@@ -94,14 +95,18 @@ export default function EncSettings() {
         );
         console.log(result.data.Encadrement);
         setEditedData([result.data.Encadrement]);
+        setLoading(false);
       } catch (err) {
         console.log(err);
       }
     };
     fetch();
   }, []);
-
-  return isLogged && editedData.Encadrants.includes(userInfo._id) ? (
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  return isLogged &&
+    editedData[0].Encadrants.some((e) => e._id == userInfo._id) ? (
     <div className="container mx-auto min-h-screen bg-white px-4 py-8">
       <div className="mx-auto max-w-5xl">
         <div className="mb-10 flex items-center gap-[330px]">

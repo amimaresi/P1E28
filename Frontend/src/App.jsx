@@ -33,7 +33,7 @@ import Control from './Pages/Technical Pages/Control.jsx';
 
 function Recherche() {
   const { userInfo, isLogged } = useOutletContext();
-  return <Outlet context={(userInfo, isLogged)} />;
+  return <Outlet context={{ userInfo: userInfo, isLogged: isLogged }} />;
 }
 const router = createBrowserRouter(
   createRoutesFromElements(
