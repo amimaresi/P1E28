@@ -37,6 +37,11 @@ export default function AddProject() {
     liste_members: yup.string().required(' la liste des membres est requise '),
   });
 
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const handleButtonClick = () => {
+    form.handleSubmit(onSubmit)();
+  };
+
   const form = useForm({
     defaultValues: {
       /* Num: '',
@@ -63,7 +68,7 @@ export default function AddProject() {
       };
       console.log(inf);
       console.log('clicked');
-
+      setIsSubmitted(true);
       const resutlt = await axios.post(
         'http://localhost:3000/insertions/projet',
         data,
@@ -288,9 +293,13 @@ export default function AddProject() {
                   )}
                 />
                 <div className="flex gap-4 p-5">
+                  <div className="text-green-600 font-bold text-center">
+        {isSubmitted && <p> ajouté avec succès</p>}
+      </div>
                   <Button
                     className="mb-2 h-[35px] rounded-lg bg-buttonDark p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline  "
                     type="submit"
+                    onClick={handleButtonClick}
                   >
                     Ajouter
                   </Button>
