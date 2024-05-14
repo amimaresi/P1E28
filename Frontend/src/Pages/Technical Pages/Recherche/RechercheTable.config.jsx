@@ -614,6 +614,7 @@ export function ColumnsEncadrement(userInfo, isLogged) {
       id: 'actions',
       enableHiding: false,
       cell: ({ row }) => {
+        console.log;
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -629,10 +630,7 @@ export function ColumnsEncadrement(userInfo, isLogged) {
                 <DropdownMenuItem>Plus d'info</DropdownMenuItem>
               </NavLink>
               {isLogged &&
-              row.original.Encadrants.some((e) => {
-                console.log(e, userInfo._id, row.original.Encadrants);
-                return e._id == userInfo._id;
-              }) ? (
+              row.original.Encadrants.some((e) => e._id == userInfo._id) ? (
                 <NavLink to={`../../editencadrement/${row.original._id}`}>
                   <DropdownMenuItem>Modifier</DropdownMenuItem>
                 </NavLink>
