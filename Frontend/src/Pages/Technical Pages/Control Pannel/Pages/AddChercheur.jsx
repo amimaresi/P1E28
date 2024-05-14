@@ -44,7 +44,10 @@ export default function AddChercheur() {
     lien: yup.string(),
     projet: yup.string(),
   });
-
+const [isSubmitted, setIsSubmitted] = useState(false);
+  const handleButtonClick = () => {
+    form.handleSubmit(onSubmit)();
+  };
   const form = useForm({
     defaultValues: {},
     resolver: yupResolver(schema),
@@ -69,6 +72,7 @@ export default function AddChercheur() {
 
       console.log(info);
       console.log('clicked');
+      setIsSubmitted(true);
 
       const res = await axios.post(
         'http://localhost:3000/chercheur/insertionChercheur ',
@@ -471,9 +475,13 @@ export default function AddChercheur() {
                 />
 
                 <div className="flex gap-3 p-5">
+                  <div className="text-green-600 font-bold text-center">
+        {isSubmitted && <p> ajouté avec succès</p>}
+      </div>
                   <Button
                     className="mb-2 h-[35px] rounded-lg bg-buttonDark p-5 py-2.5 text-sm font-medium  text-textLight  hover:bg-slate-700 hover:text-textLight focus:outline  "
                     type="submit"
+                    onClick={handleButtonClick}
                   >
                     Ajouter
                   </Button>
