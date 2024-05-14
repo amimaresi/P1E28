@@ -5,6 +5,7 @@ import { Label } from '@/components/ui/label';
 import { CheckIcon, Pencil1Icon } from '@radix-ui/react-icons';
 import { useOutletContext, useParams } from 'react-router-dom';
 import axios from 'axios';
+import NotAllowed from '../NotAllowed/NotAllowed';
 const EditableField = ({ attribut, id, label, value, onChange }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedValue, setEditedValue] = useState(value);
@@ -159,5 +160,7 @@ export default function EncSettings() {
         </div>
       </div>
     </div>
-  ) : null;
+  ) : (
+    <NotAllowed />
+  );
 }
