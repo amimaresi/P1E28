@@ -15,12 +15,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 export default function AddPublication() {
@@ -104,8 +99,8 @@ export default function AddPublication() {
 
   return (
     <>
-      <AlertDialog>
-        <AlertDialogTrigger>
+      <Dialog>
+        <DialogTrigger>
           <div
             className={` block  select-none space-y-1  rounded-md  p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent  focus:text-accent-foreground `}
           >
@@ -115,8 +110,8 @@ export default function AddPublication() {
               Ajouter une Publication
             </div>
           </div>
-        </AlertDialogTrigger>
-        <AlertDialogContent className=" h-[95%]">
+        </DialogTrigger>
+        <DialogContent className=" h-[95%]">
           <ScrollArea className="h-[99%] w-[99%] pr-5">
             <Form {...form}>
               <form
@@ -143,12 +138,12 @@ export default function AddPublication() {
                             <FormLabel>Titre:</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-14'>
-                            <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder="entrez le titre "
-                              {...field}
-                            />
+                            <div className="ml-14">
+                              <Input
+                                className=" w-300 h-7 rounded-full"
+                                placeholder="entrez le titre "
+                                {...field}
+                              />
                             </div>
                           </FormControl>
                         </div>
@@ -169,12 +164,12 @@ export default function AddPublication() {
                             <FormLabel>Date :</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-16'>
-                            <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder="entrez la date "
-                              {...field}
-                            />
+                            <div className="ml-16">
+                              <Input
+                                className=" w-300 h-7 rounded-full"
+                                placeholder="entrez la date "
+                                {...field}
+                              />
                             </div>
                           </FormControl>
                         </div>
@@ -195,12 +190,12 @@ export default function AddPublication() {
                             <FormLabel>Conf/journ:</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-4'>
-                            <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder="entrez la confJourn"
-                              {...field}
-                            />
+                            <div className="ml-4">
+                              <Input
+                                className=" w-300 h-7 rounded-full"
+                                placeholder="entrez la confJourn"
+                                {...field}
+                              />
                             </div>
                           </FormControl>
                         </div>
@@ -221,12 +216,12 @@ export default function AddPublication() {
                             <FormLabel>chercheur :</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-4'>
-                            <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder="entrez le  chercheur "
-                              {...field}
-                            />
+                            <div className="ml-4">
+                              <Input
+                                className=" w-300 h-7 rounded-full"
+                                placeholder="entrez le  chercheur "
+                                {...field}
+                              />
                             </div>
                           </FormControl>
                         </div>
@@ -246,12 +241,12 @@ export default function AddPublication() {
                             <FormLabel>rang :</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-16'>
-                            <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder=" entrez le rang"
-                              {...field}
-                            />
+                            <div className="ml-16">
+                              <Input
+                                className=" w-300 h-7 rounded-full"
+                                placeholder=" entrez le rang"
+                                {...field}
+                              />
                             </div>
                           </FormControl>
                         </div>
@@ -272,12 +267,12 @@ export default function AddPublication() {
                             <FormLabel>volume :</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-12'>
-                            <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder=" entrez le volume "
-                              {...field}
-                            />
+                            <div className="ml-12">
+                              <Input
+                                className=" w-300 h-7 rounded-full"
+                                placeholder=" entrez le volume "
+                                {...field}
+                              />
                             </div>
                           </FormControl>
                         </div>
@@ -297,12 +292,12 @@ export default function AddPublication() {
                             <FormLabel>Pages :</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-14'>
-                            <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder=" entrez les pages"
-                              {...field}
-                            />
+                            <div className="ml-14">
+                              <Input
+                                className=" w-300 h-7 rounded-full"
+                                placeholder=" entrez les pages"
+                                {...field}
+                              />
                             </div>
                           </FormControl>
                         </div>
@@ -322,12 +317,12 @@ export default function AddPublication() {
                             <FormLabel>Lien :</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-16'>
-                            <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder=" entrez le Lien"
-                              {...field}
-                            />
+                            <div className="ml-16">
+                              <Input
+                                className=" w-300 h-7 rounded-full"
+                                placeholder=" entrez le Lien"
+                                {...field}
+                              />
                             </div>
                           </FormControl>
                         </div>
@@ -425,12 +420,12 @@ export default function AddPublication() {
                                 <FormLabel>classement :</FormLabel>
                               </div>
                               <FormControl>
-                              <div className='ml-12'>
-                                <Input
-                                  className=" w-300 h-7 rounded-full"
-                                  placeholder=" entrez le classement "
-                                  {...field}
-                                />
+                                <div className="ml-12">
+                                  <Input
+                                    className=" w-300 h-7 rounded-full"
+                                    placeholder=" entrez le classement "
+                                    {...field}
+                                  />
                                 </div>
                               </FormControl>
                             </div>
@@ -470,12 +465,12 @@ export default function AddPublication() {
                             <FormLabel>Maison d'édition :</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-4'>
-                            <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder=" entrez la maison d'édition"
-                              {...field}
-                            />
+                            <div className="ml-4">
+                              <Input
+                                className=" w-300 h-7 rounded-full"
+                                placeholder=" entrez la maison d'édition"
+                                {...field}
+                              />
                             </div>
                           </FormControl>
                         </div>
@@ -492,16 +487,12 @@ export default function AddPublication() {
                   >
                     Ajouter
                   </Button>
-
-                  <AlertDialogCancel className=" h-auto w-auto border-none">
-                    Annuler
-                  </AlertDialogCancel>
                 </div>
               </form>
             </Form>
           </ScrollArea>
-        </AlertDialogContent>
-      </AlertDialog>
+        </DialogContent>
+      </Dialog>
       <DevTool control={form.control} />
     </>
   );

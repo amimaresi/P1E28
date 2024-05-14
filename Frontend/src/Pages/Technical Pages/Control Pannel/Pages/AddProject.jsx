@@ -15,15 +15,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 export default function AddProject() {
@@ -81,8 +73,8 @@ export default function AddProject() {
 
   return (
     <>
-      <AlertDialog>
-        <AlertDialogTrigger>
+      <Dialog>
+        <DialogTrigger>
           <div
             className={` block  select-none space-y-1  rounded-md  p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent  focus:text-accent-foreground `}
           >
@@ -92,8 +84,8 @@ export default function AddProject() {
               Ajouter un Projet
             </div>
           </div>
-        </AlertDialogTrigger>
-        <AlertDialogContent className=" h-[95%]">
+        </DialogTrigger>
+        <DialogContent className=" h-[95%]">
           <ScrollArea className="h-[99%] w-[99%] pr-5">
             <Form {...form}>
               <form
@@ -120,12 +112,12 @@ export default function AddProject() {
                             <FormLabel>Numero :</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-14'>
-                            <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder="entrez le numero "
-                              {...field}
-                            />
+                            <div className="ml-14">
+                              <Input
+                                className=" w-300 h-7 rounded-full"
+                                placeholder="entrez le numero "
+                                {...field}
+                              />
                             </div>
                           </FormControl>
                         </div>
@@ -146,12 +138,12 @@ export default function AddProject() {
                             <FormLabel>titre :</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-24'>
-                            <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder="entrez le titre "
-                              {...field}
-                            />
+                            <div className="ml-24">
+                              <Input
+                                className=" w-300 h-7 rounded-full"
+                                placeholder="entrez le titre "
+                                {...field}
+                              />
                             </div>
                           </FormControl>
                         </div>
@@ -172,12 +164,12 @@ export default function AddProject() {
                             <FormLabel>Date de debut :</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-4'>
-                            <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder="entrez la date de debut "
-                              {...field}
-                            />
+                            <div className="ml-4">
+                              <Input
+                                className=" w-300 h-7 rounded-full"
+                                placeholder="entrez la date de debut "
+                                {...field}
+                              />
                             </div>
                           </FormControl>
                         </div>
@@ -197,12 +189,12 @@ export default function AddProject() {
                             <FormLabel>Chef de Projet :</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-8'>
-                            <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder=" entrez le chef de Projet"
-                              {...field}
-                            />
+                            <div className="ml-8">
+                              <Input
+                                className=" w-300 h-7 rounded-full"
+                                placeholder=" entrez le chef de Projet"
+                                {...field}
+                              />
                             </div>
                           </FormControl>
                         </div>
@@ -223,12 +215,12 @@ export default function AddProject() {
                             <FormLabel>date de fin :</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-14'>
-                            <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder=" entrez la date de fin "
-                              {...field}
-                            />
+                            <div className="ml-14">
+                              <Input
+                                className=" w-300 h-7 rounded-full"
+                                placeholder=" entrez la date de fin "
+                                {...field}
+                              />
                             </div>
                           </FormControl>
                         </div>
@@ -248,12 +240,12 @@ export default function AddProject() {
                             <FormLabel>Theme :</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-20'>
-                            <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder=" entrez le theme"
-                              {...field}
-                            />
+                            <div className="ml-20">
+                              <Input
+                                className=" w-300 h-7 rounded-full"
+                                placeholder=" entrez le theme"
+                                {...field}
+                              />
                             </div>
                           </FormControl>
                         </div>
@@ -273,12 +265,12 @@ export default function AddProject() {
                             <FormLabel>liste des membres :</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-2'>
-                            <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder=" entrez la liste  "
-                              {...field}
-                            />
+                            <div className="ml-2">
+                              <Input
+                                className=" w-300 h-7 rounded-full"
+                                placeholder=" entrez la liste  "
+                                {...field}
+                              />
                             </div>
                           </FormControl>
                         </div>
@@ -294,18 +286,13 @@ export default function AddProject() {
                   >
                     Ajouter
                   </Button>
-
-                  <AlertDialogCancel className=" h-auto w-auto border-none">
-                    Annuler
-                  </AlertDialogCancel>
                 </div>
               </form>
             </Form>
           </ScrollArea>
-        </AlertDialogContent>
-      </AlertDialog>
+        </DialogContent>
+      </Dialog>
       <DevTool control={form.control} />
     </>
   );
 }
-

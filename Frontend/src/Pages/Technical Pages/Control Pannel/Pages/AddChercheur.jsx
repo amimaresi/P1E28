@@ -20,15 +20,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 export default function AddChercheur() {
   const schema = yup.object().shape({
@@ -90,8 +82,8 @@ export default function AddChercheur() {
 
   return (
     <>
-      <AlertDialog>
-        <AlertDialogTrigger>
+      <Dialog>
+        <DialogTrigger>
           <div
             className={` block  select-none space-y-1  rounded-md  p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent  focus:text-accent-foreground `}
           >
@@ -101,8 +93,8 @@ export default function AddChercheur() {
               Ajouter un Chercheur
             </div>
           </div>
-        </AlertDialogTrigger>
-        <AlertDialogContent className=" h-[95%]">
+        </DialogTrigger>
+        <DialogContent className=" h-[95%]">
           <ScrollArea className="h-[99%] w-[99%] pr-5">
             {' '}
             <Form {...form}>
@@ -153,12 +145,12 @@ export default function AddChercheur() {
                             <FormLabel>Nom :</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-11'>
-                            <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder="entrez le nom "
-                              {...field}
-                            />
+                            <div className="ml-11">
+                              <Input
+                                className=" w-300 h-7 rounded-full"
+                                placeholder="entrez le nom "
+                                {...field}
+                              />
                             </div>
                           </FormControl>
                         </div>
@@ -179,12 +171,12 @@ export default function AddChercheur() {
                             <FormLabel>prénom :</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-6'>
-                            <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder="entrez le prénom "
-                              {...field}
-                            />
+                            <div className="ml-6">
+                              <Input
+                                className=" w-300 h-7 rounded-full"
+                                placeholder="entrez le prénom "
+                                {...field}
+                              />
                             </div>
                           </FormControl>
                         </div>
@@ -205,12 +197,12 @@ export default function AddChercheur() {
                             <FormLabel>Email :</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-6'>
-                            <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder="entrez l'email "
-                              {...field}
-                            />
+                            <div className="ml-6">
+                              <Input
+                                className=" w-300 h-7 rounded-full"
+                                placeholder="entrez l'email "
+                                {...field}
+                              />
                             </div>
                           </FormControl>
                         </div>
@@ -235,27 +227,27 @@ export default function AddChercheur() {
                             <FormLabel>grade enseignement :</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-6'>
-                            <Select
-                              onValueChange={field.onChange}
-                              value={field.value}
-                            >
-                              <div className="pl-6">
-                                <SelectTrigger className="h-7 w-[190px] rounded-full pl-6">
-                                  <SelectValue placeholder="choisissez" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectItem value="professeur">
-                                    Professeur
-                                  </SelectItem>
-                                  <SelectItem value="mca">MCA</SelectItem>
-                                  <SelectItem value="mcb">MCB</SelectItem>
-                                  <SelectItem value="maa">MAA</SelectItem>
-                                  <SelectItem value="mab">MAB</SelectItem>
-                                  <SelectItem value="null">NULL</SelectItem>
-                                </SelectContent>
-                              </div>
-                            </Select>
+                            <div className="ml-6">
+                              <Select
+                                onValueChange={field.onChange}
+                                value={field.value}
+                              >
+                                <div className="pl-6">
+                                  <SelectTrigger className="h-7 w-[190px] rounded-full pl-6">
+                                    <SelectValue placeholder="choisissez" />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="professeur">
+                                      Professeur
+                                    </SelectItem>
+                                    <SelectItem value="mca">MCA</SelectItem>
+                                    <SelectItem value="mcb">MCB</SelectItem>
+                                    <SelectItem value="maa">MAA</SelectItem>
+                                    <SelectItem value="mab">MAB</SelectItem>
+                                    <SelectItem value="null">NULL</SelectItem>
+                                  </SelectContent>
+                                </div>
+                              </Select>
                             </div>
                           </FormControl>
                         </div>
@@ -275,32 +267,32 @@ export default function AddChercheur() {
                             <FormLabel>grade recherche :</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-14'>
-                            <Select
-                              onValueChange={field.onChange}
-                              value={field.value}
-                            >
-                              <div className="pl-6">
-                                <SelectTrigger className="h-7 w-[190px] rounded-full pl-6">
-                                  <SelectValue placeholder="choisissez" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectItem value="directeur de recherche">
-                                    Directeur de recherche
-                                  </SelectItem>
-                                  <SelectItem value="maitre de recherche">
-                                    Maitre de recherche
-                                  </SelectItem>
-                                  <SelectItem value="charge de recherche">
-                                    Charge de recherche
-                                  </SelectItem>
-                                  <SelectItem value="attache de recherche">
-                                    Attache de recherche
-                                  </SelectItem>
-                                  <SelectItem value="null">NULL</SelectItem>
-                                </SelectContent>
-                              </div>
-                            </Select>
+                            <div className="ml-14">
+                              <Select
+                                onValueChange={field.onChange}
+                                value={field.value}
+                              >
+                                <div className="pl-6">
+                                  <SelectTrigger className="h-7 w-[190px] rounded-full pl-6">
+                                    <SelectValue placeholder="choisissez" />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="directeur de recherche">
+                                      Directeur de recherche
+                                    </SelectItem>
+                                    <SelectItem value="maitre de recherche">
+                                      Maitre de recherche
+                                    </SelectItem>
+                                    <SelectItem value="charge de recherche">
+                                      Charge de recherche
+                                    </SelectItem>
+                                    <SelectItem value="attache de recherche">
+                                      Attache de recherche
+                                    </SelectItem>
+                                    <SelectItem value="null">NULL</SelectItem>
+                                  </SelectContent>
+                                </div>
+                              </Select>
                             </div>
                           </FormControl>
                         </div>
@@ -320,12 +312,12 @@ export default function AddChercheur() {
                             <FormLabel>diplome :</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-32'>
-                            <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder=" entrez le diplome"
-                              {...field}
-                            />
+                            <div className="ml-32">
+                              <Input
+                                className=" w-300 h-7 rounded-full"
+                                placeholder=" entrez le diplome"
+                                {...field}
+                              />
                             </div>
                           </FormControl>
                         </div>
@@ -346,12 +338,12 @@ export default function AddChercheur() {
                             <FormLabel>établissement d'origine :</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-6'>
-                            <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder="entrez l'établissement "
-                              {...field}
-                            />
+                            <div className="ml-6">
+                              <Input
+                                className=" w-300 h-7 rounded-full"
+                                placeholder="entrez l'établissement "
+                                {...field}
+                              />
                             </div>
                           </FormControl>
                         </div>
@@ -372,28 +364,28 @@ export default function AddChercheur() {
                             <FormLabel>qualitée :</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-24'>
-                            <Select
-                              onValueChange={field.onChange}
-                              value={field.value}
-                            >
-                              <div className="pl-6">
-                                <SelectTrigger className="h-7 w-[190px] rounded-full pl-6">
-                                  <SelectValue placeholder="choisissez" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectItem value="enseignant-chercheur">
-                                    Enseignant-chercheur
-                                  </SelectItem>
-                                  <SelectItem value="chercheur">
-                                    Chercheur
-                                  </SelectItem>
-                                  <SelectItem value="doctorant">
-                                    Doctorant
-                                  </SelectItem>
-                                </SelectContent>
-                              </div>
-                            </Select>
+                            <div className="ml-24">
+                              <Select
+                                onValueChange={field.onChange}
+                                value={field.value}
+                              >
+                                <div className="pl-6">
+                                  <SelectTrigger className="h-7 w-[190px] rounded-full pl-6">
+                                    <SelectValue placeholder="choisissez" />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="enseignant-chercheur">
+                                      Enseignant-chercheur
+                                    </SelectItem>
+                                    <SelectItem value="chercheur">
+                                      Chercheur
+                                    </SelectItem>
+                                    <SelectItem value="doctorant">
+                                      Doctorant
+                                    </SelectItem>
+                                  </SelectContent>
+                                </div>
+                              </Select>
                             </div>
                           </FormControl>
                         </div>
@@ -413,12 +405,12 @@ export default function AddChercheur() {
                             <FormLabel>équipe :</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-32'>
-                            <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder=" entrez l'équipe"
-                              {...field}
-                            />
+                            <div className="ml-32">
+                              <Input
+                                className=" w-300 h-7 rounded-full"
+                                placeholder=" entrez l'équipe"
+                                {...field}
+                              />
                             </div>
                           </FormControl>
                         </div>
@@ -438,12 +430,12 @@ export default function AddChercheur() {
                             <FormLabel>lien :</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-36'>
-                            <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder="entrez le lien "
-                              {...field}
-                            />
+                            <div className="ml-36">
+                              <Input
+                                className=" w-300 h-7 rounded-full"
+                                placeholder="entrez le lien "
+                                {...field}
+                              />
                             </div>
                           </FormControl>
                         </div>
@@ -463,12 +455,12 @@ export default function AddChercheur() {
                             <FormLabel>projet :</FormLabel>
                           </div>
                           <FormControl>
-                          <div className='ml-32'>
-                            <Input
-                              className=" w-300 h-7 rounded-full"
-                              placeholder="entrez le projet"
-                              {...field}
-                            />
+                            <div className="ml-32">
+                              <Input
+                                className=" w-300 h-7 rounded-full"
+                                placeholder="entrez le projet"
+                                {...field}
+                              />
                             </div>
                           </FormControl>
                         </div>
@@ -485,15 +477,12 @@ export default function AddChercheur() {
                   >
                     Ajouter
                   </Button>
-                  <AlertDialogCancel className=" h-auto w-auto border-none">
-                    Annuler
-                  </AlertDialogCancel>
                 </div>
               </form>
             </Form>
           </ScrollArea>
-        </AlertDialogContent>
-      </AlertDialog>
+        </DialogContent>
+      </Dialog>
       <DevTool control={form.control} />
     </>
   );

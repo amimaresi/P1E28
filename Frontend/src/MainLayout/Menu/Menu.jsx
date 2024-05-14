@@ -131,8 +131,6 @@ export default function Menu({ isLogged, setIsLogged, userInfo, setUserInfo }) {
 
                   <ul className="grid w-[500px] grid-flow-col gap-3 p-2">
                     <AddChercheur />
-
-                    <Periodicité />
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
@@ -519,9 +517,13 @@ function ProfileMenu({ userInfo, setIsLogged }) {
           <NavigationMenuContent>
             <ul className=" grid w-[179px]">
               <LinkItem to="/chercheur/me" title="Profile" />
+              {userInfo.type == 'Assistant' || userInfo.type == 'Directeur' ? (
+                <Periodicité />
+              ) : null}
               <AddEncadrement />
-              <AddProject />
               <AddPublication />
+              <AddProject />
+
               <LinkItem to="/settings" title="Settings" />
               <LinkItem
                 to="."

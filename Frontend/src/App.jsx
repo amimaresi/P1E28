@@ -27,9 +27,9 @@ import ELayout from './Pages/Profiles/Encadrement/ELayout.jsx';
 import ProSettings from './Pages/settings/ProSettings.jsx';
 import PubSettings from './Pages/settings/PubSettings.jsx';
 import EncSettings from './Pages/settings/EncSettings.jsx';
-import SettingsController from './Pages/settings/SettingsController.jsx';
 import ProfileController from './Pages/Profiles/ProfileController.jsx';
 import Control from './Pages/Technical Pages/Control.jsx';
+import Settings from './Pages/settings/Settings.jsx';
 
 function Recherche() {
   const { userInfo, isLogged } = useOutletContext();
@@ -79,7 +79,7 @@ const router = createBrowserRouter(
       <Route path="publication/:id" element={<PPLayout />} />
       <Route path="projet/:id" element={<PrPLayout />} />
       <Route path="encadrement/:id" element={<ELayout />} />
-      <Route path="settings" element={<SettingsController />} />
+      <Route path="settings" element={<Settings />} />
 
       <Route path="statistiques" element={<Statistiques />} />
       <Route path="editProjet/:id" element={<ProSettings />} />

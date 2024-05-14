@@ -8,6 +8,7 @@ import { ViewIcon } from 'lucide-react';
 import NotFound from '../NotFound/NotFound';
 import axios from 'axios';
 import { set } from 'react-hook-form';
+import { useOutletContext } from 'react-router-dom';
 
 // Composant pour un champ éditable
 const EditableField = ({
@@ -114,20 +115,22 @@ const EditableField = ({
 };
 
 export default function Settings() {
+  const { userInfo } = useOutletContext();
   const [_id, setId] = useState('');
   const [editedData, setEditedData] = useState({});
-   useEffect(() => {
-    const  userInfo = localStorage.getItem('userInfo')
-    const parsed = JSON.parse(userInfo)
-    const _id = parsed.Chercheur._id
-    setId(_id)
-    const fetch = async ()=>{
-      try{
-      const result = await axios.get('http://localhost:3000/recherche/chercheur/'+_id)
-      console.log(result.data.Chercheur)
-      setEditedData(result.data.Chercheur)
-      }
-      catch(err){
+  useEffect(() => {
+    const userInfo = localStorage.getItem('userInfo');
+    const parsed = JSON.parse(userInfo);
+    const _id = parsed._id;
+    setId(_id);
+    const fetch = async () => {
+      try {
+        const result = await axios.get(
+          'http://localhost:3000/recherche/chercheur/' + _id,
+        );
+        console.log(result.data.Chercheur);
+        setEditedData(result.data.Chercheur);
+      } catch (err) {
         console.log(err);
       }
     };
@@ -138,7 +141,7 @@ export default function Settings() {
     setEditedData({ ...editedData, [key]: value });
   };
 
-  return editedData ? (
+  return editedData && userInfo.type != 'Admin' ? (
     <div className="container mx-auto min-h-screen bg-white px-4 py-8">
       <div className="mx-auto max-w-5xl">
         <div className="mb-10 flex items-center gap-[330px]">
