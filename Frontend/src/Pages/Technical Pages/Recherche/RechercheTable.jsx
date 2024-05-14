@@ -31,8 +31,8 @@ import {
 //import data from './data.js';
 import { GetColumns } from './RechercheTable.config.jsx';
 import { useEffect, useState } from 'react';
-export function RechercheTable({ navigate, searchby }) {
-  const Columns = GetColumns(searchby);
+export function RechercheTable({ searchby, userInfo, isLogged }) {
+  const Columns = GetColumns(searchby, userInfo, isLogged);
   const [data, setData] = React.useState([]);
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
@@ -104,12 +104,13 @@ export function RechercheTable({ navigate, searchby }) {
       if (searchby === 'chercheur') setData(resultat.data.Chercheurs);
       if (searchby === 'publication') setData(resultat.data.Publications);
       if (searchby === 'confJourn') setData(resultat.data.ConfJourns);
-      if (searchby === 'encadrement'){ setData(resultat.data.Encadrements)
-        console.log(resultat.data.Encadrements)
-      };
+      if (searchby === 'encadrement') {
+        setData(resultat.data.Encadrements);
+        console.log(resultat.data.Encadrements);
+      }
       if (searchby === 'projet') setData(resultat.data.projet);
     } catch (err) {
-      setData([])
+      setData([]);
       console.log(err.message);
     }
   };
@@ -168,7 +169,7 @@ export function RechercheTable({ navigate, searchby }) {
     //       : searchby == 'encadrement'
     //         ? data.Encadrement
     //         : data.ConfJourn,
-    columns: Columns(navigate),
+    columns: Columns(),
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
@@ -282,7 +283,7 @@ export function RechercheTable({ navigate, searchby }) {
               ) : (
                 <TableRow>
                   <TableCell
-                    colSpan={Columns(navigate).length}
+                    colSpan={Columns().length}
                     className="h-24 text-center"
                   >
                     No results.

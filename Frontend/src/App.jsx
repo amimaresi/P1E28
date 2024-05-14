@@ -5,6 +5,7 @@ import {
   createRoutesFromElements,
   RouterProvider,
   Navigate,
+  useOutletContext,
 } from 'react-router-dom';
 import MLayout from './MainLayout/MLayout.jsx';
 import LandingPage from './Pages/LandingPage/LandingPage.jsx';
@@ -30,6 +31,10 @@ import SettingsController from './Pages/settings/SettingsController.jsx';
 import ProfileController from './Pages/Profiles/ProfileController.jsx';
 import Control from './Pages/Technical Pages/Control.jsx';
 
+function Recherche() {
+  const { userInfo, isLogged } = useOutletContext();
+  return <Outlet context={(userInfo, isLogged)} />;
+}
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<MLayout />}>
@@ -38,7 +43,7 @@ const router = createBrowserRouter(
       <Route path="login/resetpassword/:token" element={<ResetPassword />} />
       <Route path="aboutus" element={<AboutUs />} />
       <Route path="guide" element={<Guide />} />
-      <Route path="recherche" element={<Outlet />}>
+      <Route path="recherche" element={<Recherche />}>
         <Route index element={<Navigate to="chercheur" />} />
         <Route
           path="chercheur"

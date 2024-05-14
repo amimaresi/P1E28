@@ -1,10 +1,4 @@
-import {
-  ArrowUpDown,
-  MoreHorizontal,
-  SeparatorHorizontal,
-  SeparatorVertical,
-} from 'lucide-react';
-import axios from 'axios';
+import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -21,16 +15,15 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from '@/components/ui/hover-card';
-import { useEffect } from 'react';
 export function GetColumns(searchby, userInfo, isLogged) {
   return searchby === 'chercheur'
-    ? ColumnsChercheur
+    ? () => ColumnsChercheur()
     : searchby === 'publication'
       ? () => ColumnsPublication(userInfo, isLogged)
       : searchby === 'projet'
         ? () => ColumnsProjet(userInfo, isLogged)
         : searchby === 'encadrement'
-          ? ColumnsEncadrement
+          ? () => ColumnsEncadrement(userInfo, isLogged)
           : () => ColumnsConfJourn(userInfo, isLogged);
 }
 
