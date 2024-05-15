@@ -62,12 +62,7 @@ const EditableField = ({ label, value, onChange, isPicture, isPassword }) => {
           )
         ) : (
           <span>
-            {typeof value === 'string' && isPassword
-              ? value
-                  .split('')
-                  .map(() => '*')
-                  .join('')
-              : value}
+            {typeof value === 'string' && isPassword ? '**********' : ''}
           </span>
         )}
       </div>
@@ -82,14 +77,14 @@ const EditableField = ({ label, value, onChange, isPicture, isPassword }) => {
 
 export default function AdminPLayout() {
   const [editedData, setEditedData] = useState({});
-  const [_id , setId] = useState('')
+  const [_id, setId] = useState('');
   //const { id } = useParams();
 
   useEffect(() => {
-    const  userInfo = localStorage.getItem('userInfo')
-    const parsed = JSON.parse(userInfo)
-    const _id = parsed._id
-    setId(_id)
+    const userInfo = localStorage.getItem('userInfo');
+    const parsed = JSON.parse(userInfo);
+    const _id = parsed._id;
+    setId(_id);
     const fetchData = async () => {
       try {
         const result = await axios.get(
@@ -108,30 +103,41 @@ export default function AdminPLayout() {
 
   const resetUserName = async (newUsername) => {
     try {
-      const response = await axios.post('http://localhost:3000/settings/reset-user-name', {
-        username: newUsername
-      });
+      const response = await axios.post(
+        'http://localhost:3000/settings/reset-user-name',
+        {
+          username: newUsername,
+        },
+      );
       console.log(response.data.message);
       // Mettre à jour l'état local avec les nouvelles données si nécessaire
     } catch (error) {
-      console.error('Erreur lors de la réinitialisation du nom d\'utilisateur :', error);
+      console.error(
+        "Erreur lors de la réinitialisation du nom d'utilisateur :",
+        error,
+      );
       // Gérer l'erreur de réinitialisation du nom d'utilisateur
     }
   };
 
   const resetPassword = async (newPassword) => {
     try {
-      const response = await axios.post('http://localhost:3000/settings/reset-user-password', {
-        password: newPassword
-      });
+      const response = await axios.post(
+        'http://localhost:3000/settings/reset-user-password',
+        {
+          password: newPassword,
+        },
+      );
       console.log(response.data.message);
       // Gérer la réponse du serveur si nécessaire
     } catch (error) {
-      console.error('Erreur lors de la réinitialisation du mot de passe :', error);
+      console.error(
+        'Erreur lors de la réinitialisation du mot de passe :',
+        error,
+      );
       // Gérer l'erreur de réinitialisation du mot de passe
     }
   };
-
 
   const handleChange = (key, value) => {
     setEditedData({ ...editedData, [key]: value });
@@ -141,7 +147,6 @@ export default function AdminPLayout() {
     <div className="container mx-auto min-h-screen bg-white px-4 py-8">
       <div className="bg-white p-8">
         <div className="m-6 grid grid-cols-2 gap-x-12 gap-y-6 p-4">
-          
           <div className="flex flex-col">
             <h2 className="font-bold">Nom d'utilisateur:</h2>
             <span>{editedData.username}</span>
@@ -160,7 +165,6 @@ export default function AdminPLayout() {
             </div>
             <div className="bg-white p-8">
               <div className="m-6 grid grid-cols-2 gap-x-12 gap-y-6 p-4">
-                
                 <div className="flex flex-col">
                   <h2 className="font-bold">Nom d'utilisateur:</h2>
                   <span>{editedData.username}</span>
@@ -172,22 +176,23 @@ export default function AdminPLayout() {
               </div>
             </div>
             <div className="grid gap-4 py-4 sm:grid-cols-2">
-              
               <EditableField
                 label="Nom d'utilisateur"
                 key="username"
                 value={editedData.username}
-                onChange={(value) => {handleChange('username', value);
-                resetUserName(value);
+                onChange={(value) => {
+                  handleChange('username', value);
+                  resetUserName(value);
                 }}
               />
-             
+
               <EditableField
                 label="Password"
                 isPassword
                 value={editedData.password}
-                onChange={(value) => {handleChange('password', value);
-                resetPassword(value);
+                onChange={(value) => {
+                  handleChange('password', value);
+                  resetPassword(value);
                 }}
               />
             </div>
