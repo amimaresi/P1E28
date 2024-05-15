@@ -42,6 +42,12 @@ export default function Login() {
     resolver: yupResolver(schema),
   });
 
+
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const handleButtonClick = () => {
+    setIsSubmitted(true);
+  };
+  
   const onSubmit = async (data) => {
     console.log(data);
 
@@ -214,7 +220,10 @@ function ResetRequest() {
         </div>
 
         <DialogFooter>
-          <Button className="bg-buttonDark"  onClick={onSubmit}>
+          <div className="text-green-600 font-bold text-center">
+        {isSubmitted && <p> Veuillez vérifier votre boîte de réception</p>}
+      </div>
+          <Button className="bg-buttonDark"  onClick={onSubmit} onClick={handleButtonClick}>
             réinitialiser votre mot de passe
           </Button>
         </DialogFooter>
