@@ -10,11 +10,13 @@ import { ChevronLeftIcon } from '@radix-ui/react-icons';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import axios from 'axios';
 import NotFound from '@/Pages/NotFound/NotFound';
+import { set } from 'react-hook-form';
+import { data } from 'autoprefixer';
 
 export default function CPLayout() {
   const { userInfo, isLogged } = useOutletContext();
   const [activeTab, setActiveTab] = useState(0);
-  const [headerData, SetHeaderData] = useState({});
+  const [headerData, setHeaderData] = useState({});
   const tabs = [
     {
       title: 'Informations',
@@ -37,16 +39,8 @@ export default function CPLayout() {
           id == 'me' && isLogged ? userInfo._id : id
         }`,
       );
-      console.log(
-        id,
-        'me',
-        id == 'me',
-        id == 'me' && isLogged ? userInfo._id : id,
-      );
-      console.log(resultat.data.Chercheur);
-      SetHeaderData(resultat.data.Chercheur);
-
-      console.log('rendering chercheru layout');
+      console.log('data : ', resultat.data.Chercheur);
+      setHeaderData(resultat.data.Chercheur);
     };
     fetch();
   }, []);
@@ -105,7 +99,14 @@ export default function CPLayout() {
               </NavLink>
             ))}
           </div>
-          <Outlet />
+          <Outlet
+            context={{
+              data: headerData,
+              userInfo: userInfo,
+              isLogged: isLogged,
+            }}
+          />
+          {console.log('header info + login : ', userInfo, isLogged)}
         </div>
 
         {/* Accounts Links */}

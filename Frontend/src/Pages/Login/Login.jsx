@@ -35,19 +35,18 @@ export default function Login() {
   const [show, setShow] = useState(false);
   const schema = yup.object().shape({
     email: yup.string().required(),
-   // password: yup.string().password().required(),
+    // password: yup.string().password().required(),
     remember: yup.boolean(),
   });
   const form = useForm({
     resolver: yupResolver(schema),
   });
 
-
   const [isSubmitted, setIsSubmitted] = useState(false);
   const handleButtonClick = () => {
     setIsSubmitted(true);
   };
-  
+
   const onSubmit = async (data) => {
     console.log(data);
 
@@ -62,13 +61,15 @@ export default function Login() {
 
       /////// end of fetching /////////////
       console.log('this is result :', resutlt);
-      setUserInfo(resutlt.data);
+      setUserInfo({ ...resutlt.data.Chercheur, type: resutlt.data.type });
       setIsLogged(true);
-      localStorage.setItem('userInfo', JSON.stringify(resutlt.data));
+      localStorage.setItem(
+        'userInfo',
+        JSON.stringify({ ...resutlt.data.Chercheur, type: resutlt.data.type }),
+      );
       setError({ is: false, content: '' });
       setIsLogged(true);
       localStorage.setItem('isLogged', 'true');
-      navigate('/');
       navigate('/');
     } catch (err) {
       setError({
@@ -164,7 +165,10 @@ export default function Login() {
               )}
             />
           </div>
-          <ResetRequest />
+          <ResetRequest
+            isSubmitted={isSubmitted}
+            handleButtonClick={handleButtonClick}
+          />
           <Button
             type="submit" // Added type for button
             className="h-auto w-[20.2vw] rounded-sm border-0 bg-buttonLight py-[0.65vw] font-title text-[1.1vw] font-medium text-textLight active:opacity-95"
@@ -179,24 +183,25 @@ export default function Login() {
     </div>
   );
 }
-function ResetRequest() {
-  const [email, setEmail] = useState('')
-  const [isOpen, setIsOpen] = useState(true)
+function ResetRequest({ isSubmitted, handleButtonClick }) {
+  const [email, setEmail] = useState('');
+  const [isOpen, setIsOpen] = useState(true);
   const onSubmit = async (e) => {
     e.preventDefault();
     console.log(email);
-    try{
-      const res = await axios.post('http://localhost:3000/auth//forget-password', {email})
-      console.log(res.data)
-      setIsOpen(false)
+    try {
+      const res = await axios.post(
+        'http://localhost:3000/auth//forget-password',
+        { email },
+      );
+      console.log(res.data);
+      setIsOpen(false);
+    } catch (err) {
+      console.log(err.response.data.message); // ce message sera affiché dans le cas ou l'email n'existe pas
     }
-    catch(err){
-      console.log(err.response.data.message) // ce message sera affiché dans le cas ou l'email n'existe pas
-
-    }
-  }
+  };
   return (
-    <Dialog isOpen={isOpen} >
+    <Dialog isOpen={isOpen}>
       <DialogTrigger asChild className="">
         <Button className="m-0 bg-transparent font-title text-[0.8vw] font-medium text-buttonLight no-underline hover:bg-transparent hover:underline">
           Forgot password ?
@@ -215,15 +220,24 @@ function ResetRequest() {
             <Label htmlFor="email" className="text-right">
               E-mail
             </Label>
-            <Input id="email" defaultValue="" onChange={(e)=>setEmail(e.target.value)} className="col-span-3" />
+            <Input
+              id="email"
+              defaultValue=""
+              onChange={(e) => setEmail(e.target.value)}
+              className="col-span-3"
+            />
           </div>
         </div>
 
         <DialogFooter>
-          <div className="text-green-600 font-bold text-center">
-        {isSubmitted && <p> Veuillez vérifier votre boîte de réception</p>}
-      </div>
-          <Button className="bg-buttonDark"  onClick={onSubmit} onClick={handleButtonClick}>
+          <div className="text-center font-bold text-green-600">
+            {isSubmitted && <p> Veuillez vérifier votre boîte de réception</p>}
+          </div>
+          <Button
+            className="bg-buttonDark"
+            onClick={onSubmit}
+            onClick={handleButtonClick}
+          >
             réinitialiser votre mot de passe
           </Button>
         </DialogFooter>

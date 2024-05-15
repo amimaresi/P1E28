@@ -137,57 +137,6 @@ export default function Menu({ isLogged, setIsLogged, userInfo, setUserInfo }) {
             ) : null}
           </NavigationMenuList>
         </NavigationMenu>
-        {/* <NavigationMenu>
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger className=" text-[16.5px]">
-                Profiles
-              </NavigationMenuTrigger>
-
-              <NavigationMenuContent>
-                <ul className="grid w-[125px] grid-flow-row">
-                  <LinkItem to="/chercheur/test" isSimple title="Chercheurs" />
-                  <LinkItem
-                    to="/publication/test"
-                    isSimple
-                    title="Publications"
-                  />{' '}
-                  <LinkItem
-                    to="/encadrement/test"
-                    isSimple
-                    title="Encadrements"
-                  />
-                  <LinkItem to="/projet/test" isSimple title="Projet" />
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-        <NavigationMenu>
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger className=" text-[16.5px]">
-                Edit
-              </NavigationMenuTrigger>
-
-              <NavigationMenuContent>
-                <ul className="grid w-[125px] grid-flow-row">
-                  <LinkItem
-                    to="/editpublication/test"
-                    isSimple
-                    title="publication"
-                  />
-                  <LinkItem to="/editprojet/test" isSimple title="projet" />{' '}
-                  <LinkItem
-                    to="/editencadrement/test"
-                    isSimple
-                    title="Encadrement"
-                  />
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>*/}
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
@@ -500,6 +449,7 @@ LinkItem.displayName = 'LinkItem';
 
 function ProfileMenu({ userInfo, setIsLogged, isLogged }) {
   console.log('userInfo : ', userInfo);
+  console.log('hello');
   return (
     <NavigationMenu>
       <NavigationMenuList>
@@ -511,10 +461,10 @@ function ProfileMenu({ userInfo, setIsLogged, isLogged }) {
             </Avatar>
             <div className="mx-3 flex flex-col items-start justify-center">
               <span className="m-0 text-sm font-medium">
-                {userInfo ? userInfo.nomComplet : 'Amar'}
+                {userInfo.nomComplet}
               </span>
               <span className="text-xs text-muted-foreground">
-                {userInfo ? userInfo.type : 'Chercheur'}
+                {userInfo.type}
               </span>
             </div>
           </NavigationMenuTrigger>
@@ -523,9 +473,7 @@ function ProfileMenu({ userInfo, setIsLogged, isLogged }) {
             <ul className=" grid w-[179px]">
               <LinkItem to="/chercheur/me" title="Profile" />
               {isLogged &&
-              userInfo(
-                userInfo.type == 'Assistant' || userInfo.type == 'Directeur',
-              ) ? (
+              (userInfo.type == 'Assistant' || userInfo.type == 'Directeur') ? (
                 <Periodicité />
               ) : null}
               <AddEncadrement />
