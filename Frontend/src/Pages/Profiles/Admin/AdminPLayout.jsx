@@ -88,7 +88,7 @@ export default function AdminPLayout() {
   useEffect(() => {
     const  userInfo = localStorage.getItem('userInfo')
     const parsed = JSON.parse(userInfo)
-    const _id = parsed.email
+    const _id = parsed._id
     setId(_id)
     const fetchData = async () => {
       try {
