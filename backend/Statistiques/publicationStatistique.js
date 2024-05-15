@@ -10,9 +10,9 @@
     try {
         const { dateDebut, dateFin } = req.body;
 
-        if (dateDebut.localeCompare(dateFin) === 1) {
-            throw new Error("La date de début ne peut pas être superieur à la date de fin.");
-        }
+        // if (dateDebut.localeCompare(dateFin) === 1) {
+        //     throw new Error("La date de début ne peut pas être superieur à la date de fin.");
+        // }
         const publications = await Publication.find({
             Date: {
                 $gte: Number(dateDebut),
