@@ -223,7 +223,11 @@ export default function Menu({ isLogged, setIsLogged, userInfo, setUserInfo }) {
             </NavigationMenuItem>
             <NavigationMenuItem>
               {isLogged ? (
-                <ProfileMenu userInfo={userInfo} setIsLogged={setIsLogged} />
+                <ProfileMenu
+                  userInfo={userInfo}
+                  setIsLogged={setIsLogged}
+                  isLogged={isLogged}
+                />
               ) : (
                 <NavLink to="/login">
                   <Button
@@ -494,7 +498,8 @@ function Periodicité() {
 
 LinkItem.displayName = 'LinkItem';
 
-function ProfileMenu({ userInfo, setIsLogged }) {
+function ProfileMenu({ userInfo, setIsLogged, isLogged }) {
+  console.log('userInfo : ', userInfo);
   return (
     <NavigationMenu>
       <NavigationMenuList>
@@ -517,13 +522,16 @@ function ProfileMenu({ userInfo, setIsLogged }) {
           <NavigationMenuContent>
             <ul className=" grid w-[179px]">
               <LinkItem to="/chercheur/me" title="Profile" />
-              {userInfo.type == 'Assistant' || userInfo.type == 'Directeur' ? (
+              {isLogged &&
+              userInfo(
+                userInfo.type == 'Assistant' || userInfo.type == 'Directeur',
+              ) ? (
                 <Periodicité />
               ) : null}
               <AddEncadrement />
               <AddPublication />
               <AddProject />
-              {userInfo.type != 'Admin' && (
+              {isLogged && userInfo.type != 'Admin' && (
                 <LinkItem to="/settings" title="Settings" />
               )}
               <LinkItem
