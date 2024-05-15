@@ -6,9 +6,9 @@ const encadrementsParAnneeSansT = async (req, res) => {
     try {
         const { dateDebut, dateFin } = req.body;
 
-        if (dateDebut.localeCompare(dateFin) === 1) {
-            throw new Error("La date de début ne peut pas être superieur à la date de fin.");
-        }
+        // if (dateDebut.localeCompare(dateFin) === 1) {
+        //     throw new Error("La date de début ne peut pas être superieur à la date de fin.");
+        // }
         const encadrements = await Encadrement.find({
             AnneeD: {
                 $gte: Number(dateDebut),
@@ -49,9 +49,9 @@ const encadrementsParAnnee = async (req, res, type) => {
     try {
         const { dateDebut, dateFin } = req.body;
 
-        if (dateDebut.localeCompare(dateFin) === 1) {
-            throw new Error("La date de début ne peut pas être superieur à la date de fin.");
-        }
+        // if (dateDebut.localeCompare(dateFin) === 1) {
+        //     throw new Error("La date de début ne peut pas être superieur à la date de fin.");
+        // }
         const encadrements = await Encadrement.find({
             AnneeD: {
                 $gte: Number(dateDebut),
