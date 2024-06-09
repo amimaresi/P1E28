@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { useOutletContext, useParams } from 'react-router-dom';
-import axios from 'axios';
+import { useOutletContext } from 'react-router-dom';
 
 export default function Informations() {
   const { data } = useOutletContext();
-  const { id } = useParams();
 
   return (
     <>
@@ -20,7 +18,7 @@ export default function Informations() {
             <span>{data ? data['Qualité'] : null}</span>
           </div>
           <div className="flex flex-col">
-            <h2 className="font-bold">Etablissement d'origine:</h2>
+            <h2 className="font-bold">Etablissement d{`&apos`}origine:</h2>
             <span>{data ? data.EtablissementOrigine : null}</span>
           </div>
           <div className="flex flex-col">
