@@ -362,9 +362,8 @@ export function ColumnsProjet(userInfo, isLogged) {
               <NavLink to={`../../projet/${row.original._id}`}>
                 <DropdownMenuItem>Plus d'info</DropdownMenuItem>
               </NavLink>
-              {console.log('jsdhkfhak'+userInfo.Chercheur._id)}
               {isLogged &&
-              (row.original.ChefDeProjet == userInfo._id || 
+              (row.original.ChefDeProjet == userInfo._id ||
                 row.original.liste_members.includes(userInfo._id)) ? (
                 <NavLink to={`../../editprojet/${row.original._id}`}>
                   <DropdownMenuItem>Modifier</DropdownMenuItem>
