@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Link,
   NavLink,
@@ -10,8 +10,6 @@ import { ChevronLeftIcon } from '@radix-ui/react-icons';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import axios from 'axios';
 import NotFound from '@/Pages/NotFound/NotFound';
-import { set } from 'react-hook-form';
-import { data } from 'autoprefixer';
 
 export default function CPLayout() {
   const { userInfo, isLogged } = useOutletContext();

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/jsx-no-comment-textnodes */
 import { useOutletContext } from 'react-router-dom';
 
 export default function Informations() {
@@ -18,7 +19,8 @@ export default function Informations() {
             <span>{data ? data['Qualité'] : null}</span>
           </div>
           <div className="flex flex-col">
-            <h2 className="font-bold">Etablissement d{`&apos`}origine:</h2>
+            // eslint-disable-next-line react/no-unescaped-entities
+            <h2 className="font-bold">Etablissement d'origine:</h2>
             <span>{data ? data.EtablissementOrigine : null}</span>
           </div>
           <div className="flex flex-col">
